@@ -31,7 +31,7 @@ public class TestController {
 
     @PostMapping("/file")
     public String file(MultipartFile file){
-        String  name = "u_"+System.currentTimeMillis()+file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));;
+        String  name = "u_"+System.currentTimeMillis()+file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
         String path = "/upOradd/";
         fileUpLoad.imageService(file,name,path);
         return name;

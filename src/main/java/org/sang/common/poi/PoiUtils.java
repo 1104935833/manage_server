@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -201,7 +202,7 @@ public class PoiUtils {
             }
             headers = new HttpHeaders();
             headers.setContentDispositionFormData("attachment",
-                    new String("员工表.xls".getBytes("UTF-8"), "iso-8859-1"));
+                    new String("员工表.xls".getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1));
             headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
             baos = new ByteArrayOutputStream();
             workbook.write(baos);
