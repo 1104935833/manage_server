@@ -1,12 +1,17 @@
 package org.sang.controller;
 
+import org.junit.Test;
 import org.sang.bean.Paper;
-import org.sang.common.DateConverter;
+import org.sang.bean.RespBean;
 import org.sang.common.FileUpLoad;
+import org.sang.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author hxc
@@ -21,12 +26,21 @@ public class TestController {
     private String path;
 
     @Autowired
+    TestService testService;
+
+    @Autowired
     FileUpLoad fileUpLoad;
 
     @PostMapping("/data")
-    public String test(Paper paper){
-        System.out.println(paper.toString());
-        return "1";
+    public Object test(Paper paper){
+        try {
+            testService.insetPaper(paper);
+            return RespBean.ok("success");
+        }catch(Exception e){
+            e.printStackTrace();
+            return RespBean.error("error");
+        }
+
     }
 
     @PostMapping("/file")
@@ -48,9 +62,10 @@ public class TestController {
         return "success";
     }
 
-    @GetMapping("/dd")
-    public String d(){
-        return "hello world!";
+    @GetMapping("/dataList")
+    public Map<String, List> d(){
+        Map<String, List> l= testService.findList();
+        return l;
     }
 
 
