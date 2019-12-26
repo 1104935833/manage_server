@@ -540,7 +540,7 @@ INSERT INTO `menu` VALUES (26, '/system/user/**', '/sys/user', 'SysUser', '操�
 INSERT INTO `menu` VALUES (27, '/system/data/**', '/sys/data', 'SysData', '备份恢复数据库', NULL, NULL, 1, 6, 1);
 INSERT INTO `menu` VALUES (28, '/system/init/**', '/sys/init', 'SysInit', '初始化数据库', NULL, NULL, 1, 6, 1);
 INSERT INTO `menu` VALUES (29, '/', '/home', 'Home', '测试gl', 'fa fa-windows', NULL, 1, 1, 1);
-INSERT INTO `menu` VALUES (30, '/aaaa', '/test/test', 'Test', '测试', '', NULL, 1, 29, 1);
+INSERT INTO `menu` VALUES (30, '/aaaa', '/test/test', 'DataList', '测试', '', NULL, 1, 29, 1);
 INSERT INTO `menu` VALUES (32, '/', '/home', 'Home', '首页', 'fa fa-windows', NULL, 1, 1, 1);
 
 -- ----------------------------
