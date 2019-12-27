@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hxc.manage.mapper.TestMapper">
+    <select id="findList" resultType="hxc.manage.model.DataList">
+      SELECT * FROM `list` where target='paper'
+    </select>
+    <insert id="insetPaper" parameterType="hxc.manage.model.Paper">
+        INSERT INTO `paper` (
+        `paper_type`,
+        `paper_title`,
+        `first_author_type`,
+        `first_author`,
+        `correspondence_author`,
+        `time`,
+        `publication`,
+        `publication_type`,
+        `paper_category`,
+        `paper_company`,
+        `paper_source`,
+        `paper_volume`,
+        `paper_page`,
+        `paper_school`,
+        `paper_translation`,
+        `paper_cn`,
+        `paper_local`,
+        `paper_enterprise`,
+        `paper_high`,
+        `science`,
+        `paper_grade`,
+        `paper_a`,
+        `publication_scope`,
+        `paper_issue`,
+        `paper_word`,
+        `page`,
+        `paper_issn`)
+        VALUES (
+        #{paper_type},
+        #{paper_title},
+        #{first_author_type},
+        #{first_author},
+        #{correspondence_author},
+        #{time},
+        #{publication},
+        #{publication_type},
+        #{paper_category},
+        #{paper_company},
+        #{paper_source},
+        #{paper_volume},
+        #{paper_page},
+        #{paper_school},
+        #{paper_translation},
+        #{paper_cn},
+        #{paper_local},
+        #{paper_enterprise},
+        #{paper_high},
+        #{science},
+        #{paper_grade},
+        #{paper_a},
+        #{publication_scope},
+        #{paper_issue},
+        #{paper_word},
+        #{page},
+        #{paper_issn}
+        );
+    </insert>
+</mapper>
