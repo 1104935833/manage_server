@@ -7,7 +7,9 @@ import hxc.manage.model.Department;
 import java.util.List;
 
 /**
- * Created by sang on 2018/1/7.
+ * @author hxc
+ * @version 1.0
+ * @date 2019/12/27 14:26
  */
 @Mapper
 public interface DepartmentMapper {

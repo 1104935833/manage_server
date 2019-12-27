@@ -16,7 +16,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by sang on 2018/1/25.
+ * @author hxc
+ * @version 1.0
+ * @date 2019/12/27 14:26
  */
 @RestController
 @RequestMapping("/salary/sobcfg")

@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Created by sang on 2017/12/29.
+ * @author hxc
+ * @version 1.0
+ * @date 2019/12/27 14:26
  */
 @RestController
 public class RegLoginController {
@@ -28,15 +30,5 @@ public class RegLoginController {
     }
 
 
-    @Test
-    public void pass(){
-        String pass = "123456";
-        BCryptPasswordEncoder bcryptPasswordEncoder = new BCryptPasswordEncoder();
-        String hashPass = bcryptPasswordEncoder.encode(pass);
-        System.out.println(hashPass);
 
-        boolean f = bcryptPasswordEncoder.matches("123456",hashPass);
-        System.out.println(f);
-
-    }
 }

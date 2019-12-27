@@ -12,7 +12,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Created by sang on 2017/12/29.
+ * @author hxc
+ * @version 1.0
+ * @date 2019/12/27 14:26
  */
 @Component
 public class AuthenticationAccessDeniedHandler implements AccessDeniedHandler {

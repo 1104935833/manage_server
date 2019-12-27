@@ -7,7 +7,9 @@ import hxc.manage.model.Position;
 import java.util.List;
 
 /**
- * Created by sang on 2018/1/10.
+ * @author hxc
+ * @version 1.0
+ * @date 2019/12/27 14:26
  */
 @Mapper
 public interface PositionMapper {

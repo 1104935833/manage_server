@@ -1,5 +1,10 @@
 package hxc.manage.model;
 
+/**
+ * @author hxc
+ * @version 1.0
+ * @date 2019/12/27 14:26
+ */
 public class RespBean {
     private Integer status;
     private String msg;

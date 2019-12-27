@@ -3,7 +3,9 @@ package hxc.manage.model;
 import java.sql.Timestamp;
 
 /**
- * Created by sang on 2018/1/11.
+ * @author hxc
+ * @version 1.0
+ * @date 2019/12/27 14:26
  */
 public class JobLevel {
     private Long id;

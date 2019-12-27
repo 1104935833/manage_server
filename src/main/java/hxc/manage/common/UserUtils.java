@@ -4,7 +4,9 @@ import hxc.manage.model.User;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
- * Created by sang on 2017/12/30.
+ * @author hxc
+ * @version 1.0
+ * @date 2019/12/11 11:05
  */
 public class UserUtils {
     public static User getCurrentUser() {

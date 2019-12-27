@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
+ * @author hxc
+ * @version 1.0
+ * @date 2019/12/27 14:26
  * 工资账套配置
  */
 @RestController

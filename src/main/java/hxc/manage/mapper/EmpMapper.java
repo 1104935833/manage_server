@@ -10,7 +10,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by sang on 2018/1/12.
+ * @author hxc
+ * @version 1.0
+ * @date 2019/12/27 14:26
  */
 @Mapper
 public interface EmpMapper {

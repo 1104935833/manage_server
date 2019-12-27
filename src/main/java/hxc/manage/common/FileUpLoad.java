@@ -10,10 +10,12 @@ import java.io.*;
  * @author hxc
  * @version 1.0
  * @date 2019/12/24 13:38
+ * 文件上传的公共方法
  */
 @Service
 public class FileUpLoad {
 
+    //从yml获取路径
     @Value("${url.fileUrl}")
     private String path;
 

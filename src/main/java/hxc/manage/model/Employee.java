@@ -3,7 +3,11 @@ package hxc.manage.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
-
+/**
+ * @author hxc
+ * @version 1.0
+ * @date 2019/12/27 14:26
+ */
 public class Employee {
     private Long id;
     private String name;

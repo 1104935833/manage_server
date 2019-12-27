@@ -13,7 +13,9 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * Created by sang on 2017/12/28.
+ * @author hxc
+ * @version 1.0
+ * @date 2019/12/11 11:05
  */
 @Component
 public class UrlAccessDecisionManager implements AccessDecisionManager {

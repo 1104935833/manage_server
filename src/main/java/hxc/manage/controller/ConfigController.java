@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
+ * @author hxc
+ * @version 1.0
+ * @date 2019/12/27 14:26
  * 这是一个只要登录就能访问的Controller
  * 主要用来获取一些配置信息
  */

@@ -3,7 +3,9 @@ package hxc.manage.model;
 import java.io.Serializable;
 
 /**
- * Created by sang on 2017/12/30.
+ * @author hxc
+ * @version 1.0
+ * @date 2019/12/27 14:26
  */
 public class MenuMeta implements Serializable {
 
