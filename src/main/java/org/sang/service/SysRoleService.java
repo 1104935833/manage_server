@@ -1,6 +1,6 @@
 package org.sang.service;
 
-import org.sang.bean.SysRole;
+import org.sang.model.SysRole;
 
 import java.util.List;
 

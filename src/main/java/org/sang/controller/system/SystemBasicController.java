@@ -1,6 +1,6 @@
 package org.sang.controller.system;
 
-import org.sang.bean.*;
+import org.sang.model.*;
 import org.sang.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

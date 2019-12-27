@@ -1,6 +1,6 @@
 package org.sang.service;
 
-import org.sang.bean.JobLevel;
+import org.sang.model.JobLevel;
 import org.sang.mapper.JobLevelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

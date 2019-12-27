@@ -3,13 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.sang.mapper.EmpMapper">
-    <select id="getAllNations" resultType="org.sang.bean.Nation">
+    <select id="getAllNations" resultType="org.sang.model.Nation">
         select * from nation;
     </select>
-    <select id="getAllPolitics" resultType="org.sang.bean.PoliticsStatus">
+    <select id="getAllPolitics" resultType="org.sang.model.PoliticsStatus">
         select * from politicsstatus;
     </select>
-    <insert id="addEmp" parameterType="org.sang.bean.Employee">
+    <insert id="addEmp" parameterType="org.sang.model.Employee">
             insert into employee (name, gender,
       birthday, idCard, wedlock, nationId,
       nativePlace, politicId, email,
@@ -34,7 +34,7 @@
     <select id="getMaxWorkID" resultType="Long">
         SELECT workID from employee where id=(select max(id) from employee)
     </select>
-    <resultMap id="BaseResultMap" type="org.sang.bean.Employee">
+    <resultMap id="BaseResultMap" type="org.sang.model.Employee">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="gender" property="gender"/>
@@ -63,28 +63,28 @@
         <result column="beginContract" property="beginContract"/>
         <result column="endContract" property="endContract"/>
         <result column="workAge" property="workAge"/>
-        <association property="department" javaType="org.sang.bean.Department">
+        <association property="department" javaType="org.sang.model.Department">
             <id property="id" column="did"/>
             <result property="name" column="dname"/>
         </association>
-        <association property="jobLevel" javaType="org.sang.bean.JobLevel">
+        <association property="jobLevel" javaType="org.sang.model.JobLevel">
             <id property="id" column="jlid"/>
             <result property="name" column="jlname"/>
             <result property="titleLevel" column="jlTitleLevel"/>
         </association>
-        <association property="nation" javaType="org.sang.bean.Nation">
+        <association property="nation" javaType="org.sang.model.Nation">
             <id property="id" column="nid"/>
             <result property="name" column="nname"/>
         </association>
-        <association property="position" javaType="org.sang.bean.Position">
+        <association property="position" javaType="org.sang.model.Position">
             <id property="id" column="pid"/>
             <result property="name" column="pname"/>
         </association>
-        <association property="politicsStatus" javaType="org.sang.bean.PoliticsStatus">
+        <association property="politicsStatus" javaType="org.sang.model.PoliticsStatus">
             <id property="id" column="psid"/>
             <result property="name" column="psname"/>
         </association>
-        <association property="salary" javaType="org.sang.bean.Salary">
+        <association property="salary" javaType="org.sang.model.Salary">
             <id column="sid" jdbcType="INTEGER" property="id" />
             <result column="bonus" jdbcType="INTEGER" property="bonus" />
             <result column="lunchSalary" jdbcType="INTEGER" property="lunchSalary" />

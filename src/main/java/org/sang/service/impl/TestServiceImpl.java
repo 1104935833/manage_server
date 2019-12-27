@@ -1,7 +1,7 @@
 package org.sang.service.impl;
 
-import org.sang.bean.DataList;
-import org.sang.bean.Paper;
+import org.sang.model.DataList;
+import org.sang.model.Paper;
 import org.sang.mapper.TestMapper;
 import org.sang.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package org.sang.mapper;
 
-import org.sang.bean.Menu;
+import org.sang.model.Menu;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
 public interface MenuMapper {
     List<Menu> getAllMenu();
 
-    List<Menu> getMenusByHrId(Long hrId);
+    List<Menu> getMenusByUserId(Long hrId);
 
     List<Menu> menuTree();
 

@@ -3,10 +3,10 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.sang.mapper.TestMapper">
-    <select id="findList" resultType="org.sang.bean.DataList">
+    <select id="findList" resultType="org.sang.model.DataList">
       SELECT * FROM `list` where target='paper'
     </select>
-    <insert id="insetPaper" parameterType="org.sang.bean.Paper">
+    <insert id="insetPaper" parameterType="org.sang.model.Paper">
         INSERT INTO `paper` (
         `paper_type`,
         `paper_title`,

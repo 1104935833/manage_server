@@ -1,8 +1,8 @@
 package org.sang.service;
 
-import org.sang.bean.Employee;
-import org.sang.bean.Nation;
-import org.sang.bean.PoliticsStatus;
+import org.sang.model.Employee;
+import org.sang.model.Nation;
+import org.sang.model.PoliticsStatus;
 import org.sang.mapper.EmpMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

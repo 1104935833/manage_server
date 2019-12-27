@@ -1,4 +1,4 @@
-package org.sang.bean;
+package org.sang.model;
 
 /**
  * Created by sang on 2018/1/12.

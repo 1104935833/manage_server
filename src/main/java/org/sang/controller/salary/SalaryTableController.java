@@ -1,6 +1,6 @@
 package org.sang.controller.salary;
 
-import org.sang.bean.Department;
+import org.sang.model.Department;
 import org.sang.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

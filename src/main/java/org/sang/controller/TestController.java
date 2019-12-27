@@ -1,8 +1,7 @@
 package org.sang.controller;
 
-import org.junit.Test;
-import org.sang.bean.Paper;
-import org.sang.bean.RespBean;
+import org.sang.model.Paper;
+import org.sang.model.RespBean;
 import org.sang.common.FileUpLoad;
 import org.sang.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;

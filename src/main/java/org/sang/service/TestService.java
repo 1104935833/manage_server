@@ -1,6 +1,6 @@
 package org.sang.service;
 
-import org.sang.bean.Paper;
+import org.sang.model.Paper;
 
 import java.util.List;
 import java.util.Map;

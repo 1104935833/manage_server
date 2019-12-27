@@ -1,9 +1,8 @@
 package org.sang.controller.emp;
 
-import org.sang.bean.Employee;
-import org.sang.bean.Position;
-import org.sang.bean.RespBean;
-import org.sang.common.EmailRunnable;
+import org.sang.model.Employee;
+import org.sang.model.Position;
+import org.sang.model.RespBean;
 import org.sang.common.poi.PoiUtils;
 import org.sang.service.DepartmentService;
 import org.sang.service.EmpService;
@@ -40,10 +39,7 @@ public class EmpBasicController {
     ExecutorService executorService;
     @Autowired
     TemplateEngine templateEngine;
-    @Autowired
-    JavaMailSender javaMailSender;
-    @Value("${spring.mail.username}")
-    String emailAddress;
+
 
     @RequestMapping(value = "/basicdata", method = RequestMethod.GET)
     public Map<String, Object> getAllNations() {
@@ -62,21 +58,6 @@ public class EmpBasicController {
         return String.format("%08d", empService.getMaxWorkID() + 1);
     }
 
-    @RequestMapping(value = "/emp", method = RequestMethod.POST)
-    public RespBean addEmp(Employee employee) {
-        if (empService.addEmp(employee) == 1) {
-            List<Position> allPos = positionService.getAllPos();
-            for (Position allPo : allPos) {
-                if (allPo.getId() == employee.getPosId()) {
-                    employee.setPosName(allPo.getName());
-                }
-            }
-            executorService.execute(new EmailRunnable(employee,
-                    javaMailSender, templateEngine,emailAddress));
-            return RespBean.ok("添加成功!");
-        }
-        return RespBean.error("添加失败!");
-    }
 
     @RequestMapping(value = "/emp", method = RequestMethod.PUT)
     public RespBean updateEmp(Employee employee) {

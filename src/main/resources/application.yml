@@ -1,2 +1,17 @@
 url:
   fileUrl: D:/file/
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://127.0.0.1:3306/vhr?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 123456
+  cache:
+    cache-names: menus_cache
+    redis:
+      time-to-live: 1800s
+server:
+  port: 8082
+
+mybatis:
+  config-location: classpath:/mybatis-config.xml

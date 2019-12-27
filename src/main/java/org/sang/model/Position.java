@@ -1,20 +1,26 @@
-package org.sang.bean;
+package org.sang.model;
+
+import java.sql.Timestamp;
 
 /**
- * Created by sang on 2018/1/13.
+ * Created by sang on 2018/1/10.
  */
-public class PoliticsStatus {
+public class Position {
     private Long id;
     private String name;
+    private Timestamp createDate;
+
+    public Position() {
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PoliticsStatus that = (PoliticsStatus) o;
+        Position position = (Position) o;
 
-        return name != null ? name.equals(that.name) : that.name == null;
+        return name != null ? name.equals(position.name) : position.name == null;
     }
 
     @Override
@@ -22,13 +28,9 @@ public class PoliticsStatus {
         return name != null ? name.hashCode() : 0;
     }
 
-    public PoliticsStatus(String name) {
+    public Position(String name) {
 
         this.name = name;
-    }
-
-    public PoliticsStatus() {
-
     }
 
     public Long getId() {
@@ -45,5 +47,13 @@ public class PoliticsStatus {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Timestamp getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Timestamp createDate) {
+        this.createDate = createDate;
     }
 }

@@ -1,17 +1,11 @@
 package org.sang.controller;
 
 import org.junit.Test;
-import org.sang.bean.RespBean;
-import org.springframework.http.HttpStatus;
+import org.sang.model.RespBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * Created by sang on 2017/12/29.

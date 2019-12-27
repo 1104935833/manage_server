@@ -1,8 +1,8 @@
 package org.sang.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.sang.bean.DataList;
-import org.sang.bean.Paper;
+import org.sang.model.DataList;
+import org.sang.model.Paper;
 import org.springframework.stereotype.Component;
 
 

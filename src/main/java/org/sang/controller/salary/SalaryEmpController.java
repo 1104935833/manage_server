@@ -1,8 +1,8 @@
 package org.sang.controller.salary;
 
-import org.sang.bean.Employee;
-import org.sang.bean.RespBean;
-import org.sang.bean.Salary;
+import org.sang.model.Employee;
+import org.sang.model.RespBean;
+import org.sang.model.Salary;
 import org.sang.service.EmpService;
 import org.sang.service.SalaryService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package org.sang.bean;
+package org.sang.model;
 
 public class RespBean {
     private Integer status;

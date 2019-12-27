@@ -1,9 +1,9 @@
 package org.sang.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.sang.bean.RespBean;
-import org.sang.common.HrUtils;
-import org.sang.service.HrService;
+import org.sang.model.RespBean;
+import org.sang.common.UserUtils;
+import org.sang.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.*;
@@ -35,7 +35,7 @@ import java.io.PrintWriter;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    HrService hrService;
+    UserService userService;
     @Autowired
     CustomMetadataSource metadataSource;
     @Autowired
@@ -46,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         System.out.println();
-        auth.userDetailsService(hrService)
+        auth.userDetailsService(userService)
                 .passwordEncoder(new BCryptPasswordEncoder());
     }
 
@@ -104,7 +104,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                         HttpServletResponse resp,
                                                         Authentication auth) throws IOException {
                         resp.setContentType("application/json;charset=utf-8");
-                        RespBean respBean = RespBean.ok("登录成功!", HrUtils.getCurrentHr());
+                        RespBean respBean = RespBean.ok("登录成功!", UserUtils.getCurrentHr());
                         ObjectMapper om = new ObjectMapper();
                         PrintWriter out = resp.getWriter();
                         out.write(om.writeValueAsString(respBean));

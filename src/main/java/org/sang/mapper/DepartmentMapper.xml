@@ -9,18 +9,18 @@
     <select id="deleteDep" statementType="CALLABLE">
         call deleteDep(#{dep.id,mode=IN,jdbcType=INTEGER},#{dep.result,mode=OUT,jdbcType=INTEGER})
     </select>
-    <resultMap id="BaseResultMap" type="org.sang.bean.Department">
+    <resultMap id="BaseResultMap" type="org.sang.model.Department">
         <id property="id" column="id"/>
         <result column="name" property="name"/>
         <result column="parentId" property="parentId"/>
         <result column="isParent" property="isParent"/>
-        <collection property="children" ofType="org.sang.bean.Department" select="org.sang.mapper.DepartmentMapper.getDepByPid" column="id">
+        <collection property="children" ofType="org.sang.model.Department" select="org.sang.mapper.DepartmentMapper.getDepByPid" column="id">
         </collection>
     </resultMap>
     <select id="getDepByPid" resultMap="BaseResultMap">
         select d1.*from department d1 where d1.`parentId`=#{pid} AND d1.enabled=true;
     </select>
-    <select id="getAllDeps" resultType="org.sang.bean.Department">
+    <select id="getAllDeps" resultType="org.sang.model.Department">
         select * from department WHERE enabled=true;
     </select>
 </mapper>

@@ -1,6 +1,6 @@
 package org.sang.service;
 
-import org.sang.bean.Role;
+import org.sang.model.Role;
 import org.sang.mapper.RoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

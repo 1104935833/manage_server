@@ -1,7 +1,6 @@
 package org.sang.controller;
 
-import org.sang.bean.SysMsg;
-import org.sang.bean.SysRole;
+import org.sang.model.SysRole;
 import org.sang.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

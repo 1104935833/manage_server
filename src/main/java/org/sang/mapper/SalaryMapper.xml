@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.sang.mapper.SalaryMapper">
-    <insert id="addSalary" parameterType="org.sang.bean.Salary">
+    <insert id="addSalary" parameterType="org.sang.model.Salary">
             insert into salary (bonus, lunchSalary,
       trafficSalary, basicSalary,
       pensionBase, pensionPer, createDate,
@@ -15,10 +15,10 @@
       #{salary.medicalBase,jdbcType=INTEGER}, #{salary.medicalPer,jdbcType=REAL}, #{salary.accumulationFundBase,jdbcType=INTEGER},
       #{salary.accumulationFundPer,jdbcType=REAL}, #{salary.name,jdbcType=VARCHAR})
     </insert>
-    <select id="getAllSalary" resultType="org.sang.bean.Salary">
+    <select id="getAllSalary" resultType="org.sang.model.Salary">
         SELECT * FROM salary;
     </select>
-    <update id="updateSalary" parameterType="org.sang.bean.Salary">
+    <update id="updateSalary" parameterType="org.sang.model.Salary">
         update salary
         <set>
             <if test="salary.bonus != null">

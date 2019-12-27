@@ -1,7 +1,7 @@
 package org.sang.config;
 
-import org.sang.bean.Menu;
-import org.sang.bean.Role;
+import org.sang.model.Menu;
+import org.sang.model.Role;
 import org.sang.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;

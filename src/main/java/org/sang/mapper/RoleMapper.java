@@ -1,7 +1,7 @@
 package org.sang.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import org.sang.bean.Role;
+import org.sang.model.Role;
 
 import java.util.List;
 

@@ -3,13 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.sang.mapper.JobLevelMapper">
-    <select id="getJobLevelByName" parameterType="string" resultType="org.sang.bean.JobLevel">
+    <select id="getJobLevelByName" parameterType="string" resultType="org.sang.model.JobLevel">
         select * from joblevel WHERE name=#{name};
     </select>
-    <insert id="addJobLevel" parameterType="org.sang.bean.JobLevel">
+    <insert id="addJobLevel" parameterType="org.sang.model.JobLevel">
         INSERT INTO joblevel SET name=#{jobLevel.name},titleLevel=#{jobLevel.titleLevel}
     </insert>
-    <select id="getAllJobLevels" resultType="org.sang.bean.JobLevel">
+    <select id="getAllJobLevels" resultType="org.sang.model.JobLevel">
         select * from joblevel WHERE enabled=true;
     </select>
     <delete id="deleteJobLevelById">

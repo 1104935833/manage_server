@@ -1,7 +1,7 @@
 package org.sang.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import org.sang.bean.Salary;
+import org.sang.model.Salary;
 
 import java.util.List;
 

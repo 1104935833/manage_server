@@ -1,6 +1,6 @@
 package org.sang.service.impl;
 
-import org.sang.bean.SysRole;
+import org.sang.model.SysRole;
 import org.sang.mapper.SysRoleMapper;
 import org.sang.service.SysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;

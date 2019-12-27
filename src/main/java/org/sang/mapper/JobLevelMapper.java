@@ -1,7 +1,7 @@
 package org.sang.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import org.sang.bean.JobLevel;
+import org.sang.model.JobLevel;
 
 import java.util.List;
 
