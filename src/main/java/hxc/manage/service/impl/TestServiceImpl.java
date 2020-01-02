@@ -27,7 +27,7 @@ public class TestServiceImpl implements TestService {
     public Map<String, List> findList() {
         List<DataList> list=testMapper.findList();
         Map<String, List> map = new HashMap<>();
-        List<Map<String,String>> publication_type = new ArrayList<>();
+        List<Map<String,String>> publicationType = new ArrayList<>();
         List<Map<String,String>> paperGrades = new ArrayList<>();
         List<Map<String,String>> paperCompanys = new ArrayList<>();
         List<Map<String,String>> subjects = new ArrayList<>();
@@ -38,7 +38,7 @@ public class TestServiceImpl implements TestService {
             if (list.get(i).getTitle().equals("publication_type")){
                 m.put("value",list.get(i).getValue());
                 m.put("label",list.get(i).getLabel());
-                publication_type.add(m);
+                publicationType.add(m);
 
             }
             else if (list.get(i).getTitle().equals("paperGrades")){
@@ -71,7 +71,7 @@ public class TestServiceImpl implements TestService {
                 scopes.add(m);
 
             }
-            map.put("publication_type",publication_type);
+            map.put("publication_type",publicationType);
             map.put("paperGrades",paperGrades);
             map.put("paperCompanys",paperCompanys);
             map.put("subjects",subjects);
@@ -85,6 +85,12 @@ public class TestServiceImpl implements TestService {
     @Override
     public void insetPaper(Paper paper) {
         testMapper.insetPaper(paper);
+    }
+
+    @Override
+    public String update(Paper paper) {
+        testMapper.update(paper);
+        return null;
     }
 
 

@@ -65,4 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{paper_issn}
         );
     </insert>
+    <update id="update" parameterType="hxc.manage.model.Paper">
+        update paper set `paper_type`=#{paper_type} where id=1
+    </update>
 </mapper>

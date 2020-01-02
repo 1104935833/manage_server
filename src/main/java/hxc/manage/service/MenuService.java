@@ -3,6 +3,7 @@ package hxc.manage.service;
 import hxc.manage.model.Menu;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author hxc
@@ -14,7 +15,11 @@ public interface MenuService {
 
     List<Long> getMenusByRid(Long rid);
 
-    List<Menu> getMenusByHrId();
+    List<Menu> getMenusByUserId();
 
     List<Menu> getAllMenu();
+
+    List<Map<String, Object>> getAllTreePeople(String name);
+
+    List<Map<String, Object>> getAllTreePeople1(String name);
 }

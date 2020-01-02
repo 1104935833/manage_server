@@ -49,4 +49,20 @@
     <select id="getMenusByRid" resultType="Long">
         SELECT mid from menu_role WHERE rid=#{rid}
     </select>
+    <!--分院、教研室-->
+    <select id="getAllTreePeople" resultType="map" parameterType="java.lang.String">
+        select * from tree_people where parent_id in
+        <if test="name!=''">
+          (select id from tree_people where name = #{name})
+        </if>
+        <if test="name=='' or name == null">
+          (0)
+        </if>
+
+    </select>
+    <!--教师-->
+    <select id="getAllTreePeople1" resultType="map" parameterType="java.lang.String">
+        select b.name from tree_people a,user b where  b.tree = a.tree_code and a.name = #{name}
+
+    </select>
 </mapper>

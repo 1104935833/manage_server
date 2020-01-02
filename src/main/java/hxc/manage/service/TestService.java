@@ -17,4 +17,6 @@ public interface TestService {
 
     void insetPaper(Paper paper);
 
+
+    String update(Paper paper);
 }

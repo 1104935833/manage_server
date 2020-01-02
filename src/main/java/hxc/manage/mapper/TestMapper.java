@@ -20,4 +20,6 @@ public interface TestMapper {
     List<DataList> findList();
 
     void insetPaper(Paper paper);
+
+    String update(Paper paper);
 }

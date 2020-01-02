@@ -11,6 +11,7 @@ import org.springframework.web.filter.CorsFilter;
  * @author hxc
  * @version 1.0
  * @date 2019/12/11 11:05
+ * 跨域配置类
  */
 @Configuration
 public class CorsConfig {

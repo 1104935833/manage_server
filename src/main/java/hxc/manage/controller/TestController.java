@@ -1,14 +1,23 @@
 package hxc.manage.controller;
 
+import hxc.manage.common.poi.PoiUtils;
 import hxc.manage.model.Paper;
 import hxc.manage.model.RespBean;
 import hxc.manage.common.FileUpLoad;
 import hxc.manage.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +32,6 @@ public class TestController {
 
     @Value("${url.fileUrl}")
     private String path;
-
     @Autowired
     TestService testService;
 
@@ -67,5 +75,17 @@ public class TestController {
         return l;
     }
 
+    @GetMapping("/update")
+    public String update(Paper paper){
+        testService.update(paper);
+        return "";
+    }
+
+    @GetMapping("/template")
+    public ResponseEntity<byte[]> template(){
+
+        return PoiUtils.template();
+
+    }
 
 }
