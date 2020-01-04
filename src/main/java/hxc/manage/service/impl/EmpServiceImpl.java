@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author hxc
@@ -40,46 +41,11 @@ public class EmpServiceImpl implements EmpService {
         return empMapper.getAllPolitics();
     }
 
-    public int addEmp(Employee employee) {
-        Date beginContract = employee.getBeginContract();
-        Date endContract = employee.getEndContract();
-        Double contractTerm = (Double.parseDouble(yearFormat.format(endContract)) - Double.parseDouble(yearFormat.format(beginContract))) * 12 + Double.parseDouble(monthFormat.format(endContract)) - Double.parseDouble(monthFormat.format(beginContract));
-        employee.setContractTerm(Double.parseDouble(decimalFormat.format(contractTerm / 12)));
-        return empMapper.addEmp(employee);
-    }
+
 
     public Long getMaxWorkID() {
         Long maxWorkID = empMapper.getMaxWorkID();
         return maxWorkID == null ? 0 : maxWorkID;
-    }
-
-    public List<Employee> getEmployeeByPage(Integer page, Integer size, String keywords, Long politicId, Long nationId, Long posId, Long jobLevelId, String engageForm, Long departmentId, String beginDateScope) {
-        int start = (page - 1) * size;
-        Date startBeginDate = null;
-        Date endBeginDate = null;
-        if (beginDateScope != null && beginDateScope.contains(",")) {
-            try {
-                String[] split = beginDateScope.split(",");
-                startBeginDate = birthdayFormat.parse(split[0]);
-                endBeginDate = birthdayFormat.parse(split[1]);
-            } catch (ParseException e) {
-            }
-        }
-        return empMapper.getEmployeeByPage(start, size, keywords, politicId, nationId, posId, jobLevelId, engageForm, departmentId, startBeginDate, endBeginDate);
-    }
-
-    public Long getCountByKeywords(String keywords, Long politicId, Long nationId, Long posId, Long jobLevelId, String engageForm, Long departmentId, String beginDateScope) {
-        Date startBeginDate = null;
-        Date endBeginDate = null;
-        if (beginDateScope != null && beginDateScope.contains(",")) {
-            try {
-                String[] split = beginDateScope.split(",");
-                startBeginDate = birthdayFormat.parse(split[0]);
-                endBeginDate = birthdayFormat.parse(split[1]);
-            } catch (ParseException e) {
-            }
-        }
-        return empMapper.getCountByKeywords(keywords, politicId, nationId, posId, jobLevelId, engageForm, departmentId, startBeginDate, endBeginDate);
     }
 
     public int updateEmp(Employee employee) {
@@ -106,5 +72,17 @@ public class EmpServiceImpl implements EmpService {
     public List<Employee> getEmployeeByPageShort(Integer page, Integer size) {
         int start = (page - 1) * size;
         return empMapper.getEmployeeByPageShort(start,size);
+    }
+
+    @Override
+    public List<Employee> getUserByPage(Map<String, Object> map) {
+
+        return empMapper.getUserByPage(map);
+    }
+
+    @Override
+    public Integer getUserByCount(Map<String, Object> map) {
+        return empMapper.getUserByCount(map);
+
     }
 }

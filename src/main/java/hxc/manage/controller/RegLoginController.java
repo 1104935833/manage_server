@@ -20,14 +20,6 @@ public class RegLoginController {
         return RespBean.error("尚未登录，请登录!");
     }
 
-    @GetMapping("/employee/advanced/hello")
-    public String hello() {
-        return "hello";
-    }    @GetMapping("/employee/basic/hello")
-
-    public String basicHello() {
-        return "basicHello";
-    }
 
 
 

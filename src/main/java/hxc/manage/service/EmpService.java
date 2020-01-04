@@ -5,6 +5,7 @@ import hxc.manage.model.Nation;
 import hxc.manage.model.PoliticsStatus;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author hxc
@@ -22,13 +23,15 @@ public interface EmpService {
 
     boolean deleteEmpById(String ids);
 
-    List<Employee> getEmployeeByPage(Integer page, Integer size, String keywords, Long politicId, Long nationId, Long posId, Long jobLevelId, String engageForm, Long departmentId, String beginDateScope);
 
-    Long getCountByKeywords(String keywords, Long politicId, Long nationId, Long posId, Long jobLevelId, String engageForm, Long departmentId, String beginDateScope);
 
     List<Employee> getAllEmployees();
 
     int addEmps(List<Employee> emps);
 
     List<Employee> getEmployeeByPageShort(Integer page, Integer size);
+
+    List<Employee> getUserByPage(Map<String, Object> map);
+
+    Integer getUserByCount(Map<String, Object> map);
 }

@@ -3,7 +3,7 @@ url:
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://127.0.0.1:3306/vhr?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://39.98.93.238:3306/vhr?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: 123456
   cache:

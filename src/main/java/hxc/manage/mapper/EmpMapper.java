@@ -8,6 +8,7 @@ import hxc.manage.model.PoliticsStatus;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author hxc
@@ -35,4 +36,8 @@ public interface EmpMapper {
     int addEmps(@Param("emps") List<Employee> emps);
 
     List<Employee> getEmployeeByPageShort(@Param("start") int start, @Param("size") Integer size);
+
+    List<Employee> getUserByPage(Map<String, Object> map);
+
+    Integer getUserByCount(Map<String, Object> map);
 }

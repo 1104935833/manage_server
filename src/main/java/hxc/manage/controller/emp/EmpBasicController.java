@@ -1,5 +1,6 @@
 package hxc.manage.controller.emp;
 
+import com.alibaba.druid.util.StringUtils;
 import hxc.manage.service.JobLevelService;
 import hxc.manage.service.PositionService;
 import hxc.manage.model.Employee;
@@ -27,50 +28,20 @@ import java.util.concurrent.ExecutorService;
 @RequestMapping("/employee/basic")
 public class EmpBasicController {
 
+    @Autowired
     EmpService empService;
 
+    @Autowired
     DepartmentService departmentService;
 
+    @Autowired
     PositionService positionService;
 
+    @Autowired
     JobLevelService jobLevelService;
 
 
-//    @RequestMapping(value = "/basicdata", method = RequestMethod.GET)
-//    public Map<String, Object> getAllNations() {
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("nations", empService.getAllNations());
-//        map.put("politics", empService.getAllPolitics());
-//        map.put("deps", departmentService.getDepByPid(-1L));
-//        map.put("positions", positionService.getAllPos());
-//        map.put("joblevels", jobLevelService.getAllJobLevels());
-//        map.put("workID", String.format("%08d", empService.getMaxWorkID() + 1));
-//        return map;
-//    }
-
-//    @RequestMapping("/maxWorkID")
-//    public String maxWorkID() {
-//        return String.format("%08d", empService.getMaxWorkID() + 1);
-//    }
-
-//
-//    @RequestMapping(value = "/emp", method = RequestMethod.PUT)
-//    public RespBean updateEmp(Employee employee) {
-//        if (empService.updateEmp(employee) == 1) {
-//            return RespBean.ok("更新成功!");
-//        }
-//        return RespBean.error("更新失败!");
-//    }
-//
-//    @RequestMapping(value = "/emp/{ids}", method = RequestMethod.DELETE)
-//    public RespBean deleteEmpById(@PathVariable String ids) {
-//        if (empService.deleteEmpById(ids)) {
-//            return RespBean.ok("删除成功!");
-//        }
-//        return RespBean.error("删除失败!");
-//    }
-//
-//    @RequestMapping(value = "/emp", method = RequestMethod.GET)
+    //    @RequestMapping(value = "/emp", method = RequestMethod.GET)
 //    public Map<String, Object> getEmployeeByPage(
 //            @RequestParam(defaultValue = "1") Integer page,
 //            @RequestParam(defaultValue = "10") Integer size,
@@ -86,8 +57,39 @@ public class EmpBasicController {
 //                posId,jobLevelId, engageForm, departmentId, beginDateScope);
 //        map.put("emps", employeeByPage);
 //        map.put("count", count);
-//        return map;
+//
 //    }
+
+
+    @GetMapping("/count")
+    public Map<String, Object> getUserByCount(@RequestParam(defaultValue = "") String keywords){
+        Map<String, Object> map = new HashMap<>();
+        map.put("keywords",keywords);
+        keyVaildata(keywords,map);
+        Integer count =empService.getUserByCount(map);
+        map.put("count",count);
+        return map;
+    }
+
+
+    @RequestMapping("/getUserByPage")
+    public Map<String, Object> getUserByPage(@RequestParam(defaultValue = "1") Integer page,
+            @RequestParam(defaultValue = "10") Integer size,
+            @RequestParam(defaultValue = "") String keywords){
+        int start = (page - 1) * size;
+        Map<String, Object> map = new HashMap<>();
+        map.put("size",size);
+        map.put("start",start);
+        map.put("keywords",keywords);
+        keyVaildata(keywords,map);
+        List<Employee> employeeByPage =empService.getUserByPage(map);
+        map.put("users",employeeByPage);
+        return map;
+    }
+
+
+
+
 
     @RequestMapping(value = "/exportEmp", method = RequestMethod.GET)
     public ResponseEntity<byte[]> exportEmp() {
@@ -105,4 +107,17 @@ public class EmpBasicController {
         }
         return RespBean.error("导入失败!");
     }
+
+
+    private Map<String,Object> keyVaildata(String keywords,Map<String,Object> map){
+        if(keywords.indexOf("教研室")>-1){
+            map.put("rank",2);
+        }else if(keywords.indexOf("分院")>-1) {
+            map.put("rank",1);
+        }else if(!keywords.equals("")){
+            map.put("rank",3);
+        }
+        return map;
+    }
 }
+

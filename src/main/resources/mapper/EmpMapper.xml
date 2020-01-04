@@ -272,4 +272,33 @@
     <select id="getEmployeeByPageShort" resultMap="BaseResultMap">
 select e.*,d.`id` as did,d.`name` as dname,s.`id` as sid,s.`accumulationFundBase`,s.`accumulationFundPer`,s.`allSalary`,s.`basicSalary`,s.`bonus`,s.`createDate`,s.`lunchSalary`,s.`medicalBase`,s.`medicalPer`,s.`name` as sname,s.`pensionBase`,s.`pensionPer`,s.`trafficSalary` from employee e left join department d on e.`departmentId`=d.id left join empsalary es on es.`eid`=e.`id` left join salary s on s.`id`=es.`sid` ORDER BY e.id limit #{start},#{size}
     </select>
+    <select id="getUserByPage" resultType="hxc.manage.model.Employee">
+       select * from employee a,user b,tree_people c  where a.user_id=b.id and b.tree = c. tree_code
+        and c.state=1
+        <if test="rank==3">
+            and b.name=#{keywords}
+        </if>
+        <if test="rank==2">
+            and c.name=#{keywords}
+        </if>
+        <if test="rank==1">
+            and c.parent_id in (select tree_code from tree_people where name =#{keywords} )
+        </if>
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
+    <select id="getUserByCount" resultType="java.lang.Integer">
+        select count(1) from employee a,user b,tree_people c  where a.user_id=b.id and b.tree = c. tree_code
+        and c.state=1
+        <if test="rank==3">
+            and b.name=#{keywords}
+        </if>
+        <if test="rank==2">
+            and c.name=#{keywords}
+        </if>
+        <if test="rank==1">
+            and c.parent_id in (select tree_code from tree_people where name =#{keywords} )
+        </if>
+    </select>
 </mapper>
