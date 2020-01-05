@@ -5,6 +5,7 @@ import hxc.manage.model.Menu;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.Role;
 import hxc.manage.service.*;
+import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -147,6 +148,30 @@ public class SystemBasicController {
 //        }
 //        return RespBean.error("添加失败!");
 //    }
+    //删除菜单
+    @GetMapping("/menudel")
+    public RespBean menuDelById(@RequestParam("id") String id){
+        try {
+            menuService.menuDelById(id);
+            return RespBean.ok("删除成功");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return RespBean.ok("删除失败");
+    }
+    //禁用菜单
+    @GetMapping("/menuhide")
+    public RespBean menuHide(@RequestParam("id") String id,@RequestParam("type") String enabled){
+        try {
+            menuService.menuHideById(id,enabled);
+            return RespBean.ok("操作成功");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return RespBean.ok("操作失败");
+
+    }
+
 //    获取用户管理左侧树节点
     @GetMapping(value = "/treepeople")
     public List<Map<String, Object>> getAllTreePeople(@RequestParam("name") String name) {
@@ -159,7 +184,19 @@ public class SystemBasicController {
         }
         return list;
     }
+//    菜单管理获取全部菜单
+    @GetMapping("/getAllMenus")
+    public Map<String,Object>  getAllMenu(@RequestParam(defaultValue = "1") Integer page,
+                               @RequestParam(defaultValue = "10") Integer size){
+        int start = (page - 1) * size;
+        Map<String, Object> map = new HashMap<>();
+        map.put("size",size);
+        map.put("start",start);
+        Map<String,Object> list=menuService.getAllMenus(map);
 
+        return list;
+
+    }
 //    @RequestMapping(value = "/joblevel/{ids}", method = RequestMethod.DELETE)
 //    public RespBean deleteJobLevelById(@PathVariable String ids) {
 //        if (jobLevelService.deleteJobLevelById(ids)) {

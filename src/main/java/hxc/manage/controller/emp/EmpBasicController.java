@@ -41,24 +41,15 @@ public class EmpBasicController {
     JobLevelService jobLevelService;
 
 
-    //    @RequestMapping(value = "/emp", method = RequestMethod.GET)
-//    public Map<String, Object> getEmployeeByPage(
-//            @RequestParam(defaultValue = "1") Integer page,
-//            @RequestParam(defaultValue = "10") Integer size,
-//            @RequestParam(defaultValue = "") String keywords,
-//            Long politicId, Long nationId, Long posId,
-//            Long jobLevelId, String engageForm,
-//            Long departmentId, String beginDateScope) {
-//        Map<String, Object> map = new HashMap<>();
-//        List<Employee> employeeByPage = empService.getEmployeeByPage(page, size,
-//                keywords,politicId, nationId, posId, jobLevelId, engageForm,
-//                departmentId, beginDateScope);
-//        Long count = empService.getCountByKeywords(keywords, politicId, nationId,
-//                posId,jobLevelId, engageForm, departmentId, beginDateScope);
-//        map.put("emps", employeeByPage);
-//        map.put("count", count);
-//
-//    }
+
+    @GetMapping("/delByUserId")
+    public RespBean delByUserId(@RequestParam("id") String id){
+        if(empService.delByUserId(id)){
+            return RespBean.ok("删除成功!");
+        }
+        return RespBean.error("删除失败!");
+
+    }
 
 
     @GetMapping("/count")

@@ -237,11 +237,12 @@
         </set>
         where id = #{emp.id,jdbcType=BIGINT}
     </update>
-    <delete id="deleteEmpById">
-        DELETE FROM employee WHERE id IN
+    <delete id="delByUserId">
+        update `user` set enabled = 0  WHERE id IN (select user_id from employee where id in
         <foreach collection="ids" separator="," open="(" close=")" item="id">
             #{id}
         </foreach>
+        )
     </delete>
     <insert id="addEmps">
         insert into employee (name, gender,
@@ -274,7 +275,7 @@ select e.*,d.`id` as did,d.`name` as dname,s.`id` as sid,s.`accumulationFundBase
     </select>
     <select id="getUserByPage" resultType="hxc.manage.model.Employee">
        select * from employee a,user b,tree_people c  where a.user_id=b.id and b.tree = c. tree_code
-        and c.state=1
+        and c.state=1 and b.enabled=1
         <if test="rank==3">
             and b.name=#{keywords}
         </if>
@@ -290,7 +291,7 @@ select e.*,d.`id` as did,d.`name` as dname,s.`id` as sid,s.`accumulationFundBase
     </select>
     <select id="getUserByCount" resultType="java.lang.Integer">
         select count(1) from employee a,user b,tree_people c  where a.user_id=b.id and b.tree = c. tree_code
-        and c.state=1
+        and c.state=1 and b.enabled=1
         <if test="rank==3">
             and b.name=#{keywords}
         </if>

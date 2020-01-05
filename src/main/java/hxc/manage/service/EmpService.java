@@ -21,7 +21,7 @@ public interface EmpService {
 
     int updateEmp(Employee employee);
 
-    boolean deleteEmpById(String ids);
+    boolean delByUserId(String ids);
 
 
 
@@ -34,4 +34,5 @@ public interface EmpService {
     List<Employee> getUserByPage(Map<String, Object> map);
 
     Integer getUserByCount(Map<String, Object> map);
+
 }

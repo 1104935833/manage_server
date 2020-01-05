@@ -22,4 +22,11 @@ public interface MenuService {
     List<Map<String, Object>> getAllTreePeople(String name);
 
     List<Map<String, Object>> getAllTreePeople1(String name);
+
+    Map<String, Object> getAllMenus(Map<String, Object> map);
+
+
+    void menuDelById(String id);
+
+    void menuHideById(String id,String enabled);
 }

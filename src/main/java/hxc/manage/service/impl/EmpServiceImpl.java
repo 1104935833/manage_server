@@ -56,9 +56,9 @@ public class EmpServiceImpl implements EmpService {
         return empMapper.updateEmp(employee);
     }
 
-    public boolean deleteEmpById(String ids) {
+    public boolean delByUserId(String ids) {
         String[] split = ids.split(",");
-        return empMapper.deleteEmpById(split) == split.length;
+        return empMapper.delByUserId(split) == split.length;
     }
 
     public List<Employee> getAllEmployees() {

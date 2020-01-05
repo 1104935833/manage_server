@@ -37,6 +37,10 @@
             </collection>
         </collection>
     </resultMap>
+    <update id="menuHideById">
+        update menu set enabled=#{enabled} where id = #{id}
+    </update>
+
     <select id="getAllMenu" resultMap="BaseResultMap">
         select m.*,r.`id` as rid,r.`name` as rname,r.`nameZh` as rnamezh from menu m left join menu_role mr on m.`id`=mr.`mid` left join role r on mr.`rid`=r.`id` WHERE m.`enabled`=true order by m.`id` desc
     </select>
@@ -65,4 +69,13 @@
         select b.name from tree_people a,user b where  b.tree = a.tree_code and a.name = #{name}
 
     </select>
+    <select id="getAllMenus" resultType="java.util.Map">
+        select * from menu where parentId != 0  order BY parentId LIMIT #{start},#{size}
+    </select>
+    <select id="getMenuCount" resultType="java.lang.Integer">
+        select count(1) from menu where parentId != 0
+    </select>
+    <delete id="menuDelById">
+        delete from menu where id = #{id}
+    </delete>
 </mapper>

@@ -27,4 +27,12 @@ public interface MenuMapper {
     List<Map<String, Object>> getAllTreePeople(@Param("name") String name);
 
     List<Map<String, Object>> getAllTreePeople1(@Param("name") String name);
+
+    List<Map<String, Object>> getAllMenus(Map<String, Object> map);
+
+    Integer getMenuCount();
+
+    void menuDelById(@Param("id") String id);
+
+    void menuHideById(@Param("id") String id,@Param("enabled") String enabled);
 }

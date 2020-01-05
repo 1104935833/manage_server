@@ -31,7 +31,7 @@ public interface EmpMapper {
 
     int updateEmp(@Param("emp") Employee employee);
 
-    int deleteEmpById(@Param("ids") String[] ids);
+    int delByUserId(@Param("ids") String[] ids);
 
     int addEmps(@Param("emps") List<Employee> emps);
 
