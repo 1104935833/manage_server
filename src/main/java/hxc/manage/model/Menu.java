@@ -19,9 +19,36 @@ public class Menu implements Serializable {
     private String name;
     private String iconCls;
     private Long parentId;
+    private String stateValue;
+    private String typeValue;
+    private String value;
     private List<Role> roles;
     private List<Menu> children;
     private MenuMeta meta;
+
+    public String getStateValue() {
+        return stateValue;
+    }
+
+    public void setStateValue(String stateValue) {
+        this.stateValue = stateValue;
+    }
+
+    public String getTypeValue() {
+        return typeValue;
+    }
+
+    public void setTypeValue(String typeValue) {
+        this.typeValue = typeValue;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 
     public MenuMeta getMeta() {
         return meta;
@@ -105,5 +132,24 @@ public class Menu implements Serializable {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "Menu{" +
+                "id=" + id +
+                ", url='" + url + '\'' +
+                ", path='" + path + '\'' +
+                ", component=" + component +
+                ", name='" + name + '\'' +
+                ", iconCls='" + iconCls + '\'' +
+                ", parentId=" + parentId +
+                ", stateValue='" + stateValue + '\'' +
+                ", typeValue='" + typeValue + '\'' +
+                ", value='" + value + '\'' +
+                ", roles=" + roles +
+                ", children=" + children +
+                ", meta=" + meta +
+                '}';
     }
 }

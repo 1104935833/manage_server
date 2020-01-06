@@ -147,7 +147,22 @@ public class SystemBasicController {
 //            return RespBean.error("职称名重复，添加失败!");
 //        }
 //        return RespBean.error("添加失败!");
-//    }
+//    }.
+    @PostMapping("/addMenu")
+    public RespBean addMenu(Menu menu){
+        try{
+            menuService.addMenu(menu);
+            return RespBean.ok("添加成功！");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return RespBean.error("添加失败！");
+    }
+    @GetMapping("/getAllParent")
+    public List<Map<String, Object>> getAllParent(){
+        return  menuService.getAllParent();
+
+    }
     //删除菜单
     @GetMapping("/menudel")
     public RespBean menuDelById(@RequestParam("id") String id){

@@ -37,6 +37,10 @@
             </collection>
         </collection>
     </resultMap>
+    <insert id="addMenu">
+        insert into menu(url,path,component,name,iconCls,parentId,enabled)
+        VALUES (#{url},#{path},#{component},#{name},#{iconCls},#{parentId},#{enabled})
+    </insert>
     <update id="menuHideById">
         update menu set enabled=#{enabled} where id = #{id}
     </update>
@@ -74,6 +78,9 @@
     </select>
     <select id="getMenuCount" resultType="java.lang.Integer">
         select count(1) from menu where parentId != 0
+    </select>
+    <select id="getAllParent" resultType="java.util.Map">
+        select `name`,id from menu where parentId = 1
     </select>
     <delete id="menuDelById">
         delete from menu where id = #{id}

@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 public class MenuMeta implements Serializable {
 
+
     private boolean keepAlive;
     private boolean requireAuth;
 

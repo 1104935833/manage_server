@@ -70,9 +70,9 @@ public class MenuServiceImpl implements MenuService {
 
         for (Map<String, Object> m :list) {
             if ((int)m.get("parentId")>1){
-                m.put("parentId","菜单");
+                m.put("parent","菜单");
             }else {
-                m.put("parentId","目录");
+                m.put("parent","目录");
             }
             if ((boolean)m.get("enabled")) {
                 m.put("type","有效");
@@ -94,6 +94,17 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public void menuHideById(String id,String enabled) {
         menuMapper.menuHideById(id,enabled);
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllParent() {
+
+        return menuMapper.getAllParent();
+    }
+
+    @Override
+    public void addMenu(Menu menu) {
+        menuMapper.addMenu(menu);
     }
 
 }

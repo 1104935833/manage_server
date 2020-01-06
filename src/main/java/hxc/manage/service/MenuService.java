@@ -29,4 +29,8 @@ public interface MenuService {
     void menuDelById(String id);
 
     void menuHideById(String id,String enabled);
+
+    List<Map<String, Object>> getAllParent();
+
+    void addMenu(Menu menu);
 }
