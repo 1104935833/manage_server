@@ -44,6 +44,9 @@
     <update id="menuHideById">
         update menu set enabled=#{enabled} where id = #{id}
     </update>
+    <update id="upMenu">
+        update menu set name = #{name},component=#{component},path=#{path},url=#{url},enabled=#{enabled} where id = #{id}
+    </update>
 
     <select id="getAllMenu" resultMap="BaseResultMap">
         select m.*,r.`id` as rid,r.`name` as rname,r.`nameZh` as rnamezh from menu m left join menu_role mr on m.`id`=mr.`mid` left join role r on mr.`rid`=r.`id` WHERE m.`enabled`=true order by m.`id` desc

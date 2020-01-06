@@ -107,4 +107,9 @@ public class MenuServiceImpl implements MenuService {
         menuMapper.addMenu(menu);
     }
 
+    @Override
+    public void upMenu(Menu menu) {
+        menuMapper.upMenu(menu);
+    }
+
 }

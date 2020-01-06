@@ -39,4 +39,6 @@ public interface MenuMapper {
     List<Map<String, Object>> getAllParent();
 
     void addMenu(Menu menu);
+
+    void upMenu(Menu menu);
 }

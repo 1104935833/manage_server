@@ -19,35 +19,17 @@ public class Menu implements Serializable {
     private String name;
     private String iconCls;
     private Long parentId;
-    private String stateValue;
-    private String typeValue;
-    private String value;
+    private String enabled;
     private List<Role> roles;
     private List<Menu> children;
     private MenuMeta meta;
 
-    public String getStateValue() {
-        return stateValue;
+    public String getEnabled() {
+        return enabled;
     }
 
-    public void setStateValue(String stateValue) {
-        this.stateValue = stateValue;
-    }
-
-    public String getTypeValue() {
-        return typeValue;
-    }
-
-    public void setTypeValue(String typeValue) {
-        this.typeValue = typeValue;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
+    public void setEnabled(String enabled) {
+        this.enabled = enabled;
     }
 
     public MenuMeta getMeta() {
@@ -144,9 +126,7 @@ public class Menu implements Serializable {
                 ", name='" + name + '\'' +
                 ", iconCls='" + iconCls + '\'' +
                 ", parentId=" + parentId +
-                ", stateValue='" + stateValue + '\'' +
-                ", typeValue='" + typeValue + '\'' +
-                ", value='" + value + '\'' +
+                ", enabled='" + enabled + '\'' +
                 ", roles=" + roles +
                 ", children=" + children +
                 ", meta=" + meta +
