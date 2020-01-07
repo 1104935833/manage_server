@@ -1,6 +1,6 @@
 package hxc.manage.service;
 
-import hxc.manage.model.Employee;
+import hxc.manage.model.UserDetails;
 import hxc.manage.model.Nation;
 import hxc.manage.model.PoliticsStatus;
 
@@ -19,20 +19,24 @@ public interface EmpService {
 
     Long getMaxWorkID();
 
-    int updateEmp(Employee employee);
+    int updateEmp(UserDetails userDetails);
 
     boolean delByUserId(String ids);
 
 
 
-    List<Employee> getAllEmployees();
+    List<UserDetails> getAllEmployees();
 
-    int addEmps(List<Employee> emps);
+    int addEmps(List<UserDetails> emps);
 
-    List<Employee> getEmployeeByPageShort(Integer page, Integer size);
+    List<UserDetails> getEmployeeByPageShort(Integer page, Integer size);
 
-    List<Employee> getUserByPage(Map<String, Object> map);
+    List<UserDetails> getUserByPage(Map<String, Object> map);
 
     Integer getUserByCount(Map<String, Object> map);
 
+
+    void addUser(UserDetails userDetails);
+
+    void editUser(UserDetails userDetails);
 }

@@ -1,23 +1,21 @@
 package hxc.manage.controller.emp;
 
-import com.alibaba.druid.util.StringUtils;
+import hxc.manage.model.UserDetails;
 import hxc.manage.service.JobLevelService;
 import hxc.manage.service.PositionService;
-import hxc.manage.model.Employee;
 import hxc.manage.model.RespBean;
 import hxc.manage.common.poi.PoiUtils;
 import hxc.manage.service.DepartmentService;
 import hxc.manage.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.thymeleaf.TemplateEngine;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
 
 /**
  * @author hxc
@@ -73,12 +71,33 @@ public class EmpBasicController {
         map.put("start",start);
         map.put("keywords",keywords);
         keyVaildata(keywords,map);
-        List<Employee> employeeByPage =empService.getUserByPage(map);
-        map.put("users",employeeByPage);
+        List<UserDetails> userDetailsByPage =empService.getUserByPage(map);
+        map.put("users", userDetailsByPage);
         return map;
     }
 
+    @PostMapping("/adduser")
+    public RespBean addUser(UserDetails userDetails){
+    try {
+        empService.addUser(userDetails);
+        return RespBean.ok("添加成功！");
+    }catch(Exception e){
+        e.printStackTrace();
+    }
+        return RespBean.ok("添加失败！");
+    }
 
+    @PostMapping("/edituser")
+    public RespBean edituser(UserDetails userDetails, BindingResult bindingResult){
+        try {
+            System.out.println(userDetails);
+            empService.editUser(userDetails);
+            return RespBean.ok("添加成功！");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return RespBean.ok("添加失败！");
+    }
 
 
 
@@ -89,7 +108,7 @@ public class EmpBasicController {
 
     @RequestMapping(value = "/importEmp", method = RequestMethod.POST)
     public RespBean importEmp(MultipartFile file) {
-        List<Employee> emps = PoiUtils.importEmp2List(file,
+        List<UserDetails> emps = PoiUtils.importEmp2List(file,
                 empService.getAllNations(), empService.getAllPolitics(),
                 departmentService.getAllDeps(), positionService.getAllPos(),
                 jobLevelService.getAllJobLevels());

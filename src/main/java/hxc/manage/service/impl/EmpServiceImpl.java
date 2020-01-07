@@ -1,7 +1,7 @@
 package hxc.manage.service.impl;
 
 import hxc.manage.mapper.EmpMapper;
-import hxc.manage.model.Employee;
+import hxc.manage.model.UserDetails;
 import hxc.manage.model.Nation;
 import hxc.manage.model.PoliticsStatus;
 import hxc.manage.service.EmpService;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -48,12 +47,12 @@ public class EmpServiceImpl implements EmpService {
         return maxWorkID == null ? 0 : maxWorkID;
     }
 
-    public int updateEmp(Employee employee) {
-        Date beginContract = employee.getBeginContract();
-        Date endContract = employee.getEndContract();
-        Double contractTerm = (Double.parseDouble(yearFormat.format(endContract)) - Double.parseDouble(yearFormat.format(beginContract))) * 12 + Double.parseDouble(monthFormat.format(endContract)) - Double.parseDouble(monthFormat.format(beginContract));
-        employee.setContractTerm(Double.parseDouble(decimalFormat.format(contractTerm / 12)));
-        return empMapper.updateEmp(employee);
+    public int updateEmp(UserDetails userDetails) {
+//        Date beginContract = userDetails.getBeginContract();
+//        Date endContract = userDetails.getEndContract();
+//        Double contractTerm = (Double.parseDouble(yearFormat.format(endContract)) - Double.parseDouble(yearFormat.format(beginContract))) * 12 + Double.parseDouble(monthFormat.format(endContract)) - Double.parseDouble(monthFormat.format(beginContract));
+//        userDetails.setContractTerm(Double.parseDouble(decimalFormat.format(contractTerm / 12)));
+        return empMapper.updateEmp(userDetails);
     }
 
     public boolean delByUserId(String ids) {
@@ -61,21 +60,21 @@ public class EmpServiceImpl implements EmpService {
         return empMapper.delByUserId(split) == split.length;
     }
 
-    public List<Employee> getAllEmployees() {
+    public List<UserDetails> getAllEmployees() {
         return empMapper.getEmployeeByPage(null, null, "", null, null, null, null, null, null, null, null);
     }
 
-    public int addEmps(List<Employee> emps) {
+    public int addEmps(List<UserDetails> emps) {
         return empMapper.addEmps(emps);
     }
 
-    public List<Employee> getEmployeeByPageShort(Integer page, Integer size) {
+    public List<UserDetails> getEmployeeByPageShort(Integer page, Integer size) {
         int start = (page - 1) * size;
         return empMapper.getEmployeeByPageShort(start,size);
     }
 
     @Override
-    public List<Employee> getUserByPage(Map<String, Object> map) {
+    public List<UserDetails> getUserByPage(Map<String, Object> map) {
 
         return empMapper.getUserByPage(map);
     }
@@ -84,5 +83,20 @@ public class EmpServiceImpl implements EmpService {
     public Integer getUserByCount(Map<String, Object> map) {
         return empMapper.getUserByCount(map);
 
+    }
+
+    @Override
+    public void addUser(UserDetails userDetails) {
+        Integer workId = empMapper.getLastUserWorkId();
+        userDetails.setWorkID(workId+1);
+        empMapper.addUser(userDetails);
+        empMapper.addUserDetails(userDetails);
+
+    }
+
+    @Override
+    public void editUser(UserDetails userDetails) {
+        empMapper.editUser(userDetails);
+        empMapper.editUserDetails(userDetails);
     }
 }

@@ -23,9 +23,8 @@ public class User implements UserDetails {
     private boolean enabled;
     private String username;
     private String password;
-    private String remark;
     private List<Role> roles;
-    private String userface;
+
     @Override
     public boolean isEnabled() {
         return enabled;
@@ -62,14 +61,6 @@ public class User implements UserDetails {
     @Override
     public String getPassword() {
         return password;
-    }
-
-    public String getUserface() {
-        return userface;
-    }
-
-    public void setUserface(String userface) {
-        this.userface = userface;
     }
 
     public List<Role> getRoles() {
@@ -124,20 +115,11 @@ public class User implements UserDetails {
         this.enabled = enabled;
     }
 
-
     public void setUsername(String username) {
         this.username = username;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
     }
 }

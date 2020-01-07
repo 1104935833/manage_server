@@ -9,8 +9,8 @@
     <select id="getAllPolitics" resultType="hxc.manage.model.PoliticsStatus">
         select * from politicsstatus;
     </select>
-    <insert id="addEmp" parameterType="hxc.manage.model.Employee">
-            insert into employee (name, gender,
+    <insert id="addEmp" parameterType="hxc.manage.model.UserDetails">
+            insert into user_details (name, gender,
       birthday, idCard, wedlock, nationId,
       nativePlace, politicId, email,
       phone, address, departmentId,
@@ -32,9 +32,9 @@
       )
     </insert>
     <select id="getMaxWorkID" resultType="Long">
-        SELECT workID from employee where id=(select max(id) from employee)
+        SELECT workID from user_details where id=(select max(id) from user_details)
     </select>
-    <resultMap id="BaseResultMap" type="hxc.manage.model.Employee">
+    <resultMap id="BaseResultMap" type="hxc.manage.model.UserDetails">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="gender" property="gender"/>
@@ -104,7 +104,7 @@
     <select id="getEmployeeByPage" resultMap="BaseResultMap">
         select e.*,jl.`id` as jlid,jl.`name` as jlname,jl.`titleLevel` as jlTitleLevel,d.`id` as did,d.`name` as
         dname,n.`id` as nid,n.`name` as nname,p.`id` as pid,p.`name` as pname,ps.`id` as psid,ps.`name` as psname from
-        employee e,joblevel jl,department d,nation n,position p,politicsstatus ps where e.`posId`=p.`id` and
+        user_details e,joblevel jl,department d,nation n,position p,politicsstatus ps where e.`posId`=p.`id` and
         e.`jobLevelId`=jl.`id` and e.`departmentId`=d.id and e.`nationId`=n.`id` and e.`politicId`=ps.`id` and e.`name`
         like concat('%',#{keywords},'%')
         <if test="engageForm!=null and engageForm!=''">
@@ -133,7 +133,7 @@
         </if>
     </select>
     <select id="getCountByKeywords" resultType="Long">
-        SELECT count(*) FROM employee e WHERE e.name LIKE concat('%',#{keywords},'%')
+        SELECT count(*) FROM user_details e WHERE e.name LIKE concat('%',#{keywords},'%')
         <if test="engageForm!=null and engageForm!=''">
             AND e.engageForm=#{engageForm}
         </if>
@@ -157,7 +157,7 @@
         </if>
     </select>
     <update id="updateEmp">
-        update employee
+        update user_details
         <set>
             <if test="emp.name != null">
                 name = #{emp.name,jdbcType=VARCHAR},
@@ -237,15 +237,34 @@
         </set>
         where id = #{emp.id,jdbcType=BIGINT}
     </update>
+    <update id="editUser">
+      update `user` set
+          <if test="tree!='' or tree!=null">
+              tree=#{tree}
+          </if>
+        <if test="enabled!='' or enabled!=null">
+            ,enabled=#{enabled}
+        </if>
+        <if test="password!='' or password!=null">
+            ,password=#{password}
+        </if>
+        where id =
+        (select user_id from
+        (select user_id from `user_details` a,user b where a.user_id = b.id and a.id=#{id}) t1 )
+    </update>
+    <update id="editUserDetails">
+      update user_details set name=#{name},gender=#{gender},birthday=#{birthday},idCard=#{idCard},
+      email=#{email},phone=#{phone},address=#{address}
+    </update>
     <delete id="delByUserId">
-        update `user` set enabled = 0  WHERE id IN (select user_id from employee where id in
+        update `user` set enabled = 0  WHERE id IN (select user_id from user_details where id in
         <foreach collection="ids" separator="," open="(" close=")" item="id">
             #{id}
         </foreach>
         )
     </delete>
     <insert id="addEmps">
-        insert into employee (name, gender,
+        insert into user_details (name, gender,
         birthday, idCard, wedlock, nationId,
         nativePlace, politicId, email,
         phone, address, departmentId,
@@ -270,14 +289,43 @@
             )
         </foreach>
     </insert>
+    <insert id="addUserDetails">
+        insert into user_details (workID,name, gender,
+        birthday, idCard,email,
+        phone, address,user_id
+        )
+        values
+
+            (#{workID},#{name}, #{gender},
+            #{birthday}, #{idCard}, #{email},
+            #{phone}, #{address},#{user_id}
+            )
+
+    </insert>
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="user_id">
+        insert into `user`(username,tree) values (#{username},#{tree});
+    </insert>
     <select id="getEmployeeByPageShort" resultMap="BaseResultMap">
-select e.*,d.`id` as did,d.`name` as dname,s.`id` as sid,s.`accumulationFundBase`,s.`accumulationFundPer`,s.`allSalary`,s.`basicSalary`,s.`bonus`,s.`createDate`,s.`lunchSalary`,s.`medicalBase`,s.`medicalPer`,s.`name` as sname,s.`pensionBase`,s.`pensionPer`,s.`trafficSalary` from employee e left join department d on e.`departmentId`=d.id left join empsalary es on es.`eid`=e.`id` left join salary s on s.`id`=es.`sid` ORDER BY e.id limit #{start},#{size}
+select e.*,d.`id` as did,d.`name` as dname,s.`id` as sid,s.`accumulationFundBase`,s.`accumulationFundPer`,s.`allSalary`,s.`basicSalary`,s.`bonus`,s.`createDate`,s.`lunchSalary`,s.`medicalBase`,s.`medicalPer`,s.`name` as sname,s.`pensionBase`,s.`pensionPer`,s.`trafficSalary` from user_details e left join department d on e.`departmentId`=d.id left join empsalary es on es.`eid`=e.`id` left join salary s on s.`id`=es.`sid` ORDER BY e.id limit #{start},#{size}
     </select>
-    <select id="getUserByPage" resultType="hxc.manage.model.Employee">
-       select * from employee a,user b,tree_people c  where a.user_id=b.id and b.tree = c. tree_code
-        and c.state=1 and b.enabled=1
+    <select id="getUserByPage" resultType="hxc.manage.model.UserDetails">
+       select
+        a.id,
+        a.NAME,
+        a.gender,
+        a.workID,
+        a.birthday,
+        a.idCard,
+        a.email,
+        a.phone,
+        a.address,
+        b.enabled,
+        b.username,
+        b.tree
+        from user_details a,user b,tree_people c  where a.user_id=b.id and b.tree = c. tree_code
+
         <if test="rank==3">
-            and b.name=#{keywords}
+            and a.name like '%' #{keywords} '%'
         </if>
         <if test="rank==2">
             and c.name=#{keywords}
@@ -290,10 +338,10 @@ select e.*,d.`id` as did,d.`name` as dname,s.`id` as sid,s.`accumulationFundBase
         </if>
     </select>
     <select id="getUserByCount" resultType="java.lang.Integer">
-        select count(1) from employee a,user b,tree_people c  where a.user_id=b.id and b.tree = c. tree_code
+        select count(1) from user_details a,user b,tree_people c  where a.user_id=b.id and b.tree = c. tree_code
         and c.state=1 and b.enabled=1
         <if test="rank==3">
-            and b.name=#{keywords}
+            and a.name=#{keywords}
         </if>
         <if test="rank==2">
             and c.name=#{keywords}
@@ -301,5 +349,8 @@ select e.*,d.`id` as did,d.`name` as dname,s.`id` as sid,s.`accumulationFundBase
         <if test="rank==1">
             and c.parent_id in (select tree_code from tree_people where name =#{keywords} )
         </if>
+    </select>
+    <select id="getLastUserWorkId" resultType="java.lang.Integer">
+        select max(workID) from user_details;
     </select>
 </mapper>

@@ -73,7 +73,7 @@
     </select>
     <!--教师-->
     <select id="getAllTreePeople1" resultType="map" parameterType="java.lang.String">
-        select b.name from tree_people a,user b where  b.tree = a.tree_code and a.name = #{name}
+        select c.name from tree_people a,user b,user_details c where c.user_id = b.id and  b.tree = a.tree_code and a.name =  #{name}
 
     </select>
     <select id="getAllMenus" resultType="java.util.Map">

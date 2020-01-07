@@ -1,8 +1,8 @@
 package hxc.manage.mapper;
 
+import hxc.manage.model.UserDetails;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import hxc.manage.model.Employee;
 import hxc.manage.model.Nation;
 import hxc.manage.model.PoliticsStatus;
 
@@ -21,23 +21,32 @@ public interface EmpMapper {
 
     List<PoliticsStatus> getAllPolitics();
 
-    int addEmp(Employee employee);
+    int addEmp(UserDetails userDetails);
 
     Long getMaxWorkID();
 
-    List<Employee> getEmployeeByPage(@Param("start") Integer start, @Param("size") Integer size, @Param("keywords") String keywords, @Param("politicId") Long politicId, @Param("nationId") Long nationId, @Param("posId") Long posId, @Param("jobLevelId") Long jobLevelId, @Param("engageForm") String engageForm, @Param("departmentId")Long  departmentId, @Param("startBeginDate") Date startBeginDate, @Param("endBeginDate") Date endBeginDate);
+    List<UserDetails> getEmployeeByPage(@Param("start") Integer start, @Param("size") Integer size, @Param("keywords") String keywords, @Param("politicId") Long politicId, @Param("nationId") Long nationId, @Param("posId") Long posId, @Param("jobLevelId") Long jobLevelId, @Param("engageForm") String engageForm, @Param("departmentId")Long  departmentId, @Param("startBeginDate") Date startBeginDate, @Param("endBeginDate") Date endBeginDate);
 
     Long getCountByKeywords(@Param("keywords") String keywords, @Param("politicId") Long politicId, @Param("nationId") Long nationId, @Param("posId") Long posId, @Param("jobLevelId") Long jobLevelId, @Param("engageForm") String engageForm, @Param("departmentId")Long  departmentId, @Param("startBeginDate") Date startBeginDate, @Param("endBeginDate") Date endBeginDate);
 
-    int updateEmp(@Param("emp") Employee employee);
+    int updateEmp(@Param("emp") UserDetails userDetails);
 
     int delByUserId(@Param("ids") String[] ids);
 
-    int addEmps(@Param("emps") List<Employee> emps);
+    int addEmps(@Param("emps") List<UserDetails> emps);
 
-    List<Employee> getEmployeeByPageShort(@Param("start") int start, @Param("size") Integer size);
+    List<UserDetails> getEmployeeByPageShort(@Param("start") int start, @Param("size") Integer size);
 
-    List<Employee> getUserByPage(Map<String, Object> map);
+    List<UserDetails> getUserByPage(Map<String, Object> map);
 
     Integer getUserByCount(Map<String, Object> map);
+
+    Integer getLastUserWorkId();
+
+    void addUserDetails(UserDetails userDetails);
+
+    Integer addUser(UserDetails userDetails);
+
+    void editUser(UserDetails userDetails);
+    void editUserDetails(UserDetails userDetails);
 }

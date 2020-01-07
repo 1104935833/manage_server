@@ -1,19 +1,15 @@
 package hxc.manage.controller.salary;
 
 import hxc.manage.service.SalaryService;
-import hxc.manage.model.Employee;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.Salary;
 import hxc.manage.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author hxc
@@ -46,7 +42,7 @@ public class SalaryEmpController {
 //    @RequestMapping(value = "/emp", method = RequestMethod.GET)
 //    public Map<String, Object> getEmployeeByPage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer size) {
 //        Map<String, Object> map = new HashMap<>();
-//        List<Employee> employeeByPage = empService.getEmployeeByPageShort(page, size);
+//        List<UserDetails> employeeByPage = empService.getEmployeeByPageShort(page, size);
 //        Long count = empService.getCountByKeywords("", null, null, null, null, null, null, null);
 //        map.put("emps", employeeByPage);
 //        map.put("count", count);

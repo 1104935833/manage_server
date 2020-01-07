@@ -27,7 +27,7 @@
         </collection>
     </resultMap>
     <select id="loadUserByUsername" resultMap="lazyLoadRoles">
-        select * from user WHERE username=#{username};
+        select * from `user` a,user_details b  where a.id= b.user_id and  a.username = #{username};
     </select>
     <select id="getRolesByUserId" resultType="hxc.manage.model.Role">
         SELECT r.* FROM user_role h,role r where h.rid=r.id AND h.userid=#{id}
