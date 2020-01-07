@@ -22,7 +22,7 @@ public class UserDetails implements Serializable {
     private String phone;
     private String address;
     private String department;
-    private Integer workID;
+    private String workID;
     private Integer enabled;
     private String user_id;
     private String password;

@@ -251,9 +251,9 @@ public class PoiUtils {
                 case 1:
                     userDetails.setName(cellValue);
                     break;
-                case 2:
-                    userDetails.setWorkID(Integer.valueOf(cellValue));
-                    break;
+//                case 2:
+//                    userDetails.setWorkID(Integer.valueOf(cellValue));
+//                    break;
                 case 3:
                     userDetails.setGender(cellValue);
                     break;

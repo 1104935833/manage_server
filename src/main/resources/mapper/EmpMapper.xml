@@ -254,7 +254,7 @@
     </update>
     <update id="editUserDetails">
       update user_details set name=#{name},gender=#{gender},birthday=#{birthday},idCard=#{idCard},
-      email=#{email},phone=#{phone},address=#{address}
+      email=#{email},phone=#{phone},address=#{address} where id = #{id}
     </update>
     <delete id="delByUserId">
         update `user` set enabled = 0  WHERE id IN (select user_id from user_details where id in

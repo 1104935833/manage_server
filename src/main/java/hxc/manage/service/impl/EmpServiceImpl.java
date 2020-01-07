@@ -88,7 +88,7 @@ public class EmpServiceImpl implements EmpService {
     @Override
     public void addUser(UserDetails userDetails) {
         Integer workId = empMapper.getLastUserWorkId();
-        userDetails.setWorkID(workId+1);
+        userDetails.setWorkID(String.format("%08d", workId+1));
         empMapper.addUser(userDetails);
         empMapper.addUserDetails(userDetails);
 
