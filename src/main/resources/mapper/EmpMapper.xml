@@ -215,7 +215,7 @@ FROM
 
     </insert>
     <insert id="addUser" useGeneratedKeys="true" keyProperty="user_id">
-        insert into `user`(username,tree) values (#{username},#{tree});
+        insert into `user`(tree) values (#{tree});
     </insert>
     <select id="getEmployeeByPageShort" resultMap="BaseResultMap">
 select e.*,d.`id` as did,d.`name` as dname,s.`id` as sid,s.`accumulationFundBase`,s.`accumulationFundPer`,s.`allSalary`,s.`basicSalary`,s.`bonus`,s.`createDate`,s.`lunchSalary`,s.`medicalBase`,s.`medicalPer`,s.`name` as sname,s.`pensionBase`,s.`pensionPer`,s.`trafficSalary` from user_details e left join department d on e.`departmentId`=d.id left join empsalary es on es.`eid`=e.`id` left join salary s on s.`id`=es.`sid` ORDER BY e.id limit #{start},#{size}
@@ -232,7 +232,6 @@ select e.*,d.`id` as did,d.`name` as dname,s.`id` as sid,s.`accumulationFundBase
         a.phone,
         a.address,
         b.enabled,
-        b.username,
         b.tree
         from user_details a,user b,tree_people c  where a.user_id=b.id and b.tree = c. tree_code
 

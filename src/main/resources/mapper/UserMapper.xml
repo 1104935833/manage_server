@@ -10,10 +10,7 @@
         <result column="telephone" property="telephone"/>
         <result column="address" property="address"/>
         <result column="enabled" property="enabled"/>
-        <result column="username" property="username"/>
         <result column="password" property="password"/>
-        <result column="userface" property="userface"/>
-        <result column="remark" property="remark"/>
     </resultMap>
     <resultMap id="lazyLoadRoles" type="hxc.manage.model.User" extends="BaseResultMap">
         <collection property="roles" ofType="hxc.manage.model.Role" select="hxc.manage.mapper.UserMapper.getRolesByUserId"
@@ -27,7 +24,7 @@
         </collection>
     </resultMap>
     <select id="loadUserByUsername" resultMap="lazyLoadRoles">
-        select * from `user` a,user_details b  where a.id= b.user_id and  a.username = #{username};
+        select * from `user` a,user_details b  where a.id= b.user_id and  b.workID = #{username};
     </select>
     <select id="getRolesByUserId" resultType="hxc.manage.model.Role">
         SELECT r.* FROM user_role h,role r where h.rid=r.id AND h.userid=#{id}
@@ -65,9 +62,6 @@
             </if>
             <if test="enabled != null">
                 enabled = #{enabled,jdbcType=BIT},
-            </if>
-            <if test="username != null">
-                username = #{username,jdbcType=VARCHAR},
             </if>
             <if test="password != null">
                 password = #{password,jdbcType=VARCHAR},
