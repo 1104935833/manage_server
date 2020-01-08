@@ -50,8 +50,6 @@ public class EmpServiceImpl implements EmpService {
         return list;
     }
 
-
-
     @Override
     public List<UserDetails> getUserByPage(Map<String, Object> map) {
 
@@ -63,7 +61,6 @@ public class EmpServiceImpl implements EmpService {
         return empMapper.getUserByCount(map);
 
     }
-
 
     @Override
     public int addUser(List<UserDetails> emps) {

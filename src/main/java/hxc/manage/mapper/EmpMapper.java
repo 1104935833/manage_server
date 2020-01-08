@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import hxc.manage.model.Nation;
 import hxc.manage.model.PoliticsStatus;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
@@ -16,44 +17,30 @@ import java.util.Map;
  * @date 2019/12/27 14:26
  */
 @Mapper
+@Component
 public interface EmpMapper {
-//    List<Nation> getAllNations();
 
-//    List<PoliticsStatus> getAllPolitics();
+    List<UserDetails> getEmployeeByPage();
 
-//    int addEmp(UserDetails userDetails);
+    List<Map<String, Object>> getAllTreePeople(@Param("name") String name);
 
-//    Long getMaxWorkID();
+    List<Map<String, Object>> getAllTreePeople1(@Param("name") String name);
 
-    List<UserDetails> getEmployeeByPage();//
+    int delByUserId(@Param("ids") String[] ids);
 
-    List<Map<String, Object>> getAllTreePeople(@Param("name") String name);//
+    int addEmps(@Param("emps") List<UserDetails> emps);
 
-    List<Map<String, Object>> getAllTreePeople1(@Param("name") String name);//
+    List<UserDetails> getUserByPage(Map<String, Object> map);
 
-//    Long getCountByKeywords(@Param("keywords") String keywords, @Param("politicId") Long politicId, @Param("nationId") Long nationId, @Param("posId") Long posId, @Param("jobLevelId") Long jobLevelId, @Param("engageForm") String engageForm, @Param("departmentId")Long  departmentId, @Param("startBeginDate") Date startBeginDate, @Param("endBeginDate") Date endBeginDate);
+    Integer getUserByCount(Map<String, Object> map);
 
-//    int updateEmp(@Param("emp") UserDetails userDetails);
+    Integer getLastUserWorkId();
 
-    int delByUserId(@Param("ids") String[] ids);//
+    Integer addUser(UserDetails userDetails);
 
-    int addEmps(@Param("emps") List<UserDetails> emps);//
+    void editUser(UserDetails userDetails);
 
-//    List<UserDetails> getEmployeeByPageShort(@Param("start") int start, @Param("size") Integer size);
+    void editUserDetails(UserDetails userDetails);
 
-    List<UserDetails> getUserByPage(Map<String, Object> map);//
-
-    Integer getUserByCount(Map<String, Object> map);//
-
-    Integer getLastUserWorkId();//
-
-//    void addUserDetails(UserDetails userDetails);
-
-    Integer addUser(UserDetails userDetails);//
-
-    void editUser(UserDetails userDetails);//
-
-    void editUserDetails(UserDetails userDetails);//
-
-    List<UserDetails> searchInfo(@Param("map")Map<String, Object> map,@Param("emp") UserDetails userDetails);//
+    List<UserDetails> searchInfo(@Param("map")Map<String, Object> map,@Param("emp") UserDetails userDetails);
 }

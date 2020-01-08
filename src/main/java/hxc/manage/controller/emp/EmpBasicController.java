@@ -39,6 +39,7 @@ public class EmpBasicController {
         return RespBean.error("删除失败!");
 
     }
+
     //    获取用户管理左侧树节点
     @GetMapping(value = "/treepeople")
     public List<Map<String, Object>> getAllTreePeople(@RequestParam("name") String name) {
@@ -147,31 +148,32 @@ public class EmpBasicController {
           * @return
           */
       public static Map<String, Object> convertBeanToMap(Object obj) {
-        if (obj == null) {
-            return null;
-        }
-        Map<String, Object> map = new HashMap<String, Object>();
-        try {
-            BeanInfo beanInfo = Introspector.getBeanInfo(obj.getClass());
-            PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-            for (PropertyDescriptor property : propertyDescriptors) {
-                String key = property.getName();
-                // 过滤class属性
-                if (!key.equals("class")) {
-                    // 得到property对应的getter方法
-                    Method getter = property.getReadMethod();
-                    Object value = getter.invoke(obj);
-                    if(null==value){
-                      map.put(key,"");
-                    }else{
-                      map.put(key,value);
-                    }
-                }
-            }
-        } catch (Exception e) {
+          if (obj == null) {
+              return null;
+          }
+          Map<String, Object> map = new HashMap<String, Object>();
+          try {
+              BeanInfo beanInfo = Introspector.getBeanInfo(obj.getClass());
+              PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+              for (PropertyDescriptor property : propertyDescriptors) {
+                  String key = property.getName();
+                  // 过滤class属性
+                  if (!key.equals("class")) {
+                      // 得到property对应的getter方法
+                      Method getter = property.getReadMethod();
+                      Object value = getter.invoke(obj);
+                      if(null==value){
+                          map.put(key,"");
+                      }else{
+                          map.put(key,value);
+                      }
+                  }
+              }
+          } catch (Exception e) {
 
-        }
-        return map;
-        }
+          }
+          return map;
+      }
+
 }
 

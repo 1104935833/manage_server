@@ -3,37 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="hxc.manage.mapper.EmpMapper">
-    <select id="getAllNations" resultType="hxc.manage.model.Nation">
-        select * from nation;
-    </select>
-    <select id="getAllPolitics" resultType="hxc.manage.model.PoliticsStatus">
-        select * from politicsstatus;
-    </select>
-    <insert id="addEmp" parameterType="hxc.manage.model.UserDetails">
-            insert into user_details (name, gender,
-      birthday, idCard, wedlock, nationId,
-      nativePlace, politicId, email,
-      phone, address, departmentId,
-      jobLevelId, posId, engageForm,
-      tiptopDegree, specialty, school,
-      beginDate,workID,
-      contractTerm, conversionTime,
-      beginContract, endContract, workAge
-      )
-    values (#{name,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR},
-      #{birthday,jdbcType=DATE}, #{idCard,jdbcType=CHAR}, #{wedlock,jdbcType=CHAR}, #{nationId,jdbcType=INTEGER},
-      #{nativePlace,jdbcType=VARCHAR}, #{politicId,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR},
-      #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER},
-      #{jobLevelId,jdbcType=INTEGER}, #{posId,jdbcType=INTEGER}, #{engageForm,jdbcType=VARCHAR},
-      #{tiptopDegree,jdbcType=VARCHAR}, #{specialty,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR},
-      #{beginDate,jdbcType=DATE},#{workID,jdbcType=BIGINT},
-      #{contractTerm,jdbcType=BIGINT}, #{conversionTime,jdbcType=DATE},
-      #{beginContract,jdbcType=DATE}, #{endContract,jdbcType=DATE}, #{workAge,jdbcType=INTEGER}
-      )
-    </insert>
-    <select id="getMaxWorkID" resultType="Long">
-        SELECT workID from user_details where id=(select max(id) from user_details)
-    </select>
     <resultMap id="BaseResultMap" type="hxc.manage.model.UserDetails">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
@@ -60,111 +29,7 @@ FROM
 	user_details e ,user a
 	where e.user_id = a.id
     </select>
-    <select id="getCountByKeywords" resultType="Long">
-        SELECT count(*) FROM user_details e WHERE e.name LIKE concat('%',#{keywords},'%')
-        <if test="engageForm!=null and engageForm!=''">
-            AND e.engageForm=#{engageForm}
-        </if>
-        <if test="politicId!=null and politicId!=''">
-            AND e.politicId=#{politicId}
-        </if>
-        <if test="nationId!=null and nationId!=''">
-            AND e.nationId=#{nationId}
-        </if>
-        <if test="posId!=null and posId!=''">
-            AND e.posId=#{posId}
-        </if>
-        <if test="jobLevelId!=null and jobLevelId!=''">
-            AND e.jobLevelId=#{jobLevelId}
-        </if>
-        <if test="departmentId!=null and departmentId!=''">
-            AND e.departmentId=#{departmentId}
-        </if>
-        <if test="startBeginDate!=null and endBeginDate!=null">
-            AND e.beginDate BETWEEN #{startBeginDate} AND #{endBeginDate}
-        </if>
-    </select>
-    <update id="updateEmp">
-        update user_details
-        <set>
-            <if test="emp.name != null">
-                name = #{emp.name,jdbcType=VARCHAR},
-            </if>
-            <if test="emp.gender != null">
-                gender = #{emp.gender,jdbcType=CHAR},
-            </if>
-            <if test="emp.birthday != null">
-                birthday = #{emp.birthday,jdbcType=DATE},
-            </if>
-            <if test="emp.idCard != null">
-                idCard = #{emp.idCard,jdbcType=CHAR},
-            </if>
-            <if test="emp.wedlock != null">
-                wedlock = #{emp.wedlock,jdbcType=CHAR},
-            </if>
-            <if test="emp.nationId != null">
-                nationId = #{emp.nationId,jdbcType=INTEGER},
-            </if>
-            <if test="emp.nativePlace != null">
-                nativePlace = #{emp.nativePlace,jdbcType=VARCHAR},
-            </if>
-            <if test="emp.politicId != null">
-                politicId = #{emp.politicId,jdbcType=INTEGER},
-            </if>
-            <if test="emp.email != null">
-                email = #{emp.email,jdbcType=VARCHAR},
-            </if>
-            <if test="emp.phone != null">
-                phone = #{emp.phone,jdbcType=VARCHAR},
-            </if>
-            <if test="emp.address != null">
-                address = #{emp.address,jdbcType=VARCHAR},
-            </if>
-            <if test="emp.departmentId != null">
-                departmentId = #{emp.departmentId,jdbcType=INTEGER},
-            </if>
-            <if test="emp.jobLevelId != null">
-                jobLevelId = #{emp.jobLevelId,jdbcType=INTEGER},
-            </if>
-            <if test="emp.posId != null">
-                posId = #{emp.posId,jdbcType=INTEGER},
-            </if>
-            <if test="emp.engageForm != null">
-                engageForm = #{emp.engageForm,jdbcType=VARCHAR},
-            </if>
-            <if test="emp.tiptopDegree != null">
-                tiptopDegree = #{emp.tiptopDegree,jdbcType=CHAR},
-            </if>
-            <if test="emp.specialty != null">
-                specialty = #{emp.specialty,jdbcType=VARCHAR},
-            </if>
-            <if test="emp.school != null">
-                school = #{emp.school,jdbcType=VARCHAR},
-            </if>
-            <if test="emp.beginDate != null">
-                beginDate = #{emp.beginDate,jdbcType=DATE},
-            </if>
-            <if test="emp.workState != null">
-                workState = #{emp.workState,jdbcType=CHAR},
-            </if>
-            <if test="emp.contractTerm != null">
-                contractTerm = #{emp.contractTerm,jdbcType=DOUBLE},
-            </if>
-            <if test="emp.conversionTime != null">
-                conversionTime = #{emp.conversionTime,jdbcType=DATE},
-            </if>
-            <if test="emp.notWorkDate != null">
-                notWorkDate = #{emp.notWorkDate,jdbcType=DATE},
-            </if>
-            <if test="emp.beginContract != null">
-                beginContract = #{emp.beginContract,jdbcType=DATE},
-            </if>
-            <if test="emp.endContract != null">
-                endContract = #{emp.endContract,jdbcType=DATE},
-            </if>
-        </set>
-        where id = #{emp.id,jdbcType=BIGINT}
-    </update>
+
     <update id="editUser">
       update `user` set
           <if test="tree!='' or tree!=null">
@@ -217,25 +82,11 @@ FROM
             )
         </foreach>
     </insert>
-    <insert id="addUserDetails">
-        insert into user_details (workID,name, gender,
-        birthday, idCard,email,
-        phone, address,user_id
-        )
-        values
 
-            (#{workID},#{name}, #{gender},
-            #{birthday}, #{idCard}, #{email},
-            #{phone}, #{address},#{user_id}
-            )
-
-    </insert>
     <insert id="addUser" useGeneratedKeys="true" keyProperty="user_id">
         insert into `user`(tree) values (#{tree});
     </insert>
-    <select id="getEmployeeByPageShort" resultMap="BaseResultMap">
-select e.*,d.`id` as did,d.`name` as dname,s.`id` as sid,s.`accumulationFundBase`,s.`accumulationFundPer`,s.`allSalary`,s.`basicSalary`,s.`bonus`,s.`createDate`,s.`lunchSalary`,s.`medicalBase`,s.`medicalPer`,s.`name` as sname,s.`pensionBase`,s.`pensionPer`,s.`trafficSalary` from user_details e left join department d on e.`departmentId`=d.id left join empsalary es on es.`eid`=e.`id` left join salary s on s.`id`=es.`sid` ORDER BY e.id limit #{start},#{size}
-    </select>
+
     <select id="getUserByPage" resultType="hxc.manage.model.UserDetails">
        select
         a.id,

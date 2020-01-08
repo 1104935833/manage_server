@@ -24,8 +24,6 @@ public interface MenuMapper {
 
     List<Long> getMenusByRid(Long rid);
 
-
-
     List<Map<String, Object>> getAllMenus(Map<String, Object> map);
 
     Integer getMenuCount();
