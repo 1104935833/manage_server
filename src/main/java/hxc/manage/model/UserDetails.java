@@ -14,7 +14,7 @@ public class UserDetails implements Serializable {
     private Integer id;
     private String name;
     private String gender;
-    private Date birthday;
+    private String birthday;
     private String idCard;
     private String nation;
     private String username;
@@ -27,5 +27,6 @@ public class UserDetails implements Serializable {
     private String user_id;
     private String password;
     private String tree;
+    private Integer page;
 
 }

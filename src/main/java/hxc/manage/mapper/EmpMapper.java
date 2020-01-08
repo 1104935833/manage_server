@@ -25,7 +25,7 @@ public interface EmpMapper {
 
     Long getMaxWorkID();
 
-    List<UserDetails> getEmployeeByPage(@Param("start") Integer start, @Param("size") Integer size, @Param("keywords") String keywords, @Param("politicId") Long politicId, @Param("nationId") Long nationId, @Param("posId") Long posId, @Param("jobLevelId") Long jobLevelId, @Param("engageForm") String engageForm, @Param("departmentId")Long  departmentId, @Param("startBeginDate") Date startBeginDate, @Param("endBeginDate") Date endBeginDate);
+    List<UserDetails> getEmployeeByPage();
 
     Long getCountByKeywords(@Param("keywords") String keywords, @Param("politicId") Long politicId, @Param("nationId") Long nationId, @Param("posId") Long posId, @Param("jobLevelId") Long jobLevelId, @Param("engageForm") String engageForm, @Param("departmentId")Long  departmentId, @Param("startBeginDate") Date startBeginDate, @Param("endBeginDate") Date endBeginDate);
 
@@ -49,4 +49,6 @@ public interface EmpMapper {
 
     void editUser(UserDetails userDetails);
     void editUserDetails(UserDetails userDetails);
+
+    List<UserDetails> searchInfo(@Param("map")Map<String, Object> map,@Param("emp") UserDetails userDetails);
 }

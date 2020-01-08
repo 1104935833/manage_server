@@ -38,7 +38,6 @@ public class MenuServiceImpl implements MenuService {
         for (Map<String, Object> map : list) {
             map.remove("parent_id");
             map.remove("id");
-//            map.remove("tree_code");
             map.remove("state");
         }
         return list;

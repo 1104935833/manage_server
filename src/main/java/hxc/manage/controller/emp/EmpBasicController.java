@@ -13,6 +13,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.beans.BeanInfo;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,16 +81,21 @@ public class EmpBasicController {
         return map;
     }
 
-    @PostMapping("/adduser")
-    public RespBean addUser(UserDetails userDetails){
-    try {
-        empService.addUser(userDetails);
-        return RespBean.ok("添加成功！");
-    }catch(Exception e){
-        e.printStackTrace();
+
+
+    @PostMapping("/searchinfo")
+    public Map<String, Object> searchInfo(UserDetails userDetails){
+        int start = (userDetails.getPage() - 1) * 10;
+        Map<String, Object> map = new HashMap<>();
+        map.put("size",10);
+        map.put("start",start);
+
+        List<UserDetails> userDetailsByPage =empService.searchInfo(map,userDetails);
+        map.put("count",empService.getUserByCount(convertBeanToMap(userDetails)));
+        map.put("users", userDetailsByPage);
+        return map;
     }
-        return RespBean.ok("添加失败！");
-    }
+
 
     @PostMapping("/edituser")
     public RespBean edituser(UserDetails userDetails, BindingResult bindingResult){
@@ -108,17 +118,26 @@ public class EmpBasicController {
 
     @RequestMapping(value = "/importEmp", method = RequestMethod.POST)
     public RespBean importEmp(MultipartFile file) {
-        List<UserDetails> emps = PoiUtils.importEmp2List(file,
-                empService.getAllNations(), empService.getAllPolitics(),
-                departmentService.getAllDeps(), positionService.getAllPos(),
-                jobLevelService.getAllJobLevels());
-        if (empService.addEmps(emps) == emps.size()) {
+        List<UserDetails> emps = PoiUtils.importEmp2List(file);
+
+        if (empService.addUser(emps) == emps.size()) {
             return RespBean.ok("导入成功!");
         }
         return RespBean.error("导入失败!");
     }
 
-
+    @PostMapping("/adduser")
+    public RespBean addUser(UserDetails userDetails){
+        try {
+            List<UserDetails> emps =new ArrayList<>();
+            emps.add(userDetails);
+            empService.addUser(emps);
+            return RespBean.ok("添加成功！");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return RespBean.ok("添加失败！");
+    }
     private Map<String,Object> keyVaildata(String keywords,Map<String,Object> map){
         if(keywords.indexOf("教研室")>-1){
             map.put("rank",2);
@@ -129,5 +148,41 @@ public class EmpBasicController {
         }
         return map;
     }
+    /**
+          * 实体类转map
+          * @param obj
+          * @return
+          */
+  public static Map<String, Object> convertBeanToMap(Object obj) {
+  if (obj == null) {
+      return null;
+ }
+ Map<String, Object> map = new HashMap<String, Object>();
+ try {
+  BeanInfo beanInfo = Introspector.getBeanInfo(obj.getClass());
+  PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+  for (PropertyDescriptor property : propertyDescriptors) {
+   String key = property.getName();
+   // 过滤class属性
+   if (!key.equals("class")) {
+    // 得到property对应的getter方法
+    Method getter = property.getReadMethod();
+    Object value = getter.invoke(obj);
+    if(null==value){
+      map.put(key,"");
+    }else{
+      map.put(key,value);
+    }
+   }
+
+
+
+
+  }
+ } catch (Exception e) {
+
+ }
+ return map;
+  }
 }
 

@@ -61,12 +61,10 @@ public class EmpServiceImpl implements EmpService {
     }
 
     public List<UserDetails> getAllEmployees() {
-        return empMapper.getEmployeeByPage(null, null, "", null, null, null, null, null, null, null, null);
+        return empMapper.getEmployeeByPage();
     }
 
-    public int addEmps(List<UserDetails> emps) {
-        return empMapper.addEmps(emps);
-    }
+
 
     public List<UserDetails> getEmployeeByPageShort(Integer page, Integer size) {
         int start = (page - 1) * size;
@@ -85,12 +83,21 @@ public class EmpServiceImpl implements EmpService {
 
     }
 
+//    public int addEmps(List<UserDetails> emps) {
+//
+//        empMapper.addUser(emps);
+//        return empMapper.addEmps(emps);
+//    }
+
     @Override
-    public void addUser(UserDetails userDetails) {
+    public int addUser(List<UserDetails> emps) {
         Integer workId = empMapper.getLastUserWorkId();
-        userDetails.setWorkID(String.format("%08d", workId+1));
-        empMapper.addUser(userDetails);
-        empMapper.addUserDetails(userDetails);
+        for (UserDetails u : emps) {
+             empMapper.addUser(u);
+//            u.setUser_id(u.getId()+"");
+            u.setWorkID(String.format("%08d", workId + 1));
+        }
+        return empMapper.addEmps(emps);
 
     }
 
@@ -98,5 +105,11 @@ public class EmpServiceImpl implements EmpService {
     public void editUser(UserDetails userDetails) {
         empMapper.editUser(userDetails);
         empMapper.editUserDetails(userDetails);
+    }
+
+    @Override
+    public List<UserDetails> searchInfo(Map<String, Object> map, UserDetails userDetails) {
+        List<UserDetails> list =empMapper.searchInfo(map,userDetails);
+        return list;
     }
 }
