@@ -19,9 +19,6 @@ public interface MenuService {
 
     List<Menu> getAllMenu();
 
-    List<Map<String, Object>> getAllTreePeople(String name);
-
-    List<Map<String, Object>> getAllTreePeople1(String name);
 
     Map<String, Object> getAllMenus(Map<String, Object> map);
 

@@ -1,12 +1,9 @@
 package hxc.manage.controller.emp;
 
 import hxc.manage.model.UserDetails;
-import hxc.manage.service.JobLevelService;
-import hxc.manage.service.PositionService;
+import hxc.manage.service.*;
 import hxc.manage.model.RespBean;
 import hxc.manage.common.poi.PoiUtils;
-import hxc.manage.service.DepartmentService;
-import hxc.manage.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -34,17 +31,6 @@ public class EmpBasicController {
     @Autowired
     EmpService empService;
 
-    @Autowired
-    DepartmentService departmentService;
-
-    @Autowired
-    PositionService positionService;
-
-    @Autowired
-    JobLevelService jobLevelService;
-
-
-
     @GetMapping("/delByUserId")
     public RespBean delByUserId(@RequestParam("id") String id){
         if(empService.delByUserId(id)){
@@ -53,7 +39,18 @@ public class EmpBasicController {
         return RespBean.error("删除失败!");
 
     }
-
+    //    获取用户管理左侧树节点
+    @GetMapping(value = "/treepeople")
+    public List<Map<String, Object>> getAllTreePeople(@RequestParam("name") String name) {
+        List<Map<String, Object>> list;
+        int tmp = name.indexOf("教研室");
+        if(tmp==-1){
+            list= empService.getAllTreePeople(name);
+        }else {
+            list= empService.getAllTreePeople1(name);
+        }
+        return list;
+    }
 
     @GetMapping("/count")
     public Map<String, Object> getUserByCount(@RequestParam(defaultValue = "") String keywords){
@@ -64,7 +61,6 @@ public class EmpBasicController {
         map.put("count",count);
         return map;
     }
-
 
     @RequestMapping("/getUserByPage")
     public Map<String, Object> getUserByPage(@RequestParam(defaultValue = "1") Integer page,
@@ -80,8 +76,6 @@ public class EmpBasicController {
         map.put("users", userDetailsByPage);
         return map;
     }
-
-
 
     @PostMapping("/searchinfo")
     public Map<String, Object> searchInfo(UserDetails userDetails){
@@ -108,8 +102,6 @@ public class EmpBasicController {
         }
         return RespBean.ok("添加失败！");
     }
-
-
 
     @RequestMapping(value = "/exportEmp", method = RequestMethod.GET)
     public ResponseEntity<byte[]> exportEmp() {
@@ -138,6 +130,7 @@ public class EmpBasicController {
         }
         return RespBean.ok("添加失败！");
     }
+
     private Map<String,Object> keyVaildata(String keywords,Map<String,Object> map){
         if(keywords.indexOf("教研室")>-1){
             map.put("rank",2);
@@ -153,36 +146,32 @@ public class EmpBasicController {
           * @param obj
           * @return
           */
-  public static Map<String, Object> convertBeanToMap(Object obj) {
-  if (obj == null) {
-      return null;
- }
- Map<String, Object> map = new HashMap<String, Object>();
- try {
-  BeanInfo beanInfo = Introspector.getBeanInfo(obj.getClass());
-  PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-  for (PropertyDescriptor property : propertyDescriptors) {
-   String key = property.getName();
-   // 过滤class属性
-   if (!key.equals("class")) {
-    // 得到property对应的getter方法
-    Method getter = property.getReadMethod();
-    Object value = getter.invoke(obj);
-    if(null==value){
-      map.put(key,"");
-    }else{
-      map.put(key,value);
-    }
-   }
+      public static Map<String, Object> convertBeanToMap(Object obj) {
+        if (obj == null) {
+            return null;
+        }
+        Map<String, Object> map = new HashMap<String, Object>();
+        try {
+            BeanInfo beanInfo = Introspector.getBeanInfo(obj.getClass());
+            PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+            for (PropertyDescriptor property : propertyDescriptors) {
+                String key = property.getName();
+                // 过滤class属性
+                if (!key.equals("class")) {
+                    // 得到property对应的getter方法
+                    Method getter = property.getReadMethod();
+                    Object value = getter.invoke(obj);
+                    if(null==value){
+                      map.put(key,"");
+                    }else{
+                      map.put(key,value);
+                    }
+                }
+            }
+        } catch (Exception e) {
 
-
-
-
-  }
- } catch (Exception e) {
-
- }
- return map;
-  }
+        }
+        return map;
+        }
 }
 

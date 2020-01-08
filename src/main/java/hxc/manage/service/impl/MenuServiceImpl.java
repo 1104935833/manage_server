@@ -31,25 +31,7 @@ public class MenuServiceImpl implements MenuService {
         return menuMapper.getAllMenu();
     }
 
-    @Override
-    public List<Map<String, Object>> getAllTreePeople(String name) {
-        List<Map<String,Object>> list;
-        list= menuMapper.getAllTreePeople(name);
-        for (Map<String, Object> map : list) {
-            map.remove("parent_id");
-            map.remove("id");
-            map.remove("state");
-        }
-        return list;
-    }
 
-    @Override
-    public List<Map<String, Object>> getAllTreePeople1(String name) {
-        List<Map<String,Object>> list;
-        list= menuMapper.getAllTreePeople1(name);
-
-        return list;
-    }
 
     public List<Menu> getMenusByUserId() {
         return menuMapper.getMenusByUserId(UserUtils.getCurrentUser().getId());

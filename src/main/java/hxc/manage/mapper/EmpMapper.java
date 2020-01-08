@@ -17,38 +17,43 @@ import java.util.Map;
  */
 @Mapper
 public interface EmpMapper {
-    List<Nation> getAllNations();
+//    List<Nation> getAllNations();
 
-    List<PoliticsStatus> getAllPolitics();
+//    List<PoliticsStatus> getAllPolitics();
 
-    int addEmp(UserDetails userDetails);
+//    int addEmp(UserDetails userDetails);
 
-    Long getMaxWorkID();
+//    Long getMaxWorkID();
 
-    List<UserDetails> getEmployeeByPage();
+    List<UserDetails> getEmployeeByPage();//
 
-    Long getCountByKeywords(@Param("keywords") String keywords, @Param("politicId") Long politicId, @Param("nationId") Long nationId, @Param("posId") Long posId, @Param("jobLevelId") Long jobLevelId, @Param("engageForm") String engageForm, @Param("departmentId")Long  departmentId, @Param("startBeginDate") Date startBeginDate, @Param("endBeginDate") Date endBeginDate);
+    List<Map<String, Object>> getAllTreePeople(@Param("name") String name);//
 
-    int updateEmp(@Param("emp") UserDetails userDetails);
+    List<Map<String, Object>> getAllTreePeople1(@Param("name") String name);//
 
-    int delByUserId(@Param("ids") String[] ids);
+//    Long getCountByKeywords(@Param("keywords") String keywords, @Param("politicId") Long politicId, @Param("nationId") Long nationId, @Param("posId") Long posId, @Param("jobLevelId") Long jobLevelId, @Param("engageForm") String engageForm, @Param("departmentId")Long  departmentId, @Param("startBeginDate") Date startBeginDate, @Param("endBeginDate") Date endBeginDate);
 
-    int addEmps(@Param("emps") List<UserDetails> emps);
+//    int updateEmp(@Param("emp") UserDetails userDetails);
 
-    List<UserDetails> getEmployeeByPageShort(@Param("start") int start, @Param("size") Integer size);
+    int delByUserId(@Param("ids") String[] ids);//
 
-    List<UserDetails> getUserByPage(Map<String, Object> map);
+    int addEmps(@Param("emps") List<UserDetails> emps);//
 
-    Integer getUserByCount(Map<String, Object> map);
+//    List<UserDetails> getEmployeeByPageShort(@Param("start") int start, @Param("size") Integer size);
 
-    Integer getLastUserWorkId();
+    List<UserDetails> getUserByPage(Map<String, Object> map);//
 
-    void addUserDetails(UserDetails userDetails);
+    Integer getUserByCount(Map<String, Object> map);//
 
-    Integer addUser(UserDetails userDetails);
+    Integer getLastUserWorkId();//
 
-    void editUser(UserDetails userDetails);
-    void editUserDetails(UserDetails userDetails);
+//    void addUserDetails(UserDetails userDetails);
 
-    List<UserDetails> searchInfo(@Param("map")Map<String, Object> map,@Param("emp") UserDetails userDetails);
+    Integer addUser(UserDetails userDetails);//
+
+    void editUser(UserDetails userDetails);//
+
+    void editUserDetails(UserDetails userDetails);//
+
+    List<UserDetails> searchInfo(@Param("map")Map<String, Object> map,@Param("emp") UserDetails userDetails);//
 }

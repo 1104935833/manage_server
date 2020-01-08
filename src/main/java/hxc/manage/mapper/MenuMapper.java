@@ -24,9 +24,7 @@ public interface MenuMapper {
 
     List<Long> getMenusByRid(Long rid);
 
-    List<Map<String, Object>> getAllTreePeople(@Param("name") String name);
 
-    List<Map<String, Object>> getAllTreePeople1(@Param("name") String name);
 
     List<Map<String, Object>> getAllMenus(Map<String, Object> map);
 

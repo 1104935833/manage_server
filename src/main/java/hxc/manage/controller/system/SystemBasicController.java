@@ -75,18 +75,7 @@ public class SystemBasicController {
 
     }
 
-//    获取用户管理左侧树节点
-    @GetMapping(value = "/treepeople")
-    public List<Map<String, Object>> getAllTreePeople(@RequestParam("name") String name) {
-        List<Map<String, Object>> list;
-        int tmp = name.indexOf("教研室");
-        if(tmp==-1){
-            list= menuService.getAllTreePeople(name);
-        }else {
-            list= menuService.getAllTreePeople1(name);
-        }
-        return list;
-    }
+
 //    菜单管理获取全部菜单
     @GetMapping("/getAllMenus")
     public Map<String,Object>  getAllMenu(@RequestParam(defaultValue = "1") Integer page,
