@@ -22,7 +22,7 @@ public class SystemBasicController {
 
     @Autowired
     MenuService menuService;
-    
+//    添加菜单
     @PostMapping("/addMenu")
     public RespBean addMenu(Menu menu){
         try{
@@ -35,6 +35,7 @@ public class SystemBasicController {
         }
         return RespBean.error("添加失败！");
     }
+//    更新菜单
     @PostMapping("/upMenu")
     public RespBean upMenu(Menu menu){
         try{
@@ -45,7 +46,7 @@ public class SystemBasicController {
         }
         return RespBean.error("修改失败！");
     }
-
+//    获取所有目录
     @GetMapping("/getAllParent")
     public List<Map<String, Object>> getAllParent(){
         return  menuService.getAllParent();
