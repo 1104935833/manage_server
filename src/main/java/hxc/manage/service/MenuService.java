@@ -1,6 +1,8 @@
 package hxc.manage.service;
 
 import hxc.manage.model.Menu;
+import hxc.manage.model.Part;
+import hxc.manage.model.Role;
 
 import java.util.List;
 import java.util.Map;
@@ -32,4 +34,9 @@ public interface MenuService {
     void addMenu(Menu menu);
 
     void upMenu(Menu menu);
+
+    List<Role> getAllRole();
+
+    Map<String, Object> getPartMenu(String id);
+
 }

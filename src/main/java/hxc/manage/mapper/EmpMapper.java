@@ -3,11 +3,8 @@ package hxc.manage.mapper;
 import hxc.manage.model.UserDetails;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import hxc.manage.model.Nation;
-import hxc.manage.model.PoliticsStatus;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 

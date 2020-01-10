@@ -2,6 +2,7 @@ package hxc.manage.controller.system;
 
 import com.alibaba.druid.util.StringUtils;
 import hxc.manage.model.Menu;
+import hxc.manage.model.Part;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.Role;
 import hxc.manage.service.*;
@@ -18,10 +19,28 @@ import java.util.*;
 @RequestMapping("/system/role")
 public class SystemBasicController {
     
-
-
     @Autowired
     MenuService menuService;
+
+    //获取所有权限列表
+    @GetMapping("/getAllRole")
+    public Map<String ,Object> getAllRole(){
+        List<Role> role = menuService.getAllRole();
+        Map<String, Object> map= new HashMap<>();
+        map.put("role",role);
+        return map;
+    }
+
+    //获取角色对应的菜单和目录
+    @GetMapping("/getPartMenu")
+    public Map<String ,Object> getPartMenu(@RequestParam("id") String id) {
+        Map<String,Object> l=menuService.getPartMenu(id);
+
+
+
+        return l;
+    }
+
 //    添加菜单
     @PostMapping("/addMenu")
     public RespBean addMenu(Menu menu){
@@ -72,7 +91,7 @@ public class SystemBasicController {
         }catch (Exception e){
             e.printStackTrace();
         }
-        return RespBean.ok("操作失败");
+        return RespBean.error("操作失败");
 
     }
 

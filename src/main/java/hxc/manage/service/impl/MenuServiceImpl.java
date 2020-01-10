@@ -1,6 +1,8 @@
 package hxc.manage.service.impl;
 
 import hxc.manage.mapper.MenuMapper;
+import hxc.manage.model.Part;
+import hxc.manage.model.Role;
 import hxc.manage.service.MenuService;
 import hxc.manage.model.Menu;
 import hxc.manage.common.UserUtils;
@@ -13,6 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author hxc
@@ -91,6 +95,28 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public void upMenu(Menu menu) {
         menuMapper.upMenu(menu);
+    }
+
+    @Override
+    public List<Role> getAllRole() {
+
+        return menuMapper.getAllRole();
+    }
+
+    @Override
+    public Map<String, Object> getPartMenu(String id) {
+
+
+        List<Part> list=  menuMapper.getPartMenu(id);
+        List<Map<String,Object>> map ;
+        for (Part pa : list) {
+            map = menuMapper.getPartMenuSon(pa.getId()+"");
+            pa.setChildren(map);
+        }
+        Map<String, Object> res=new HashMap<>();
+        res.put("part",list);
+
+        return res;
     }
 
 }

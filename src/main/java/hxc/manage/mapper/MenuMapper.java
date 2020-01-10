@@ -1,6 +1,8 @@
 package hxc.manage.mapper;
 
 import hxc.manage.model.Menu;
+import hxc.manage.model.Part;
+import hxc.manage.model.Role;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -37,4 +39,11 @@ public interface MenuMapper {
     void addMenu(Menu menu);
 
     void upMenu(Menu menu);
+
+    List<Role> getAllRole();
+
+    List<Part> getPartMenu(@Param("id") String id);
+
+    List<Map<String, Object>> getPartMenuSon(@Param("id") String id);
+
 }

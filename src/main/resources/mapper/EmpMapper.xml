@@ -17,10 +17,7 @@
             <id property="id" column="did"/>
             <result property="name" column="dname"/>
         </association>
-        <association property="nation" javaType="hxc.manage.model.Nation">
-            <id property="id" column="nid"/>
-            <result property="name" column="nname"/>
-        </association>
+
     </resultMap>
     <select id="getEmployeeByPage" resultType="hxc.manage.model.UserDetails">
 SELECT
