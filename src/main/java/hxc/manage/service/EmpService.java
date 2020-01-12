@@ -1,8 +1,6 @@
 package hxc.manage.service;
 
 import hxc.manage.model.UserDetails;
-import hxc.manage.model.Nation;
-import hxc.manage.model.PoliticsStatus;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

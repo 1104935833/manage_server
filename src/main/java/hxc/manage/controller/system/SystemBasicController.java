@@ -32,9 +32,9 @@ public class SystemBasicController {
     }
 
     //获取角色对应的菜单和目录
-    @GetMapping("/getPartMenu")
-    public Map<String ,Object> getPartMenu(@RequestParam("id") String id) {
-        Map<String,Object> l=menuService.getPartMenu(id);
+    @GetMapping("/getPartMenuById")
+    public Map<String ,Object> getPartMenuById(@RequestParam("id") String id) {
+        Map<String,Object> l=menuService.getPartMenuById(id);
 
 
 

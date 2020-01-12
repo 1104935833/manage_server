@@ -69,10 +69,13 @@
     <select id="getAllRole" resultType="hxc.manage.model.Role">
         select * from Role
     </select>
-    <select id="getPartMenu" resultType="hxc.manage.model.Part">
+    <select id="getPartMenuById" resultType="hxc.manage.model.Part">
         SELECT c.id,c.name label,'' children
         FROM `menu_role` a,role b,menu c
-        where a.rid = b.id and c.id = a.mid and b.id = #{id}
+        where a.rid = b.id and c.id = a.mid
+         <if test="id!='' and id !=null">
+             and b.id=#{id}
+         </if>
         and parentId =1;
     </select>
     <select id="getPartMenuSon" resultType="java.util.Map">

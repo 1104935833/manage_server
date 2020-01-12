@@ -1,5 +1,6 @@
 package hxc.manage.service.impl;
 
+import com.alibaba.druid.util.StringUtils;
 import hxc.manage.mapper.MenuMapper;
 import hxc.manage.model.Part;
 import hxc.manage.model.Role;
@@ -15,8 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * @author hxc
@@ -104,18 +103,36 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public Map<String, Object> getPartMenu(String id) {
+    public Map<String, Object> getPartMenuById(String id) {
+        Map<String, Object> res = new HashMap<>();
+        List<Part> list = menuMapper.getPartMenuById(id);
+        List<Map<String, Object>> map;
+        if(StringUtils.equals(id,"")) {
 
-
-        List<Part> list=  menuMapper.getPartMenu(id);
-        List<Map<String,Object>> map ;
-        for (Part pa : list) {
-            map = menuMapper.getPartMenuSon(pa.getId()+"");
-            pa.setChildren(map);
+            for (Part pa : list) {
+                map = menuMapper.getPartMenuSon(pa.getId() + "");
+                pa.setChildren(map);
+            }
+            res.put("part", list);
         }
-        Map<String, Object> res=new HashMap<>();
-        res.put("part",list);
+        else {
+            List<Map<String, Object>> tmp = new ArrayList();
+            for (Part pa : list) {
+                Map<String, Object> t1 = new HashMap<>();
+                t1.put("id",pa.getId());
+                tmp.add(t1);
+                map = menuMapper.getPartMenuSon(pa.getId() + "");
+                for (Map<String, Object> pas : map) {
+                    Map<String, Object> t2 = new HashMap<>();
+                    t2.put("id",pas.get("id"));
+                    tmp.add(t2);
+                }
+            }
+            res.put("part", tmp);
 
+
+
+        }
         return res;
     }
 

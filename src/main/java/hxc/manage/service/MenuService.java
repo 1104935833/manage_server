@@ -37,6 +37,6 @@ public interface MenuService {
 
     List<Role> getAllRole();
 
-    Map<String, Object> getPartMenu(String id);
+    Map<String, Object> getPartMenuById(String id);
 
 }

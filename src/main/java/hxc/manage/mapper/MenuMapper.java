@@ -42,7 +42,7 @@ public interface MenuMapper {
 
     List<Role> getAllRole();
 
-    List<Part> getPartMenu(@Param("id") String id);
+    List<Part> getPartMenuById(@Param("id") String id);
 
     List<Map<String, Object>> getPartMenuSon(@Param("id") String id);
 
