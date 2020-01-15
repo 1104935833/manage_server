@@ -116,7 +116,7 @@ public class MenuServiceImpl implements MenuService {
         if(StringUtils.equals(id,"")) {
 
             for (Part pa : list) {
-                map = menuMapper.getPartMenuSon(pa.getId() + "");
+                map = menuMapper.getPartMenuSon(pa.getId() + "","0");
                 pa.setChildren(map);
             }
             res.put("part", list);
@@ -127,7 +127,7 @@ public class MenuServiceImpl implements MenuService {
                 Map<String, Object> t1 = new HashMap<>();
                 t1.put("id",pa.getId());
                 tmp.add(t1);
-                map = menuMapper.getPartMenuSon(pa.getId() + "");
+                map = menuMapper.getPartMenuSon(pa.getId() + "","1");
                 for (Map<String, Object> pas : map) {
                     Map<String, Object> t2 = new HashMap<>();
                     t2.put("id",pas.get("id"));

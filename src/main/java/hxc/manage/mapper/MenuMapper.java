@@ -44,7 +44,7 @@ public interface MenuMapper {
 
     List<Part> getPartMenuById(@Param("id") String id);
 
-    List<Map<String, Object>> getPartMenuSon(@Param("id") String id);
+    List<Map<String, Object>> getPartMenuSon(@Param("id") String id,@Param("state") String state);
 
     void updateRoleById(Map map);
 

@@ -92,7 +92,16 @@
 
     </select>
     <select id="getPartMenuSon" resultType="java.util.Map">
-        select DISTINCT c.id,c.name label from `menu_role` a,role b,menu c where  c.id = a.mid and  parentId =#{id};
+        select DISTINCT c.id,c.name label
+        <if test="state.toString() =='1'.toString()">
+            from `menu_role` a,role b,menu c where  c.id = a.mid and  parentId =#{id};
+        </if>
+
+        <if test="state.toString() =='0'.toString()">
+            FROM
+            menu c
+            where parentId =#{id};
+        </if>
     </select>
     <delete id="menuDelById">
         delete from menu where id = #{id}
