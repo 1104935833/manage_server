@@ -4,6 +4,7 @@ import hxc.manage.model.UserDetails;
 import hxc.manage.service.*;
 import hxc.manage.model.RespBean;
 import hxc.manage.common.poi.PoiUtils;
+import hxc.manage.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -27,6 +28,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/employee/basic")
 public class EmpBasicController {
+
+    @Autowired
+    Util util;
 
     @Autowired
     EmpService empService;
@@ -86,7 +90,7 @@ public class EmpBasicController {
         map.put("start",start);
 
         List<UserDetails> userDetailsByPage =empService.searchInfo(map,userDetails);
-        map.put("count",empService.getUserByCount(convertBeanToMap(userDetails)));
+        map.put("count",empService.getUserByCount(util.convertBeanToMap(userDetails)));
         map.put("users", userDetailsByPage);
         return map;
     }
@@ -142,38 +146,7 @@ public class EmpBasicController {
         }
         return map;
     }
-    /**
-          * 实体类转map
-          * @param obj
-          * @return
-          */
-      public static Map<String, Object> convertBeanToMap(Object obj) {
-          if (obj == null) {
-              return null;
-          }
-          Map<String, Object> map = new HashMap<String, Object>();
-          try {
-              BeanInfo beanInfo = Introspector.getBeanInfo(obj.getClass());
-              PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
-              for (PropertyDescriptor property : propertyDescriptors) {
-                  String key = property.getName();
-                  // 过滤class属性
-                  if (!key.equals("class")) {
-                      // 得到property对应的getter方法
-                      Method getter = property.getReadMethod();
-                      Object value = getter.invoke(obj);
-                      if(null==value){
-                          map.put(key,"");
-                      }else{
-                          map.put(key,value);
-                      }
-                  }
-              }
-          } catch (Exception e) {
 
-          }
-          return map;
-      }
 
 }
 

@@ -36,6 +36,12 @@
         insert into menu(url,path,component,name,iconCls,parentId,enabled)
         VALUES (#{url},#{path},#{component},#{name},#{iconCls},#{parentId},#{enabled})
     </insert>
+    <insert id="insertMenuRole">
+      insert into menu_role(mid,rid) values
+        <foreach collection="list" item="node" separator=",">
+            (#{node},#{id})
+        </foreach>
+    </insert>
     <update id="menuHideById">
         update menu set enabled=#{enabled} where id = #{id}
     </update>
@@ -71,12 +77,19 @@
     </select>
     <select id="getPartMenuById" resultType="hxc.manage.model.Part">
         SELECT c.id,c.name label,'' children
-        FROM `menu_role` a,role b,menu c
-        where a.rid = b.id and c.id = a.mid
+
          <if test="id!='' and id !=null">
-             and b.id=#{id}
+             FROM
+             `menu_role` a,role b,menu c
+             where a.rid = b.id and c.id = a.mid
+             and b.id=#{id} and parentId =1;
          </if>
-        and parentId =1;
+         <if test="id == '' or id==null">
+             FROM
+             menu c
+             where parentId =1;
+         </if>
+
     </select>
     <select id="getPartMenuSon" resultType="java.util.Map">
         select DISTINCT c.id,c.name label from `menu_role` a,role b,menu c where  c.id = a.mid and  parentId =#{id};
@@ -84,4 +97,21 @@
     <delete id="menuDelById">
         delete from menu where id = #{id}
     </delete>
+    <delete id="delMenuRole">
+        delete from menu_role where rid=#{id}
+    </delete>
+    <update id="updateRoleById">
+        update role set
+        <if test="name!='' and name != null">
+            `name`=#{name}
+        </if>
+        <if test="nameZh!='' and nameZh != null">
+            ,nameZh=#{nameZh}
+        </if>
+        <if test="state!='' and state != null">
+            ,state=#{state}
+        </if>
+        where
+        id = #{id}
+    </update>
 </mapper>

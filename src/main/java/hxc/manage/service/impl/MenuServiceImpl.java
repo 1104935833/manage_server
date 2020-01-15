@@ -7,6 +7,8 @@ import hxc.manage.model.Role;
 import hxc.manage.service.MenuService;
 import hxc.manage.model.Menu;
 import hxc.manage.common.UserUtils;
+import hxc.manage.util.Util;
+import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,10 @@ import java.util.Map;
 @Transactional
 @CacheConfig(cacheNames = "menus_cache")
 public class MenuServiceImpl implements MenuService {
+
+    @Autowired
+    Util util;
+
     @Autowired
     MenuMapper menuMapper;
 
@@ -135,5 +141,29 @@ public class MenuServiceImpl implements MenuService {
         }
         return res;
     }
+
+    @Override
+    public void delPart(String id,Integer state) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",id);
+        map.put("state",state);
+        menuMapper.updateRoleById(map);
+    }
+
+    @Override
+    public void editPart(Map map) {
+        Map form = (Map) map.get("form");
+        menuMapper.updateRoleById(form);
+        Integer id = (Integer) form.get("id");
+        menuMapper.delMenuRole(id);
+        List list = (List) map.get("nodes");
+        if (list.size()>0) {
+            Map<String, Object> nodes = new HashMap<>();
+            nodes.put("list", list);
+            nodes.put("id", id);
+            menuMapper.insertMenuRole(nodes);
+        }
+    }
+
 
 }

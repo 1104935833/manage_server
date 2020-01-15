@@ -1,10 +1,7 @@
 package hxc.manage.controller.system;
 
 import com.alibaba.druid.util.StringUtils;
-import hxc.manage.model.Menu;
-import hxc.manage.model.Part;
-import hxc.manage.model.RespBean;
-import hxc.manage.model.Role;
+import hxc.manage.model.*;
 import hxc.manage.service.*;
 import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +18,32 @@ public class SystemBasicController {
     
     @Autowired
     MenuService menuService;
+
+//    编辑权限
+    @PostMapping("/editPart")
+    public RespBean editPart(@RequestBody Map map){
+        try {
+            menuService.editPart(map);
+
+
+            return RespBean.ok("修改成功！");
+        }catch (Exception e){
+            e.printStackTrace();
+            return RespBean.error("修改失败！");
+        }
+    }
+    //删除角色
+    @GetMapping("/delPart")
+    public RespBean delPart(@RequestParam("id") String id,
+                            @RequestParam("state") Integer state){
+        try {
+            menuService.delPart(id,state);
+            return RespBean.ok("删除成功！");
+        }catch (Exception e){
+            e.printStackTrace();
+            return RespBean.error("删除失败！");
+        }
+    }
 
     //获取所有权限列表
     @GetMapping("/getAllRole")
