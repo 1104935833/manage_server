@@ -46,9 +46,12 @@ public interface MenuMapper {
 
     List<Map<String, Object>> getPartMenuSon(@Param("id") String id,@Param("state") String state);
 
-    void updateRoleById(Map map);
+    void updateRoleById(Map<String, Object> map);
 
     void insertMenuRole(Map<String, Object> map);
 
     void delMenuRole(Integer id);
+
+    List<Map<String,Object>> getTrandferUser(@Param("rid") String rid,@Param("direct") String direct);
+
 }

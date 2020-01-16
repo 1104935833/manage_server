@@ -13,17 +13,11 @@ import java.util.Map;
  * @date 2019/12/27 14:27
  */
 public interface MenuService {
-    List<Menu> menuTree();
-
-    List<Long> getMenusByRid(Long rid);
-
     List<Menu> getMenusByUserId();
 
     List<Menu> getAllMenu();
 
-
     Map<String, Object> getAllMenus(Map<String, Object> map);
-
 
     void menuDelById(String id);
 
@@ -42,4 +36,7 @@ public interface MenuService {
     void delPart(String id,Integer state);
 
     void editPart(Map map);
+
+    Map<String,List> getTrandferUser(String rid);
+
 }

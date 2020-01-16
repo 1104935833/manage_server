@@ -165,5 +165,29 @@ public class MenuServiceImpl implements MenuService {
         }
     }
 
+    @Override
+    public Map<String,List> getTrandferUser(String rid) {
+        List<Map<String,Object>> leftmap = menuMapper.getTrandferUser(rid,"left");
+        List<Map<String,Object>> rightmap = menuMapper.getTrandferUser(rid,"right");
+        List leftLabel = new ArrayList();
+        List leftValue = new ArrayList();
+        List rightLabel = new ArrayList();
+        List rightValue = new ArrayList();
+        for (Map<String, Object> map:leftmap){
+            leftLabel.add(map.get("name"));
+            leftValue.add(map.get("id"));
+        }
+        for (Map<String, Object> map:rightmap) {
+            rightLabel.add(map.get("name"));
+            rightValue.add(map.get("id"));
+        }
+        Map<String,List> map = new HashMap<>();
+        map.put("leftLabel",leftLabel);
+        map.put("leftValue",leftValue);
+        map.put("rightLabel",rightLabel);
+        map.put("rightValue",rightValue);
+        return map;
+    }
+
 
 }

@@ -3,7 +3,6 @@ package hxc.manage.controller.system;
 import com.alibaba.druid.util.StringUtils;
 import hxc.manage.model.*;
 import hxc.manage.service.*;
-import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +17,13 @@ public class SystemBasicController {
     
     @Autowired
     MenuService menuService;
+
+
+    @GetMapping("/getTrandferUser")
+    public Map<String,List> getTrandferUser(@RequestParam("rid") String rid){
+        Map<String,List> map = menuService.getTrandferUser(rid);
+        return map;
+    }
 
 //    编辑权限
     @PostMapping("/editPart")
@@ -38,10 +44,10 @@ public class SystemBasicController {
                             @RequestParam("state") Integer state){
         try {
             menuService.delPart(id,state);
-            return RespBean.ok("删除成功！");
+            return RespBean.ok("操作成功！");
         }catch (Exception e){
             e.printStackTrace();
-            return RespBean.error("删除失败！");
+            return RespBean.error("操作失败！");
         }
     }
 
