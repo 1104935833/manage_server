@@ -18,13 +18,35 @@ public class SystemBasicController {
     @Autowired
     MenuService menuService;
 
+    @PostMapping("/addPart")
+    public RespBean addPart(@RequestParam("name") String name,@RequestParam("nameZh") String nameZh){
+        try{
+            menuService.addPart(name,nameZh);
+            return RespBean.ok("添加成功!");
+        }catch (Exception e){
+            e.printStackTrace();
+            return RespBean.error("添加失败!");
+        }
 
+    }
     @GetMapping("/getTrandferUser")
     public Map<String,List> getTrandferUser(@RequestParam("rid") String rid){
         Map<String,List> map = menuService.getTrandferUser(rid);
         return map;
     }
 
+    //    分配用户
+    @PostMapping("/editPartUser")
+    public RespBean editPartUser(@RequestParam(value = "parts",required=false) List parts,
+                                 @RequestParam(value = "partId",required=false) Integer partId){
+        try {
+            menuService.editPartUser(parts,partId);
+            return RespBean.ok("修改成功！");
+        }catch (Exception e){
+            e.printStackTrace();
+            return RespBean.error("修改失败！");
+        }
+    }
 //    编辑权限
     @PostMapping("/editPart")
     public RespBean editPart(@RequestBody Map map){

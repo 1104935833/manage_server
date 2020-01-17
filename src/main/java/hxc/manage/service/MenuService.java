@@ -39,4 +39,7 @@ public interface MenuService {
 
     Map<String,List> getTrandferUser(String rid);
 
+    void editPartUser(List parts, Integer partId);
+
+    void addPart(String name, String nameZh);
 }

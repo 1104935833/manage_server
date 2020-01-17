@@ -42,6 +42,16 @@
             (#{node},#{id})
         </foreach>
     </insert>
+    <insert id="editPartUser">
+        insert into user_role(userid,rid) values
+        <foreach collection="parts" item="part" separator=",">
+            (#{part},#{partId})
+        </foreach>
+
+    </insert>
+    <insert id="addPart">
+        insert into role(name,nameZh,state) values (#{name},#{nameZh},1)
+    </insert>
     <update id="menuHideById">
         update menu set enabled=#{enabled} where id = #{id}
     </update>
@@ -106,7 +116,7 @@
     <select id="getTrandferUser" resultType="java.util.Map">
         SELECT
             a.`name`,
-            a.id
+            b.id
             <if test="direct=='right'">
                 FROM
                 `user_details` a,
@@ -133,6 +143,9 @@
     </delete>
     <delete id="delMenuRole">
         delete from menu_role where rid=#{id}
+    </delete>
+    <delete id="delPartUserById">
+        delete from user_role where rid =#{partId}
     </delete>
     <update id="updateRoleById">
         update role

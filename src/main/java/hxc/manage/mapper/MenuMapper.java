@@ -54,4 +54,9 @@ public interface MenuMapper {
 
     List<Map<String,Object>> getTrandferUser(@Param("rid") String rid,@Param("direct") String direct);
 
+    void delPartUserById(@Param("partId") Integer partId);
+
+    void editPartUser(@Param("parts")List parts, @Param("partId")Integer partId);
+
+    void addPart(@Param("name") String name,@Param("nameZh") String nameZh);
 }

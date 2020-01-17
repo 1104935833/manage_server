@@ -135,9 +135,6 @@ public class MenuServiceImpl implements MenuService {
                 }
             }
             res.put("part", tmp);
-
-
-
         }
         return res;
     }
@@ -187,6 +184,19 @@ public class MenuServiceImpl implements MenuService {
         map.put("rightLabel",rightLabel);
         map.put("rightValue",rightValue);
         return map;
+    }
+
+    @Override
+    public void editPartUser(List parts, Integer partId) {
+        menuMapper.delPartUserById(partId);
+        menuMapper.editPartUser(parts,partId);
+
+
+    }
+
+    @Override
+    public void addPart(String name, String nameZh) {
+        menuMapper.addPart(name,nameZh);
     }
 
 
