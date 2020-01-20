@@ -46,13 +46,13 @@ public class MenuServiceImpl implements MenuService {
         return menuMapper.getMenusByUserId(UserUtils.getCurrentUser().getId());
     }
 
-    public List<Menu> menuTree() {
-        return menuMapper.menuTree();
-    }
-
-    public List<Long> getMenusByRid(Long rid) {
-        return menuMapper.getMenusByRid(rid);
-    }
+//    public List<Menu> menuTree() {
+//        return menuMapper.menuTree();
+//    }
+//
+//    public List<Long> getMenusByRid(Long rid) {
+//        return menuMapper.getMenusByRid(rid);
+//    }
 
     public Map<String, Object> getAllMenus(Map<String,Object> map){
         List<Map<String, Object>> list=menuMapper.getAllMenus(map);
@@ -102,102 +102,18 @@ public class MenuServiceImpl implements MenuService {
         menuMapper.upMenu(menu);
     }
 
-    @Override
-    public List<Role> getAllRole() {
-
-        return menuMapper.getAllRole();
-    }
-
-    @Override
-    public Map<String, Object> getPartMenuById(String id) {
-        Map<String, Object> res = new HashMap<>();
-        List<Part> list = menuMapper.getPartMenuById(id);
-        List<Map<String, Object>> map;
-        if(StringUtils.equals(id,"")) {
-
-            for (Part pa : list) {
-                map = menuMapper.getPartMenuSon(pa.getId() + "","0");
-                pa.setChildren(map);
-            }
-            res.put("part", list);
-        }
-        else {
-            List<Map<String, Object>> tmp = new ArrayList();
-            for (Part pa : list) {
-                Map<String, Object> t1 = new HashMap<>();
-                t1.put("id",pa.getId());
-                tmp.add(t1);
-                map = menuMapper.getPartMenuSon(pa.getId() + "","1");
-                for (Map<String, Object> pas : map) {
-                    Map<String, Object> t2 = new HashMap<>();
-                    t2.put("id",pas.get("id"));
-                    tmp.add(t2);
-                }
-            }
-            res.put("part", tmp);
-        }
-        return res;
-    }
-
-    @Override
-    public void delPart(String id,Integer state) {
-        Map<String,Object> map = new HashMap<>();
-        map.put("id",id);
-        map.put("state",state);
-        menuMapper.updateRoleById(map);
-    }
-
-    @Override
-    public void editPart(Map map) {
-        Map form = (Map) map.get("form");
-        menuMapper.updateRoleById(form);
-        Integer id = (Integer) form.get("id");
-        menuMapper.delMenuRole(id);
-        List list = (List) map.get("nodes");
-        if (list.size()>0) {
-            Map<String, Object> nodes = new HashMap<>();
-            nodes.put("list", list);
-            nodes.put("id", id);
-            menuMapper.insertMenuRole(nodes);
-        }
-    }
-
-    @Override
-    public Map<String,List> getTrandferUser(String rid) {
-        List<Map<String,Object>> leftmap = menuMapper.getTrandferUser(rid,"left");
-        List<Map<String,Object>> rightmap = menuMapper.getTrandferUser(rid,"right");
-        List leftLabel = new ArrayList();
-        List leftValue = new ArrayList();
-        List rightLabel = new ArrayList();
-        List rightValue = new ArrayList();
-        for (Map<String, Object> map:leftmap){
-            leftLabel.add(map.get("name"));
-            leftValue.add(map.get("id"));
-        }
-        for (Map<String, Object> map:rightmap) {
-            rightLabel.add(map.get("name"));
-            rightValue.add(map.get("id"));
-        }
-        Map<String,List> map = new HashMap<>();
-        map.put("leftLabel",leftLabel);
-        map.put("leftValue",leftValue);
-        map.put("rightLabel",rightLabel);
-        map.put("rightValue",rightValue);
-        return map;
-    }
-
-    @Override
-    public void editPartUser(List parts, Integer partId) {
-        menuMapper.delPartUserById(partId);
-        menuMapper.editPartUser(parts,partId);
 
 
-    }
 
-    @Override
-    public void addPart(String name, String nameZh) {
-        menuMapper.addPart(name,nameZh);
-    }
+
+
+
+
+
+
+
+
+
 
 
 }

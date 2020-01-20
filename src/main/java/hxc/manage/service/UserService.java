@@ -1,7 +1,7 @@
 package hxc.manage.service;
 
 import hxc.manage.model.UserDetails;
-import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -9,9 +9,9 @@ import java.util.Map;
 /**
  * @author hxc
  * @version 1.0
- * @date 2019/12/27 14:26
+ * @date 2020/1/19 16:38
  */
-public interface EmpService {
+public interface UserService {
 
     boolean delByUserId(String ids);
 

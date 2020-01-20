@@ -29,17 +29,17 @@ public interface MenuService {
 
     void upMenu(Menu menu);
 
-    List<Role> getAllRole();
 
-    Map<String, Object> getPartMenuById(String id);
 
-    void delPart(String id,Integer state);
 
-    void editPart(Map map);
 
-    Map<String,List> getTrandferUser(String rid);
 
-    void editPartUser(List parts, Integer partId);
 
-    void addPart(String name, String nameZh);
+
+
+
+
+
+
+
 }

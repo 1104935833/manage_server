@@ -36,27 +36,12 @@
         insert into menu(url,path,component,name,iconCls,parentId,enabled)
         VALUES (#{url},#{path},#{component},#{name},#{iconCls},#{parentId},#{enabled})
     </insert>
-    <insert id="insertMenuRole">
-      insert into menu_role(mid,rid) values
-        <foreach collection="list" item="node" separator=",">
-            (#{node},#{id})
-        </foreach>
-    </insert>
-    <insert id="editPartUser">
-        insert into user_role(userid,rid) values
-        <foreach collection="parts" item="part" separator=",">
-            (#{part},#{partId})
-        </foreach>
 
-    </insert>
-    <insert id="addPart">
-        insert into role(name,nameZh,state) values (#{name},#{nameZh},1)
-    </insert>
     <update id="menuHideById">
         update menu set enabled=#{enabled} where id = #{id}
     </update>
     <update id="upMenu">
-        update menu set name = #{name},component=#{component},path=#{path},url=#{url},enabled=#{enabled} where id = #{id}
+        update menu set name = #{name},component=#{component},path=#{path},url=#{url},enabled=#{enabled},parentId=#{parentId} where id = #{id}
     </update>
 
     <select id="getAllMenu" resultMap="BaseResultMap">
@@ -82,85 +67,9 @@
     <select id="getAllParent" resultType="java.util.Map">
         select `name`,id from menu where parentId = 1
     </select>
-    <select id="getAllRole" resultType="hxc.manage.model.Role">
-        select * from Role
-    </select>
-    <select id="getPartMenuById" resultType="hxc.manage.model.Part">
-        SELECT c.id,c.name label,'' children
 
-         <if test="id!='' and id !=null">
-             FROM
-             `menu_role` a,role b,menu c
-             where a.rid = b.id and c.id = a.mid
-             and b.id=#{id} and parentId =1;
-         </if>
-         <if test="id == '' or id==null">
-             FROM
-             menu c
-             where parentId =1;
-         </if>
-
-    </select>
-    <select id="getPartMenuSon" resultType="java.util.Map">
-        select DISTINCT c.id,c.name label
-        <if test="state.toString() =='1'.toString()">
-            from `menu_role` a,role b,menu c where  c.id = a.mid and  parentId =#{id};
-        </if>
-
-        <if test="state.toString() =='0'.toString()">
-            FROM
-            menu c
-            where parentId =#{id};
-        </if>
-    </select>
-    <select id="getTrandferUser" resultType="java.util.Map">
-        SELECT
-            a.`name`,
-            b.id
-            <if test="direct=='right'">
-                FROM
-                `user_details` a,
-                `user` b,
-                user_role c
-                WHERE
-                a.user_id = b.id
-                AND b.enabled = 1
-                AND c.userid = b.id
-                AND c.rid =#{rid}
-            </if>
-            <if test="direct=='left'">
-             FROM
-             `user_details` a,
-             `user` b
-             WHERE
-             a.user_id = b.id
-             AND b.enabled = 1
-
-            </if>
-	</select>
     <delete id="menuDelById">
         delete from menu where id = #{id}
     </delete>
-    <delete id="delMenuRole">
-        delete from menu_role where rid=#{id}
-    </delete>
-    <delete id="delPartUserById">
-        delete from user_role where rid =#{partId}
-    </delete>
-    <update id="updateRoleById">
-        update role
-        <set>
-            <if test="name!='' and name != null">
-                `name`=#{name},
-            </if>
-            <if test="nameZh!='' and nameZh != null">
-                nameZh=#{nameZh},
-            </if>
-            <if test="state != null">
-                state=#{state},
-            </if>
-        </set>
-        where
-        id = #{id}
-    </update>
+
 </mapper>

@@ -93,4 +93,151 @@
             WHERE id !=#{currentId}
         </if>
     </select>
+
+    <select id="getEmployeeByPage" resultType="hxc.manage.model.UserDetails">
+SELECT
+	e.*,a.enabled
+FROM
+	user_details e ,user a
+	where e.user_id = a.id
+    </select>
+
+    <update id="editUser">
+        update `user` set
+        <if test="tree!='' or tree!=null">
+            tree=#{tree}
+        </if>
+        <if test="enabled!='' or enabled!=null">
+            ,enabled=#{enabled}
+        </if>
+        <if test="password!='' or password!=null">
+            ,password=#{password}
+        </if>
+        where id =
+        (select user_id from
+        (select user_id from `user_details` a,user b where a.user_id = b.id and a.id=#{id}) t1 )
+    </update>
+
+    <!--分院、教研室-->
+    <select id="getAllTreePeople" resultType="map" parameterType="java.lang.String">
+        select * from tree_people where parent_id in
+        <if test="name!=''">
+            (select id from tree_people where name = #{name})
+        </if>
+        <if test="name=='' or name == null">
+            (0)
+        </if>
+    </select>
+    <!--教师-->
+    <select id="getAllTreePeople1" resultType="map" parameterType="java.lang.String">
+        select c.name from tree_people a,user b,user_details c where c.user_id = b.id and  b.tree = a.tree_code and a.name =  #{name}
+    </select>
+
+    <update id="editUserDetails">
+      update user_details set name=#{name},gender=#{gender},birthday=#{birthday},idCard=#{idCard},
+      email=#{email},phone=#{phone},address=#{address} where id = #{id}
+    </update>
+    <delete id="delByUserId">
+        delete from `user` WHERE id IN (select user_id from user_details where id in
+        <foreach collection="ids" separator="," open="(" close=")" item="id">
+            #{id}
+        </foreach>
+        )
+    </delete>
+    <insert id="addEmps">
+        insert into user_details (name, gender,birthday, idCard,email,phone, address,workID,user_id)
+        values
+        <foreach collection="emps" item="emp" separator=",">
+            (#{emp.name,jdbcType=VARCHAR}, #{emp.gender,jdbcType=CHAR},
+            #{emp.birthday,jdbcType=VARCHAR}, #{emp.idCard,jdbcType=CHAR}, #{emp.email,jdbcType=VARCHAR},
+            #{emp.phone,jdbcType=VARCHAR}, #{emp.address,jdbcType=VARCHAR},#{emp.workID,jdbcType=BIGINT},#{emp.user_id,jdbcType=BIGINT}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="user_id">
+        insert into `user`(tree) values (#{tree});
+    </insert>
+
+    <select id="getUserByPage" resultType="hxc.manage.model.UserDetails">
+        select
+        a.id,
+        a.NAME,
+        a.gender,
+        a.workID,
+        a.birthday,
+        a.idCard,
+        a.email,
+        a.phone,
+        a.address,
+        b.enabled,
+        b.tree
+        from user_details a,user b,tree_people c  where a.user_id=b.id and b.tree = c. tree_code
+
+        <if test="rank==3">
+            and a.name like '%' #{keywords} '%'
+        </if>
+        <if test="rank==2">
+            and c.name=#{keywords}
+        </if>
+        <if test="rank==1">
+            and c.parent_id in (select tree_code from tree_people where name =#{keywords} )
+        </if>
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
+    <select id="getUserByCount" resultType="java.lang.Integer">
+        select count(1) from user_details a,user b,tree_people c  where a.user_id=b.id and b.tree = c. tree_code
+        and c.state=1
+
+        <if test="rank==3">
+            and a.name=#{keywords} and b.enabled=1
+        </if>
+        <if test="rank==2">
+            and c.name=#{keywords} and b.enabled=1
+        </if>
+        <if test="rank==1">
+            and b.enabled=1 and c.parent_id in (select tree_code from tree_people where name =#{keywords} )
+        </if>
+        <if test="enabled != null">
+            and enabled = #{enabled}
+        </if>
+        <if test="name!='' and name != null">
+            and a.name like '%'#{name}'%'
+        </if>
+        <if test="idCard!='' and idCard != null">
+            and idCard = #{idCard}
+        </if>
+        <if test="tree!='' and tree != null">
+            and tree = #{tree}
+        </if>
+        <if test="workID!='' and workID != null">
+            and workID = #{workID}
+        </if>
+    </select>
+    <select id="getLastUserWorkId" resultType="java.lang.Integer">
+        select max(workID) from user_details;
+    </select>
+    <select id="searchInfo" resultType="hxc.manage.model.UserDetails">
+        select * from `user`,user_details where 1=1
+        <if test="emp.enabled != null">
+            and enabled = #{emp.enabled}
+        </if>
+        <if test="emp.name!='' and emp.name != null">
+            and name like #{emp.name}
+        </if>
+        <if test="emp.idCard!='' and emp.idCard != null">
+            and idCard = #{emp.idCard}
+        </if>
+        <if test="emp.tree!='' and emp.tree != null">
+            and tree = #{emp.tree}
+        </if>
+        <if test="emp.workID!='' and emp.workID != null">
+            and workID = #{emp.workID}
+        </if>
+        and user.id=user_details.user_id
+
+        limit #{map.start},#{map.size}
+    </select>
 </mapper>

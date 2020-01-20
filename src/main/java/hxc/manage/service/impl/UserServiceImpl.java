@@ -2,6 +2,7 @@ package hxc.manage.service.impl;
 
 import hxc.manage.model.User;
 import hxc.manage.mapper.UserMapper;
+import hxc.manage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author hxc
@@ -19,7 +21,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class UserServiceImpl implements UserDetailsService {
+public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Autowired
     UserMapper userMapper;
@@ -34,34 +36,71 @@ public class UserServiceImpl implements UserDetailsService {
         return user;
     }
 
-    public int userReg(String username, String password) {
-        //如果用户名存在，返回错误
-        if (userMapper.loadUserByUsername(username) != null) {
-            return -1;
+    public boolean delByUserId(String ids) {
+        String[] split = ids.split(",");
+        return userMapper.delByUserId(split) == split.length;
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllTreePeople(String name) {
+        List<Map<String,Object>> list;
+        list= userMapper.getAllTreePeople(name);
+        for (Map<String, Object> map : list) {
+            map.remove("parent_id");
+            map.remove("id");
+            map.remove("state");
         }
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String encode = encoder.encode(password);
-        return userMapper.userReg(username, encode);
+        return list;
     }
 
-    public List<User> getHrsByKeywords(String keywords) {
-        return userMapper.getUsersByKeywords(keywords);
+    @Override
+    public List<Map<String, Object>> getAllTreePeople1(String name) {
+        List<Map<String,Object>> list;
+        list= userMapper.getAllTreePeople1(name);
+
+        return list;
     }
 
-    public int updateHr(User user) {
-        return userMapper.updateUser(user);
+
+
+    @Override
+    public List<hxc.manage.model.UserDetails> getUserByPage(Map<String, Object> map) {
+
+        return userMapper.getUserByPage(map);
     }
 
-    public int updateHrRoles(Long userId, Long[] rids) {
-        int i = userMapper.deleteRoleByUserId(userId);
-        return userMapper.addRolesForUser(userId, rids);
+    @Override
+    public Integer getUserByCount(Map<String, Object> map) {
+        return userMapper.getUserByCount(map);
+
     }
 
-    public User getHrById(Long userId) {
-        return userMapper.getUserById(userId);
+    @Override
+    public int addUser(List<hxc.manage.model.UserDetails> emps) {
+        Integer workId = userMapper.getLastUserWorkId();
+        for (hxc.manage.model.UserDetails u : emps) {
+            userMapper.addUser(u);
+//            u.setUser_id(u.getId()+"");
+            u.setWorkID(String.format("%08d", workId + 1));
+        }
+        return userMapper.addEmps(emps);
+
     }
 
-    public int deleteHr(Long userId) {
-        return userMapper.deleteUser(userId);
+    @Override
+    public void editUser(hxc.manage.model.UserDetails userDetails) {
+        userMapper.editUser(userDetails);
+        userMapper.editUserDetails(userDetails);
     }
+
+    @Override
+    public List<hxc.manage.model.UserDetails> searchInfo(Map<String, Object> map, hxc.manage.model.UserDetails userDetails) {
+        List<hxc.manage.model.UserDetails> list =userMapper.searchInfo(map,userDetails);
+        return list;
+    }
+
+    public List<hxc.manage.model.UserDetails> getAllEmployees() {
+        return userMapper.getEmployeeByPage();
+    }
+
 }
