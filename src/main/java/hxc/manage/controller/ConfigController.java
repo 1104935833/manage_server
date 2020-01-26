@@ -31,14 +31,14 @@ public class ConfigController {
     MenuService menuService;
 
     @RequestMapping("/sysmenu")
-    public List<Menu> sysmenu() {
+    public List<Menu> sysMenu() {
         return menuService.getMenusByUserId();
     }
 
-    @RequestMapping("/hr")
-    public User currentUser() {
-        return UserUtils.getCurrentUser();
-    }
+//    @RequestMapping("/hr")
+//    public User currentUser() {
+//        return UserUtils.getCurrentUser();
+//    }
 
     @GetMapping(value = "/code")
     public Map<String,Object> getCode(){

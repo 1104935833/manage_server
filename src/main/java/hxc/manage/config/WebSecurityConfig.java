@@ -6,6 +6,7 @@ import hxc.manage.model.RespBean;
 import hxc.manage.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpRequest;
 import org.springframework.security.authentication.*;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -25,6 +26,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -108,6 +110,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     public void onAuthenticationSuccess(HttpServletRequest req,
                                                         HttpServletResponse resp,
                                                         Authentication auth) throws IOException {
+                        req.getSession().setAttribute("userinfo",UserUtils.getCurrentUser());//登陆成功存入session
                         resp.setContentType("application/json;charset=utf-8");
                         RespBean respBean = RespBean.ok("登录成功!", UserUtils.getCurrentUser());
                         ObjectMapper om = new ObjectMapper();

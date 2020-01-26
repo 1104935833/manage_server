@@ -3,7 +3,36 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="hxc.manage.mapper.SysRoleMapper">
-    <select id="findSysRole" resultType="hxc.manage.model.SysRole">
-        select * from `td_sys_role`
+    <insert id="sendPedding">
+      insert into pedding(`type`,role,main,`name`,tableId,state,url,operator,create_time)
+      values(#{type},#{role},#{main},#{name},#{tableId},#{state},#{url},#{operator},#{createTime})
+    </insert>
+
+    <update id="updatePedding">
+      update pedding
+      <set>
+
+          role = #{role},state=#{state},update_time=#{updateTime}
+          <if test="main != null and main!=''">
+              ,main=#{main}
+          </if>
+          <if test="name != null and name !=''">
+              ,`name`=#{name}
+          </if>
+      </set>
+       where tableId=#{tableId}
+    </update>
+
+    <select id="getPeddingName" resultType="java.util.Map">
+        select `name`,url from pedding where role = #{id} and state in ('0','1');
+    </select>
+
+    <select id="getPeddingName2" resultType="java.util.Map">
+        select `name`,url from pedding where pedding.operator=#{userId}  and pedding.state='2'
+    </select>
+
+    <select id="findPeddingRole" resultType="java.lang.String">
+        select roleid from `user` a,tree_people b,tree_role c where a.tree=b.tree_code and
+        c.treeid=b.id and a.id=#{userId}
     </select>
 </mapper>
