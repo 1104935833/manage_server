@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author hxc
@@ -20,9 +19,9 @@ public interface SysRoleMapper {
 
 //    List<SysRole> findSysRole();
 
-    List<Map<String, Object>> getPeddingName(@Param("id") String id);
+    List<Pedding> getPeddingName(@Param("id") String id, @Param("size") int size, @Param("start") int start);
 
-    List<Map<String, Object>> getPeddingName2(@Param("userId") String userId);
+    List<Pedding> getPeddingName2(@Param("userId") String userId, @Param("size") int size, @Param("start") int start);
 
     Integer sendPedding(Pedding pedding);
 

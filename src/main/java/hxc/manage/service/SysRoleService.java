@@ -12,7 +12,7 @@ import java.util.Map;
  * @date 2019/12/12 14:15
  */
 public interface SysRoleService {
-    Map<String, List> getPeddingName(List<Role> roles, String userId);
+    Map<String, Object> getPeddingName(List<Role> roles, String userId, int size, int start);
 
     Integer sendPedding(Pedding pedding, String userId, String agree, String state);
 

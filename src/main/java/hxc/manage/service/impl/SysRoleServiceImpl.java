@@ -24,23 +24,25 @@ public class SysRoleServiceImpl  implements SysRoleService {
 //
 //        return sysRoleMapper.findSysRole();
 //    }
+
     //待办获取
     @Override
-    public Map<String, List> getPeddingName(List<Role> roles, String userId) {
-        List<Map<String,Object>> ma1 = new ArrayList<>();
-        List<Map<String,Object>> ma2 = new ArrayList<>();
+    public Map<String, Object> getPeddingName(List<Role> roles, String userId, int size, int start) {
+        List<Pedding> ma1 = new ArrayList<>();
+        List<Pedding> ma2 = new ArrayList<>();
         for (Role role : roles) {
             String id = role.getId()+"";
             if (id !="27") {//判断是不是普通用户的权限
-                ma1 = sysRoleMapper.getPeddingName(id);
+                ma1 = sysRoleMapper.getPeddingName(id,size,start);
             }
             else{
-                ma2 = sysRoleMapper.getPeddingName2(userId);//普通用户的
+                ma2 = sysRoleMapper.getPeddingName2(userId,size,start);//普通用户的
             }
         }
         ma1.addAll(ma2);
-        Map<String,List> res = new HashMap<>();
+        Map<String,Object> res = new HashMap<>();
         res.put("list",ma1);
+        res.put("count",ma1.size());
         return res;
 
     }
@@ -96,6 +98,8 @@ public class SysRoleServiceImpl  implements SysRoleService {
 
         return res;
     }
+
+
 
 
 }

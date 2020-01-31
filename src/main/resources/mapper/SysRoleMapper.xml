@@ -23,12 +23,12 @@
        where tableId=#{tableId}
     </update>
 
-    <select id="getPeddingName" resultType="java.util.Map">
-        select `name`,url from pedding where role = #{id} and state in ('0','1');
+    <select id="getPeddingName" resultType="hxc.manage.model.Pedding">
+        select * from pedding where role = #{id} and state in ('0','1') limit #{start},#{size};
     </select>
 
-    <select id="getPeddingName2" resultType="java.util.Map">
-        select `name`,url from pedding where pedding.operator=#{userId}  and pedding.state='2'
+    <select id="getPeddingName2" resultType="hxc.manage.model.Pedding">
+        select * from pedding where pedding.operator=#{userId}  and pedding.state='2' limit #{start},#{size}
     </select>
 
     <select id="findPeddingRole" resultType="java.lang.String">

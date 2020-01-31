@@ -33,11 +33,14 @@ public class SysController {
 
     //获取待办
     @GetMapping("/getPeddingName")
-    public Map<String,List> getPeddingName(HttpServletRequest req){
+    public Map<String,Object> getPeddingName(HttpServletRequest req,@RequestParam(defaultValue = "1") Integer page,
+                                           @RequestParam(defaultValue = "10") Integer size){
+        int start = (page - 1) * size;
         User user = (User) req.getSession().getAttribute("userinfo");
         List<Role> roles =user.getRoles();
         String userId =user.getId()+"";
-        Map<String, List> map = sysRoleService.getPeddingName(roles,userId);
+
+        Map<String, Object> map = sysRoleService.getPeddingName(roles,userId,size,start);
         return map;
     }
 
