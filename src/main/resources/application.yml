@@ -17,3 +17,7 @@ mybatis:
   config-location: classpath:/mybatis-config.xml
   type-aliases-package: org.sang.model
   mapper-locations: classpath:mapper/*.xml
+
+mail:
+  user: 1104935833@qq.com
+  password: gyflrrsfvpylgggd

@@ -1,5 +1,6 @@
 package hxc.manage.controller;
 
+import hxc.manage.common.EmailAndMessage;
 import hxc.manage.model.Pedding;
 import hxc.manage.model.Role;
 import hxc.manage.model.User;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
@@ -23,6 +25,9 @@ public class SysController {
     @Autowired
     SysRoleService sysRoleService;
 
+    @Autowired
+    EmailAndMessage emailAndMessage;
+
 //
 //    @GetMapping("/sysrole")
 //    public List<SysRole> sysRole(){
@@ -31,10 +36,12 @@ public class SysController {
 //
 //    }
 
+
+
     //获取待办
     @GetMapping("/getPeddingName")
     public Map<String,Object> getPeddingName(HttpServletRequest req,@RequestParam(defaultValue = "1") Integer page,
-                                           @RequestParam(defaultValue = "10") Integer size){
+                                           @RequestParam(defaultValue = "10") Integer size) throws InterruptedException, MessagingException {
         int start = (page - 1) * size;
         User user = (User) req.getSession().getAttribute("userinfo");
         List<Role> roles =user.getRoles();
