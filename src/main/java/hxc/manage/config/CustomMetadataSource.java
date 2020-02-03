@@ -3,6 +3,7 @@ package hxc.manage.config;
 import hxc.manage.model.Menu;
 import hxc.manage.model.Role;
 import hxc.manage.service.impl.MenuServiceImpl;
+import hxc.manage.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -21,8 +22,13 @@ import java.util.List;
  */
 @Component
 public class CustomMetadataSource implements FilterInvocationSecurityMetadataSource {
+
     @Autowired
     MenuServiceImpl menuServiceImpl;
+
+    @Autowired
+    RedisUtil redisUtil;
+
     AntPathMatcher antPathMatcher = new AntPathMatcher();
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) {

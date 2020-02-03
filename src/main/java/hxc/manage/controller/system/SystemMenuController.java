@@ -4,6 +4,7 @@ import com.alibaba.druid.util.StringUtils;
 import hxc.manage.model.Menu;
 import hxc.manage.model.RespBean;
 import hxc.manage.service.MenuService;
+import hxc.manage.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,9 @@ public class SystemMenuController {
     @Autowired
     MenuService menuService;
 
+    @Autowired
+    RedisUtil redisUtil;
+
     //    添加菜单
     @PostMapping("/addMenu")
     public RespBean addMenu(Menu menu){
@@ -33,7 +37,11 @@ public class SystemMenuController {
             return RespBean.ok("添加成功！");
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            redisUtil.del("menu");
+            redisUtil.del("menuAll");
         }
+
         return RespBean.error("添加失败！");
     }
     //    更新菜单
@@ -44,6 +52,9 @@ public class SystemMenuController {
             return RespBean.ok("修改成功！");
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            redisUtil.del("menu");
+            redisUtil.del("menuAll");
         }
         return RespBean.error("修改失败！");
     }
@@ -61,6 +72,9 @@ public class SystemMenuController {
             return RespBean.ok("删除成功");
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            redisUtil.del("menu");
+            redisUtil.del("menuAll");
         }
         return RespBean.ok("删除失败");
     }
@@ -72,6 +86,9 @@ public class SystemMenuController {
             return RespBean.ok("操作成功");
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            redisUtil.del("menu");
+            redisUtil.del("menuAll");
         }
         return RespBean.error("操作失败");
 

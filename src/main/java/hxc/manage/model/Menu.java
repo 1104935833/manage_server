@@ -3,7 +3,6 @@ package hxc.manage.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +10,7 @@ import java.util.List;
  * @version 1.0
  * @date 2019/12/27 14:26
  */
-public class Menu implements Serializable {
+public class Menu  {
     private Long id;
     private String url;
     private String path;
@@ -56,7 +55,6 @@ public class Menu implements Serializable {
         this.id = id;
     }
 
-    @JsonIgnore
     public String getUrl() {
         return url;
     }
@@ -107,7 +105,6 @@ public class Menu implements Serializable {
         this.parentId = parentId;
     }
 
-    @JsonIgnore
     public List<Role> getRoles() {
         return roles;
     }

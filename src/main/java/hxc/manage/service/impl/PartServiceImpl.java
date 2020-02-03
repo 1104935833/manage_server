@@ -7,6 +7,7 @@ import hxc.manage.model.Part;
 import hxc.manage.model.Role;
 import hxc.manage.service.MenuService;
 import hxc.manage.service.PartService;
+import hxc.manage.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +28,10 @@ public class PartServiceImpl implements PartService {
 
     @Autowired
     PartMapper partMapper;
+
+
+    @Autowired
+    RedisUtil redisUtil;
 
     @Override
     public void addPart(String name, String nameZh) {
@@ -94,12 +99,18 @@ public class PartServiceImpl implements PartService {
 
         List<Map<String, Object>> map;
         if(StringUtils.equals(id,"")) {
-            List<Part> list = partMapper.getPartMenuById(id);
-            for (Part pa : list) {
-                map = partMapper.getPartMenuSon(pa.getId() + "","1");
-                pa.setChildren(map);
+            List<Part> list;
+            list= (List<Part>) redisUtil.get("part");
+            if(list==null){
+                list = partMapper.getPartMenuById(id);
+                for (Part pa : list) {
+                    map = partMapper.getPartMenuSon(pa.getId() + "","1");
+                    pa.setChildren(map);
+                }
+                redisUtil.set("part",list);
             }
             res.put("part", list);
+
         }
         else {
             List tmp = new ArrayList();

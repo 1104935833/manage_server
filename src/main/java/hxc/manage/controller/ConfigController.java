@@ -5,6 +5,7 @@ import hxc.manage.service.MenuService;
 import hxc.manage.model.User;
 import hxc.manage.model.Menu;
 import hxc.manage.common.UserUtils;
+import hxc.manage.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,7 @@ public class ConfigController {
     @Autowired
     MenuService menuService;
 
-    @RequestMapping("/sysmenu")
+    @GetMapping(value = "/sysmenu")
     public List<Menu> sysMenu() {
         return menuService.getMenusByUserId();
     }
@@ -40,6 +41,7 @@ public class ConfigController {
 //        return UserUtils.getCurrentUser();
 //    }
 
+    //登录时的验证码
     @GetMapping(value = "/code")
     public Map<String,Object> getCode(){
         // 算术类型 https://gitee.com/whvse/EasyCaptcha

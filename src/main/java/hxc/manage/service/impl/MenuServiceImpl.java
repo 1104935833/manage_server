@@ -7,6 +7,7 @@ import hxc.manage.model.Role;
 import hxc.manage.service.MenuService;
 import hxc.manage.model.Menu;
 import hxc.manage.common.UserUtils;
+import hxc.manage.util.RedisUtil;
 import hxc.manage.util.Util;
 import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,34 @@ public class MenuServiceImpl implements MenuService {
     Util util;
 
     @Autowired
+    RedisUtil redisUtil;
+
+    @Autowired
     MenuMapper menuMapper;
 
 //    @Cacheable(key = "#root.methodName")
     public List<Menu> getAllMenu(){
-        return menuMapper.getAllMenu();
+        List<Menu> menuAll;
+        menuAll = (List<Menu>) redisUtil.get("menuAll");//读取redis
+        if(menuAll==null) {
+            menuAll = menuMapper.getAllMenu();
+            redisUtil.set("menuAll",menuAll);
+        }
+
+        return menuAll;
     }
 
 
 
     public List<Menu> getMenusByUserId() {
-        return menuMapper.getMenusByUserId(UserUtils.getCurrentUser().getId());
+        List<Menu> menu;
+        menu= (List<Menu>) redisUtil.get("menu");
+        if (menu==null) {
+            menu = menuMapper.getMenusByUserId(UserUtils.getCurrentUser().getId());
+            redisUtil.set("menu",menu);
+        }
+        return menu;
+
     }
 
 //    public List<Menu> menuTree() {
