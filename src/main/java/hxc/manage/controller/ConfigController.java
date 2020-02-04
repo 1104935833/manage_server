@@ -1,13 +1,9 @@
 package hxc.manage.controller;
 
 import com.wf.captcha.ArithmeticCaptcha;
-import hxc.manage.service.MenuService;
-import hxc.manage.model.User;
 import hxc.manage.model.Menu;
-import hxc.manage.common.UserUtils;
-import hxc.manage.util.RedisUtil;
+import hxc.manage.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author hxc

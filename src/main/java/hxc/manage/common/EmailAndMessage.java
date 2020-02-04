@@ -5,23 +5,21 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.dom4j.Document;
-import org.junit.Test;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import java.util.Properties;
-
-
-
 import java.io.IOException;
+import java.util.Properties;
 
 @Component
 public class EmailAndMessage {
@@ -76,6 +74,7 @@ public class EmailAndMessage {
         method.setRequestHeader("ContentType","application/x-www-form-urlencoded;charset=GBK");
         int mobile_code = (int)((Math.random()*9+1)*100000);
         String content = "您的验证码是：" + mobile_code + "。请不要把验证码泄露给其他人。";
+//        String content = "您有一个"+mobile_code+"申请需要审批，请登录网站进行操作。";
         NameValuePair[] data ={
                 new NameValuePair("account","C90828810"),
                 new NameValuePair("password", "3908acb8e6c476589a5337583b8b488d"),  //查看密码请登录用户中心->验证码短信->产品总览->APIKEY

@@ -1,9 +1,6 @@
 package hxc.manage.controller;
 
-import org.junit.Test;
 import hxc.manage.model.RespBean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +14,7 @@ public class RegLoginController {
 
     @RequestMapping("/login_p")
     public RespBean login() {
-        return RespBean.error("尚未登录，请登录!");
+        return RespBean.error("尚未登录或登录已过期，请登录!");
     }
 
 

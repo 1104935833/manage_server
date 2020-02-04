@@ -1,8 +1,6 @@
 package hxc.manage.mapper;
 
 import hxc.manage.model.Menu;
-import hxc.manage.model.Part;
-import hxc.manage.model.Role;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
