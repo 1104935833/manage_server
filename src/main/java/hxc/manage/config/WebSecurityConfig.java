@@ -91,6 +91,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         } else if (e instanceof AccountExpiredException) {
                             respBean = RespBean.error("账户过期，请联系管理员!");
                         } else if (e instanceof DisabledException) {
+                            e.printStackTrace();
                             respBean = RespBean.error("账户被禁用，请联系管理员!");
                         } else {
                             respBean = RespBean.error("登录失败!");

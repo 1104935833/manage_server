@@ -2,12 +2,12 @@ package hxc.manage.service.impl;
 
 import hxc.manage.model.User;
 import hxc.manage.mapper.UserMapper;
+import hxc.manage.model.UserDetail;
 import hxc.manage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
 
     @Override
-    public List<hxc.manage.model.UserDetails> getUserByPage(Map<String, Object> map) {
+    public List<UserDetail> getUserByPage(Map<String, Object> map) {
 
         return userMapper.getUserByPage(map);
     }
@@ -76,9 +76,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    public int addUser(List<hxc.manage.model.UserDetails> emps) {
+    public int addUser(List<UserDetail> emps) {
         Integer workId = userMapper.getLastUserWorkId();
-        for (hxc.manage.model.UserDetails u : emps) {
+        for (UserDetail u : emps) {
             userMapper.addUser(u);
 //            u.setUser_id(u.getId()+"");
             u.setWorkID(String.format("%08d", workId + 1));
@@ -88,18 +88,18 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
-    public void editUser(hxc.manage.model.UserDetails userDetails) {
-        userMapper.editUser(userDetails);
-        userMapper.editUserDetails(userDetails);
+    public void editUser(UserDetail userDetail) {
+        userMapper.editUser(userDetail);
+        userMapper.editUserDetails(userDetail);
     }
 
     @Override
-    public List<hxc.manage.model.UserDetails> searchInfo(Map<String, Object> map, hxc.manage.model.UserDetails userDetails) {
-        List<hxc.manage.model.UserDetails> list =userMapper.searchInfo(map,userDetails);
+    public List<UserDetail> searchInfo(Map<String, Object> map, UserDetail userDetail) {
+        List<UserDetail> list =userMapper.searchInfo(map, userDetail);
         return list;
     }
 
-    public List<hxc.manage.model.UserDetails> getAllEmployees() {
+    public List<UserDetail> getAllEmployees() {
         return userMapper.getEmployeeByPage();
     }
 

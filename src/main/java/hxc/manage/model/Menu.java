@@ -123,7 +123,7 @@ public class Menu  {
                 ", name='" + name + '\'' +
                 ", iconCls='" + iconCls + '\'' +
                 ", parentId=" + parentId +
-                ", enabled='" + enabled + '\'' +
+                ", enable='" + enabled + '\'' +
                 ", roles=" + roles +
                 ", children=" + children +
                 ", meta=" + meta +

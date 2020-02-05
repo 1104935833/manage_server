@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,21 +15,18 @@ import java.util.List;
  * @version 1.0
  * @date 2019/12/27 14:26
  */
-public class User implements UserDetails {
+public class User extends UserDetail implements UserDetails  {
     private Long id;
-    private String name;
-    private String phone;
-    private String telephone;
-    private String address;
     private boolean enabled;
     private String username;
     private String password;
     private List<Role> roles;
-
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return enabled;
     }
+    @JsonIgnore
     @Override
     public String getUsername() {
         return username;
@@ -71,6 +69,7 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
@@ -79,46 +78,12 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
+    @Override
     public void setUsername(String username) {
         this.username = username;
     }
 
+    @Override
     public void setPassword(String password) {
         this.password = password;
     }

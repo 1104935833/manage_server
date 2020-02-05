@@ -1,21 +1,16 @@
 package hxc.manage.service.impl;
 
-import com.alibaba.druid.util.StringUtils;
-import hxc.manage.mapper.MenuMapper;
-import hxc.manage.model.Part;
-import hxc.manage.model.Role;
-import hxc.manage.service.MenuService;
-import hxc.manage.model.Menu;
 import hxc.manage.common.UserUtils;
+import hxc.manage.mapper.MenuMapper;
+import hxc.manage.model.Menu;
+import hxc.manage.service.MenuService;
 import hxc.manage.util.RedisUtil;
 import hxc.manage.util.Util;
-import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

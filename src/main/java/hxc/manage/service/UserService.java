@@ -1,7 +1,6 @@
 package hxc.manage.service;
 
-import hxc.manage.model.UserDetails;
-import org.springframework.stereotype.Component;
+import hxc.manage.model.UserDetail;
 
 import java.util.List;
 import java.util.Map;
@@ -19,15 +18,15 @@ public interface UserService {
 
     List<Map<String, Object>> getAllTreePeople1(String name);
 
-    List<UserDetails> getAllEmployees();
+    List<UserDetail> getAllEmployees();
 
-    List<UserDetails> getUserByPage(Map<String, Object> map);
+    List<UserDetail> getUserByPage(Map<String, Object> map);
 
     Integer getUserByCount(Map<String, Object> map);
 
-    int addUser(List<UserDetails> emps);
+    int addUser(List<UserDetail> emps);
 
-    void editUser(UserDetails userDetails);
+    void editUser(UserDetail userDetail);
 
-    List<UserDetails> searchInfo( Map<String, Object> map, UserDetails userDetails);
+    List<UserDetail> searchInfo(Map<String, Object> map, UserDetail userDetail);
 }

@@ -30,7 +30,7 @@ import java.util.Locale;
  */
 public class PoiUtils {
     //导出数据
-    public static ResponseEntity<byte[]> exportEmp2Excel(List<UserDetails> emps) {
+    public static ResponseEntity<byte[]> exportEmp2Excel(List<UserDetail> emps) {
         HttpHeaders headers = null;
         ByteArrayOutputStream baos = null;
         try {
@@ -108,7 +108,7 @@ public class PoiUtils {
             //6.装数据
             for (int i = 0; i < emps.size(); i++) {
                 HSSFRow row = sheet.createRow(i + 1);
-                UserDetails emp = emps.get(i);
+                UserDetail emp = emps.get(i);
                 row.createCell(0).setCellValue(emp.getName());
                 row.createCell(1).setCellValue(emp.getWorkID());
                 row.createCell(2).setCellValue(emp.getGender());
@@ -119,7 +119,7 @@ public class PoiUtils {
                 row.createCell(5).setCellValue(emp.getEmail());
                 row.createCell(6).setCellValue(emp.getPhone());
                 row.createCell(7).setCellValue(emp.getAddress());
-                row.createCell(8).setCellValue(emp.getEnabled());
+                row.createCell(8).setCellValue(emp.getEnable());
             }
             headers = new HttpHeaders();
             headers.setContentDispositionFormData("attachment",
@@ -133,8 +133,8 @@ public class PoiUtils {
         return new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.CREATED);
     }
     //导入数据
-    public static List<UserDetails> importEmp2List(MultipartFile file) {
-        List<UserDetails> emps = new ArrayList<>();
+    public static List<UserDetail> importEmp2List(MultipartFile file) {
+        List<UserDetail> emps = new ArrayList<>();
         try {
         HSSFWorkbook workbook =
                 new HSSFWorkbook(new POIFSFileSystem(file.getInputStream()));
@@ -142,7 +142,7 @@ public class PoiUtils {
         for (int i = 0; i < numberOfSheets; i++) {
         HSSFSheet sheet = workbook.getSheetAt(i);
         int physicalNumberOfRows = sheet.getPhysicalNumberOfRows();
-        UserDetails userDetails;
+        UserDetail userDetail;
         for (int j = 0; j < physicalNumberOfRows; j++) {
         if (j == 0) {
             continue;//标题行
@@ -152,7 +152,7 @@ public class PoiUtils {
             continue;//没数据
         }
         int physicalNumberOfCells = row.getPhysicalNumberOfCells();
-        userDetails = new UserDetails();
+        userDetail = new UserDetail();
         for (int k = 0; k < physicalNumberOfCells; k++) {
         HSSFCell cell = row.getCell(k);
         switch (cell.getCellTypeEnum()) {
@@ -164,28 +164,28 @@ public class PoiUtils {
             switch (k) {
 
                 case 0:
-                    userDetails.setName(cellValue);
+                    userDetail.setName(cellValue);
                     break;
                 case 1:
-                    userDetails.setWorkID(cellValue);
+                    userDetail.setWorkID(cellValue);
                     break;
                 case 2:
-                    userDetails.setGender(cellValue);
+                    userDetail.setGender(cellValue);
                     break;
                 case 3:
-                    userDetails.setIdCard(cellValue);
+                    userDetail.setIdCard(cellValue);
                     break;
                 case 5:
-                    userDetails.setEmail(cellValue);
+                    userDetail.setEmail(cellValue);
                     break;
                 case 6:
-                    userDetails.setPhone(cellValue);
+                    userDetail.setPhone(cellValue);
                     break;
                 case 7:
-                    userDetails.setAddress(cellValue);
+                    userDetail.setAddress(cellValue);
                     break;
                 case 8:
-                    userDetails.setEnabled(Integer.valueOf(cellValue));
+                    userDetail.setEnable(Integer.valueOf(cellValue));
                     break;
             }
         }
@@ -195,14 +195,14 @@ public class PoiUtils {
                 case 4:
                     SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy",Locale.US);
                     Date d = sdf.parse(cell.getDateCellValue().toString());
-                    userDetails.setBirthday(d.getTime()+"");
+                    userDetail.setBirthday(d.getTime()+"");
                     break;
             }
         }
             break;
         }
         }
-            emps.add(userDetails);
+            emps.add(userDetail);
         }
         }
         } catch (IOException e) {

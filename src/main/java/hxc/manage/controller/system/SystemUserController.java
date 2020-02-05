@@ -67,29 +67,29 @@ public class SystemUserController {
         map.put("start",start);
         map.put("keywords",keywords);
         keyVaildata(keywords,map);
-        List<UserDetails> userDetailsByPage =userService.getUserByPage(map);
-        map.put("users", userDetailsByPage);
+        List<UserDetail> userDetailByPage =userService.getUserByPage(map);
+        map.put("users", userDetailByPage);
         return map;
     }
 
     @PostMapping("/searchinfo")
-    public Map<String, Object> searchInfo(UserDetails userDetails){
-        int start = (userDetails.getPage() - 1) * 10;
+    public Map<String, Object> searchInfo(UserDetail userDetail){
+        int start = (userDetail.getPage() - 1) * 10;
         Map<String, Object> map = new HashMap<>();
         map.put("size",10);
         map.put("start",start);
 
-        List<UserDetails> userDetailsByPage =userService.searchInfo(map,userDetails);
-        map.put("count",userService.getUserByCount(util.convertBeanToMap(userDetails)));
-        map.put("users", userDetailsByPage);
+        List<UserDetail> userDetailByPage =userService.searchInfo(map, userDetail);
+        map.put("count",userService.getUserByCount(util.convertBeanToMap(userDetail)));
+        map.put("users", userDetailByPage);
         return map;
     }
 
 
     @PostMapping("/edituser")
-    public RespBean edituser(UserDetails userDetails, BindingResult bindingResult){
+    public RespBean edituser(UserDetail userDetail, BindingResult bindingResult){
         try {
-            userService.editUser(userDetails);
+            userService.editUser(userDetail);
             return RespBean.ok("添加成功！");
         }catch(Exception e){
             e.printStackTrace();
@@ -104,7 +104,7 @@ public class SystemUserController {
 
     @RequestMapping(value = "/importEmp", method = RequestMethod.POST)
     public RespBean importEmp(MultipartFile file) {
-        List<UserDetails> emps = PoiUtils.importEmp2List(file);
+        List<UserDetail> emps = PoiUtils.importEmp2List(file);
 
         if (userService.addUser(emps) == emps.size()) {
             return RespBean.ok("导入成功!");
@@ -113,10 +113,10 @@ public class SystemUserController {
     }
 
     @PostMapping("/adduser")
-    public RespBean addUser(UserDetails userDetails){
+    public RespBean addUser(UserDetail userDetail){
         try {
-            List<UserDetails> emps =new ArrayList<>();
-            emps.add(userDetails);
+            List<UserDetail> emps =new ArrayList<>();
+            emps.add(userDetail);
             userService.addUser(emps);
             return RespBean.ok("添加成功！");
         }catch(Exception e){

@@ -30,7 +30,7 @@ public interface MenuMapper {
 
     void menuDelById(@Param("id") String id);
 
-    void menuHideById(@Param("id") String id,@Param("enabled") String enabled);
+    void menuHideById(@Param("id") String id,@Param("enable") String enabled);
 
     List<Map<String, Object>> getAllParent();
 

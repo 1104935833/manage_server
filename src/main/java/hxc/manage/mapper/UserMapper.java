@@ -1,7 +1,7 @@
 package hxc.manage.mapper;
 
 import hxc.manage.model.User;
-import hxc.manage.model.UserDetails;
+import hxc.manage.model.UserDetail;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import hxc.manage.model.Role;
@@ -37,7 +37,7 @@ public interface UserMapper {
 
     List<User> getAllUser(@Param("currentId") Long currentId);
 
-    List<UserDetails> getEmployeeByPage();
+    List<UserDetail> getEmployeeByPage();
 
     List<Map<String, Object>> getAllTreePeople(@Param("name") String name);
 
@@ -45,20 +45,20 @@ public interface UserMapper {
 
     int delByUserId(@Param("ids") String[] ids);
 
-    int addEmps(@Param("emps") List<UserDetails> emps);
+    int addEmps(@Param("emps") List<UserDetail> emps);
 
-    List<UserDetails> getUserByPage(Map<String, Object> map);
+    List<UserDetail> getUserByPage(Map<String, Object> map);
 
     Integer getUserByCount(Map<String, Object> map);
 
     Integer getLastUserWorkId();
 
-    Integer addUser(UserDetails userDetails);
+    Integer addUser(UserDetail userDetail);
 
-    void editUser(UserDetails userDetails);
+    void editUser(UserDetail userDetail);
 
-    void editUserDetails(UserDetails userDetails);
+    void editUserDetails(UserDetail userDetail);
 
-    List<UserDetails> searchInfo(@Param("map")Map<String, Object> map,@Param("emp") UserDetails userDetails);
+    List<UserDetail> searchInfo(@Param("map")Map<String, Object> map, @Param("emp") UserDetail userDetail);
 
 }
