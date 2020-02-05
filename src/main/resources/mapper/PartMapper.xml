@@ -10,9 +10,9 @@
         </foreach>
     </insert>
     <insert id="editPartUser">
-        insert into user_role(userid,rid) values
+        insert into user_role(userid,rid,isManager) values
         <foreach collection="parts" item="part" separator=",">
-            (#{part},#{partId})
+            (#{part},#{partId},#{type})
         </foreach>
 
     </insert>
@@ -76,11 +76,31 @@
 
         </if>
     </select>
+    <select id="getTrandferManagUser" resultType="java.util.Map">
+        SELECT
+            a.`name`,
+            b.id
+        FROM
+            `user_details` a,
+            `user` b,
+            tree_role c,
+            user_role d
+        WHERE
+            c.roleid = d.rid
+            and isManager = 1
+            AND d.userid = b.id
+            AND b.id = a.user_id
+            AND c.roleid =#{rid}
+
+    </select>
     <delete id="delMenuRole">
         delete from menu_role where rid=#{id}
     </delete>
     <delete id="delPartUserById">
         delete from user_role where rid =#{partId}
+
+        and isManager = #{type}
+
     </delete>
     <update id="updateRoleById">
         update role

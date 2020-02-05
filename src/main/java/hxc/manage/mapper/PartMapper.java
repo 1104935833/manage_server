@@ -22,9 +22,9 @@ public interface PartMapper {
 
     List<Map<String,Object>> getTrandferUser(@Param("rid") String rid,@Param("direct") String direct);
 
-    void delPartUserById(@Param("partId") Integer partId);
+    void delPartUserById(@Param("partId") Integer partId, @Param("type") String type);
 
-    void editPartUser(@Param("parts")List parts, @Param("partId")Integer partId);
+    void editPartUser(@Param("parts") List parts, @Param("partId") Integer partId, @Param("type") String type);
 
     void updateRoleById(Map<String, Object> map);
 
@@ -39,7 +39,5 @@ public interface PartMapper {
     List<Role> getAllRole();
 
 
-
-
-
+    List<Map<String, Object>> getTrandferManagUser(@Param("rid") String rid);
 }

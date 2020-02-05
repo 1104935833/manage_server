@@ -14,9 +14,9 @@ public interface PartService {
 
     void addPart(String name, String nameZh);
 
-    Map<String, List> getTrandferUser(String rid);
+    Map<String, List> getTrandferUser(String rid, String type);
 
-    void editPartUser(List parts, Integer partId);
+    void editPartUser(List parts, Integer partId, String type, Integer length);
 
     void editPart(Map map);
 

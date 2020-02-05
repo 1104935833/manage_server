@@ -35,17 +35,20 @@ public class SystemPartController {
     }
 
     @GetMapping("/getTrandferUser")
-    public Map<String, List> getTrandferUser(@RequestParam("rid") String rid){
-        Map<String,List> map = partService.getTrandferUser(rid);
+    public Map<String, List> getTrandferUser(@RequestParam("rid") String rid,@RequestParam("type") String type){
+        Map<String,List> map = partService.getTrandferUser(rid,type);
         return map;
     }
 
     //    分配用户
     @PostMapping("/editPartUser")
     public RespBean editPartUser(@RequestParam(value = "parts",required=false) List parts,
-                                 @RequestParam(value = "partId",required=false) Integer partId){
+                                 @RequestParam(value = "partId",required=false) Integer partId,
+                                 @RequestParam(value = "type",required=false) String type,
+                                 @RequestParam(value = "length",required=false) Integer length
+                                 ){
         try {
-            partService.editPartUser(parts,partId);
+            partService.editPartUser(parts,partId,type,length);
             return RespBean.ok("修改成功！");
         }catch (Exception e){
             e.printStackTrace();

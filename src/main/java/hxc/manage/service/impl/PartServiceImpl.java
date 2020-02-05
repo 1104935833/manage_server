@@ -1,11 +1,9 @@
 package hxc.manage.service.impl;
 
 import com.alibaba.druid.util.StringUtils;
-import hxc.manage.mapper.MenuMapper;
 import hxc.manage.mapper.PartMapper;
 import hxc.manage.model.Part;
 import hxc.manage.model.Role;
-import hxc.manage.service.MenuService;
 import hxc.manage.service.PartService;
 import hxc.manage.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +37,15 @@ public class PartServiceImpl implements PartService {
     }
 
     @Override
-    public Map<String, List> getTrandferUser(String rid) {
+    public Map<String, List> getTrandferUser(String rid, String type) {
+        List<Map<String,Object>> rightmap;
         List<Map<String,Object>> leftmap = partMapper.getTrandferUser(rid,"left");
-        List<Map<String,Object>> rightmap = partMapper.getTrandferUser(rid,"right");
+        if (StringUtils.equals(type,"1")){
+            rightmap = partMapper.getTrandferUser(rid,"right");
+        }else{
+            rightmap = partMapper.getTrandferManagUser(rid);
+        }
+
         List leftLabel = new ArrayList();
         List leftValue = new ArrayList();
         List rightLabel = new ArrayList();
@@ -63,9 +67,11 @@ public class PartServiceImpl implements PartService {
     }
 
     @Override
-    public void editPartUser(List parts, Integer partId) {
-        partMapper.delPartUserById(partId);
-        partMapper.editPartUser(parts,partId);
+    public void editPartUser(List parts, Integer partId, String type, Integer length) {
+        partMapper.delPartUserById(partId,type);
+        if (length > 0){
+            partMapper.editPartUser(parts,partId,type);
+        }
 
 
     }
