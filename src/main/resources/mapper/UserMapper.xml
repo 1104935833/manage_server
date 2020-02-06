@@ -113,8 +113,8 @@ FROM
         <if test="tree!='' or tree!=null">
             tree=#{tree}
         </if>
-        <if test="enabled!='' or enabled!=null">
-            ,enabled=#{enabled}
+        <if test="enable!='' or enable!=null">
+            ,enabled=#{enable}
         </if>
         <if test="password!='' or password!=null">
             ,password=#{password}
@@ -226,9 +226,9 @@ FROM
         select max(workID) from user_details;
     </select>
     <select id="searchInfo" resultType="hxc.manage.model.UserDetail">
-        select * from `user`,user_details where 1=1
-        <if test="emp.enabled != null">
-            and enabled = #{emp.enabled}
+        select user_details.*,user.tree,user.enabled enable  from `user`,user_details where 1=1
+        <if test="emp.enable != null">
+            and enabled = #{emp.enable}
         </if>
         <if test="emp.name!='' and emp.name != null">
             and name like #{emp.name}

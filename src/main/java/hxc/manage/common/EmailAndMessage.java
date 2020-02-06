@@ -1,5 +1,6 @@
 package hxc.manage.common;
 
+import hxc.manage.util.RedisUtil;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.NameValuePair;
@@ -8,6 +9,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
@@ -23,6 +25,11 @@ import java.util.Properties;
 
 @Component
 public class EmailAndMessage {
+
+    @Autowired
+    RedisUtil redisUtil;
+
+
 
     @Value("${mail.user}")
     private String user;
@@ -66,15 +73,17 @@ public class EmailAndMessage {
     }
 
     @Async
-    public void send(String phone){
+    public void send(String phone,String type){
         HttpClient client = new HttpClient();
         PostMethod method = new PostMethod(Url);
 //        Map<String,Object> re = new HashMap<>();
         client.getParams().setContentCharset("GBK");
         method.setRequestHeader("ContentType","application/x-www-form-urlencoded;charset=GBK");
         int mobile_code = (int)((Math.random()*9+1)*100000);
+
         String content = "您的验证码是：" + mobile_code + "。请不要把验证码泄露给其他人。";
 //        String content = "您有一个"+mobile_code+"申请需要审批，请登录网站进行操作。";
+
         NameValuePair[] data ={
                 new NameValuePair("account","C90828810"),
                 new NameValuePair("password", "3908acb8e6c476589a5337583b8b488d"),  //查看密码请登录用户中心->验证码短信->产品总览->APIKEY
@@ -83,32 +92,25 @@ public class EmailAndMessage {
                 new NameValuePair("content", content),
         };
         method.setRequestBody(data);
+
         try {
             client.executeMethod(method);
+            redisUtil.set("yzm",mobile_code,300);
             String submitResult = method.getResponseBodyAsString();
             Document document = DocumentHelper.parseText(submitResult);
             Element root = document.getRootElement();
             String code = root.elementText("code");
             String msg = root.elementText("msg");
             String smsid = root.elementText("smsid");
-            if(code.equals("2")){
-                System.out.println("短信提交成功");
-            }else {
-                System.out.println(code);
-            }
-        } catch (HttpException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (DocumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
         }finally {
             method.releaseConnection();
+
 //            client.getHttpConnectionManager().closeIdleConnections(0);
         }
+
 
     }
 }

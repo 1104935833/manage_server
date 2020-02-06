@@ -38,7 +38,7 @@
     </insert>
 
     <update id="menuHideById">
-        update menu set enabled=#{enabled} where id = #{id}
+        update menu set enabled=#{enable} where id = #{id}
     </update>
     <update id="upMenu">
         update menu set name = #{name},component=#{component},path=#{path},url=#{url},enabled=#{enabled},parentId=#{parentId} where id = #{id}

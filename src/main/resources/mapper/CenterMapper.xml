@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hxc.manage.mapper.CenterMapper">
+
+    <update id="editPwd">
+      update `user` set password = #{newPwd} where id = #{id}
+    </update>
+    <update id="changeInfo">
+        update user_details set phone = #{map.phone},email = #{map.email},gender = #{map.sex} where user_id = #{map.id}
+    </update>
+</mapper>
