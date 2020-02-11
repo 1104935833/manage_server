@@ -7,7 +7,5 @@
     <update id="editPwd">
       update `user` set password = #{newPwd} where id = #{id}
     </update>
-    <update id="changeInfo">
-        update user_details set phone = #{map.phone},email = #{map.email},gender = #{map.sex} where user_id = #{map.id}
-    </update>
+
 </mapper>

@@ -113,12 +113,11 @@ public class PoiUtils {
                 row.createCell(1).setCellValue(emp.getWorkID());
                 row.createCell(2).setCellValue(emp.getGender());
                 HSSFCell birthdayCell = row.createCell(3);
-                birthdayCell.setCellValue(emp.getBirthday());
+                birthdayCell.setCellValue(emp.getOffice_id());
                 birthdayCell.setCellStyle(dateCellStyle);
-                row.createCell(4).setCellValue(emp.getIdCard());
+                row.createCell(4).setCellValue(emp.getNote());
                 row.createCell(5).setCellValue(emp.getEmail());
                 row.createCell(6).setCellValue(emp.getPhone());
-                row.createCell(7).setCellValue(emp.getAddress());
                 row.createCell(8).setCellValue(emp.getEnable());
             }
             headers = new HttpHeaders();
@@ -173,16 +172,13 @@ public class PoiUtils {
                     userDetail.setGender(cellValue);
                     break;
                 case 3:
-                    userDetail.setIdCard(cellValue);
+                    userDetail.setNote(cellValue);
                     break;
                 case 5:
                     userDetail.setEmail(cellValue);
                     break;
                 case 6:
                     userDetail.setPhone(cellValue);
-                    break;
-                case 7:
-                    userDetail.setAddress(cellValue);
                     break;
                 case 8:
                     userDetail.setEnable(Integer.valueOf(cellValue));
@@ -195,7 +191,7 @@ public class PoiUtils {
                 case 4:
                     SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy",Locale.US);
                     Date d = sdf.parse(cell.getDateCellValue().toString());
-                    userDetail.setBirthday(d.getTime()+"");
+                    userDetail.setOffice_id(d.getTime()+"");
                     break;
             }
         }

@@ -171,14 +171,13 @@ FROM
         a.NAME,
         a.gender,
         a.workID,
-        a.birthday,
-        a.idCard,
+        a.note,
+        d.office office_id,
         a.email,
         a.phone,
-        a.address,
         b.enabled enable,
         b.tree
-        from user_details a,user b,tree_people c  where a.user_id=b.id and b.tree = c. tree_code
+        from user_details a,user b,tree_people c,office d  where a.office_id = d. id and a.user_id=b.id and b.tree = c. tree_code
 
         <if test="rank==3">
             and a.name like '%' #{keywords} '%'

@@ -1,5 +1,7 @@
 package hxc.manage.service;
 
+import hxc.manage.model.UserDetail;
+
 import java.util.Map;
 
 public interface SystemCenterService {
@@ -7,6 +9,5 @@ public interface SystemCenterService {
 
     void editPwd(String yzm, String newPwd, Long id);
 
-    int changeInfo(Map<String, String> map);
 
 }

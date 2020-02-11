@@ -2,6 +2,7 @@ package hxc.manage.service.impl;
 
 import hxc.manage.common.EmailAndMessage;
 import hxc.manage.mapper.CenterMapper;
+import hxc.manage.model.UserDetail;
 import hxc.manage.service.SystemCenterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,11 +32,7 @@ public class SystemCenterServiceImpl implements SystemCenterService {
         centerMapper.editPwd(yzm,newPwd,id);
     }
 
-    @Override
-    public int changeInfo(Map<String, String> map) {
-        int i =centerMapper.changeInfo(map);
-        return i;
-    }
+
 
 
 }

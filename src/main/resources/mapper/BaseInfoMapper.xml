@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hxc.manage.mapper.BaseInfoMapper">
+
+
+    <update id="changeInfo">
+        update user_details set name = #{map.name},phone = #{map.phone},email = #{map.email},gender = #{map.gender},
+        office_id = #{map.office_id},note=#{map.note}
+
+        where user_id = #{map.id}
+    </update>
+    <select id="userInfo" resultType="hxc.manage.model.UserDetail">
+        select a.id,a.workID,a.`name`,a.phone,a.email,a.note,a.user_id,a.gender,a.office_id
+        from user_details a
+        where user_id = #{id}
+    </select>
+    <select id="getOffices" resultType="hxc.manage.model.Office">
+        select * from office
+    </select>
+    <select id="getPerformanceByUserId" resultType="hxc.manage.model.Performance">
+        select * from performance
+        <where>
+            <if test="map.id != null and map.id !=''">
+                user_id = #{map.id}
+            </if>
+            <if test="map.keywords != null and map.keywords !=''">
+                and performance_name = #{map.keywords}
+            </if>
+            <if test="map.performance_name != null and map.performance_name !=''">
+                and performance_name = #{map.performance_name}
+            </if>
+            <if test="map.performance_class != null and map.performance_class>0">
+                and performance_class = #{map.performance_class}
+            </if>
+            <if test="map.complete_author != null and map.complete_author>0">
+                and complete_author = #{map.complete_author}
+            </if>
+            <if test="map.first_author != null and map.first_author !=''">
+                and first_author = #{map.first_author}
+            </if>
+            <if test="map.audit_condition != null and map.audit_condition>0">
+                and audit_condition = #{map.audit_condition}
+            </if>
+            <if test="map.time != null and map.time !=''">
+                and `time` = #{map.time}
+            </if>
+            <if test="map.grade != null and map.grade !=''">
+                and grade = #{map.grade}
+            </if>
+            <if test="map.startTime !=null and map.startTime != '' and map.endTime != null and map.endTime != ''">
+                and time between #{map.startTime} and #{map.endTime}
+            </if>
+        </where>
+        limit #{map.start},#{map.size}
+    </select>
+
+
+</mapper>
