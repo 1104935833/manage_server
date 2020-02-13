@@ -41,7 +41,7 @@ public class SysController {
     //获取待办
     @GetMapping("/getPeddingName")
     public Map<String,Object> getPeddingName(HttpServletRequest req,@RequestParam(defaultValue = "1") Integer page,
-                                           @RequestParam(defaultValue = "10") Integer size) throws InterruptedException, MessagingException {
+                                           @RequestParam(defaultValue = "10") Integer size) {
         int start = (page - 1) * size;
         User user = (User) req.getSession().getAttribute("userinfo");
         List<Role> roles =user.getRoles();
@@ -55,9 +55,9 @@ public class SysController {
     @GetMapping("/sendPedding")
     public Map<String, String> sendPedding(HttpServletRequest req,
                                                @RequestParam("tableId") String tableId,
-                                               @RequestParam("type")String type,
+                                               @RequestParam("type")String type,//个人or集体;1,2
                                                @RequestParam("agree")String agree,
-                                               @RequestParam("state")String state) {
+                                               @RequestParam("state")String state) {//  state 到哪个阶段了1首次发起2教研室3分院4返回修改在发起
         int res;
 //        state 到哪个阶段了1首次发起2教研室3分院4返回修改在发起
         User user = (User) req.getSession().getAttribute("userinfo");
@@ -70,7 +70,7 @@ public class SysController {
             pedding.setName("审核");
             pedding.setState("0");
             pedding.setTableId(tableId);
-            pedding.setUrl("/sys/center");
+            pedding.setUrl("/audit/ResearchAudit");
             pedding.setOperator(userId);
             pedding.setCreateTime(new Date().getTime() + "");
             res = sysRoleService.sendPedding(pedding, userId, "", state);
@@ -93,7 +93,4 @@ public class SysController {
 
 
     }
-
-
-
 }

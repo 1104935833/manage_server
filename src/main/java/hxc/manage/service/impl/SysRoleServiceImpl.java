@@ -57,6 +57,7 @@ public class SysRoleServiceImpl  implements SysRoleService {
 
         /**
          * 分院的需要页面给参数到第几阶段直接给值 state 2  ---3
+         * 每次跟新完返回手机号发送短信
          */
         int res;
         //第一次插入
