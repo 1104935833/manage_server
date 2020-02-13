@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hxc.manage.mapper.AuditMapper">
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="hxc.manage.model.Audit">
+        <result column="id" property="id"/>
+        <result column="proposer_id" property="proposerId"/>
+        <result column="proposer_type" property="proposerType"/>
+        <result column="proposer_time" property="proposerTime"/>
+        <result column="auditor_research_id" property="auditorResearchId"/>
+        <result column="auditor_research_time" property="auditorResearchTime"/>
+        <result column="audit_status" property="auditStatus"/>
+        <result column="table_id" property="tableId"/>
+        <result column="auditor_court_id" property="auditorCourtId"/>
+        <result column="audtior_court_time" property="audtiorCourtTime"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`,
+        `proposer_id`,
+        `proposer_type`,
+        `proposer_time`,
+        `auditor_research_id`,
+        `auditor_research_time`,
+        `audit_status`,
+        `table_id`,
+        `auditor_court_id`,
+        `audtior_court_time`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO audit (
+            `id`,
+            `proposer_id`,
+            `proposer_type`,
+            `proposer_time`,
+            `auditor_research_id`,
+            `auditor_research_time`,
+            `audit_status`,
+            `table_id`,
+            `auditor_court_id`,
+            `audtior_court_time`
+        ) VALUES (
+            #{pojo.id},
+            #{pojo.proposerId},
+            #{pojo.proposerType},
+            #{pojo.proposerTime},
+            #{pojo.auditorResearchId},
+            #{pojo.auditorResearchTime},
+            #{pojo.auditStatus},
+            #{pojo.tableId},
+            #{pojo.auditorCourtId},
+            #{pojo.audtiorCourtTime}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO audit
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null"> `id`,</if>
+            <if test="pojo.proposerId!=null"> `proposer_id`,</if>
+            <if test="pojo.proposerType!=null"> `proposer_type`,</if>
+            <if test="pojo.proposerTime!=null"> `proposer_time`,</if>
+            <if test="pojo.auditorResearchId!=null"> `auditor_research_id`,</if>
+            <if test="pojo.auditorResearchTime!=null"> `auditor_research_time`,</if>
+            <if test="pojo.auditStatus!=null"> `audit_status`,</if>
+            <if test="pojo.tableId!=null"> `table_id`,</if>
+            <if test="pojo.auditorCourtId!=null"> `auditor_court_id`,</if>
+            <if test="pojo.audtiorCourtTime!=null"> `audtior_court_time`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null">#{pojo.id},</if>
+            <if test="pojo.proposerId!=null">#{pojo.proposerId},</if>
+            <if test="pojo.proposerType!=null">#{pojo.proposerType},</if>
+            <if test="pojo.proposerTime!=null">#{pojo.proposerTime},</if>
+            <if test="pojo.auditorResearchId!=null">#{pojo.auditorResearchId},</if>
+            <if test="pojo.auditorResearchTime!=null">#{pojo.auditorResearchTime},</if>
+            <if test="pojo.auditStatus!=null">#{pojo.auditStatus},</if>
+            <if test="pojo.tableId!=null">#{pojo.tableId},</if>
+            <if test="pojo.auditorCourtId!=null">#{pojo.auditorCourtId},</if>
+            <if test="pojo.audtiorCourtTime!=null">#{pojo.audtiorCourtTime},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO audit (
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.proposerId},
+            #{pojo.proposerType},
+            #{pojo.proposerTime},
+            #{pojo.auditorResearchId},
+            #{pojo.auditorResearchTime},
+            #{pojo.auditStatus},
+            #{pojo.tableId},
+            #{pojo.auditorCourtId},
+            #{pojo.audtiorCourtTime}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE audit
+        <set>
+            <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
+            <if test="pojo.proposerId != null"> `proposer_id` = #{pojo.proposerId}, </if>
+            <if test="pojo.proposerType != null"> `proposer_type` = #{pojo.proposerType}, </if>
+            <if test="pojo.proposerTime != null"> `proposer_time` = #{pojo.proposerTime}, </if>
+            <if test="pojo.auditorResearchId != null"> `auditor_research_id` = #{pojo.auditorResearchId}, </if>
+            <if test="pojo.auditorResearchTime != null"> `auditor_research_time` = #{pojo.auditorResearchTime}, </if>
+            <if test="pojo.auditStatus != null"> `audit_status` = #{pojo.auditStatus}, </if>
+            <if test="pojo.tableId != null"> `table_id` = #{pojo.tableId}, </if>
+            <if test="pojo.auditorCourtId != null"> `auditor_court_id` = #{pojo.auditorCourtId}, </if>
+            <if test="pojo.audtiorCourtTime != null"> `audtior_court_time` = #{pojo.audtiorCourtTime} </if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+    <select id="getAllAudit" resultType="java.util.Map">
+
+        SELECT
+            `id`,
+            d.`name` proposer_name,
+            `proposer_type`,
+            `proposer_time`,
+            b.name `auditor_research_name`,
+            `auditor_research_time`,
+            `audit_status`,
+            `table_id`,
+            c.name `auditor_court_name`,
+            `audtior_court_time`
+        FROM
+            audit a
+            LEFT JOIN ( SELECT NAME, user_id FROM user_details ) d ON d.user_id = a.proposer_id
+            LEFT JOIN ( SELECT NAME, user_id FROM user_details ) b ON b.user_id = a.auditor_research_id
+            LEFT JOIN ( SELECT NAME, user_id FROM user_details ) c ON c.user_id = a.auditor_court_id
+        <where>
+            <if test="conditions.proposer_id != null and conditions.proposer_id != ''">
+                d.`NAME` like  "%"#{conditions.proposer_id}"%"
+            </if>
+            <if test="conditions.audit_status != null and conditions.audit_status != ''">
+                and audit_status = #{conditions.audit_status}
+            </if>
+        </where>
+        limit #{conditions.start},#{conditions.size}
+    </select>
+
+    <update id="updateAuit">
+        UPDATE audit
+        <set>
+            <if test="pojo.auditorResearchId != null"> `auditor_research_id` = #{pojo.auditorResearchId}, </if>
+            <if test="pojo.auditorResearchTime != null"> `auditor_research_time` = #{pojo.auditorResearchTime}, </if>
+            <if test="pojo.auditStatus != null"> `audit_status` = #{pojo.auditStatus}, </if>
+            <if test="pojo.auditorCourtId != null"> `auditor_court_id` = #{pojo.auditorCourtId}, </if>
+            <if test="pojo.audtiorCourtTime != null"> `audtior_court_time` = #{pojo.audtiorCourtTime} </if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+</mapper>
+
