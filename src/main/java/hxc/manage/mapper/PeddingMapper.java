@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author hxc
@@ -14,7 +15,7 @@ import java.util.List;
  */
 @Mapper
 @Component
-public interface SysRoleMapper {
+public interface PeddingMapper {
 
 
 //    List<SysRole> findSysRole();
@@ -28,4 +29,6 @@ public interface SysRoleMapper {
     String findPeddingRole(@Param("userId") String userId);
 
     Integer updatePedding(Pedding pedding);
+
+    Map<String, Object> fingPhoneAndEmail(@Param("role")String role);
 }

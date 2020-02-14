@@ -2,17 +2,21 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="hxc.manage.mapper.SysRoleMapper">
-    <insert id="sendPedding">
-      insert into pedding(`type`,role,main,`name`,tableId,state,url,operator,create_time)
+<mapper namespace="hxc.manage.mapper.PeddingMapper">
+    <insert id="sendPedding" useGeneratedKeys="true" keyProperty="id">
+      insert into pedding(`type`,role,main,`name`,tableId,state,url,operator,createTime)
       values(#{type},#{role},#{main},#{name},#{tableId},#{state},#{url},#{operator},#{createTime})
     </insert>
 
     <update id="updatePedding">
+        <selectKey keyProperty='id' resultType='int' order='AFTER'>
+            select role FROM pedding WHERE
+            tableId = #{tableId}
+        </selectKey>
       update pedding
       <set>
 
-          role = #{role},state=#{state},update_time=#{updateTime}
+          role = #{role},state=#{state},updateTime=#{updateTime}
           <if test="main != null and main!=''">
               ,main=#{main}
           </if>
@@ -34,5 +38,17 @@
     <select id="findPeddingRole" resultType="java.lang.String">
         select roleid from `user` a,tree_people b,tree_role c where a.tree=b.tree_code and
         c.treeid=b.id and a.id=#{userId}
+    </select>
+    <select id="fingPhoneAndEmail" resultType="java.util.Map">
+
+    SELECT
+        email,
+        phone,
+        user_id
+    FROM
+        user_details
+        INNER JOIN ( SELECT userid FROM user_role WHERE rid = #{role} AND isManager = 1 ) b ON b.userid = user_details.user_id
+
+
     </select>
 </mapper>

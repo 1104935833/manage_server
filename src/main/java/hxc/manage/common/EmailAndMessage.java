@@ -40,7 +40,7 @@ public class EmailAndMessage {
     private static String Url = "http://106.ihuyi.cn/webservice/sms.php?method=Submit";
 
     @Async
-    public void sendMail(String mail) throws InterruptedException, MessagingException {
+    public void sendMail(String mail) throws  MessagingException {
         Properties properties = new Properties();
         properties.put("mail.transport.protocol", "smtp");// 连接协议
         properties.put("mail.smtp.host", "smtp.qq.com");// 主机名
@@ -76,13 +76,17 @@ public class EmailAndMessage {
     public void send(String phone,String type){
         HttpClient client = new HttpClient();
         PostMethod method = new PostMethod(Url);
+        String content;
 //        Map<String,Object> re = new HashMap<>();
         client.getParams().setContentCharset("GBK");
         method.setRequestHeader("ContentType","application/x-www-form-urlencoded;charset=GBK");
         int mobile_code = (int)((Math.random()*9+1)*100000);
 
-        String content = "您的验证码是：" + mobile_code + "。请不要把验证码泄露给其他人。";
-//        String content = "您有一个"+mobile_code+"申请需要审批，请登录网站进行操作。";
+        if (type.equals("2")) {
+            content= "您的验证码是：" + mobile_code + "。请不要把验证码泄露给其他人。";
+        }else
+            content = "您有一个"+"新的"+"申请需要审批，请登录网站进行操作。";
+
 
         NameValuePair[] data ={
                 new NameValuePair("account","C90828810"),

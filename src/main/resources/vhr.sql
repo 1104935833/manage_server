@@ -1,21 +1,44 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : aliyuu
+ Source Server         : 39.98.93.238_3306
  Source Server Type    : MySQL
- Source Server Version : 50728
+ Source Server Version : 50729
  Source Host           : 39.98.93.238:3306
  Source Schema         : vhr
 
  Target Server Type    : MySQL
- Target Server Version : 50728
+ Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 04/02/2020 12:17:46
+ Date: 14/02/2020 02:31:06
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for audit
+-- ----------------------------
+DROP TABLE IF EXISTS `audit`;
+CREATE TABLE `audit`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `proposer_id` int(11) NULL DEFAULT NULL COMMENT '申请人id',
+  `proposer_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '申请类型',
+  `proposer_time` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '申请时间',
+  `auditor_research_id` int(11) NULL DEFAULT NULL COMMENT '教研室审核人',
+  `auditor_research_time` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '教研室审核时间',
+  `audit_status` int(11) NULL DEFAULT NULL COMMENT '审核状态0:未审核1:教研室通过2:教研室未通过3:分院通过4:分院未通过',
+  `table_id` int(11) NULL DEFAULT NULL COMMENT '表id',
+  `auditor_court_id` int(11) NULL DEFAULT NULL COMMENT '分院审核人',
+  `audtior_court_time` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '分院审核时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of audit
+-- ----------------------------
+INSERT INTO `audit` VALUES (1, 3, '1', '1581436800000', 3, '1581523200000', 1, 1, 3, '1581612128770');
 
 -- ----------------------------
 -- Table structure for list
@@ -81,42 +104,35 @@ CREATE TABLE `menu`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `parentId`(`parentId`) USING BTREE,
   CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parentId`) REFERENCES `menu` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 58 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 59 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
 INSERT INTO `menu` VALUES (1, '/', '', '', '首页', '', NULL, NULL, NULL, 1);
-INSERT INTO `menu` VALUES (2, '/', '/home', 'Home', '员工管理', 'Steve-Jobs', NULL, 1, 1, 1);
-INSERT INTO `menu` VALUES (3, '/', '/home', 'Home', '人事管理', 'error', NULL, 1, 1, 1);
-INSERT INTO `menu` VALUES (4, '/', '/home', 'Home', '薪资管理', 'redis', NULL, 1, 1, 1);
-INSERT INTO `menu` VALUES (5, '/', '/home', 'Home', '统计管理', 'chart', NULL, 1, 1, 1);
+INSERT INTO `menu` VALUES (2, '/', '/home', 'Home', '个人信息', 'Steve-Jobs', NULL, 1, 1, 1);
+INSERT INTO `menu` VALUES (3, '/', '/home', 'Home', '业绩登记', 'error', NULL, 1, 1, 1);
+INSERT INTO `menu` VALUES (4, '/', '/home', 'Home', '业绩审核', 'redis', NULL, 1, 1, 1);
+INSERT INTO `menu` VALUES (5, '/', '/home', 'Home', '业绩计算', 'chart', NULL, 1, 1, 1);
 INSERT INTO `menu` VALUES (6, '/', '/home', 'Home', '系统管理', 'system', NULL, 1, 1, 1);
-INSERT INTO `menu` VALUES (7, '/employee/basic/**', '/emp/basic', 'EmpBasic', '基本资料', NULL, NULL, 1, 2, 1);
-INSERT INTO `menu` VALUES (8, '/employee/advanced/**', '/emp/adv', 'EmpAdv', '高级资料', NULL, NULL, 1, 2, 1);
-INSERT INTO `menu` VALUES (9, '/personnel/emp/**', '/per/emp', 'PerEmp', '员工资料', NULL, NULL, 1, 3, 1);
-INSERT INTO `menu` VALUES (10, '/personnel/ec/**', '/per/ec', 'PerEc', '员工奖惩', NULL, NULL, 1, 3, 1);
-INSERT INTO `menu` VALUES (11, '/personnel/train/**', '/per/train', 'PerTrain', '员工培训', NULL, NULL, 1, 3, 1);
-INSERT INTO `menu` VALUES (12, '/personnel/salary/**', '/per/salary', 'PerSalary', '员工调薪', NULL, NULL, 1, 3, 1);
-INSERT INTO `menu` VALUES (13, '/personnel/remove/**', '/per/mv', 'PerMv', '员工调动', NULL, NULL, 1, 3, 1);
-INSERT INTO `menu` VALUES (14, '/salary/sob/**', '/sal/sob', 'SalSob', '工资账套管理', NULL, NULL, 1, 4, 1);
-INSERT INTO `menu` VALUES (15, '/salary/sobcfg/**', '/sal/sobcfg', 'SalSobCfg', '员工账套设置', NULL, NULL, 1, 4, 1);
-INSERT INTO `menu` VALUES (16, '/salary/table/**', '/sal/table', 'SalTable', '工资表管理', NULL, NULL, 1, 4, 1);
-INSERT INTO `menu` VALUES (17, '/salary/month/**', '/sal/month', 'SalMonth', '月末处理', NULL, NULL, 1, 4, 1);
-INSERT INTO `menu` VALUES (18, '/salary/search/**', '/sal/search', 'SalSearch', '工资表查询', NULL, NULL, 1, 4, 1);
-INSERT INTO `menu` VALUES (19, '/statistics/all/**', '/sta/all', 'StaAll', '综合信息统计', NULL, NULL, 1, 5, 1);
+INSERT INTO `menu` VALUES (7, '/employee/basic/**', '/personalinf/basic', 'EmpBasic', '基本信息', NULL, NULL, 1, 2, 1);
+INSERT INTO `menu` VALUES (8, '/employee/advanced/**', '/personalinf/adv', 'EmpAdv', '业绩信息', NULL, NULL, 1, 2, 1);
+INSERT INTO `menu` VALUES (10, '/personnel/ec/**', '/achievementInput/Perscientific', 'Perscientific', '科研业绩录入界面', NULL, NULL, 1, 3, 1);
+INSERT INTO `menu` VALUES (11, '/personnel/train/**', '/Perhonor/Perhonor', 'Perhonor', '荣誉录入界面', NULL, NULL, 1, 3, 1);
+INSERT INTO `menu` VALUES (13, '/personnel/remove/**', '/achievementInput/Perhonor', 'Perteacher', '教学业绩录入', NULL, NULL, 1, 3, 1);
+INSERT INTO `menu` VALUES (14, '/audit/sob/**', '/audit/ResearchAudit', 'AuditResearch', '教研室/院级审核', NULL, NULL, 1, 4, 1);
+INSERT INTO `menu` VALUES (19, '/statistics/all/**', '/sta/all', 'StaAll', '业绩汇总', NULL, NULL, 1, 5, 1);
 INSERT INTO `menu` VALUES (20, '/statistics/score/**', '/sta/score', 'StaScore', '员工积分统计', NULL, NULL, 1, 5, 1);
-INSERT INTO `menu` VALUES (21, '/statistics/personnel/**', '/sta/pers', 'StaPers', '人事信息统计', NULL, NULL, 1, 5, 1);
-INSERT INTO `menu` VALUES (22, '/statistics/recored/**', '/sta/record', 'StaRecord', '人事记录统计', NULL, NULL, 1, 5, 1);
-INSERT INTO `menu` VALUES (23, '/system/role/**', '/sys/role', 'SysRole', '权限设置', NULL, NULL, 1, 6, 1);
+INSERT INTO `menu` VALUES (21, '/statistics/personnel/**', '/sta/pers', 'StaPers', '个人业绩', NULL, NULL, 1, 5, 1);
+INSERT INTO `menu` VALUES (22, '/statistics/recored/**', '/sta/StaGroup', 'StaGroup', '集体业绩', NULL, NULL, 1, 5, 1);
 INSERT INTO `menu` VALUES (24, '/system/peo/**', '/sys/peo', 'SysPeoPle', '人员管理', NULL, NULL, 1, 6, 1);
 INSERT INTO `menu` VALUES (25, '/system/menu/**', '/sys/menu', 'SysMenu', '菜单管理', NULL, NULL, 1, 6, 1);
 INSERT INTO `menu` VALUES (26, '/system/user/**', '/sys/user', 'SysUser', '角色管理', NULL, NULL, 1, 6, 1);
-INSERT INTO `menu` VALUES (28, '/system/init/**', '/sys/icon', 'index', '初始化数据库', NULL, NULL, 1, 6, 1);
 INSERT INTO `menu` VALUES (29, '/', '/home', 'Home', '测试gl', 'date', NULL, 1, 1, 1);
 INSERT INTO `menu` VALUES (32, '/', '/home', 'Home', '首页', 'fa fa-windows', NULL, 1, 1, 1);
 INSERT INTO `menu` VALUES (56, '/system/pedding/**', '/sys/peddingList', 'peddingList', '待办列表', NULL, NULL, 1, 57, 1);
 INSERT INTO `menu` VALUES (57, '/', '/home', 'Home', '待办管理', 'email', NULL, 1, 1, 1);
+INSERT INTO `menu` VALUES (58, '/personnel/remove/**', '/achievementInput/Perscientific', 'Perscientific', '科研业绩录入', '', NULL, 1, 3, 1);
 
 -- ----------------------------
 -- Table structure for menu_role
@@ -131,7 +147,7 @@ CREATE TABLE `menu_role`  (
   INDEX `rid`(`rid`) USING BTREE,
   CONSTRAINT `menu_role_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `menu` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT `menu_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 826 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 829 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of menu_role
@@ -142,102 +158,92 @@ INSERT INTO `menu_role` VALUES (248, 8, 4);
 INSERT INTO `menu_role` VALUES (249, 11, 4);
 INSERT INTO `menu_role` VALUES (250, 7, 2);
 INSERT INTO `menu_role` VALUES (251, 8, 2);
-INSERT INTO `menu_role` VALUES (252, 9, 2);
-INSERT INTO `menu_role` VALUES (253, 10, 2);
-INSERT INTO `menu_role` VALUES (254, 12, 2);
 INSERT INTO `menu_role` VALUES (255, 13, 2);
 INSERT INTO `menu_role` VALUES (256, 7, 1);
 INSERT INTO `menu_role` VALUES (257, 8, 1);
-INSERT INTO `menu_role` VALUES (258, 9, 1);
-INSERT INTO `menu_role` VALUES (259, 10, 1);
 INSERT INTO `menu_role` VALUES (260, 11, 1);
-INSERT INTO `menu_role` VALUES (261, 12, 1);
 INSERT INTO `menu_role` VALUES (262, 13, 1);
 INSERT INTO `menu_role` VALUES (263, 14, 1);
-INSERT INTO `menu_role` VALUES (264, 15, 1);
-INSERT INTO `menu_role` VALUES (265, 16, 1);
-INSERT INTO `menu_role` VALUES (266, 17, 1);
-INSERT INTO `menu_role` VALUES (267, 18, 1);
 INSERT INTO `menu_role` VALUES (268, 19, 1);
 INSERT INTO `menu_role` VALUES (269, 20, 1);
 INSERT INTO `menu_role` VALUES (270, 21, 1);
 INSERT INTO `menu_role` VALUES (271, 22, 1);
-INSERT INTO `menu_role` VALUES (272, 23, 1);
-INSERT INTO `menu_role` VALUES (273, 24, 1);
 INSERT INTO `menu_role` VALUES (274, 25, 1);
-INSERT INTO `menu_role` VALUES (275, 26, 1);
-INSERT INTO `menu_role` VALUES (277, 28, 1);
 INSERT INTO `menu_role` VALUES (795, 7, 6);
 INSERT INTO `menu_role` VALUES (796, 8, 6);
-INSERT INTO `menu_role` VALUES (797, 9, 6);
-INSERT INTO `menu_role` VALUES (798, 10, 6);
 INSERT INTO `menu_role` VALUES (799, 11, 6);
-INSERT INTO `menu_role` VALUES (800, 12, 6);
 INSERT INTO `menu_role` VALUES (801, 13, 6);
 INSERT INTO `menu_role` VALUES (802, 14, 6);
-INSERT INTO `menu_role` VALUES (803, 15, 6);
-INSERT INTO `menu_role` VALUES (804, 16, 6);
-INSERT INTO `menu_role` VALUES (805, 17, 6);
-INSERT INTO `menu_role` VALUES (806, 18, 6);
 INSERT INTO `menu_role` VALUES (807, 19, 6);
 INSERT INTO `menu_role` VALUES (808, 20, 6);
 INSERT INTO `menu_role` VALUES (809, 21, 6);
 INSERT INTO `menu_role` VALUES (810, 22, 6);
-INSERT INTO `menu_role` VALUES (811, 23, 6);
-INSERT INTO `menu_role` VALUES (812, 24, 6);
 INSERT INTO `menu_role` VALUES (813, 25, 6);
-INSERT INTO `menu_role` VALUES (814, 26, 6);
-INSERT INTO `menu_role` VALUES (815, 28, 6);
 INSERT INTO `menu_role` VALUES (817, 32, 6);
-INSERT INTO `menu_role` VALUES (818, 10, 27);
 INSERT INTO `menu_role` VALUES (819, 11, 27);
 INSERT INTO `menu_role` VALUES (820, 14, 27);
-INSERT INTO `menu_role` VALUES (821, 15, 27);
-INSERT INTO `menu_role` VALUES (822, 16, 27);
-INSERT INTO `menu_role` VALUES (823, 17, 27);
-INSERT INTO `menu_role` VALUES (824, 18, 27);
 INSERT INTO `menu_role` VALUES (825, 56, 6);
+INSERT INTO `menu_role` VALUES (826, 26, 6);
+INSERT INTO `menu_role` VALUES (827, 24, 6);
+INSERT INTO `menu_role` VALUES (828, 10, 6);
+
+-- ----------------------------
+-- Table structure for office
+-- ----------------------------
+DROP TABLE IF EXISTS `office`;
+CREATE TABLE `office`  (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `office` enum('A-101','B-203','C-404','D-502','B-304','C-405','C-203','D-503') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of office
+-- ----------------------------
+INSERT INTO `office` VALUES (1, 'A-101');
+INSERT INTO `office` VALUES (2, 'B-203');
+INSERT INTO `office` VALUES (3, 'C-404');
+INSERT INTO `office` VALUES (4, 'D-502');
+INSERT INTO `office` VALUES (5, 'B-304');
+INSERT INTO `office` VALUES (6, 'C-405');
+INSERT INTO `office` VALUES (7, 'C-203');
+INSERT INTO `office` VALUES (8, 'D-503');
 
 -- ----------------------------
 -- Table structure for paper
 -- ----------------------------
 DROP TABLE IF EXISTS `paper`;
 CREATE TABLE `paper`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '工号',
-  `paper_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '论文类型',
-  `paper_title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '论文标题',
-  `first_author_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '第一作者类型',
-  `first_author` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '第一作者',
+  `id` int(13) NOT NULL AUTO_INCREMENT COMMENT '工号',
+  `paper_type` enum('0','1') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '论文类型1:2:',
+  `paper_title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '论文标题',
+  `first_author_type` enum('1','2','3') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '第一作者类型1:2:',
+  `first_author` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '第一作者',
   `correspondence_author` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '通讯作者',
-  `time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '发表/出版时间',
+  `time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '发表/出版时间',
   `publication` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '发表刊物/论文集',
-  `publication_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '刊物类型',
+  `publication_type` enum('0','1') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '刊物类型1:2:',
   `paper_category` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '论文学科门类',
-  `paper_company` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所属单位',
+  `paper_company` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '所属单位',
   `paper_source` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '项目来源',
-  `paper_volume` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '卷号',
-  `paper_page` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '页码范围',
+  `paper_volume` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '卷号',
+  `paper_page` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '页码范围',
   `paper_school` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '学校署名',
-  `paper_translation` tinyint(255) NULL DEFAULT NULL COMMENT '是否译文',
-  `paper_cn` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'CN号',
-  `paper_local` tinyint(255) NULL DEFAULT NULL COMMENT '是否与地方联合发表',
-  `paper_enterprise` tinyint(255) NULL DEFAULT NULL COMMENT '是否与企业共同发表',
-  `paper_high` tinyint(255) NULL DEFAULT NULL COMMENT '是否被高引用',
+  `paper_translation` tinyint(1) NULL DEFAULT NULL COMMENT '是否译文',
+  `paper_cn` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'CN号',
+  `paper_local` tinyint(1) NULL DEFAULT NULL COMMENT '是否与地方联合发表',
+  `paper_enterprise` tinyint(1) NULL DEFAULT NULL COMMENT '是否与企业共同发表',
+  `paper_high` tinyint(1) NULL DEFAULT NULL COMMENT '是否被高引用',
   `science` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '自然科学研究类别',
   `paper_grade` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '期刊等级',
   `paper_a` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '一级学科',
   `publication_scope` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '发表范围',
-  `paper_issue` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '期号',
-  `paper_word` int(255) NULL DEFAULT NULL COMMENT '字数',
+  `paper_issue` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '期号',
+  `paper_word` int(4) NOT NULL COMMENT '字数',
   `page` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '版面',
-  `paper_issn` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'ISSN号',
+  `paper_issn` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'ISSN号',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of paper
--- ----------------------------
-INSERT INTO `paper` VALUES (11, '0', '', NULL, '', NULL, '', '', NULL, NULL, '', NULL, NULL, '', '', NULL, '', NULL, NULL, NULL, NULL, '', '', '', '', NULL, NULL, '');
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for pedding
@@ -261,7 +267,33 @@ CREATE TABLE `pedding`  (
 -- ----------------------------
 -- Records of pedding
 -- ----------------------------
-INSERT INTO `pedding` VALUES (14, '1', '6', '论文', '审核', '2', '0', '/sys/peddingList', '13', '1234', NULL);
+INSERT INTO `pedding` VALUES (14, '1', '6', '论文', '审核', '2', '0', '/audit/ResearchAudit', '13', '1234', NULL);
+
+-- ----------------------------
+-- Table structure for performance
+-- ----------------------------
+DROP TABLE IF EXISTS `performance`;
+CREATE TABLE `performance`  (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `performance_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '业绩名称',
+  `performance_class` int(255) NULL DEFAULT NULL COMMENT '业绩类别',
+  `time` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '时间',
+  `first_author` tinyint(1) NULL DEFAULT NULL COMMENT '是否是第一作者',
+  `complete_author` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '完成者',
+  `grade` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '级别',
+  `performance_point` double(14, 0) NULL DEFAULT NULL COMMENT '业绩点',
+  `audit_condition` int(11) NULL DEFAULT NULL COMMENT '审核情况1:通过 2:审核中 3:未通过',
+  `material_condition` int(11) NULL DEFAULT NULL COMMENT '佐证材料上交情况1:通过 2:审核中 3:未通过',
+  `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '备注',
+  `user_id` int(11) NULL DEFAULT NULL COMMENT '用户id',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of performance
+-- ----------------------------
+INSERT INTO `performance` VALUES (1, '1', 1, '1580486400000', 1, '1', '1', 1, 1, 1, '1', 3);
+INSERT INTO `performance` VALUES (2, '2', 2, '1580486400000', 2, '2', '2', 2, 2, 2, '2', 3);
 
 -- ----------------------------
 -- Table structure for role
@@ -364,16 +396,12 @@ CREATE TABLE `user`  (
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '密码',
   `tree` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教研室',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 210 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 67 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (3, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (5, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (10, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0102');
-INSERT INTO `user` VALUES (11, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (12, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
+INSERT INTO `user` VALUES (3, 1, '$2a$10$dE7SjUUZamZPLWh5/8o/uOeshzWzXihRAnPkY.xqmUO1779kR7vke', '0101');
 INSERT INTO `user` VALUES (13, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
 INSERT INTO `user` VALUES (14, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
 INSERT INTO `user` VALUES (15, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
@@ -428,374 +456,84 @@ INSERT INTO `user` VALUES (63, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKW
 INSERT INTO `user` VALUES (64, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
 INSERT INTO `user` VALUES (65, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
 INSERT INTO `user` VALUES (66, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0102');
-INSERT INTO `user` VALUES (67, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (68, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (69, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (70, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (71, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (72, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (73, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (74, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0102');
-INSERT INTO `user` VALUES (75, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0105');
-INSERT INTO `user` VALUES (76, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0105');
-INSERT INTO `user` VALUES (77, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0105');
-INSERT INTO `user` VALUES (78, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0105');
-INSERT INTO `user` VALUES (79, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0105');
-INSERT INTO `user` VALUES (80, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0105');
-INSERT INTO `user` VALUES (81, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0102');
-INSERT INTO `user` VALUES (82, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (83, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (84, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (85, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (86, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (87, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (88, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (89, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (90, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (91, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (92, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (93, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (94, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0102');
-INSERT INTO `user` VALUES (95, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0102');
-INSERT INTO `user` VALUES (96, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0102');
-INSERT INTO `user` VALUES (97, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0102');
-INSERT INTO `user` VALUES (98, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0102');
-INSERT INTO `user` VALUES (99, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0102');
-INSERT INTO `user` VALUES (100, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0102');
-INSERT INTO `user` VALUES (101, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0102');
-INSERT INTO `user` VALUES (102, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0102');
-INSERT INTO `user` VALUES (103, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0102');
-INSERT INTO `user` VALUES (104, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0102');
-INSERT INTO `user` VALUES (105, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (106, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (107, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (108, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (109, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (110, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (111, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (112, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (113, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (114, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (115, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (116, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (117, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (118, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (119, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (120, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (121, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (122, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (123, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (124, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (125, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (126, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (127, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (128, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0104');
-INSERT INTO `user` VALUES (129, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (130, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (131, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (132, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (133, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (134, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (135, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (136, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (137, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (138, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (139, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (140, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (141, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (142, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (143, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (144, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (145, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (146, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (147, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (148, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (149, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (150, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (151, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (152, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (153, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (154, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (155, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (156, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (157, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (158, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (159, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (160, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (161, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (162, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (163, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (164, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (165, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (166, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (167, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (168, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (169, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (170, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (171, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (172, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (173, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (174, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (175, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (176, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (177, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0106');
-INSERT INTO `user` VALUES (178, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (179, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (180, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (181, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (182, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (183, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (184, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (185, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0101');
-INSERT INTO `user` VALUES (186, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (187, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (188, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (189, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (190, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (191, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (192, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (193, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (194, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (195, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (196, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (197, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (198, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (199, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (200, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (201, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (202, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (203, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (204, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (205, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (206, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
-INSERT INTO `user` VALUES (208, 1, '$2a$10$YdclEyV6KVCXgzOlzJ2ah.A.tCd0K7G8C3fmKWHVVl5zrXl1GgrCK', '0103');
 
 -- ----------------------------
 -- Table structure for user_details
 -- ----------------------------
 DROP TABLE IF EXISTS `user_details`;
 CREATE TABLE `user_details`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'id',
   `workID` char(8) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '工号',
-  `name` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '员工姓名',
-  `gender` char(4) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '性别',
-  `birthday` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '出生日期',
-  `idCard` char(18) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '身份证号',
-  `nation` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '民族',
+  `name` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '姓名',
+  `gender` char(3) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '性别',
+  `office_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '办公室',
+  `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系电话',
   `email` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
-  `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '电话号码',
-  `address` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系地址',
-  `department` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所属部门',
+  `note` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '备注',
   `user_id` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`, `workID`) USING BTREE,
-  INDEX `departmentId`(`department`) USING BTREE,
-  INDEX `nationId`(`nation`) USING BTREE,
   INDEX `workID_key`(`workID`) USING BTREE,
   INDEX `id`(`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1525 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 1520 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of user_details
 -- ----------------------------
-INSERT INTO `user_details` VALUES (1, '00000001', '江南一点雨', '男', '2018-01-01', '610122199909091234', '3', '584991843@qq.com', '1', '1', '85', 13);
-INSERT INTO `user_details` VALUES (2, '00000002', '陈静', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 14);
-INSERT INTO `user_details` VALUES (3, '00000003', '赵琳浩', '男', '2018-01-01', '01221999090912342', '1', '584991843@qq.com', '1', '1', '91', 15);
-INSERT INTO `user_details` VALUES (4, '00000004', '鹿存亮', '男', '2018-01-01', '6102199909091234', '1', '584991843@qq.com', '1', '1', '92', 16);
-INSERT INTO `user_details` VALUES (5, '00000005', '姚森', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 17);
-INSERT INTO `user_details` VALUES (6, '00000006', '云星', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 18);
-INSERT INTO `user_details` VALUES (7, '00000007', '贾旭明', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 19);
-INSERT INTO `user_details` VALUES (8, '00000008', '张黎明', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 20);
-INSERT INTO `user_details` VALUES (9, '00000009', '薛磊', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 21);
-INSERT INTO `user_details` VALUES (10, '00000010', '张洁', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 22);
-INSERT INTO `user_details` VALUES (11, '00000011', '江南一点雨2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 23);
-INSERT INTO `user_details` VALUES (12, '00000012', '陈静2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '82', 24);
-INSERT INTO `user_details` VALUES (13, '00000013', '江南一点雨', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 25);
-INSERT INTO `user_details` VALUES (14, '00000014', '鹿存亮2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 26);
-INSERT INTO `user_details` VALUES (15, '00000015', '姚森2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 27);
-INSERT INTO `user_details` VALUES (16, '00000016', '鹿存亮', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 28);
-INSERT INTO `user_details` VALUES (17, '00000017', '贾旭明2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 29);
-INSERT INTO `user_details` VALUES (18, '00000018', '王一亭', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 30);
-INSERT INTO `user_details` VALUES (19, '00000019', '薛磊2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 31);
-INSERT INTO `user_details` VALUES (20, '00000020', '张洁2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 32);
-INSERT INTO `user_details` VALUES (21, '00000021', '江南一点雨3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 33);
-INSERT INTO `user_details` VALUES (22, '00000022', '陈静3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '82', 34);
-INSERT INTO `user_details` VALUES (24, '00000024', '鹿存亮3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 35);
-INSERT INTO `user_details` VALUES (25, '00000025', '江南一点雨', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 36);
-INSERT INTO `user_details` VALUES (26, '00000026', '云星3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 37);
-INSERT INTO `user_details` VALUES (27, '00000027', '贾旭明3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 38);
-INSERT INTO `user_details` VALUES (28, '00000028', '张黎明3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 39);
-INSERT INTO `user_details` VALUES (29, '00000029', '薛磊3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 40);
-INSERT INTO `user_details` VALUES (31, '00000031', '江南一点雨4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 41);
-INSERT INTO `user_details` VALUES (32, '00000032', '陈静4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '82', 42);
-INSERT INTO `user_details` VALUES (33, '00000033', '赵琳浩4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 43);
-INSERT INTO `user_details` VALUES (34, '00000034', '鹿存亮4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 44);
-INSERT INTO `user_details` VALUES (35, '00000035', '姚森4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 45);
-INSERT INTO `user_details` VALUES (36, '00000036', '云星4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 46);
-INSERT INTO `user_details` VALUES (37, '00000037', '贾旭明4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 47);
-INSERT INTO `user_details` VALUES (38, '00000038', '张黎明2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 48);
-INSERT INTO `user_details` VALUES (39, '00000039', '薛磊4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 49);
-INSERT INTO `user_details` VALUES (40, '00000040', '张洁4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 50);
-INSERT INTO `user_details` VALUES (41, '00000041', '江南一点雨5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 51);
-INSERT INTO `user_details` VALUES (42, '00000042', '陈静5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '82', 52);
-INSERT INTO `user_details` VALUES (43, '00000043', '赵琳浩5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 53);
-INSERT INTO `user_details` VALUES (44, '00000044', '鹿存亮5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 54);
-INSERT INTO `user_details` VALUES (45, '00000045', '姚森5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 55);
-INSERT INTO `user_details` VALUES (46, '00000046', '云星5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 56);
-INSERT INTO `user_details` VALUES (47, '00000047', '贾旭明5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 57);
-INSERT INTO `user_details` VALUES (48, '00000048', '张黎明5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 58);
-INSERT INTO `user_details` VALUES (49, '00000049', '薛磊5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 59);
-INSERT INTO `user_details` VALUES (50, '00000050', '张洁5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 60);
-INSERT INTO `user_details` VALUES (51, '00000051', '江南一点雨6', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 61);
-INSERT INTO `user_details` VALUES (52, '00000052', '陈静6', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '82', 62);
-INSERT INTO `user_details` VALUES (53, '00000053', '赵琳浩6', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 63);
-INSERT INTO `user_details` VALUES (54, '00000054', '鹿存亮6', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 64);
-INSERT INTO `user_details` VALUES (55, '00000055', '姚森6', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 65);
-INSERT INTO `user_details` VALUES (56, '00000056', '云星6', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 66);
-INSERT INTO `user_details` VALUES (1352, '00000002', '陈静', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '82', 68);
-INSERT INTO `user_details` VALUES (1353, '00000003', '赵琳浩', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 69);
-INSERT INTO `user_details` VALUES (1354, '00000004', '鹿存亮', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 70);
-INSERT INTO `user_details` VALUES (1355, '00000005', '姚森', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 71);
-INSERT INTO `user_details` VALUES (1357, '00000007', '贾旭明', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 72);
-INSERT INTO `user_details` VALUES (1358, '00000008', '张黎明', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 73);
-INSERT INTO `user_details` VALUES (1359, '00000009', '薛磊', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 74);
-INSERT INTO `user_details` VALUES (1360, '00000010', '张洁', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 75);
-INSERT INTO `user_details` VALUES (1361, '00000011', '江南一点雨2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 76);
-INSERT INTO `user_details` VALUES (1362, '00000012', '陈静2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '82', 77);
-INSERT INTO `user_details` VALUES (1363, '00000013', '赵琳浩2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 78);
-INSERT INTO `user_details` VALUES (1364, '00000014', '鹿存亮2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 79);
-INSERT INTO `user_details` VALUES (1365, '00000015', '姚森2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 80);
-INSERT INTO `user_details` VALUES (1366, '00000016', '云星2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 81);
-INSERT INTO `user_details` VALUES (1367, '00000017', '贾旭明2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 82);
-INSERT INTO `user_details` VALUES (1368, '00000018', '王一亭', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 83);
-INSERT INTO `user_details` VALUES (1369, '00000019', '薛磊2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 84);
-INSERT INTO `user_details` VALUES (1370, '00000020', '张洁2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 85);
-INSERT INTO `user_details` VALUES (1371, '00000021', '江南一点雨3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 86);
-INSERT INTO `user_details` VALUES (1372, '00000022', '陈静3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '82', 87);
-INSERT INTO `user_details` VALUES (1373, '00000024', '鹿存亮3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 88);
-INSERT INTO `user_details` VALUES (1374, '00000025', '姚森3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 89);
-INSERT INTO `user_details` VALUES (1375, '00000026', '云星3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 90);
-INSERT INTO `user_details` VALUES (1376, '00000027', '贾旭明3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 91);
-INSERT INTO `user_details` VALUES (1377, '00000028', '张黎明3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 92);
-INSERT INTO `user_details` VALUES (1378, '00000029', '薛磊3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 93);
-INSERT INTO `user_details` VALUES (1379, '00000031', '江南一点雨4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 94);
-INSERT INTO `user_details` VALUES (1380, '00000032', '陈静4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '82', 95);
-INSERT INTO `user_details` VALUES (1381, '00000033', '赵琳浩4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 96);
-INSERT INTO `user_details` VALUES (1382, '00000034', '鹿存亮4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 97);
-INSERT INTO `user_details` VALUES (1383, '00000035', '姚森4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 98);
-INSERT INTO `user_details` VALUES (1384, '00000036', '云星4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 99);
-INSERT INTO `user_details` VALUES (1385, '00000037', '贾旭明4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 100);
-INSERT INTO `user_details` VALUES (1411, '00000038', '谢工', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 101);
-INSERT INTO `user_details` VALUES (1412, '00000039', '林昭亮', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 102);
-INSERT INTO `user_details` VALUES (1413, '00000040', '11', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '89', 103);
-INSERT INTO `user_details` VALUES (1414, '00000041', '1', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '89', 104);
-INSERT INTO `user_details` VALUES (1415, '00000042', '1', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 105);
-INSERT INTO `user_details` VALUES (1416, '00000043', '1', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '81', 106);
-INSERT INTO `user_details` VALUES (1417, '00000044', '1', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '87', 107);
-INSERT INTO `user_details` VALUES (1418, '00000045', '1', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 108);
-INSERT INTO `user_details` VALUES (1419, '00000046', '林伯渠', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 109);
-INSERT INTO `user_details` VALUES (1420, '00000047', '1', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 110);
-INSERT INTO `user_details` VALUES (1422, '00000002', '陈静', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 112);
-INSERT INTO `user_details` VALUES (1423, '00000003', '赵琳浩', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 113);
-INSERT INTO `user_details` VALUES (1424, '00000004', '鹿存亮', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 114);
-INSERT INTO `user_details` VALUES (1425, '00000005', '姚森', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 115);
-INSERT INTO `user_details` VALUES (1426, '00000006', '云星', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 116);
-INSERT INTO `user_details` VALUES (1427, '00000007', '贾旭明', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 117);
-INSERT INTO `user_details` VALUES (1428, '00000008', '张黎明', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 118);
-INSERT INTO `user_details` VALUES (1429, '00000009', '薛磊', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 119);
-INSERT INTO `user_details` VALUES (1430, '00000010', '张洁', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 120);
-INSERT INTO `user_details` VALUES (1431, '00000011', '江南一点雨2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 121);
-INSERT INTO `user_details` VALUES (1432, '00000012', '陈静2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '82', 122);
-INSERT INTO `user_details` VALUES (1433, '00000013', '赵琳浩2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 123);
-INSERT INTO `user_details` VALUES (1434, '00000014', '鹿存亮2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 124);
-INSERT INTO `user_details` VALUES (1435, '00000015', '姚森2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 125);
-INSERT INTO `user_details` VALUES (1436, '00000016', '云星2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 126);
-INSERT INTO `user_details` VALUES (1437, '00000017', '贾旭明2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 127);
-INSERT INTO `user_details` VALUES (1438, '00000018', '王一亭', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 128);
-INSERT INTO `user_details` VALUES (1439, '00000019', '薛磊2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 129);
-INSERT INTO `user_details` VALUES (1440, '00000020', '张洁2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 130);
-INSERT INTO `user_details` VALUES (1441, '00000021', '江南一点雨3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 131);
-INSERT INTO `user_details` VALUES (1442, '00000022', '陈静3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '82', 132);
-INSERT INTO `user_details` VALUES (1443, '00000024', '鹿存亮3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 133);
-INSERT INTO `user_details` VALUES (1444, '00000025', '姚森3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 134);
-INSERT INTO `user_details` VALUES (1445, '00000026', '云星3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 135);
-INSERT INTO `user_details` VALUES (1446, '00000027', '贾旭明3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 136);
-INSERT INTO `user_details` VALUES (1447, '00000028', '张黎明3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 137);
-INSERT INTO `user_details` VALUES (1448, '00000029', '薛磊3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 138);
-INSERT INTO `user_details` VALUES (1449, '00000031', '江南一点雨4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 139);
-INSERT INTO `user_details` VALUES (1450, '00000032', '陈静4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '82', 140);
-INSERT INTO `user_details` VALUES (1451, '00000033', '赵琳浩4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 141);
-INSERT INTO `user_details` VALUES (1452, '00000034', '鹿存亮4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 142);
-INSERT INTO `user_details` VALUES (1453, '00000035', '姚森4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 143);
-INSERT INTO `user_details` VALUES (1454, '00000036', '云星4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 144);
-INSERT INTO `user_details` VALUES (1455, '00000037', '贾旭明4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 145);
-INSERT INTO `user_details` VALUES (1456, '00000038', '张黎明2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 146);
-INSERT INTO `user_details` VALUES (1457, '00000039', '薛磊4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 147);
-INSERT INTO `user_details` VALUES (1458, '00000040', '张洁4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 148);
-INSERT INTO `user_details` VALUES (1459, '00000041', '江南一点雨5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 149);
-INSERT INTO `user_details` VALUES (1460, '00000042', '陈静5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '82', 150);
-INSERT INTO `user_details` VALUES (1461, '00000043', '赵琳浩5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 151);
-INSERT INTO `user_details` VALUES (1462, '00000044', '鹿存亮5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 152);
-INSERT INTO `user_details` VALUES (1463, '00000045', '姚森5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 153);
-INSERT INTO `user_details` VALUES (1464, '00000046', '云星5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 154);
-INSERT INTO `user_details` VALUES (1465, '00000047', '贾旭明5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 155);
-INSERT INTO `user_details` VALUES (1466, '00000048', '张黎明5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 156);
-INSERT INTO `user_details` VALUES (1467, '00000049', '薛磊5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 157);
-INSERT INTO `user_details` VALUES (1468, '00000050', '张洁5', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 158);
-INSERT INTO `user_details` VALUES (1469, '00000051', '江南一点雨6', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 159);
-INSERT INTO `user_details` VALUES (1470, '00000052', '陈静6', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '82', 160);
-INSERT INTO `user_details` VALUES (1471, '00000053', '赵琳浩6', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 161);
-INSERT INTO `user_details` VALUES (1472, '00000054', '鹿存亮6', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 162);
-INSERT INTO `user_details` VALUES (1473, '00000055', '姚森6', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 163);
-INSERT INTO `user_details` VALUES (1474, '00000056', '云星6', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 164);
-INSERT INTO `user_details` VALUES (1476, '00000002', '陈静', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '82', 166);
-INSERT INTO `user_details` VALUES (1477, '00000003', '赵琳浩', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 167);
-INSERT INTO `user_details` VALUES (1478, '00000004', '鹿存亮', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 168);
-INSERT INTO `user_details` VALUES (1479, '00000005', '姚森', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 169);
-INSERT INTO `user_details` VALUES (1480, '00000007', '贾旭明', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 170);
-INSERT INTO `user_details` VALUES (1481, '00000008', '张黎明', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 171);
-INSERT INTO `user_details` VALUES (1482, '00000009', '薛磊', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 172);
-INSERT INTO `user_details` VALUES (1483, '00000010', '张洁', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 173);
-INSERT INTO `user_details` VALUES (1484, '00000011', '江南一点雨2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 174);
-INSERT INTO `user_details` VALUES (1485, '00000012', '陈静2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '82', 175);
-INSERT INTO `user_details` VALUES (1486, '00000013', '赵琳浩2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 176);
-INSERT INTO `user_details` VALUES (1487, '00000014', '鹿存亮2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 177);
-INSERT INTO `user_details` VALUES (1488, '00000015', '姚森2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 178);
-INSERT INTO `user_details` VALUES (1489, '00000016', '云星2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 179);
-INSERT INTO `user_details` VALUES (1490, '00000017', '贾旭明2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 180);
-INSERT INTO `user_details` VALUES (1491, '00000018', '王一亭', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 181);
-INSERT INTO `user_details` VALUES (1492, '00000019', '薛磊2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 182);
-INSERT INTO `user_details` VALUES (1493, '00000020', '张洁2', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 183);
-INSERT INTO `user_details` VALUES (1494, '00000021', '江南一点雨3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 184);
-INSERT INTO `user_details` VALUES (1495, '00000022', '陈静3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '82', 185);
-INSERT INTO `user_details` VALUES (1496, '00000024', '鹿存亮3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 186);
-INSERT INTO `user_details` VALUES (1497, '00000025', '姚森3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 187);
-INSERT INTO `user_details` VALUES (1498, '00000026', '云星3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 188);
-INSERT INTO `user_details` VALUES (1499, '00000027', '贾旭明3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 189);
-INSERT INTO `user_details` VALUES (1500, '00000028', '张黎明3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 190);
-INSERT INTO `user_details` VALUES (1501, '00000029', '薛磊3', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 191);
-INSERT INTO `user_details` VALUES (1502, '00000031', '江南一点雨4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 192);
-INSERT INTO `user_details` VALUES (1503, '00000032', '陈静4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '82', 193);
-INSERT INTO `user_details` VALUES (1504, '00000033', '赵琳浩4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 194);
-INSERT INTO `user_details` VALUES (1505, '00000034', '鹿存亮4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 195);
-INSERT INTO `user_details` VALUES (1506, '00000035', '姚森4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 196);
-INSERT INTO `user_details` VALUES (1507, '00000036', '云星4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '92', 197);
-INSERT INTO `user_details` VALUES (1508, '00000037', '贾旭明4', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 198);
-INSERT INTO `user_details` VALUES (1509, '00000038', '谢工', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 199);
-INSERT INTO `user_details` VALUES (1510, '00000039', '林昭亮', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '91', 200);
-INSERT INTO `user_details` VALUES (1511, '00000040', '11', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '89', 201);
-INSERT INTO `user_details` VALUES (1512, '00000041', '1', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '89', 202);
-INSERT INTO `user_details` VALUES (1513, '00000042', '1', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 203);
-INSERT INTO `user_details` VALUES (1514, '00000043', '1', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '81', 204);
-INSERT INTO `user_details` VALUES (1515, '00000044', '1', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '87', 205);
-INSERT INTO `user_details` VALUES (1516, '00000045', '1', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '78', 206);
-INSERT INTO `user_details` VALUES (1517, '00000046', '林伯渠', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 207);
-INSERT INTO `user_details` VALUES (1518, '00000047', '1', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 208);
-INSERT INTO `user_details` VALUES (1519, 'admin', '系统管理员', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 3);
-INSERT INTO `user_details` VALUES (1520, '00000049', '李白', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 5);
-INSERT INTO `user_details` VALUES (1521, '00000050', '韩愈', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 10);
-INSERT INTO `user_details` VALUES (1522, '00000051', '柳宗元', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 11);
-INSERT INTO `user_details` VALUES (1523, '00000052', '曾巩', '男', '2018-01-01', '610122199909091234', '1', '584991843@qq.com', '1', '1', '8', 12);
-INSERT INTO `user_details` VALUES (1524, '00000057', 'q', '1', '2020-01-21', '213123123', NULL, 'q', '1321321', 'q', NULL, 209);
+INSERT INTO `user_details` VALUES (1, '00000001', '江南一点雨', '1', '1', '1', '584991843@qq.com', NULL, 66);
+INSERT INTO `user_details` VALUES (2, '00000002', '陈静', '1', '2', '1', '584991843@qq.com', NULL, 13);
+INSERT INTO `user_details` VALUES (3, '00000003', '赵琳浩', '1', '3', '1', '584991843@qq.com', NULL, 14);
+INSERT INTO `user_details` VALUES (4, '00000004', '鹿存亮', '1', '4', '1', '584991843@qq.com', NULL, 15);
+INSERT INTO `user_details` VALUES (5, '00000005', '姚森', '0', '5', '1', '584991843@qq.com', NULL, 16);
+INSERT INTO `user_details` VALUES (6, '00000006', '云星', '0', '6', '1', '584991843@qq.com', NULL, 17);
+INSERT INTO `user_details` VALUES (7, '00000007', '贾旭明', '0', '7', '1', '584991843@qq.com', NULL, 18);
+INSERT INTO `user_details` VALUES (8, '00000008', '张黎明', '0', '8', '1', '584991843@qq.com', NULL, 19);
+INSERT INTO `user_details` VALUES (9, '00000009', '薛磊', '0', '1', '1', '584991843@qq.com', NULL, 20);
+INSERT INTO `user_details` VALUES (10, '00000010', '张洁', '0', '2', '1', '584991843@qq.com', NULL, 21);
+INSERT INTO `user_details` VALUES (11, '00000011', '江南一点雨2', '0', '3', '1', '584991843@qq.com', NULL, 22);
+INSERT INTO `user_details` VALUES (12, '00000012', '陈静2', '1', '4', '1', '584991843@qq.com', NULL, 23);
+INSERT INTO `user_details` VALUES (13, '00000013', '江南一点雨', '1', '5', '1', '584991843@qq.com', NULL, 24);
+INSERT INTO `user_details` VALUES (14, '00000014', '鹿存亮2', '1', '6', '1', '584991843@qq.com', NULL, 25);
+INSERT INTO `user_details` VALUES (15, '00000015', '姚森2', '1', '7', '1', '584991843@qq.com', NULL, 26);
+INSERT INTO `user_details` VALUES (16, '00000016', '鹿存亮', '1', '8', '1', '584991843@qq.com', NULL, 27);
+INSERT INTO `user_details` VALUES (17, '00000017', '贾旭明2', '1', '1', '1', '584991843@qq.com', NULL, 28);
+INSERT INTO `user_details` VALUES (18, '00000018', '王一亭', '1', '2', '1', '584991843@qq.com', NULL, 29);
+INSERT INTO `user_details` VALUES (19, '00000019', '薛磊2', '1', '3', '1', '584991843@qq.com', NULL, 30);
+INSERT INTO `user_details` VALUES (20, '00000020', '张洁2', '1', '4', '1', '584991843@qq.com', NULL, 31);
+INSERT INTO `user_details` VALUES (21, '00000021', '江南一点雨3', '1', '5', '1', '584991843@qq.com', NULL, 32);
+INSERT INTO `user_details` VALUES (22, '00000022', '陈静3', '1', '6', '1', '584991843@qq.com', NULL, 33);
+INSERT INTO `user_details` VALUES (24, '00000024', '鹿存亮3', '1', '7', '1', '584991843@qq.com', NULL, 34);
+INSERT INTO `user_details` VALUES (25, '00000025', '江南一点雨', '1', '8', '1', '584991843@qq.com', NULL, 35);
+INSERT INTO `user_details` VALUES (26, '00000026', '云星3', '1', '1', '1', '584991843@qq.com', NULL, 36);
+INSERT INTO `user_details` VALUES (27, '00000027', '贾旭明3', '1', '2', '1', '584991843@qq.com', NULL, 37);
+INSERT INTO `user_details` VALUES (28, '00000028', '张黎明3', '1', '3', '1', '584991843@qq.com', NULL, 38);
+INSERT INTO `user_details` VALUES (29, '00000029', '薛磊3', '1', '4', '1', '584991843@qq.com', NULL, 39);
+INSERT INTO `user_details` VALUES (31, '00000031', '江南一点雨4', '1', '5', '1', '584991843@qq.com', NULL, 40);
+INSERT INTO `user_details` VALUES (32, '00000032', '陈静4', '1', '6', '1', '584991843@qq.com', NULL, 41);
+INSERT INTO `user_details` VALUES (33, '00000033', '赵琳浩4', '0', '7', '1', '584991843@qq.com', NULL, 42);
+INSERT INTO `user_details` VALUES (34, '00000034', '鹿存亮4', '0', '8', '1', '584991843@qq.com', NULL, 43);
+INSERT INTO `user_details` VALUES (35, '00000035', '姚森4', '0', '1', '1', '584991843@qq.com', NULL, 44);
+INSERT INTO `user_details` VALUES (36, '00000036', '云星4', '0', '2', '1', '584991843@qq.com', NULL, 45);
+INSERT INTO `user_details` VALUES (37, '00000037', '贾旭明4', '0', '3', '1', '584991843@qq.com', NULL, 46);
+INSERT INTO `user_details` VALUES (38, '00000038', '张黎明2', '0', '4', '1', '584991843@qq.com', NULL, 47);
+INSERT INTO `user_details` VALUES (39, '00000039', '薛磊4', '0', '5', '1', '584991843@qq.com', NULL, 48);
+INSERT INTO `user_details` VALUES (40, '00000040', '张洁4', '1', '6', '1', '584991843@qq.com', NULL, 49);
+INSERT INTO `user_details` VALUES (41, '00000041', '江南一点雨5', '1', '7', '1', '584991843@qq.com', NULL, 50);
+INSERT INTO `user_details` VALUES (42, '00000042', '陈静5', '1', '8', '1', '584991843@qq.com', NULL, 51);
+INSERT INTO `user_details` VALUES (43, '00000043', '赵琳浩5', '1', '1', '1', '584991843@qq.com', NULL, 52);
+INSERT INTO `user_details` VALUES (44, '00000044', '鹿存亮5', '1', '2', '1', '584991843@qq.com', NULL, 53);
+INSERT INTO `user_details` VALUES (45, '00000045', '姚森5', '1', '3', '1', '584991843@qq.com', NULL, 54);
+INSERT INTO `user_details` VALUES (46, '00000046', '云星5', '1', '4', '1', '584991843@qq.com', NULL, 55);
+INSERT INTO `user_details` VALUES (47, '00000047', '贾旭明5', '1', '5', '1', '584991843@qq.com', NULL, 56);
+INSERT INTO `user_details` VALUES (48, '00000048', '张黎明5', '0', '6', '1', '584991843@qq.com', NULL, 57);
+INSERT INTO `user_details` VALUES (49, '00000049', '薛磊5', '0', '7', '1', '584991843@qq.com', NULL, 58);
+INSERT INTO `user_details` VALUES (50, '00000050', '张洁5', '0', '8', '1', '584991843@qq.com', NULL, 59);
+INSERT INTO `user_details` VALUES (51, '00000051', '江南一点雨6', '0', '1', '1', '584991843@qq.com', NULL, 60);
+INSERT INTO `user_details` VALUES (52, '00000052', '陈静6', '0', '2', '1', '584991843@qq.com', NULL, 61);
+INSERT INTO `user_details` VALUES (53, '00000053', '赵琳浩6', '0', '3', '1', '584991843@qq.com', NULL, 62);
+INSERT INTO `user_details` VALUES (54, '00000054', '鹿存亮6', '0', '4', '1', '584991843@qq.com', NULL, 63);
+INSERT INTO `user_details` VALUES (55, '00000055', '姚森6', '0', '5', '1', '584991843@qq.com', NULL, 64);
+INSERT INTO `user_details` VALUES (56, '00000056', '云星6', '0', '6', '1', '584991843@qq.com', NULL, 65);
+INSERT INTO `user_details` VALUES (1519, 'admin', '系统管理员', '0', '4', '123', '584991843@qq.com', '', 3);
 
 -- ----------------------------
 -- Table structure for user_role
@@ -805,72 +543,28 @@ CREATE TABLE `user_role`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` int(11) NULL DEFAULT NULL,
   `rid` int(11) NULL DEFAULT NULL,
+  `isManager` int(1) NULL DEFAULT 0 COMMENT '是否管理员0：不是1是',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `rid`(`rid`) USING BTREE,
   INDEX `user_role_ibfk_1`(`userid`) USING BTREE,
   CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 61 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 171 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of user_role
 -- ----------------------------
-INSERT INTO `user_role` VALUES (9, 5, 1);
-INSERT INTO `user_role` VALUES (10, 5, 4);
-INSERT INTO `user_role` VALUES (35, 12, 4);
-INSERT INTO `user_role` VALUES (36, 12, 3);
-INSERT INTO `user_role` VALUES (37, 12, 2);
-INSERT INTO `user_role` VALUES (43, 11, 3);
-INSERT INTO `user_role` VALUES (44, 11, 2);
-INSERT INTO `user_role` VALUES (45, 11, 4);
-INSERT INTO `user_role` VALUES (46, 11, 5);
-INSERT INTO `user_role` VALUES (50, 13, 4);
-INSERT INTO `user_role` VALUES (57, 3, 6);
-INSERT INTO `user_role` VALUES (59, 13, 27);
-INSERT INTO `user_role` VALUES (60, 16, 27);
-
--- ----------------------------
--- Procedure structure for addDep
--- ----------------------------
-DROP PROCEDURE IF EXISTS `addDep`;
-delimiter ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `addDep`(in depName varchar(32),in parentId int,in enabled boolean,out result int,out result2 int)
-begin
-  declare did int;
-  declare pDepPath varchar(64);
-  insert into department set name=depName,parentId=parentId,enabled=enabled;
-  select row_count() into result;
-  select last_insert_id() into did;
-  set result2=did;
-  select depPath into pDepPath from department where id=parentId;
-  update department set depPath=concat(pDepPath,'.',did) where id=did;
-  update department set isParent=true where id=parentId;
-end
-;;
-delimiter ;
-
--- ----------------------------
--- Procedure structure for deleteDep
--- ----------------------------
-DROP PROCEDURE IF EXISTS `deleteDep`;
-delimiter ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `deleteDep`(in did int,out result int)
-begin
-  declare ecount int;
-  declare pid int;
-  declare pcount int;
-  select count(*) into ecount from employee where departmentId=did;
-  if ecount>0 then set result=-1;
-  else 
-  select parentId into pid from department where id=did;
-  delete from department where id=did and isParent=false;
-  select row_count() into result;
-  select count(*) into pcount from department where parentId=pid;
-  if pcount=0 then update department set isParent=false where id=pid;
-  end if;
-  end if;
-end
-;;
-delimiter ;
+INSERT INTO `user_role` VALUES (57, 3, 6, 1);
+INSERT INTO `user_role` VALUES (59, 13, 27, 1);
+INSERT INTO `user_role` VALUES (60, 16, 27, 0);
+INSERT INTO `user_role` VALUES (67, 13, 4, 1);
+INSERT INTO `user_role` VALUES (68, 14, 4, 0);
+INSERT INTO `user_role` VALUES (69, 15, 4, 0);
+INSERT INTO `user_role` VALUES (75, 14, 2, 0);
+INSERT INTO `user_role` VALUES (76, 15, 2, 0);
+INSERT INTO `user_role` VALUES (164, 15, 5, 1);
+INSERT INTO `user_role` VALUES (168, 15, 5, 0);
+INSERT INTO `user_role` VALUES (169, 14, 5, 0);
+INSERT INTO `user_role` VALUES (170, 16, 5, 0);
 
 SET FOREIGN_KEY_CHECKS = 1;
