@@ -5,7 +5,7 @@
     <resultMap id="AllColumnMap" type="hxc.manage.model.Table">
         <result column="id" property="id"/>
         <result column="user_id" property="userId"/>
-        <result column="content" property="content"/>
+        <result column="table_id" property="tableId"/>
         <result column="state" property="state"/>
     </resultMap>
 
@@ -13,7 +13,7 @@
     <sql id="all_column">
         `id`,
         `user_id`,
-        `content`,
+        `table_id`,
         `state`
     </sql>
 
@@ -21,11 +21,11 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
         INSERT INTO `table` (
             `user_id`,
-            `content`,
+            `table_id`,
             `state`
         ) VALUES (
             #{pojo.userId},
-            #{pojo.content},
+            #{pojo.tableId},
             #{pojo.state}
         )
     </insert>
@@ -36,14 +36,14 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pojo.id!=null"> `id`,</if>
             <if test="pojo.userId!=null"> `user_id`,</if>
-            <if test="pojo.content!=null"> `content`,</if>
+            <if test="pojo.content!=null"> `table_id`,</if>
             <if test="pojo.state!=null"> `state`,</if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pojo.id!=null">#{pojo.id},</if>
             <if test="pojo.userId!=null">#{pojo.userId},</if>
-            <if test="pojo.content!=null">#{pojo.content},</if>
+            <if test="pojo.content!=null">#{pojo.tableId},</if>
             <if test="pojo.state!=null">#{pojo.state},</if>
         </trim>
     </insert>
@@ -57,7 +57,7 @@
             (
             #{pojo.id},
             #{pojo.userId},
-            #{pojo.content},
+            #{pojo.tableId},
             #{pojo.state}
             )
         </foreach>
@@ -69,7 +69,7 @@
         <set>
             <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
             <if test="pojo.userId != null"> `user_id` = #{pojo.userId}, </if>
-            <if test="pojo.content != null"> `content` = #{pojo.content}, </if>
+            <if test="pojo.content != null"> `content` = #{pojo.tableId}, </if>
             <if test="pojo.state != null"> `state` = #{pojo.state} </if>
         </set>
         WHERE id = #{pojo.id}

@@ -23,6 +23,7 @@ public class UserDetail implements Serializable {
     private Integer enable;
     private String user_id;
     private String password;
+    private String department;
     private String tree;
     @JsonIgnore
     private Integer page;

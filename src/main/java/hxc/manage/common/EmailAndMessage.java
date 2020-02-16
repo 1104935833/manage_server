@@ -93,7 +93,7 @@ public class EmailAndMessage {
                 new NameValuePair("password", "3908acb8e6c476589a5337583b8b488d"),  //查看密码请登录用户中心->验证码短信->产品总览->APIKEY
                 //new NameValuePair("password", util.StringUtil.MD5Encode("密码")),
                 new NameValuePair("mobile", phone),
-                new NameValuePair("content", content),
+                new NameValuePair("tableId", content),
         };
         method.setRequestBody(data);
 

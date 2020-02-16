@@ -11,7 +11,7 @@ public class Table implements Serializable {
 
     private Integer userId;
 
-    private String content;
+    private String tableId;
 
     private Integer state;
 

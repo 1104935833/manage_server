@@ -21,7 +21,7 @@ public class SystemCenterServiceImpl implements SystemCenterService {
 
     @Override
     public void getYzm(String phone) {
-        emailAndMessage.send(phone,"yzm");
+        emailAndMessage.send(phone,"2");
     }
 
     @Override

@@ -31,7 +31,7 @@ public class TableController {
 
     /**
      * 新建表格
-     * 1.table插入
+     * 1.table插入（先插入各表然后获取id插入table表）
      * 2.audit插入
      * 3.pedding插入
      * @param table
@@ -42,9 +42,12 @@ public class TableController {
     public RespBean table(@RequestBody Map table, HttpServletRequest request){
         Map<String,Object> map = (Map<String, Object>) table.get("table");
         User u = (User) request.getSession().getAttribute("userinfo");
+        /**
+         * 此处插入各表数据返回id
+         */
         Table tab = new Table();
         tab.setUserId(Integer.valueOf(u.getUser_id()));
-        tab.setContent(JSONObject.fromObject(map).toString());
+        tab.setTableId("。。。。。。。。。。。。。。。。。。。。");//需要更改为各表id
         tab.setState(2);//类型暂定
         tableService.insert(tab);//table插入
         peddingService.sendPedding(request,tab.getId().toString(),"1","","1");//pedding插入    type:暂定为1

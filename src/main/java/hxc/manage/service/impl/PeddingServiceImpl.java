@@ -38,7 +38,7 @@ public class PeddingServiceImpl implements PeddingService {
         List<Pedding> ma2 = new ArrayList<>();
         for (Role role : roles) {
             String id = role.getId()+"";
-            if (id !="27") {//判断是不是普通用户的权限
+            if (!id.equals("27")) {//判断是不是普通用户的权限
                 ma1 = peddingMapper.getPeddingName(id,size,start);
             }
             else{

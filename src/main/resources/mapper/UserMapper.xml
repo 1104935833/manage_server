@@ -5,7 +5,6 @@
 <mapper namespace="hxc.manage.mapper.UserMapper">
     <resultMap id="BaseResultMap" type="hxc.manage.model.User">
         <id column="id" property="id"/>
-        <result column="address" property="address"/>
         <result column="enabled" property="enabled"/>
         <result column="password" property="password"/>
     </resultMap>

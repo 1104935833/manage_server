@@ -54,4 +54,19 @@ public class SystemCenterController {
         return RespBean.ok("已发送");
 
     }
+
+    //近三年的个业绩比重
+    @GetMapping("/PerforEchart")
+    public Map<String,Object> getPerforEcharts(HttpServletRequest request,@RequestParam(defaultValue = "3") int year){
+
+
+
+
+        return null;
+
+    }
+
+
+
+
 }
