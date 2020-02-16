@@ -31,4 +31,6 @@ public interface PeddingMapper {
     Integer updatePedding(Pedding pedding);
 
     Map<String, Object> fingPhoneAndEmail(@Param("role")String role);
+
+    int findIsManager(String id, String userId);
 }

@@ -47,7 +47,7 @@ public class TableController {
          */
         Table tab = new Table();
         tab.setUserId(Integer.valueOf(u.getUser_id()));
-        tab.setTableId("。。。。。。。。。。。。。。。。。。。。");//需要更改为各表id
+        tab.setTableId("。。。。。。。。。。。。。。。");//需要更改为各表id
         tab.setState(2);//类型暂定
         tableService.insert(tab);//table插入
         peddingService.sendPedding(request,tab.getId().toString(),"1","","1");//pedding插入    type:暂定为1

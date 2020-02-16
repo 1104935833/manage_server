@@ -38,7 +38,8 @@ public class PeddingServiceImpl implements PeddingService {
         List<Pedding> ma2 = new ArrayList<>();
         for (Role role : roles) {
             String id = role.getId()+"";
-            if (!id.equals("27")) {//判断是不是普通用户的权限
+            int length = peddingMapper.findIsManager(id,userId);//找有没有不是普通权限的
+            if (length>0) {//非普通用户的
                 ma1 = peddingMapper.getPeddingName(id,size,start);
             }
             else{
@@ -112,7 +113,7 @@ public class PeddingServiceImpl implements PeddingService {
 //        agree 0 -- 不同意 1 -- 同意
         else if (state.equals("2")){
             if (agree.equals("0")){//教研室不同意
-                pedding.setRole("27");
+                pedding.setRole(peddingMapper.findPeddingRole(userId));
                 pedding.setMain("有一条审核未通过");
                 pedding.setState("2");
                 res = peddingMapper.updatePedding(pedding);
