@@ -7,5 +7,26 @@
     <update id="editPwd">
       update `user` set password = #{newPwd} where id = #{id}
     </update>
+    <select id="getPerforEcharts" resultType="java.util.Map">
+        SELECT
+            count( 1 )
+        'value'
+            ,
+        CASE
+            state
+            WHEN 1 THEN
+            '业绩'
+            WHEN 2 THEN
+            '荣誉'
+            WHEN 3 THEN
+            '科研'
+        END 'name'
+        FROM
+            `table`
+        WHERE
+            user_id = #{user_id}
+        GROUP BY
+            state
+    </select>
 
 </mapper>

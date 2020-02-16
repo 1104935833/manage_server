@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -32,7 +33,11 @@ public class SystemCenterServiceImpl implements SystemCenterService {
         centerMapper.editPwd(yzm,newPwd,id);
     }
 
-
+    @Override
+    public List<Map<String, Object>> getPerforEcharts(String user_id, int year) {
+        List<Map<String, Object>> map = centerMapper.getPerforEcharts(user_id,year);
+        return map;
+    }
 
 
 }

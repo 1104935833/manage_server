@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static java.awt.SystemColor.info;
@@ -57,12 +58,13 @@ public class SystemCenterController {
 
     //近三年的个业绩比重
     @GetMapping("/PerforEchart")
-    public Map<String,Object> getPerforEcharts(HttpServletRequest request,@RequestParam(defaultValue = "3") int year){
+    public List<Map<String, Object>> getPerforEcharts(HttpServletRequest request,@RequestParam(defaultValue = "3") int year){
+        User u = (User) request.getSession().getAttribute("userinfo");
+        List<Map<String, Object>> map = systemCenterService.getPerforEcharts(u.getUser_id(),year);
 
 
 
-
-        return null;
+        return map;
 
     }
 
