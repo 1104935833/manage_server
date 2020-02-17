@@ -1,5 +1,6 @@
 package hxc.manage.service.impl;
 
+import hxc.manage.model.Office;
 import hxc.manage.model.User;
 import hxc.manage.mapper.UserMapper;
 import hxc.manage.model.UserDetail;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +40,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     public boolean delByUserId(String ids) {
         String[] split = ids.split(",");
+        userMapper.delDetailByUserId(split);
+        userMapper.delRoleByUserId(split);
         return userMapper.delByUserId(split) == split.length;
     }
 
@@ -79,6 +83,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     public int addUser(List<UserDetail> emps) {
         Integer workId = userMapper.getLastUserWorkId();
         for (UserDetail u : emps) {
+            BCryptPasswordEncoder bcryptPasswordEncoder = new BCryptPasswordEncoder();
+            String newPwd = bcryptPasswordEncoder.encode("123456");
+            u.setPassword(newPwd);
             userMapper.addUser(u);
 //            u.setUser_id(u.getId()+"");
             u.setWorkID(String.format("%08d", workId + 1));
@@ -97,6 +104,11 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     public List<UserDetail> searchInfo(Map<String, Object> map, UserDetail userDetail) {
         List<UserDetail> list =userMapper.searchInfo(map, userDetail);
         return list;
+    }
+
+    @Override
+    public List<Office> getAllOffice() {
+        return userMapper.getAllOffice();
     }
 
     public List<UserDetail> getAllEmployees() {

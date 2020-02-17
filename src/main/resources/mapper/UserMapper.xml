@@ -100,22 +100,26 @@
     </select>
 
     <select id="getEmployeeByPage" resultType="hxc.manage.model.UserDetail">
-SELECT
-	e.*,a.enabled
-FROM
-	user_details e ,user a
-	where e.user_id = a.id
+        SELECT
+            e.workID,e.`name`,e.phone,e.email,e.gender,a.enabled enable,c.office 'office_id',b.`name` department
+        FROM
+            user_details e
+            left join `user` a on a.id = e.user_id
+            left join office c on c.id = e.office_id
+            left join tree_people b on b.tree_code = a.tree
+
+
     </select>
 
     <update id="editUser">
         update `user` set
-        <if test="tree!='' or tree!=null">
+        <if test="tree!='' and tree!=null">
             tree=#{tree}
         </if>
-        <if test="enable!='' or enable!=null">
+        <if test="enable!='' and enable!=null">
             ,enabled=#{enable}
         </if>
-        <if test="password!='' or password!=null">
+        <if test="password!='' and password!=null and password!='null'">
             ,password=#{password}
         </if>
         where id =
@@ -139,29 +143,42 @@ FROM
     </select>
 
     <update id="editUserDetails">
-      update user_details set name=#{name},gender=#{gender},birthday=#{birthday},idCard=#{idCard},
-      email=#{email},phone=#{phone},address=#{address} where id = #{id}
+      update user_details set name=#{name},gender=#{gender},
+      email=#{email},phone=#{phone},office_id = #{office_id} where id = #{id}
     </update>
     <delete id="delByUserId">
-        delete from `user` WHERE id IN (select user_id from user_details where id in
+        delete from `user` WHERE id IN
         <foreach collection="ids" separator="," open="(" close=")" item="id">
             #{id}
         </foreach>
-        )
+
+    </delete>
+    <delete id="delDetailByUserId">
+        delete from `user_details` WHERE user_id IN
+        <foreach collection="ids" separator="," open="(" close=")" item="id">
+            #{id}
+        </foreach>
+
+    </delete>
+    <delete id="delRoleByUserId">
+        delete from `user_role` WHERE userid IN
+        <foreach collection="ids" separator="," open="(" close=")" item="id">
+            #{id}
+        </foreach>
+
     </delete>
     <insert id="addEmps">
-        insert into user_details (name, gender,birthday, idCard,email,phone, address,workID,user_id)
+        insert into user_details (name, gender,office_id,email,phone,workID,user_id)
         values
         <foreach collection="emps" item="emp" separator=",">
-            (#{emp.name,jdbcType=VARCHAR}, #{emp.gender,jdbcType=CHAR},
-            #{emp.birthday,jdbcType=VARCHAR}, #{emp.idCard,jdbcType=CHAR}, #{emp.email,jdbcType=VARCHAR},
-            #{emp.phone,jdbcType=VARCHAR}, #{emp.address,jdbcType=VARCHAR},#{emp.workID,jdbcType=BIGINT},#{emp.user_id,jdbcType=BIGINT}
+            (#{emp.name,jdbcType=VARCHAR}, #{emp.gender,jdbcType=CHAR},#{emp.office_id,jdbcType=VARCHAR}, #{emp.email,jdbcType=VARCHAR},
+            #{emp.phone,jdbcType=VARCHAR},#{emp.workID,jdbcType=BIGINT},#{emp.user_id,jdbcType=BIGINT}
             )
         </foreach>
     </insert>
 
     <insert id="addUser" useGeneratedKeys="true" keyProperty="user_id">
-        insert into `user`(tree) values (#{tree});
+        insert into `user`(tree,password) values (#{tree},#{password});
     </insert>
 
     <select id="getUserByPage" resultType="hxc.manage.model.UserDetail">
@@ -171,7 +188,7 @@ FROM
         a.gender,
         a.workID,
         a.note,
-        d.office office_id,
+        d.id office_id,
         a.email,
         a.phone,
         b.enabled enable,
@@ -210,9 +227,6 @@ FROM
         <if test="name!='' and name != null">
             and a.name like '%'#{name}'%'
         </if>
-        <if test="idCard!='' and idCard != null">
-            and idCard = #{idCard}
-        </if>
         <if test="tree!='' and tree != null">
             and tree = #{tree}
         </if>
@@ -231,9 +245,7 @@ FROM
         <if test="emp.name!='' and emp.name != null">
             and name like #{emp.name}
         </if>
-        <if test="emp.idCard!='' and emp.idCard != null">
-            and idCard = #{emp.idCard}
-        </if>
+
         <if test="emp.tree!='' and emp.tree != null">
             and tree = #{emp.tree}
         </if>
@@ -244,4 +256,9 @@ FROM
 
         limit #{map.start},#{map.size}
     </select>
+    <select id="getAllOffice" resultType="hxc.manage.model.Office">
+
+        select * from office
+    </select>
+
 </mapper>

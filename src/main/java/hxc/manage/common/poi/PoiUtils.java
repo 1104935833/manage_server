@@ -16,12 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * @author hxc
@@ -66,59 +62,57 @@ public class PoiUtils {
             headerStyle.setFillForegroundColor(IndexedColors.YELLOW.index);
             headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
             //定义列的宽度
-            sheet.setColumnWidth(0, 5 * 256);
+            sheet.setColumnWidth(0, 10 * 256);
             sheet.setColumnWidth(1, 12 * 256);
             sheet.setColumnWidth(2, 10 * 256);
-            sheet.setColumnWidth(3, 5 * 256);
+            sheet.setColumnWidth(3, 10 * 256);
             sheet.setColumnWidth(4, 12 * 256);
-            sheet.setColumnWidth(5, 20 * 256);
+            sheet.setColumnWidth(5, 10 * 256);
             sheet.setColumnWidth(6, 10 * 256);
             sheet.setColumnWidth(7, 10 * 256);
-            sheet.setColumnWidth(8, 16 * 256);
+//            sheet.setColumnWidth(8, 16 * 256);
             //5.设置表头
             HSSFRow headerRow = sheet.createRow(0);
             HSSFCell cell0 = headerRow.createCell(0);
-            cell0.setCellValue("姓名");
+            cell0.setCellValue("工号");
             cell0.setCellStyle(headerStyle);
             HSSFCell cell1 = headerRow.createCell(1);
-            cell1.setCellValue("工号");
+            cell1.setCellValue("姓名");
             cell1.setCellStyle(headerStyle);
             HSSFCell cell2 = headerRow.createCell(2);
-            cell2.setCellValue("性别");
+            cell2.setCellValue("电话号码");
             cell2.setCellStyle(headerStyle);
             HSSFCell cell3 = headerRow.createCell(3);
-            cell3.setCellValue("出生日期");
+            cell3.setCellValue("电子邮件");
             cell3.setCellStyle(headerStyle);
             HSSFCell cell4 = headerRow.createCell(4);
-            cell4.setCellValue("身份证号码");
+            cell4.setCellValue("性别");
             cell4.setCellStyle(headerStyle);
             HSSFCell cell5 = headerRow.createCell(5);
-            cell5.setCellValue("电子邮件");
+            cell5.setCellValue("是否有效");
             cell5.setCellStyle(headerStyle);
             HSSFCell cell6 = headerRow.createCell(6);
-            cell6.setCellValue("电话号码");
+            cell6.setCellValue("办公室");
             cell6.setCellStyle(headerStyle);
             HSSFCell cell7 = headerRow.createCell(7);
-            cell7.setCellValue("联系地址");
+            cell7.setCellValue("教研室");
             cell7.setCellStyle(headerStyle);
-            HSSFCell cell8 = headerRow.createCell(8);
-            cell8.setCellValue("是否有效");
-            cell8.setCellStyle(headerStyle);
 
             //6.装数据
             for (int i = 0; i < emps.size(); i++) {
                 HSSFRow row = sheet.createRow(i + 1);
                 UserDetail emp = emps.get(i);
-                row.createCell(0).setCellValue(emp.getName());
-                row.createCell(1).setCellValue(emp.getWorkID());
-                row.createCell(2).setCellValue(emp.getGender());
-                HSSFCell birthdayCell = row.createCell(3);
-                birthdayCell.setCellValue(emp.getOffice_id());
-                birthdayCell.setCellStyle(dateCellStyle);
-                row.createCell(4).setCellValue(emp.getNote());
-                row.createCell(5).setCellValue(emp.getEmail());
-                row.createCell(6).setCellValue(emp.getPhone());
-                row.createCell(8).setCellValue(emp.getEnable());
+                row.createCell(0).setCellValue(emp.getWorkID());
+                row.createCell(1).setCellValue(emp.getName());
+                row.createCell(2).setCellValue(emp.getPhone());
+                row.createCell(3).setCellValue(emp.getEmail());
+//                HSSFCell birthdayCell = row.createCell(3);
+//                birthdayCell.setCellValue(emp.getOffice_id());
+//                birthdayCell.setCellStyle(dateCellStyle);
+                row.createCell(4).setCellValue(emp.getGender().equals("1")?"男":"女");
+                row.createCell(5).setCellValue(emp.getEnable()==1?"有效":"无效");
+                row.createCell(6).setCellValue(emp.getOffice_id());
+                row.createCell(7).setCellValue(emp.getDepartment());
             }
             headers = new HttpHeaders();
             headers.setContentDispositionFormData("attachment",
@@ -131,85 +125,110 @@ public class PoiUtils {
         }
         return new ResponseEntity<byte[]>(baos.toByteArray(), headers, HttpStatus.CREATED);
     }
+
     //导入数据
     public static List<UserDetail> importEmp2List(MultipartFile file) {
+
+
         List<UserDetail> emps = new ArrayList<>();
         try {
-        HSSFWorkbook workbook =
-                new HSSFWorkbook(new POIFSFileSystem(file.getInputStream()));
-        int numberOfSheets = workbook.getNumberOfSheets();
-        for (int i = 0; i < numberOfSheets; i++) {
-        HSSFSheet sheet = workbook.getSheetAt(i);
-        int physicalNumberOfRows = sheet.getPhysicalNumberOfRows();
-        UserDetail userDetail;
-        for (int j = 0; j < physicalNumberOfRows; j++) {
-        if (j == 0) {
-            continue;//标题行
-        }
-        HSSFRow row = sheet.getRow(j);
-        if (row == null) {
-            continue;//没数据
-        }
-        int physicalNumberOfCells = row.getPhysicalNumberOfCells();
-        userDetail = new UserDetail();
-        for (int k = 0; k < physicalNumberOfCells; k++) {
-        HSSFCell cell = row.getCell(k);
-        switch (cell.getCellTypeEnum()) {
-        case STRING: {
-            String cellValue = cell.getStringCellValue();
-            if (cellValue == null) {
-                cellValue = "";
-            }
-            switch (k) {
+            HSSFWorkbook workbook =
+                    new HSSFWorkbook(new POIFSFileSystem(file.getInputStream()));
+            int numberOfSheets = workbook.getNumberOfSheets();
+            for (int i = 0; i < numberOfSheets; i++) {
+                HSSFSheet sheet = workbook.getSheetAt(i);
+                int physicalNumberOfRows = sheet.getPhysicalNumberOfRows();
+                UserDetail userDetail;
+                for (int j = 0; j < physicalNumberOfRows; j++) {
+                    if (j == 0) {
+                        continue;//标题行
+                    }
+                    HSSFRow row = sheet.getRow(j);
+                    if (row == null) {
+                        continue;//没数据
+                    }
+                    int physicalNumberOfCells = row.getPhysicalNumberOfCells();
+                    userDetail = new UserDetail();
+                    for (int k = 0; k < physicalNumberOfCells; k++) {
+                        HSSFCell cell = row.getCell(k);
+                        switch (cell.getCellTypeEnum()) {
+                            case STRING: {
+                                String cellValue = cell.getStringCellValue();
+                                if (cellValue == null) {
+                                    cellValue = "";
+                                }
+                                switch (k) {
 
-                case 0:
-                    userDetail.setName(cellValue);
-                    break;
-                case 1:
-                    userDetail.setWorkID(cellValue);
-                    break;
-                case 2:
-                    userDetail.setGender(cellValue);
-                    break;
-                case 3:
-                    userDetail.setNote(cellValue);
-                    break;
-                case 5:
-                    userDetail.setEmail(cellValue);
-                    break;
-                case 6:
-                    userDetail.setPhone(cellValue);
-                    break;
-                case 8:
-                    userDetail.setEnable(Integer.valueOf(cellValue));
-                    break;
+                                    case 0:
+                                        userDetail.setName(cellValue);
+                                        break;
+                                    case 1:
+                                        if (cellValue.equals("男"))
+                                            userDetail.setGender("1");
+                                        else
+                                            userDetail.setGender("0");
+                                        break;
+                                    case 2:
+                                        userDetail.setEmail(cellValue);
+                                        break;
+
+                                    case 4:
+                                        switch (cellValue){
+                                            case "计算机教研室":
+                                                userDetail.setTree("0101");
+                                                break;
+                                            case "机械教研室":
+                                                userDetail.setTree("0102");
+                                                break;
+                                            case "工业教研室":
+                                                userDetail.setTree("0103");
+                                                break;
+                                            case "电子教研室":
+                                                userDetail.setTree("0104");
+                                                break;
+                                            case "高分子教研室":
+                                                userDetail.setTree("0105");
+                                                break;
+                                            case "数学教研室":
+                                                userDetail.setTree("0106");
+                                                break;
+                                            case "应化教研室":
+                                                userDetail.setTree("0107");
+                                                break;
+                                        }
+                                        break;
+                                }
+                            }
+                            break;
+                            default: {
+                                switch (k) {
+
+                                    case 3:
+                                        userDetail.setPhone((int) cell.getNumericCellValue() + "");
+                                        break;
+//                case 1:
+//                    SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy",Locale.US);
+//                    Date d = sdf.parse(cell.getDateCellValue().toString());
+//                    userDetail.setOffice_id(d.getTime()+"");
+//                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    emps.add(userDetail);
+                }
             }
-        }
-        break;
-        default: {
-            switch (k) {
-                case 4:
-                    SimpleDateFormat sdf = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy",Locale.US);
-                    Date d = sdf.parse(cell.getDateCellValue().toString());
-                    userDetail.setOffice_id(d.getTime()+"");
-                    break;
-            }
-        }
-            break;
-        }
-        }
-            emps.add(userDetail);
-        }
-        }
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
         }
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
         return emps;
     }
 
-//    模板下载
+    //    模板下载
     public static ResponseEntity<byte[]> template() {
         HttpHeaders headers = null;
         ByteArrayOutputStream baos = null;
@@ -247,56 +266,55 @@ public class PoiUtils {
             headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
             //定义列的宽度
             sheet.setColumnWidth(0, 5 * 256);
-            sheet.setColumnWidth(1, 12 * 256);
+            sheet.setColumnWidth(1, 5 * 256);
             sheet.setColumnWidth(2, 10 * 256);
-            sheet.setColumnWidth(3, 5 * 256);
-            sheet.setColumnWidth(4, 12 * 256);
-            sheet.setColumnWidth(5, 20 * 256);
-            sheet.setColumnWidth(6, 10 * 256);
-            sheet.setColumnWidth(7, 10 * 256);
-            sheet.setColumnWidth(8, 16 * 256);
+            sheet.setColumnWidth(3, 10 * 256);
+            sheet.setColumnWidth(4, 20 * 256);
+//            sheet.setColumnWidth(6, 10 * 256);
+//            sheet.setColumnWidth(7, 10 * 256);
+//            sheet.setColumnWidth(8, 16 * 256);
             //5.设置表头
             HSSFRow headerRow = sheet.createRow(0);
             HSSFCell cell0 = headerRow.createCell(0);
             cell0.setCellValue("姓名");
             cell0.setCellStyle(headerStyle);
+//            HSSFCell cell1 = headerRow.createCell(1);
+//            cell1.setCellValue("工号");
+//            cell1.setCellStyle(headerStyle);
             HSSFCell cell1 = headerRow.createCell(1);
-            cell1.setCellValue("工号");
+            cell1.setCellValue("性别");
             cell1.setCellStyle(headerStyle);
+//            HSSFCell cell3 = headerRow.createCell(3);
+//            cell3.setCellValue("出生日期");
+//            cell3.setCellStyle(headerStyle);
+//            HSSFCell cell4 = headerRow.createCell(4);
+//            cell4.setCellValue("身份证号码");
+//            cell4.setCellStyle(headerStyle);
             HSSFCell cell2 = headerRow.createCell(2);
-            cell2.setCellValue("性别");
+            cell2.setCellValue("电子邮件");
             cell2.setCellStyle(headerStyle);
             HSSFCell cell3 = headerRow.createCell(3);
-            cell3.setCellValue("出生日期");
+            cell3.setCellValue("电话号码");
             cell3.setCellStyle(headerStyle);
             HSSFCell cell4 = headerRow.createCell(4);
-            cell4.setCellValue("身份证号码");
+            cell4.setCellValue("所在教研室");
             cell4.setCellStyle(headerStyle);
-            HSSFCell cell5 = headerRow.createCell(5);
-            cell5.setCellValue("电子邮件");
-            cell5.setCellStyle(headerStyle);
-            HSSFCell cell6 = headerRow.createCell(6);
-            cell6.setCellValue("电话号码");
-            cell6.setCellStyle(headerStyle);
-            HSSFCell cell7 = headerRow.createCell(7);
-            cell7.setCellValue("联系地址");
-            cell7.setCellStyle(headerStyle);
-            HSSFCell cell8 = headerRow.createCell(8);
-            cell8.setCellValue("是否有效");
-            cell8.setCellStyle(headerStyle);
+//            HSSFCell cell5 = headerRow.createCell(4);
+//            cell5.setCellValue("是否有效");
+//            cell5.setCellStyle(headerStyle);
             //6.装数据
-                HSSFRow row = sheet.createRow( 1);
-                row.createCell(0).setCellValue("");
-                row.createCell(1).setCellValue("");
-                row.createCell(2).setCellValue("");
-                row.createCell(3).setCellValue("");
-                HSSFCell birthdayCell = row.createCell(4);
-                birthdayCell.setCellValue("");
-                birthdayCell.setCellStyle(dateCellStyle);
-                row.createCell(5).setCellValue("");
-                row.createCell(6).setCellValue("");
-                row.createCell(7).setCellValue("");
-                row.createCell(8).setCellValue("");
+            HSSFRow row = sheet.createRow(1);
+            row.createCell(0).setCellValue("");
+            row.createCell(1).setCellValue("");
+            row.createCell(2).setCellValue("");
+            row.createCell(3).setCellValue("");
+//                HSSFCell birthdayCell = row.createCell(4);
+//                birthdayCell.setCellValue("");
+//                birthdayCell.setCellStyle(dateCellStyle);
+            row.createCell(4).setCellValue("");
+//                row.createCell(6).setCellValue("");
+//                row.createCell(7).setCellValue("");
+//                row.createCell(8).setCellValue("");
 
             headers = new HttpHeaders();
             headers.setContentDispositionFormData("attachment",

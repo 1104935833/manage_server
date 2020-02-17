@@ -1,10 +1,12 @@
 package hxc.manage.mapper;
 
+import hxc.manage.model.Office;
 import hxc.manage.model.User;
 import hxc.manage.model.UserDetail;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import hxc.manage.model.Role;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -15,6 +17,7 @@ import java.util.Map;
  * @date 2019/12/27 14:26
  */
 @Mapper
+@Component
 public interface UserMapper {
 
     User loadUserByUsername(String username);
@@ -45,6 +48,10 @@ public interface UserMapper {
 
     int delByUserId(@Param("ids") String[] ids);
 
+    int delDetailByUserId(@Param("ids") String[] ids);
+
+    int delRoleByUserId(@Param("ids") String[] ids);
+
     int addEmps(@Param("emps") List<UserDetail> emps);
 
     List<UserDetail> getUserByPage(Map<String, Object> map);
@@ -60,5 +67,7 @@ public interface UserMapper {
     void editUserDetails(UserDetail userDetail);
 
     List<UserDetail> searchInfo(@Param("map")Map<String, Object> map, @Param("emp") UserDetail userDetail);
+
+    List<Office> getAllOffice();
 
 }

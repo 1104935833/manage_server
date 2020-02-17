@@ -47,6 +47,14 @@ public class SystemUserController {
         return list;
     }
 
+    //所有办公室
+    @GetMapping(value = "/office")
+    public List<Office> getAllOffice() {
+        List<Office> offices = userService.getAllOffice();
+
+        return offices;
+    }
+
     @GetMapping("/count")
     public Map<String, Object> getUserByCount(@RequestParam(defaultValue = "") String keywords){
         Map<String, Object> map = new HashMap<>();

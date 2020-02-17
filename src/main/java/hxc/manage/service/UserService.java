@@ -1,5 +1,6 @@
 package hxc.manage.service;
 
+import hxc.manage.model.Office;
 import hxc.manage.model.UserDetail;
 
 import java.util.List;
@@ -29,4 +30,7 @@ public interface UserService {
     void editUser(UserDetail userDetail);
 
     List<UserDetail> searchInfo(Map<String, Object> map, UserDetail userDetail);
+
+    List<Office> getAllOffice();
+
 }
