@@ -5,6 +5,7 @@ import hxc.manage.model.Menu;
 import hxc.manage.model.RespBean;
 import hxc.manage.service.MenuService;
 import hxc.manage.util.RedisUtil;
+import hxc.manage.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,9 +47,12 @@ public class SystemMenuController {
     }
     //    更新菜单
     @PostMapping("/upMenu")
-    public RespBean upMenu(Menu menu){
+    public RespBean upMenu(@RequestBody Map form){
+        Map<String,Object> map = (Map<String, Object>) form.get("form");
+        if (map.containsKey("children"))
+            map.remove("children");
         try{
-            menuService.upMenu(menu);
+            menuService.upMenu(map);
             return RespBean.ok("修改成功！");
         }catch (Exception e){
             e.printStackTrace();

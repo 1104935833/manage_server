@@ -25,7 +25,7 @@ public interface MenuService {
 
     void addMenu(Menu menu);
 
-    void upMenu(Menu menu);
+    void upMenu(Map<String, Object> menu);
 
 
 

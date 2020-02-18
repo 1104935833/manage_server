@@ -123,7 +123,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public void upMenu(Menu menu) {
+    public void upMenu(Map<String, Object> menu) {
         menuMapper.upMenu(menu);
     }
 

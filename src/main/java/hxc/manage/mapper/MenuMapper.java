@@ -36,6 +36,6 @@ public interface MenuMapper {
 
     void addMenu(Menu menu);
 
-    void upMenu(Menu menu);
+    void upMenu(@Param("menu") Map<String, Object> menu);
 
 }

@@ -3,10 +3,12 @@ package hxc.manage.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import hxc.manage.model.DataList;
 import hxc.manage.model.Paper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author hxc
@@ -22,4 +24,6 @@ public interface TestMapper {
     void insetPaper(Paper paper);
 
     String update(Paper paper);
+
+    List<Map<String, Object>> findOption(@Param("option") String option, @Param("title") String title);
 }

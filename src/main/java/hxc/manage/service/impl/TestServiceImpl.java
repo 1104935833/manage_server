@@ -93,5 +93,10 @@ public class TestServiceImpl implements TestService {
         return null;
     }
 
+    @Override
+    public List<Map<String, Object>> findOption(String option, String title) {
+        return testMapper.findOption(option,title);
+    }
+
 
 }
