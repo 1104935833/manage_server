@@ -59,13 +59,13 @@
     </select>
 
     <select id="getAllMenus" resultType="java.util.Map">
-        select * from menu where parentId != 0  order BY parentId LIMIT #{start},#{size}
+        select * from menu where parentId = #{id}
     </select>
     <select id="getMenuCount" resultType="java.lang.Integer">
         select count(1) from menu where parentId != 0
     </select>
     <select id="getAllParent" resultType="java.util.Map">
-        select `name`,id from menu where parentId = 1
+        select * from menu where parentId = 1
     </select>
 
     <delete id="menuDelById">

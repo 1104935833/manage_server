@@ -15,7 +15,7 @@ public interface MenuService {
 
     List<Menu> getAllMenu();
 
-    Map<String, Object> getAllMenus(Map<String, Object> map);
+    Map<String, Object> getAllMenus();
 
     void menuDelById(String id);
 

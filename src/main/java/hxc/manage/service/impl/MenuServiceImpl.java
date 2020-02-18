@@ -67,28 +67,40 @@ public class MenuServiceImpl implements MenuService {
 //        return menuMapper.getMenusByRid(rid);
 //    }
 
-    public Map<String, Object> getAllMenus(Map<String,Object> map){
-        List<Map<String, Object>> list=menuMapper.getAllMenus(map);
+    public Map<String, Object> getAllMenus(){
+        List<Map<String, Object>> list=menuMapper.getAllParent();
+        List<Map<String, Object>> menus;
+        for (Map<String, Object> listMap : list) {
+            menus = menuMapper.getAllMenus(listMap.get("id").toString());
+            for (Map<String, Object> m : menus) {
+                formatMenu(m);
+            }
+            listMap.put("children",menus);
+            formatMenu(listMap);
+        }
+//        List<Map<String, Object>> list=menuMapper.getAllMenus(map);
         Integer count = menuMapper.getMenuCount();
 
-        for (Map<String, Object> m :list) {
-            if ((int)m.get("parentId")>1){
-                m.put("parent","菜单");
-            }else {
-                m.put("parent","目录");
-            }
-            if ((boolean)m.get("enabled")) {
-                m.put("type","有效");
-            } else {
-                m.put("type","无效");
-            }
-        }
+//        for (Map<String, Object> m :list) {
+//
+//        }
         Map<String, Object> res = new HashMap<>();
         res.put("list",list);
         res.put("count",count);
         return res;
     }
-
+    public void formatMenu(Map<String, Object> m){
+        if ((int)m.get("parentId")>1){
+            m.put("parent","菜单");
+        }else {
+            m.put("parent","目录");
+        }
+        if ((boolean)m.get("enabled")) {
+            m.put("type","有效");
+        } else {
+            m.put("type","无效");
+        }
+    }
     @Override
     public void menuDelById(String id) {
         menuMapper.menuDelById(id);

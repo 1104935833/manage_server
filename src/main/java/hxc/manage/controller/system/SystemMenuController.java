@@ -97,13 +97,9 @@ public class SystemMenuController {
 
     //    菜单管理获取全部菜单
     @GetMapping("/getAllMenus")
-    public Map<String,Object>  getAllMenu(@RequestParam(defaultValue = "1") Integer page,
-                                          @RequestParam(defaultValue = "10") Integer size){
-        int start = (page - 1) * size;
-        Map<String, Object> map = new HashMap<>();
-        map.put("size",size);
-        map.put("start",start);
-        Map<String,Object> list=menuService.getAllMenus(map);
+    public Map<String,Object>  getAllMenu(){
+
+        Map<String,Object> list=menuService.getAllMenus();
 
         return list;
 
