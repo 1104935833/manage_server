@@ -2,12 +2,18 @@ package hxc.manage.controller;
 
 
 import hxc.manage.common.FileUpLoad;
+import hxc.manage.model.File;
 import hxc.manage.model.RespBean;
+import hxc.manage.model.User;
 import hxc.manage.service.CommonService;
+import hxc.manage.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +29,8 @@ public class CommonController {
     @Autowired
     CommonService commonService;
 
+    @Autowired
+    FileService fileService;
 
     @Autowired
     FileUpLoad fileUpLoad;
@@ -38,7 +46,7 @@ public class CommonController {
 
     //文件上传
     @PostMapping("/file")
-    public RespBean file(MultipartFile file){
+    public RespBean file(MultipartFile file, HttpServletRequest request){
         try {
             String name = "u_" + System.currentTimeMillis() + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
             String path = "/upOradd/";
@@ -47,9 +55,16 @@ public class CommonController {
             String suffix = name.substring(name.lastIndexOf(".") + 1);//文件后缀
             fileUpLoad.imageService(file, name, path);
             //插入数据库
-
-
-
+            LocalDateTime date = LocalDateTime.now();
+            User u = (User) request.getSession().getAttribute("userinfo");
+            File newFile = new File();
+            newFile.setFileName(name);
+            newFile.setFilePath(url);
+            newFile.setFileExt(suffix);
+            newFile.setFileSize(fileSize);
+            newFile.setCreateTime(date.getYear() + "-" + date.getMonth() + "-" + date.getDayOfMonth());
+            newFile.setUserId(u.getId().intValue());
+            int i = fileService.insert(newFile);
 
             return RespBean.ok("上传成功");
         }catch (Exception e){
@@ -67,7 +82,6 @@ public class CommonController {
         try{
             fileUpLoad.delFiles(fileUrl+"upOradd\\"+fileName);
             //删除
-
 
 
 
