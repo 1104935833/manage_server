@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hxc.manage.mapper.CommonMapper">
+
+    <select id="findOption" resultType="java.util.Map">
+        select * from list where target = #{option}
+        <if test="value!=null and value!=''">
+            and `parentId` = #{value}
+        </if>
+        <if test="title!=null and title!=''">
+            and title= #{title}
+        </if>
+    </select>
+
+</mapper>

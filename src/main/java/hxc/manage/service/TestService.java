@@ -20,5 +20,5 @@ public interface TestService {
 
     String update(Paper paper);
 
-    List<Map<String, Object>> findOption(String option, String title);
+
 }

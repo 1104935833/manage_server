@@ -33,14 +33,7 @@ public class TestController {
     @Autowired
     FileUpLoad fileUpLoad;
 
-    @GetMapping("/option")
-    public Map<String,Object> option(@RequestParam("option") String option,@RequestParam("title") String title){
-        List<Map<String,Object>> res = testService.findOption(option,title);
-        Map<String,Object> map = new HashMap<>();
-        map.put("options",res);
-        return map;
 
-    }
 
 
     @PostMapping("/data")

@@ -6,9 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="findList" resultType="hxc.manage.model.DataList">
       SELECT * FROM `list` where target='paper'
     </select>
-    <select id="findOption" resultType="java.util.Map">
-        select * from list where target = #{option} and title= #{title}
-    </select>
+
     <insert id="insetPaper" parameterType="hxc.manage.model.Paper">
         INSERT INTO `paper` (
         `paper_type`,

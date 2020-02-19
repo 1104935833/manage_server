@@ -21,6 +21,10 @@ spring:
       max-idle: 1000
       min-idle: 500
     timeout: 1000
+  servlet:
+    multipart:
+      max-file-size: "1000MB"
+      max-request-size: "10000MB"
 server:
   port: 8082
 

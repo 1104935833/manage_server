@@ -25,5 +25,5 @@ public interface TestMapper {
 
     String update(Paper paper);
 
-    List<Map<String, Object>> findOption(@Param("option") String option, @Param("title") String title);
+
 }
