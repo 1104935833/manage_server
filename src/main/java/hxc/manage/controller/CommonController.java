@@ -44,6 +44,11 @@ public class CommonController {
         String url = fileUrl + path + "/" + path;//文件路劲
         String suffix = name.substring(name.lastIndexOf(".") + 1);//文件后缀
         fileUpLoad.imageService(file,name,path);
+        //插入数据库
+
+
+
+
         return name;
     }
 
@@ -53,6 +58,12 @@ public class CommonController {
         System.out.println(fileName);
         try{
             fileUpLoad.delFiles(fileUrl+"upOradd\\"+fileName);
+            //删除
+
+
+
+
+
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -52,12 +52,6 @@ public class FileUpLoad {
 
             File file = new File(path);
             file.delete();
-            //跟新数据表
-
-
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
