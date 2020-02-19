@@ -25,7 +25,7 @@ public class FileUpLoad {
         FileOutputStream out = null;
         try {
             byte[] bytes = file.getBytes();
-            String url = path + filePath + "/" + fileName;
+            String url = path + filePath + "/" + fileName;//文件路劲
             File newFile = new File(url);
             //判断文件父目录是否存在
             if(!newFile.getParentFile().exists()){
@@ -34,7 +34,7 @@ public class FileUpLoad {
             out = new FileOutputStream(newFile);
             out.write(bytes);
             out.flush();
-        } catch (IOException e) {
+            } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
@@ -52,7 +52,12 @@ public class FileUpLoad {
 
             File file = new File(path);
             file.delete();
-            System.out.println("成功删除");
+            //跟新数据表
+
+
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
