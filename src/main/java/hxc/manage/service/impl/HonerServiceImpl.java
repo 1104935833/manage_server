@@ -36,4 +36,6 @@ public class HonerServiceImpl implements HonerService {
     public List<Map<String, Object>> searchAllHoner() {
         return honerMapper.searchAllHoner();
     }
+
+    public String getLabel(int id){return honerMapper.getLabel(id);}
 }

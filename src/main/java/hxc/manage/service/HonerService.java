@@ -17,4 +17,5 @@ public interface HonerService {
 
    List<Map<String, Object>> searchAllHoner();
 
+   String getLabel(int id);
 }

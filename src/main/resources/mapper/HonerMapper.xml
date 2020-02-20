@@ -112,5 +112,9 @@
     <select id="searchAllHoner" resultType="java.util.Map">
         select h.`id`,h.`personal_honor_type`,h.`personal_honor_name`,h.`personal_gain_time`,h.`organization_name`,h.`organization_member`,h.`type` from honer h
     </select>
+
+    <select id="getLabel">
+        select label from list where id = #{id}
+    </select>
 </mapper>
 

@@ -32,10 +32,17 @@ public class HonerController {
 
     @GetMapping("/searchAllHoner")
     public List<Map<String, Object>> searchHoner(){
-        List<Map<String,Object>> honerList = new ArrayList<>();
+        List<Map<String,Object>> honerList = new ArrayList<Map<String,Object>>();
         honerList = honerService.searchAllHoner();
+//        List<Map<String,String>> returnList = new ArrayList<Map<String,String>>();
+//        Map<String,String> map = new HashMap<String, String>();
+        String s1;
+        String s2;//应该有问题，但我太菜了
         for(Map<String,Object> m : honerList){
-
+            s1 = honerService.getLabel((int)m.get("personalHonorType"));
+            s2 = honerService.getLabel((int)m.get("personalHonorName"));
+            m.put("personalHonorType",s1);
+            m.put("personalHonorName",s2);
         }
         return honerList;
     }

@@ -21,4 +21,6 @@ public interface HonerMapper {
     int update(@Param("pojo") Honer pojo);
 
     List<Map<String,Object>> searchAllHoner();
+
+    String getLabel(int id);
 }
