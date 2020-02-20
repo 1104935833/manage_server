@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hxc.manage.mapper.PaperMapper">
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="hxc.manage.model.table.Paper">
+        <result column="id" property="id"/>
+        <result column="paper_title" property="paperTitle"/>
+        <result column="first_author" property="firstAuthor"/>
+        <result column="correspondence_author" property="correspondenceAuthor"/>
+        <result column="first_author_type" property="firstAuthorType"/>
+        <result column="publication" property="publication"/>
+        <result column="time" property="time"/>
+        <result column="paper_school" property="paperSchool"/>
+        <result column="paper_volume" property="paperVolume"/>
+        <result column="paper_page" property="paperPage"/>
+        <result column="paper_grade" property="paperGrade"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`,
+        `paper_title`,
+        `first_author`,
+        `correspondence_author`,
+        `first_author_type`,
+        `publication`,
+        `time`,
+        `paper_school`,
+        `paper_volume`,
+        `paper_page`,
+        `paper_grade`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO paper (
+            `id`,
+            `paper_title`,
+            `first_author`,
+            `correspondence_author`,
+            `first_author_type`,
+            `publication`,
+            `time`,
+            `paper_school`,
+            `paper_volume`,
+            `paper_page`,
+            `paper_grade`
+        ) VALUES (
+            #{pojo.id},
+            #{pojo.paperTitle},
+            #{pojo.firstAuthor},
+            #{pojo.correspondenceAuthor},
+            #{pojo.firstAuthorType},
+            #{pojo.publication},
+            #{pojo.time},
+            #{pojo.paperSchool},
+            #{pojo.paperVolume},
+            #{pojo.paperPage},
+            #{pojo.paperGrade}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO paper
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null"> `id`,</if>
+            <if test="pojo.paperTitle!=null"> `paper_title`,</if>
+            <if test="pojo.firstAuthor!=null"> `first_author`,</if>
+            <if test="pojo.correspondenceAuthor!=null"> `correspondence_author`,</if>
+            <if test="pojo.firstAuthorType!=null"> `first_author_type`,</if>
+            <if test="pojo.publication!=null"> `publication`,</if>
+            <if test="pojo.time!=null"> `time`,</if>
+            <if test="pojo.paperSchool!=null"> `paper_school`,</if>
+            <if test="pojo.paperVolume!=null"> `paper_volume`,</if>
+            <if test="pojo.paperPage!=null"> `paper_page`,</if>
+            <if test="pojo.paperGrade!=null"> `paper_grade`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null">#{pojo.id},</if>
+            <if test="pojo.paperTitle!=null">#{pojo.paperTitle},</if>
+            <if test="pojo.firstAuthor!=null">#{pojo.firstAuthor},</if>
+            <if test="pojo.correspondenceAuthor!=null">#{pojo.correspondenceAuthor},</if>
+            <if test="pojo.firstAuthorType!=null">#{pojo.firstAuthorType},</if>
+            <if test="pojo.publication!=null">#{pojo.publication},</if>
+            <if test="pojo.time!=null">#{pojo.time},</if>
+            <if test="pojo.paperSchool!=null">#{pojo.paperSchool},</if>
+            <if test="pojo.paperVolume!=null">#{pojo.paperVolume},</if>
+            <if test="pojo.paperPage!=null">#{pojo.paperPage},</if>
+            <if test="pojo.paperGrade!=null">#{pojo.paperGrade},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO paper (
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.paperTitle},
+            #{pojo.firstAuthor},
+            #{pojo.correspondenceAuthor},
+            #{pojo.firstAuthorType},
+            #{pojo.publication},
+            #{pojo.time},
+            #{pojo.paperSchool},
+            #{pojo.paperVolume},
+            #{pojo.paperPage},
+            #{pojo.paperGrade}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE paper
+        <set>
+            <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
+            <if test="pojo.paperTitle != null"> `paper_title` = #{pojo.paperTitle}, </if>
+            <if test="pojo.firstAuthor != null"> `first_author` = #{pojo.firstAuthor}, </if>
+            <if test="pojo.correspondenceAuthor != null"> `correspondence_author` = #{pojo.correspondenceAuthor}, </if>
+            <if test="pojo.firstAuthorType != null"> `first_author_type` = #{pojo.firstAuthorType}, </if>
+            <if test="pojo.publication != null"> `publication` = #{pojo.publication}, </if>
+            <if test="pojo.time != null"> `time` = #{pojo.time}, </if>
+            <if test="pojo.paperSchool != null"> `paper_school` = #{pojo.paperSchool}, </if>
+            <if test="pojo.paperVolume != null"> `paper_volume` = #{pojo.paperVolume}, </if>
+            <if test="pojo.paperPage != null"> `paper_page` = #{pojo.paperPage}, </if>
+            <if test="pojo.paperGrade != null"> `paper_grade` = #{pojo.paperGrade} </if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+</mapper>
+

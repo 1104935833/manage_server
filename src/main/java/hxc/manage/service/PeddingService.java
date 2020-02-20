@@ -15,7 +15,7 @@ import java.util.Map;
 public interface PeddingService {
     Map<String, Object> getPeddingName(List<Role> roles, String userId, int size, int start);
 
-//    Integer sendPedding(Pedding pedding, String userId, String agree, String state);
+//    Integer sendPedding(Pedding pedding, String userId, String agree, String tableName);
     int sendPedding(HttpServletRequest req,
                                            String tableId,
                                            String type,//个人or集体;1,2

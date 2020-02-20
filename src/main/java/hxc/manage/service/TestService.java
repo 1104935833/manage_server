@@ -1,6 +1,6 @@
 package hxc.manage.service;
 
-import hxc.manage.model.Paper;
+import hxc.manage.model.table.Paper;
 
 import java.util.List;
 import java.util.Map;

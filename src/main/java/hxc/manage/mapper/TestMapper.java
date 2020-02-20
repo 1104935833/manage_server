@@ -2,13 +2,11 @@ package hxc.manage.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import hxc.manage.model.DataList;
-import hxc.manage.model.Paper;
-import org.apache.ibatis.annotations.Param;
+import hxc.manage.model.table.Paper;
 import org.springframework.stereotype.Component;
 
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author hxc

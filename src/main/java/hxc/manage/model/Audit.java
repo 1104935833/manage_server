@@ -11,7 +11,7 @@ public class Audit implements Serializable {
 
     private Integer proposerId;
 
-    private String proposerType;
+    private Integer proposerType;
 
     private String proposerTime;
 

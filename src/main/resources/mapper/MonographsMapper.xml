@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hxc.manage.mapper.MonographsMapper">
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="hxc.manage.model.table.Monographs">
+        <result column="id" property="id"/>
+        <result column="monographs_name" property="monographsName"/>
+        <result column="theme_word" property="themeWord"/>
+        <result column="author_name" property="authorName"/>
+        <result column="finish_time" property="finishTime"/>
+        <result column="subordinate_subject" property="subordinateSubject"/>
+        <result column="phone" property="phone"/>
+        <result column="word_number" property="wordNumber"/>
+        <result column="published_number" property="publishedNumber"/>
+        <result column="file_id" property="fileId"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`,
+        `monographs_name`,
+        `theme_word`,
+        `author_name`,
+        `finish_time`,
+        `subordinate_subject`,
+        `phone`,
+        `word_number`,
+        `published_number`,
+        `file_id`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO tb_monographs (
+            `id`,
+            `monographs_name`,
+            `theme_word`,
+            `author_name`,
+            `finish_time`,
+            `subordinate_subject`,
+            `phone`,
+            `word_number`,
+            `published_number`,
+            `file_id`
+        ) VALUES (
+            #{pojo.id},
+            #{pojo.monographsName},
+            #{pojo.themeWord},
+            #{pojo.authorName},
+            #{pojo.finishTime},
+            #{pojo.subordinateSubject},
+            #{pojo.phone},
+            #{pojo.wordNumber},
+            #{pojo.publishedNumber},
+            #{pojo.fileId}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO tb_monographs
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null"> `id`,</if>
+            <if test="pojo.monographsName!=null"> `monographs_name`,</if>
+            <if test="pojo.themeWord!=null"> `theme_word`,</if>
+            <if test="pojo.authorName!=null"> `author_name`,</if>
+            <if test="pojo.finishTime!=null"> `finish_time`,</if>
+            <if test="pojo.subordinateSubject!=null"> `subordinate_subject`,</if>
+            <if test="pojo.phone!=null"> `phone`,</if>
+            <if test="pojo.wordNumber!=null"> `word_number`,</if>
+            <if test="pojo.publishedNumber!=null"> `published_number`,</if>
+            <if test="pojo.fileId!=null"> `file_id`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null">#{pojo.id},</if>
+            <if test="pojo.monographsName!=null">#{pojo.monographsName},</if>
+            <if test="pojo.themeWord!=null">#{pojo.themeWord},</if>
+            <if test="pojo.authorName!=null">#{pojo.authorName},</if>
+            <if test="pojo.finishTime!=null">#{pojo.finishTime},</if>
+            <if test="pojo.subordinateSubject!=null">#{pojo.subordinateSubject},</if>
+            <if test="pojo.phone!=null">#{pojo.phone},</if>
+            <if test="pojo.wordNumber!=null">#{pojo.wordNumber},</if>
+            <if test="pojo.publishedNumber!=null">#{pojo.publishedNumber},</if>
+            <if test="pojo.fileId!=null">#{pojo.fileId},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO tb_monographs (
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.monographsName},
+            #{pojo.themeWord},
+            #{pojo.authorName},
+            #{pojo.finishTime},
+            #{pojo.subordinateSubject},
+            #{pojo.phone},
+            #{pojo.wordNumber},
+            #{pojo.publishedNumber},
+            #{pojo.fileId}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE tb_monographs
+        <set>
+            <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
+            <if test="pojo.monographsName != null"> `monographs_name` = #{pojo.monographsName}, </if>
+            <if test="pojo.themeWord != null"> `theme_word` = #{pojo.themeWord}, </if>
+            <if test="pojo.authorName != null"> `author_name` = #{pojo.authorName}, </if>
+            <if test="pojo.finishTime != null"> `finish_time` = #{pojo.finishTime}, </if>
+            <if test="pojo.subordinateSubject != null"> `subordinate_subject` = #{pojo.subordinateSubject}, </if>
+            <if test="pojo.phone != null"> `phone` = #{pojo.phone}, </if>
+            <if test="pojo.wordNumber != null"> `word_number` = #{pojo.wordNumber}, </if>
+            <if test="pojo.publishedNumber != null"> `published_number` = #{pojo.publishedNumber}, </if>
+            <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId} </if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+    <select id="getMonographs" resultType="java.util.Map">
+        select <include refid="all_column" />
+        from tb_monographs
+        <where>
+            <if test="pojo.id != null"> `id` = #{pojo.id} </if>
+            <if test="pojo.monographsName != null">and `monographs_name` = #{pojo.monographsName} </if>
+            <if test="pojo.themeWord != null"> and `theme_word` = #{pojo.themeWord} </if>
+            <if test="pojo.authorName != null">and `author_name` = #{pojo.authorName} </if>
+            <if test="pojo.finishTime != null"> and `finish_time` = #{pojo.finishTime} </if>
+            <if test="pojo.subordinateSubject != null">and `subordinate_subject` = #{pojo.subordinateSubject} </if>
+            <if test="pojo.phone != null"> and `phone` = #{pojo.phone}</if>
+            <if test="pojo.wordNumber != null"> and `word_number` = #{pojo.wordNumber} </if>
+            <if test="pojo.publishedNumber != null"> and `published_number` = #{pojo.publishedNumber} </if>
+        </where>
+    </select>
+</mapper>
+

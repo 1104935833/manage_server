@@ -4,6 +4,7 @@ package hxc.manage.controller;
 import hxc.manage.service.AuditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,6 +33,18 @@ public class AuditController {
         Map<String,Object> map = new HashMap<>();
         map.put("audits",audits);
         map.put("count",audits.size());
+        return map;
+    }
+
+
+    @GetMapping("/getTableName")
+    public Map<String,Object> getTableName(@RequestParam("tableId") String tableId){
+        Map<String,Object> map = new HashMap<>();
+        String tableName = auditService.getTableName(tableId);
+        map.put("tableName",tableName);
+
+
+
         return map;
     }
 

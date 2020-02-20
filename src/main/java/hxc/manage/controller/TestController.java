@@ -1,17 +1,13 @@
 package hxc.manage.controller;
 
-import hxc.manage.common.FileUpLoad;
 import hxc.manage.common.poi.PoiUtils;
-import hxc.manage.model.Paper;
+import hxc.manage.model.table.Paper;
 import hxc.manage.model.RespBean;
 import hxc.manage.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
