@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.Honer;
 import hxc.manage.mapper.HonerMapper;
 
@@ -28,5 +30,10 @@ public class HonerServiceImpl implements HonerService {
 
     public int update(Honer pojo){
         return honerMapper.update(pojo);
+    }
+
+    @Override
+    public List<Map<String, Object>> searchAllHoner() {
+        return honerMapper.searchAllHoner();
     }
 }

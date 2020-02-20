@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.Honer;
 import org.springframework.stereotype.Component;
 
@@ -17,4 +19,6 @@ public interface HonerMapper {
     int insertList(@Param("pojos") List<Honer> pojo);
 
     int update(@Param("pojo") Honer pojo);
+
+    List<Map<String,Object>> searchAllHoner();
 }
