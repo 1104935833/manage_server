@@ -6,6 +6,7 @@
         <result column="id" property="id"/>
         <result column="user_id" property="userId"/>
         <result column="table_id" property="tableId"/>
+        <result column="table_name" property="tableName"/>
         <result column="state" property="state"/>
     </resultMap>
 
@@ -14,65 +15,25 @@
         `id`,
         `user_id`,
         `table_id`,
-        `state`
-    </sql>
+        `table_name`,
+        `state`,
+`state`
+</sql>
 
     <!--auto generated Code-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
         INSERT INTO `table` (
             `user_id`,
             `table_id`,
+            `table_name`,
             `state`
         ) VALUES (
             #{pojo.userId},
             #{pojo.tableId},
+            #{pojo.tableName},
             #{pojo.state}
         )
     </insert>
 
-    <!--auto generated Code-->
-    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
-        INSERT INTO `table`
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="pojo.id!=null"> `id`,</if>
-            <if test="pojo.userId!=null"> `user_id`,</if>
-            <if test="pojo.content!=null"> `table_id`,</if>
-            <if test="pojo.state!=null"> `state`,</if>
-        </trim>
-        VALUES
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="pojo.id!=null">#{pojo.id},</if>
-            <if test="pojo.userId!=null">#{pojo.userId},</if>
-            <if test="pojo.content!=null">#{pojo.tableId},</if>
-            <if test="pojo.state!=null">#{pojo.state},</if>
-        </trim>
-    </insert>
-
-    <!--auto generated Code-->
-    <insert id="insertList">
-        INSERT INTO `table` (
-        <include refid="all_column"/>
-        )VALUES
-        <foreach collection="pojos" item="pojo" index="index" separator=",">
-            (
-            #{pojo.id},
-            #{pojo.userId},
-            #{pojo.tableId},
-            #{pojo.state}
-            )
-        </foreach>
-    </insert>
-
-    <!--auto generated Code-->
-    <update id="update">
-        UPDATE `table`
-        <set>
-            <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
-            <if test="pojo.userId != null"> `user_id` = #{pojo.userId}, </if>
-            <if test="pojo.content != null"> `content` = #{pojo.tableId}, </if>
-            <if test="pojo.state != null"> `state` = #{pojo.state} </if>
-        </set>
-        WHERE id = #{pojo.id}
-    </update>
 </mapper>
 

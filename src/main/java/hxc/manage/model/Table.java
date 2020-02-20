@@ -13,6 +13,8 @@ public class Table implements Serializable {
 
     private String tableId;
 
+    private String tableName;
+
     private Integer state;
 
 }

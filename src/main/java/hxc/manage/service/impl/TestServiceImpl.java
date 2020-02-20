@@ -2,7 +2,7 @@ package hxc.manage.service.impl;
 
 import hxc.manage.mapper.TestMapper;
 import hxc.manage.model.DataList;
-import hxc.manage.model.Paper;
+import hxc.manage.model.table.Paper;
 import hxc.manage.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

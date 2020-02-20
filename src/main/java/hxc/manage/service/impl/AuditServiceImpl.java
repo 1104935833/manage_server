@@ -97,6 +97,13 @@ public class AuditServiceImpl implements AuditService {
         return i;
     }
 
+    @Override
+    public String getTableName(String tableId) {
+
+
+
+        return auditMapper.getTableName(tableId);
+    }
 
 
 }

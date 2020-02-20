@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         for (Map<String, Object> map : list) {
             map.remove("parent_id");
             map.remove("id");
-            map.remove("state");
+            map.remove("tableName");
         }
         return list;
     }

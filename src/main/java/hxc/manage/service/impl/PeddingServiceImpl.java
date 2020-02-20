@@ -61,9 +61,9 @@ public class PeddingServiceImpl implements PeddingService {
                                            String tableId,
                                            String type,//个人or集体;1,2
                                            String agree,//0 -- 不同意 1 -- 同意
-                                           String state) {//  state 到哪个阶段了1首次发起2教研室3分院4返回修改在发起
+                                           String state) {//  tableName 到哪个阶段了1首次发起2教研室3分院4返回修改在发起
         int res;
-//        state 到哪个阶段了1首次发起2教研室3分院4返回修改在发起
+//        tableName 到哪个阶段了1首次发起2教研室3分院4返回修改在发起
         User user = (User) req.getSession().getAttribute("userinfo");
         String userId =user.getId()+"";
         //第一次直接插入记录就好
@@ -97,7 +97,7 @@ public class PeddingServiceImpl implements PeddingService {
     public Integer send(Pedding pedding,String userId,String agree,String state) {
 
         /**
-         * 分院的需要页面给参数到第几阶段直接给值 state 2  ---3
+         * 分院的需要页面给参数到第几阶段直接给值 tableName 2  ---3
          * 每次跟新完返回手机号发送短信
          */
         int res;
@@ -109,7 +109,7 @@ public class PeddingServiceImpl implements PeddingService {
             res = peddingMapper.sendPedding(pedding);
             sendMailAndPhone(pedding.getRole());
         }
-//        state 2 -- 教研室审批 3 -- 分院 4 -- 返回修改的
+//        tableName 2 -- 教研室审批 3 -- 分院 4 -- 返回修改的
 //        agree 0 -- 不同意 1 -- 同意
         else if (state.equals("2")){
             if (agree.equals("0")){//教研室不同意

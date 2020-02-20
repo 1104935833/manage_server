@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hxc.manage.mapper.PortraitMapper">
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="hxc.manage.model.table.Portrait">
+        <result column="id" property="id"/>
+        <result column="date" property="date"/>
+        <result column="project_leader" property="projectLeader"/>
+        <result column="phone" property="phone"/>
+        <result column="department" property="department"/>
+        <result column="title" property="title"/>
+        <result column="apply_money" property="applyMoney"/>
+        <result column="project_name" property="projectName"/>
+        <result column="project_unit" property="projectUnit"/>
+        <result column="project_type" property="projectType"/>
+        <result column="file_id" property="fileId"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`,
+        `date`,
+        `project_leader`,
+        `phone`,
+        `department`,
+        `title`,
+        `apply_money`,
+        `project_name`,
+        `project_unit`,
+        `project_type`,
+        `file_id`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO portrait (
+            `id`,
+            `date`,
+            `project_leader`,
+            `phone`,
+            `department`,
+            `title`,
+            `apply_money`,
+            `project_name`,
+            `project_unit`,
+            `project_type`,
+            `file_id`
+        ) VALUES (
+            #{pojo.id},
+            #{pojo.date},
+            #{pojo.projectLeader},
+            #{pojo.phone},
+            #{pojo.department},
+            #{pojo.title},
+            #{pojo.applyMoney},
+            #{pojo.projectName},
+            #{pojo.projectUnit},
+            #{pojo.projectType},
+            #{pojo.fileId}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO portrait
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null"> `id`,</if>
+            <if test="pojo.date!=null"> `date`,</if>
+            <if test="pojo.projectLeader!=null"> `project_leader`,</if>
+            <if test="pojo.phone!=null"> `phone`,</if>
+            <if test="pojo.department!=null"> `department`,</if>
+            <if test="pojo.title!=null"> `title`,</if>
+            <if test="pojo.applyMoney!=null"> `apply_money`,</if>
+            <if test="pojo.projectName!=null"> `project_name`,</if>
+            <if test="pojo.projectUnit!=null"> `project_unit`,</if>
+            <if test="pojo.projectType!=null"> `project_type`,</if>
+            <if test="pojo.fileId!=null"> `file_id`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null">#{pojo.id},</if>
+            <if test="pojo.date!=null">#{pojo.date},</if>
+            <if test="pojo.projectLeader!=null">#{pojo.projectLeader},</if>
+            <if test="pojo.phone!=null">#{pojo.phone},</if>
+            <if test="pojo.department!=null">#{pojo.department},</if>
+            <if test="pojo.title!=null">#{pojo.title},</if>
+            <if test="pojo.applyMoney!=null">#{pojo.applyMoney},</if>
+            <if test="pojo.projectName!=null">#{pojo.projectName},</if>
+            <if test="pojo.projectUnit!=null">#{pojo.projectUnit},</if>
+            <if test="pojo.projectType!=null">#{pojo.projectType},</if>
+            <if test="pojo.fileId!=null">#{pojo.fileId},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO portrait (
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.date},
+            #{pojo.projectLeader},
+            #{pojo.phone},
+            #{pojo.department},
+            #{pojo.title},
+            #{pojo.applyMoney},
+            #{pojo.projectName},
+            #{pojo.projectUnit},
+            #{pojo.projectType},
+            #{pojo.fileId}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE portrait
+        <set>
+            <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
+            <if test="pojo.date != null"> `date` = #{pojo.date}, </if>
+            <if test="pojo.projectLeader != null"> `project_leader` = #{pojo.projectLeader}, </if>
+            <if test="pojo.phone != null"> `phone` = #{pojo.phone}, </if>
+            <if test="pojo.department != null"> `department` = #{pojo.department}, </if>
+            <if test="pojo.title != null"> `title` = #{pojo.title}, </if>
+            <if test="pojo.applyMoney != null"> `apply_money` = #{pojo.applyMoney}, </if>
+            <if test="pojo.projectName != null"> `project_name` = #{pojo.projectName}, </if>
+            <if test="pojo.projectUnit != null"> `project_unit` = #{pojo.projectUnit}, </if>
+            <if test="pojo.projectType != null"> `project_type` = #{pojo.projectType}, </if>
+            <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId} </if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+</mapper>
+

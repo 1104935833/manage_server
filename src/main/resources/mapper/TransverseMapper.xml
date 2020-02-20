@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hxc.manage.mapper.TransverseMapper">
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="hxc.manage.model.table.Transverse">
+        <result column="id" property="id"/>
+        <result column="project_name" property="projectName"/>
+        <result column="first_level" property="firstLevel"/>
+        <result column="research_category" property="researchCategory"/>
+        <result column="start_time" property="startTime"/>
+        <result column="client_name" property="clientName"/>
+        <result column="client_address" property="clientAddress"/>
+        <result column="contract_nature" property="contractNature"/>
+        <result column="project_leader" property="projectLeader"/>
+        <result column="level" property="level"/>
+        <result column="file_id" property="fileId"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`,
+        `project_name`,
+        `first_level`,
+        `research_category`,
+        `start_time`,
+        `client_name`,
+        `client_address`,
+        `contract_nature`,
+        `project_leader`,
+        `level`,
+        `file_id`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO transverse (
+            `id`,
+            `project_name`,
+            `first_level`,
+            `research_category`,
+            `start_time`,
+            `client_name`,
+            `client_address`,
+            `contract_nature`,
+            `project_leader`,
+            `level`,
+            `file_id`
+        ) VALUES (
+            #{pojo.id},
+            #{pojo.projectName},
+            #{pojo.firstLevel},
+            #{pojo.researchCategory},
+            #{pojo.startTime},
+            #{pojo.clientName},
+            #{pojo.clientAddress},
+            #{pojo.contractNature},
+            #{pojo.projectLeader},
+            #{pojo.level},
+            #{pojo.fileId}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO transverse
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null"> `id`,</if>
+            <if test="pojo.projectName!=null"> `project_name`,</if>
+            <if test="pojo.firstLevel!=null"> `first_level`,</if>
+            <if test="pojo.researchCategory!=null"> `research_category`,</if>
+            <if test="pojo.startTime!=null"> `start_time`,</if>
+            <if test="pojo.clientName!=null"> `client_name`,</if>
+            <if test="pojo.clientAddress!=null"> `client_address`,</if>
+            <if test="pojo.contractNature!=null"> `contract_nature`,</if>
+            <if test="pojo.projectLeader!=null"> `project_leader`,</if>
+            <if test="pojo.level!=null"> `level`,</if>
+            <if test="pojo.fileId!=null"> `file_id`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null">#{pojo.id},</if>
+            <if test="pojo.projectName!=null">#{pojo.projectName},</if>
+            <if test="pojo.firstLevel!=null">#{pojo.firstLevel},</if>
+            <if test="pojo.researchCategory!=null">#{pojo.researchCategory},</if>
+            <if test="pojo.startTime!=null">#{pojo.startTime},</if>
+            <if test="pojo.clientName!=null">#{pojo.clientName},</if>
+            <if test="pojo.clientAddress!=null">#{pojo.clientAddress},</if>
+            <if test="pojo.contractNature!=null">#{pojo.contractNature},</if>
+            <if test="pojo.projectLeader!=null">#{pojo.projectLeader},</if>
+            <if test="pojo.level!=null">#{pojo.level},</if>
+            <if test="pojo.fileId!=null">#{pojo.fileId},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO transverse (
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.projectName},
+            #{pojo.firstLevel},
+            #{pojo.researchCategory},
+            #{pojo.startTime},
+            #{pojo.clientName},
+            #{pojo.clientAddress},
+            #{pojo.contractNature},
+            #{pojo.projectLeader},
+            #{pojo.level},
+            #{pojo.fileId}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE transverse
+        <set>
+            <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
+            <if test="pojo.projectName != null"> `project_name` = #{pojo.projectName}, </if>
+            <if test="pojo.firstLevel != null"> `first_level` = #{pojo.firstLevel}, </if>
+            <if test="pojo.researchCategory != null"> `research_category` = #{pojo.researchCategory}, </if>
+            <if test="pojo.startTime != null"> `start_time` = #{pojo.startTime}, </if>
+            <if test="pojo.clientName != null"> `client_name` = #{pojo.clientName}, </if>
+            <if test="pojo.clientAddress != null"> `client_address` = #{pojo.clientAddress}, </if>
+            <if test="pojo.contractNature != null"> `contract_nature` = #{pojo.contractNature}, </if>
+            <if test="pojo.projectLeader != null"> `project_leader` = #{pojo.projectLeader}, </if>
+            <if test="pojo.level != null"> `level` = #{pojo.level}, </if>
+            <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId} </if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+</mapper>
+

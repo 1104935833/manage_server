@@ -24,4 +24,7 @@ public interface AuditService {
                         String status,//1通过2未通过
                         String id,
                         HttpServletRequest request);
+
+    String getTableName(String tableId);
+
 }
