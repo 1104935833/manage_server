@@ -65,8 +65,10 @@ public class CommonController {
             newFile.setCreateTime(String.valueOf(new Date().getTime()));
             newFile.setUserId(u.getId().intValue());
             fileService.insert(newFile);
-
-            return RespBean.ok("上传成功");
+            Map<String,String> map = new HashMap<>();
+            map.put("fileName",name);
+            map.put("fileId",String.valueOf(newFile.getId()));
+            return RespBean.ok("上传成功",map);
         }catch (Exception e){
             e.printStackTrace();
             return RespBean.error("上传失败");
@@ -77,12 +79,12 @@ public class CommonController {
 
     //文件删除
     @GetMapping("/delFile")
-    public RespBean delFile(@RequestParam("fileName") String fileName){
-        System.out.println(fileName);
+    public RespBean delFile(@RequestParam("fileName") String fileName,@RequestParam("fileId") String fileId){
+        System.out.println(fileName+fileId);
         try{
             fileUpLoad.delFiles(fileUrl+"upOradd\\"+fileName);
             //删除
-
+            fileService.delFile(Integer.valueOf(fileId));
 
 
             return RespBean.ok("删除成功");

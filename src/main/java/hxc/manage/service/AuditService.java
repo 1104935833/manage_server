@@ -25,6 +25,6 @@ public interface AuditService {
                         String id,
                         HttpServletRequest request);
 
-    String getTableName(String tableId);
+    Map<String,Object> getTableName(String tableId);
 
 }

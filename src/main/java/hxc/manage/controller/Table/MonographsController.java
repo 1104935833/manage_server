@@ -32,7 +32,7 @@ public class MonographsController {
 
         monographsService.insert(monographs);
 
-        tableService.table(request,u.getUser_id(),String.valueOf(monographs.getId()),"tb_monographs",1);
+        tableService.table(request,u.getUser_id(),String.valueOf(monographs.getId()),"tb_monographs",8);
 
         return RespBean.ok("success");
     }

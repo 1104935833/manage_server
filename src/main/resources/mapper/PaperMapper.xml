@@ -132,5 +132,22 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <select id="getPaper" resultMap="AllColumnMap">
+        select <include refid="all_column"/>
+        from tb_paper
+        <where>
+            <if test="pojo.id != null">and  `id` = #{pojo.id} </if>
+            <if test="pojo.paperTitle != null">and `paper_title` = #{pojo.paperTitle} </if>
+            <if test="pojo.firstAuthor != null">and `first_author` = #{pojo.firstAuthor} </if>
+            <if test="pojo.correspondenceAuthor != null">and `correspondence_author` = #{pojo.correspondenceAuthor} </if>
+            <if test="pojo.firstAuthorType != null">and `first_author_type` = #{pojo.firstAuthorType} </if>
+            <if test="pojo.publication != null">and `publication` = #{pojo.publication} </if>
+            <if test="pojo.time != null">and `time` = #{pojo.time} </if>
+            <if test="pojo.paperSchool != null">and `paper_school` = #{pojo.paperSchool} </if>
+            <if test="pojo.paperVolume != null">and `paper_volume` = #{pojo.paperVolume} </if>
+            <if test="pojo.paperPage != null">and `paper_page` = #{pojo.paperPage} </if>
+            <if test="pojo.paperGrade != null">and `paper_grade` = #{pojo.paperGrade </if>
+        </where>
+    </select>
 </mapper>
 

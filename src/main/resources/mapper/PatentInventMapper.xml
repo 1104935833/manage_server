@@ -28,7 +28,7 @@
         <result column="project_name" property="projectName"/>
         <result column="invention_unit" property="inventionUnit"/>
         <result column="project_leader" property="projectLeader"/>
-        <result column="accepting_uni_name" property="acceptingUniName"/>
+        <result column="accepting_unit_name" property="acceptingUnitName"/>
         <result column="accepting_unit_representative" property="acceptingUnitRepresentative"/>
         <result column="accepting_unit_phone" property="acceptingUnitPhone"/>
         <result column="accepting_unit_address" property="acceptingUnitAddress"/>
@@ -63,7 +63,7 @@
         `project_name`,
         `invention_unit`,
         `project_leader`,
-        `accepting_uni_name`,
+        `accepting_unit_name`,
         `accepting_unit_representative`,
         `accepting_unit_phone`,
         `accepting_unit_address`,
@@ -99,7 +99,7 @@
             `project_name`,
             `invention_unit`,
             `project_leader`,
-            `accepting_uni_name`,
+            `accepting_unit_name`,
             `accepting_unit_representative`,
             `accepting_unit_phone`,
             `accepting_unit_address`,
@@ -131,7 +131,7 @@
             #{pojo.projectName},
             #{pojo.inventionUnit},
             #{pojo.projectLeader},
-            #{pojo.acceptingUniName},
+            #{pojo.acceptingUnitName},
             #{pojo.acceptingUnitRepresentative},
             #{pojo.acceptingUnitPhone},
             #{pojo.acceptingUnitAddress},
@@ -169,7 +169,7 @@
             <if test="pojo.projectName!=null"> `project_name`,</if>
             <if test="pojo.inventionUnit!=null"> `invention_unit`,</if>
             <if test="pojo.projectLeader!=null"> `project_leader`,</if>
-            <if test="pojo.acceptingUniName!=null"> `accepting_uni_name`,</if>
+            <if test="pojo.acceptingUnitName!=null"> `accepting_unit_name`,</if>
             <if test="pojo.acceptingUnitRepresentative!=null"> `accepting_unit_representative`,</if>
             <if test="pojo.acceptingUnitPhone!=null"> `accepting_unit_phone`,</if>
             <if test="pojo.acceptingUnitAddress!=null"> `accepting_unit_address`,</if>
@@ -203,7 +203,7 @@
             <if test="pojo.projectName!=null">#{pojo.projectName},</if>
             <if test="pojo.inventionUnit!=null">#{pojo.inventionUnit},</if>
             <if test="pojo.projectLeader!=null">#{pojo.projectLeader},</if>
-            <if test="pojo.acceptingUniName!=null">#{pojo.acceptingUniName},</if>
+            <if test="pojo.acceptingUnitName!=null">#{pojo.acceptingUnitName},</if>
             <if test="pojo.acceptingUnitRepresentative!=null">#{pojo.acceptingUnitRepresentative},</if>
             <if test="pojo.acceptingUnitPhone!=null">#{pojo.acceptingUnitPhone},</if>
             <if test="pojo.acceptingUnitAddress!=null">#{pojo.acceptingUnitAddress},</if>
@@ -244,7 +244,7 @@
             #{pojo.projectName},
             #{pojo.inventionUnit},
             #{pojo.projectLeader},
-            #{pojo.acceptingUniName},
+            #{pojo.acceptingUnitName},
             #{pojo.acceptingUnitRepresentative},
             #{pojo.acceptingUnitPhone},
             #{pojo.acceptingUnitAddress},
@@ -283,7 +283,7 @@
             <if test="pojo.projectName != null"> `project_name` = #{pojo.projectName}, </if>
             <if test="pojo.inventionUnit != null"> `invention_unit` = #{pojo.inventionUnit}, </if>
             <if test="pojo.projectLeader != null"> `project_leader` = #{pojo.projectLeader}, </if>
-            <if test="pojo.acceptingUniName != null"> `accepting_uni_name` = #{pojo.acceptingUniName}, </if>
+            <if test="pojo.acceptingUnitName != null"> `accepting_unit_name` = #{pojo.acceptingUnitName}, </if>
             <if test="pojo.acceptingUnitRepresentative != null"> `accepting_unit_representative` = #{pojo.acceptingUnitRepresentative}, </if>
             <if test="pojo.acceptingUnitPhone != null"> `accepting_unit_phone` = #{pojo.acceptingUnitPhone}, </if>
             <if test="pojo.acceptingUnitAddress != null"> `accepting_unit_address` = #{pojo.acceptingUnitAddress}, </if>

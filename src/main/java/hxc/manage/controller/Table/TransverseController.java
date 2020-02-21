@@ -24,7 +24,7 @@ public class TransverseController {
     public RespBean insertTransverse(HttpServletRequest request,Transverse transverse){
         User u = (User) request.getSession().getAttribute("userinfo");
         transverseService.insert(transverse);
-        tableService.table(request,u.getUser_id(),String.valueOf(transverse.getId()),"tb_transverse",5);
+        tableService.table(request,u.getUser_id(),String.valueOf(transverse.getId()),"tb_transverse",11);
         return RespBean.ok("success");
     }
 

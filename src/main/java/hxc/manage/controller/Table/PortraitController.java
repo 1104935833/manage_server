@@ -25,7 +25,7 @@ public class PortraitController {
         User u = (User) request.getSession().getAttribute("userinfo");
         portraitService.insert(portrait);
 
-        tableService.table(request,u.getUser_id(),String.valueOf(portrait.getId()),"tb_portrait",4);
+        tableService.table(request,u.getUser_id(),String.valueOf(portrait.getId()),"tb_portrait",10);
 
         return RespBean.ok("success");
     }

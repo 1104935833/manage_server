@@ -100,5 +100,11 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <delete id="delFile">
+        delete from file where id = #{fileId}
+
+
+
+    </delete>
 </mapper>
 

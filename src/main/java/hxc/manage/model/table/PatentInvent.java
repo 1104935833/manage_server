@@ -57,7 +57,7 @@ public class PatentInvent implements Serializable {
 
     private String projectLeader;
 
-    private String acceptingUniName;
+    private String acceptingUnitName;
 
     private String acceptingUnitRepresentative;
 
@@ -65,7 +65,9 @@ public class PatentInvent implements Serializable {
 
     private String acceptingUnitAddress;
 
-    private String fileId;
+    private Integer fileId;
 
     private Integer type;
+
+    private Integer tableState;
 }

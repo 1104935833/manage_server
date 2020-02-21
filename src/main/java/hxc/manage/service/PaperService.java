@@ -3,6 +3,7 @@ package hxc.manage.service;
 import hxc.manage.model.table.Paper;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PaperService {
 
@@ -14,4 +15,5 @@ public interface PaperService {
 
     int update(Paper pojo);
 
+    Paper getPaper(Map param);
 }

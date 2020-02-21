@@ -25,7 +25,7 @@ public class PatentInventController {
         User u = (User) request.getSession().getAttribute("userinfo");
         patentInventService.insert(patentInvent);
 
-        tableService.table(request,u.getUser_id(),String.valueOf(patentInvent.getId()),"tb_patent_invent",3);
+        tableService.table(request,u.getUser_id(),String.valueOf(patentInvent.getId()),"tb_patent_invent",patentInvent.getTableState());
 
         return RespBean.ok("success");
     }

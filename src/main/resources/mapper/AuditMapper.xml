@@ -152,8 +152,8 @@
         </where>
         limit #{conditions.start},#{conditions.size}
     </select>
-    <select id="getTableName" resultType="java.lang.String">
-        select state from `table` where table_id = #{tableId}
+    <select id="getTableName" resultType="java.util.Map">
+        select * from `table` where id = #{tableId}
     </select>
 
     <update id="updateAuit">
@@ -163,7 +163,7 @@
             <if test="pojo.auditorResearchTime != null"> `auditor_research_time` = #{pojo.auditorResearchTime}, </if>
             <if test="pojo.auditStatus != null"> `audit_status` = #{pojo.auditStatus}, </if>
             <if test="pojo.auditorCourtId != null"> `auditor_court_id` = #{pojo.auditorCourtId}, </if>
-            <if test="pojo.audtiorCourtTime != null"> `audtior_court_time` = #{pojo.audtiorCourtTime} </if>
+            <if test="pojo.auditorCourtTime != null"> `audtior_court_time` = #{pojo.auditorCourtTime} </if>
         </set>
         WHERE id = #{pojo.id}
     </update>

@@ -33,4 +33,9 @@ public class FileServiceImpl implements FileService {
     public int update(File pojo) {
         return fileMapper.update(pojo);
     }
+
+    @Override
+    public void delFile(Integer fileId) {
+        fileMapper.delFile(fileId);
+    }
 }

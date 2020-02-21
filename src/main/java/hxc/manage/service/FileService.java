@@ -13,4 +13,6 @@ public interface FileService {
     int insertList(List<File> pojo);
 
     int update(File pojo);
+
+    void delFile(Integer fileId);
 }

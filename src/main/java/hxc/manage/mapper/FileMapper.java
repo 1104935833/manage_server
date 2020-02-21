@@ -17,4 +17,6 @@ public interface FileMapper {
     int insertList(@Param("pojos") List<File> pojo);
 
     int update(@Param("pojo") File pojo);
+
+    void delFile(Integer fileId);
 }

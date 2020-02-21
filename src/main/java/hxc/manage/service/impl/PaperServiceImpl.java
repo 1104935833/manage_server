@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.Paper;
 import hxc.manage.mapper.PaperMapper;
 
@@ -28,5 +30,11 @@ public class PaperServiceImpl implements PaperService {
 
     public int update(Paper pojo){
         return paperMapper.update(pojo);
+    }
+
+    @Override
+    public Paper getPaper(Map param) {
+
+        return paperMapper.getPaper(param);
     }
 }

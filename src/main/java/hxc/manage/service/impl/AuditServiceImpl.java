@@ -75,6 +75,7 @@ public class AuditServiceImpl implements AuditService {
         Map<String,Object> conditions = new HashMap<>();
         conditions.put("tableId",tableId);
         conditions.put("id",id);
+
         if (type.equals("1") && status.equals("1")){
             status="1";
         }else if(type.equals("1") && status.equals("2")){
@@ -83,14 +84,16 @@ public class AuditServiceImpl implements AuditService {
             status="3";
         }else if(type.equals("2") && status.equals("2")){
             status="4";
+        }else{
+            status="0";
         }
         conditions.put("auditStatus",status);
         if (type.equals("1")){
             conditions.put("auditorResearchId",u.getUser_id());
             conditions.put("auditorResearchTime",new Date().getTime());
-        }else{
+        }else if (type.equals("2")){
             conditions.put("auditorCourtId",u.getUser_id());
-            conditions.put("audtiorCourtTime",new Date().getTime());
+            conditions.put("auditorCourtTime",new Date().getTime());
         }
 
         int i = auditMapper.updateAuit(conditions);
@@ -98,7 +101,7 @@ public class AuditServiceImpl implements AuditService {
     }
 
     @Override
-    public String getTableName(String tableId) {
+    public Map<String,Object> getTableName(String tableId) {
 
 
 
