@@ -1,14 +1,17 @@
 package hxc.manage.service.impl;
 
+import hxc.manage.service.LabService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.Lab;
 import hxc.manage.mapper.LabMapper;
 
 @Service
-public class LabServiceImpl{
+public class LabServiceImpl implements LabService {
 
     @Autowired
     private LabMapper labMapper;
@@ -27,5 +30,10 @@ public class LabServiceImpl{
 
     public int update(Lab pojo){
         return labMapper.update(pojo);
+    }
+
+    @Override
+    public List<Map<String,Object>> getLabs(Map param){
+        return labMapper.getLabs(param);
     }
 }

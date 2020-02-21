@@ -164,5 +164,27 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+
+    <select id="getTechnologicals" resultType="java.util.Map">
+        select <include refid="all_column" />
+        from jt_technological_innovation
+        <where>
+            <if test="pojo.id != null"> `id` = #{pojo.id}</if>
+            <if test="pojo.projectName != null"> and `project_name` = #{pojo.projectName}</if>
+            <if test="pojo.declareUnit != null"> and `declare_unit` = #{pojo.declareUnit} </if>
+            <if test="pojo.planCategory != null"> and `plan_category` = #{pojo.planCategory}</if>
+            <if test="pojo.specialName != null"> and `special_name` = #{pojo.specialName} </if>
+            <if test="pojo.supportUnit != null"> and `support_unit` = #{pojo.supportUnit} </if>
+            <if test="pojo.declareTime != null"> and `declare_time` = #{pojo.declareTime} </if>
+            <if test="pojo.organizationUnit != null"> and `organization_unit` = #{pojo.organizationUnit} </if>
+            <if test="pojo.address != null"> and `address` = #{pojo.address} </if>
+            <if test="pojo.declareUnitName != null">and `declare_unit_name` = #{pojo.declareUnitName} </if>
+            <if test="pojo.head != null"> and `head` = #{pojo.head} </if>
+            <if test="pojo.phone != null"> and `phone` = #{pojo.phone} </if>
+            <if test="pojo.approvalDepartment != null"> and `approval_department` = #{pojo.approvalDepartment} </if>
+            <if test="pojo.approvalTime != null"> and `approval_time` = #{pojo.approvalTime}</if>
+            <if test="pojo.fileId != null"> and `file_id` = #{pojo.fileId} </if>
+        </where>
+    </select>
 </mapper>
 

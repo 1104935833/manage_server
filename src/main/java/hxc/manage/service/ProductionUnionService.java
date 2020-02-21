@@ -1,8 +1,10 @@
 package hxc.manage.service;
 
 import hxc.manage.model.table.ProductionUnion;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductionUnionService {
 
@@ -14,4 +16,5 @@ public interface ProductionUnionService {
 
    int update(ProductionUnion pojo);
 
+   List<Map<String,Object>> getProductionUnions(Map param);
 }

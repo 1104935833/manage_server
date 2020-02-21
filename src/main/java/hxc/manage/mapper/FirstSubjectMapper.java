@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.FirstSubject;
 
 @Mapper
@@ -15,4 +17,6 @@ public interface FirstSubjectMapper {
     int insertList(@Param("pojos") List<FirstSubject> pojo);
 
     int update(@Param("pojo") FirstSubject pojo);
+
+    List<Map<String,Object>> getFirstSubjects(@Param("pojo") Map param);
 }
