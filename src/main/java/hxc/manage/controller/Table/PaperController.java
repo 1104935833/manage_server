@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,16 +45,16 @@ public class PaperController {
     }
 
     @PostMapping("/updataPaper")
-    public RespBean updataPaper(HttpServletRequest request, @RequestBody Map info){
+    public RespBean updataPaper(HttpServletRequest request, @RequestBody Map info) throws ParseException {
         Map<String,Object> map = info;
+        DateConverter dateConverter = new DateConverter();
         Paper paper = Util.mapToEntity((Map<String, Object>) map.get("paper"),Paper.class) ;
         String tableId = String.valueOf(info.get("tableId"));
         String id = String.valueOf(info.get("id"));
+        paper.setTime(dateConverter.getDateFormat(paper.getTime()));
         paperService.update(paper);
         peddingService.sendPedding(request,tableId,"1","0","4");
         auditService.updateAuit(tableId,"0","0",id,request);
-
-
         return RespBean.ok("success");
     }
 

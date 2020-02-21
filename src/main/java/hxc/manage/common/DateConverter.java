@@ -41,4 +41,13 @@ public class DateConverter implements Converter<String,Date> {
         Date time =new Date(s);
         return time.getTime()+"";
     }
+
+//2018-08-05T16:00:00.000Z转yyyy-MM-dd
+    public String getDateFormat(String s) throws ParseException{
+        s = s.replace("Z", " UTC");
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS Z");
+        Date d = sdf1.parse(s);//Mon Mar 06 00:00:00 CST 2017
+        dateToTimeMillis(d.toString());
+        return d.getTime()+"";
+    }
 }
