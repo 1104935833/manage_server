@@ -29,7 +29,7 @@ public class ProductionUnionController {
     public RespBean insertProductionUnion(HttpServletRequest request, ProductionUnion productionUnion){
         User u = (User) request.getSession().getAttribute("userinfo");
         productionUnionService.insert(productionUnion);
-        tableService.table(request,u.getUser_id(),String.valueOf(productionUnion.getId()),"jt_production_union",9);
+        tableService.table(request,u.getUser_id(),String.valueOf(productionUnion.getId()),"jt_production_union",20);
 
         return RespBean.ok("success");
     }

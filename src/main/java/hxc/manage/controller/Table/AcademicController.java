@@ -28,7 +28,7 @@ public class AcademicController {
     public RespBean insertAcademic(HttpServletRequest request, Academic academic){
         User u = (User) request.getSession().getAttribute("userinfo");
         academicService.insert(academic);
-        tableService.table(request,u.getUser_id(),String.valueOf(academic.getId()),"jt_academic_innovation",6);
+        tableService.table(request,u.getUser_id(),String.valueOf(academic.getId()),"jt_academic_innovation",21);
         return RespBean.ok("success");
     }
 

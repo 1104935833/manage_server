@@ -28,7 +28,7 @@ public class LabController {
     public RespBean insertLab(HttpServletRequest request, Lab lab){
         User u = (User) request.getSession().getAttribute("userinfo");
         labService.insert(lab);
-        tableService.table(request,u.getUser_id(),String.valueOf(lab.getId()),"jt_lab",8);
+        tableService.table(request,u.getUser_id(),String.valueOf(lab.getId()),"jt_lab",18);
         return RespBean.ok("success");
     }
 

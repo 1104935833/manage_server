@@ -30,7 +30,7 @@ public class TechnologicalController {
     public RespBean insertTechnological(HttpServletRequest request, Technological technological){
         User u = (User) request.getSession().getAttribute("userinfo");
         technologicalService.insert(technological);
-        tableService.table(request,u.getUser_id(),String.valueOf(technological.getId()),"jt_technological_innovation",10);
+        tableService.table(request,u.getUser_id(),String.valueOf(technological.getId()),"jt_technological_innovation",19);
         return RespBean.ok("success");
     }
 

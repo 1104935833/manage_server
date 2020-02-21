@@ -28,7 +28,7 @@ public class FirstSubjectController {
     public RespBean insertFirstSubject(HttpServletRequest request, FirstSubject firstSubject){
         User u = (User) request.getSession().getAttribute("userinfo");
         firstSubjectService.insert(firstSubject);
-        tableService.table(request,u.getUser_id(),String.valueOf(firstSubject.getId()),"jt_first_subject",7);
+        tableService.table(request,u.getUser_id(),String.valueOf(firstSubject.getId()),"jt_first_subject",17);
         return RespBean.ok("success");
     }
 
