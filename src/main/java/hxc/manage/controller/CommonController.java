@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,16 +56,15 @@ public class CommonController {
             String suffix = name.substring(name.lastIndexOf(".") + 1);//文件后缀
             fileUpLoad.imageService(file, name, path);
             //插入数据库
-            LocalDateTime date = LocalDateTime.now();
             User u = (User) request.getSession().getAttribute("userinfo");
             File newFile = new File();
             newFile.setFileName(name);
             newFile.setFilePath(url);
             newFile.setFileExt(suffix);
             newFile.setFileSize(fileSize);
-            newFile.setCreateTime(date.getYear() + "-" + date.getMonth() + "-" + date.getDayOfMonth());
+            newFile.setCreateTime(String.valueOf(new Date().getTime()));
             newFile.setUserId(u.getId().intValue());
-            int i = fileService.insert(newFile);
+            fileService.insert(newFile);
 
             return RespBean.ok("上传成功");
         }catch (Exception e){

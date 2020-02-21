@@ -110,11 +110,17 @@
     </update>
 
     <select id="searchAllHoner" resultType="java.util.Map">
-        select h.`id`,h.`personal_honor_type`,h.`personal_honor_name`,h.`personal_gain_time`,h.`organization_name`,h.`organization_member`,h.`type` from honer h
-    </select>
-
-    <select id="getLabel">
-        select label from list where id = #{id}
+        select <include refid="all_column"/>
+        <where>
+            <if test="pojo.id != null"> `id` = #{pojo.id}</if>
+            <if test="pojo.personalHonorType != null">and `personal_honor_type` = #{pojo.personalHonorType} </if>
+            <if test="pojo.personalHonorName != null">and `personal_honor_name` = #{pojo.personalHonorName} </if>
+            <if test="pojo.personalGainTime != null">and `personal_gain_time` = #{pojo.personalGainTime} </if>
+            <if test="pojo.fileId != null">and `file_id` = #{pojo.fileId} </if>
+            <if test="pojo.organizationName != null">and `organization_name` = #{pojo.organizationName} </if>
+            <if test="pojo.organizationMember != null">and `organization_member` = #{pojo.organizationMember} </if>
+            <if test="pojo.type != null">and `type` = #{pojo.type} </if>
+        </where>
     </select>
 </mapper>
 

@@ -33,7 +33,7 @@
 
     <!--auto generated Code-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
-        INSERT INTO paper (
+        INSERT INTO tb_paper (
             `id`,
             `paper_title`,
             `first_author`,
@@ -62,7 +62,7 @@
 
     <!--auto generated Code-->
     <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
-        INSERT INTO paper
+        INSERT INTO tb_paper
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pojo.id!=null"> `id`,</if>
             <if test="pojo.paperTitle!=null"> `paper_title`,</if>
@@ -94,7 +94,7 @@
 
     <!--auto generated Code-->
     <insert id="insertList">
-        INSERT INTO paper (
+        INSERT INTO tb_paper (
         <include refid="all_column"/>
         )VALUES
         <foreach collection="pojos" item="pojo" index="index" separator=",">
@@ -116,7 +116,7 @@
 
     <!--auto generated Code-->
     <update id="update">
-        UPDATE paper
+        UPDATE tb_paper
         <set>
             <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
             <if test="pojo.paperTitle != null"> `paper_title` = #{pojo.paperTitle}, </if>

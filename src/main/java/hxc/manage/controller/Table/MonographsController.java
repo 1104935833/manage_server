@@ -43,7 +43,6 @@ public class MonographsController {
         List<Map<String,Object>> res = monographsService.getMonographs(param);
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
-
         return map;
     }
 

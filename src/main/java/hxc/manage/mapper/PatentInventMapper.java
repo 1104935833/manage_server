@@ -7,7 +7,7 @@ import java.util.List;
 import hxc.manage.model.table.PatentInvent;
 
 @Mapper
-public interface PaentInventMapper {
+public interface PatentInventMapper {
     int insert(@Param("pojo") PatentInvent pojo);
 
     int insertSelective(@Param("pojo") PatentInvent pojo);

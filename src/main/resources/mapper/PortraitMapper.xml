@@ -33,7 +33,7 @@
 
     <!--auto generated Code-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
-        INSERT INTO portrait (
+        INSERT INTO tb_portrait (
             `id`,
             `date`,
             `project_leader`,
@@ -62,7 +62,7 @@
 
     <!--auto generated Code-->
     <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
-        INSERT INTO portrait
+        INSERT INTO tb_portrait
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pojo.id!=null"> `id`,</if>
             <if test="pojo.date!=null"> `date`,</if>
@@ -94,7 +94,7 @@
 
     <!--auto generated Code-->
     <insert id="insertList">
-        INSERT INTO portrait (
+        INSERT INTO tb_portrait (
         <include refid="all_column"/>
         )VALUES
         <foreach collection="pojos" item="pojo" index="index" separator=",">
@@ -116,7 +116,7 @@
 
     <!--auto generated Code-->
     <update id="update">
-        UPDATE portrait
+        UPDATE tb_portrait
         <set>
             <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
             <if test="pojo.date != null"> `date` = #{pojo.date}, </if>

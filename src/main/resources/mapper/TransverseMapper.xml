@@ -33,7 +33,7 @@
 
     <!--auto generated Code-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
-        INSERT INTO transverse (
+        INSERT INTO tb_transverse (
             `id`,
             `project_name`,
             `first_level`,
@@ -62,7 +62,7 @@
 
     <!--auto generated Code-->
     <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
-        INSERT INTO transverse
+        INSERT INTO tb_transverse
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pojo.id!=null"> `id`,</if>
             <if test="pojo.projectName!=null"> `project_name`,</if>
@@ -94,7 +94,7 @@
 
     <!--auto generated Code-->
     <insert id="insertList">
-        INSERT INTO transverse (
+        INSERT INTO tb_transverse (
         <include refid="all_column"/>
         )VALUES
         <foreach collection="pojos" item="pojo" index="index" separator=",">
@@ -116,7 +116,7 @@
 
     <!--auto generated Code-->
     <update id="update">
-        UPDATE transverse
+        UPDATE tb_transverse
         <set>
             <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
             <if test="pojo.projectName != null"> `project_name` = #{pojo.projectName}, </if>

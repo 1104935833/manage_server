@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="hxc.manage.mapper.PaentInventMapper">
+<mapper namespace="hxc.manage.mapper.PatentInventMapper">
     <!--auto generated Code-->
     <resultMap id="AllColumnMap" type="hxc.manage.model.table.PatentInvent">
         <result column="id" property="id"/>
@@ -73,7 +73,7 @@
 
     <!--auto generated Code-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
-        INSERT INTO paent_invent (
+        INSERT INTO tb_patent_invent (
             `id`,
             `invent_name`,
             `inventor`,
@@ -142,7 +142,7 @@
 
     <!--auto generated Code-->
     <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
-        INSERT INTO paent_invent
+        INSERT INTO tb_patent_invent
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pojo.id!=null"> `id`,</if>
             <if test="pojo.inventName!=null"> `invent_name`,</if>
@@ -214,7 +214,7 @@
 
     <!--auto generated Code-->
     <insert id="insertList">
-        INSERT INTO paent_invent (
+        INSERT INTO tb_patent_invent (
         <include refid="all_column"/>
         )VALUES
         <foreach collection="pojos" item="pojo" index="index" separator=",">
@@ -256,7 +256,7 @@
 
     <!--auto generated Code-->
     <update id="update">
-        UPDATE paent_invent
+        UPDATE tb_patent_invent
         <set>
             <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
             <if test="pojo.inventName != null"> `invent_name` = #{pojo.inventName}, </if>

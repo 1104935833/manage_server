@@ -3,16 +3,16 @@ package hxc.manage.service.impl;
 import hxc.manage.service.PatentInventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
+
 import java.util.List;
 import hxc.manage.model.table.PatentInvent;
-import hxc.manage.mapper.PaentInventMapper;
+import hxc.manage.mapper.PatentInventMapper;
 
 @Service
 public class PatentInventServiceImpl implements PatentInventService {
 
     @Autowired
-    private PaentInventMapper patentInventMapper;
+    private PatentInventMapper patentInventMapper;
 
     public int insert(PatentInvent pojo){
         return patentInventMapper.insert(pojo);

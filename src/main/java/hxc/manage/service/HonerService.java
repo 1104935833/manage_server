@@ -15,7 +15,5 @@ public interface HonerService {
 
    int update(Honer pojo);
 
-   List<Map<String, Object>> searchAllHoner();
-
-   String getLabel(int id);
+   List<Map<String, Object>> searchHoner(Map param);
 }
