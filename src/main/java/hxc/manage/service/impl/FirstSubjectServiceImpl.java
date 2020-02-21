@@ -4,6 +4,8 @@ import hxc.manage.service.FirstSubjectService;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.FirstSubject;
 import hxc.manage.mapper.FirstSubjectMapper;
 
@@ -27,5 +29,10 @@ public class FirstSubjectServiceImpl implements FirstSubjectService {
 
     public int update(FirstSubject pojo){
         return firstSubjectMapper.update(pojo);
+    }
+
+    @Override
+    public List<Map<String,Object>> getFirstSubjects(Map param){
+        return firstSubjectMapper.getFirstSubjects(param);
     }
 }

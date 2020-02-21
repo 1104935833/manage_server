@@ -3,6 +3,7 @@ package hxc.manage.service;
 import hxc.manage.model.table.Lab;
 
 import java.util.List;
+import java.util.Map;
 
 public interface LabService {
 
@@ -14,4 +15,5 @@ public interface LabService {
 
     int update(Lab pojo);
 
+    List<Map<String,Object>> getLabs(Map param);
 }

@@ -132,5 +132,23 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+
+    <select id="getAcademics" resultType="java.util.Map">
+        select <include refid="all_column" />
+        from jt_academic_innovation
+        <where>
+            <if test="pojo.id != null"> `id` = #{pojo.id} </if>
+            <if test="pojo.teamName != null">and `team_name` = #{pojo.teamName} </if>
+            <if test="pojo.teamPersonnel != null"> and `team_personnel` = #{pojo.teamPersonnel} </if>
+            <if test="pojo.direction != null">and `direction` = #{pojo.direction} </if>
+            <if test="pojo.schoolPlace != null"> and `school_place` = #{pojo.schoolPlace} </if>
+            <if test="pojo.address != null">and `address` = #{pojo.address} </if>
+            <if test="pojo.headPhone != null"> and `head_phone` = #{pojo.headPhone}</if>
+            <if test="pojo.declareTime != null"> and `declare_time` = #{pojo.declareTime} </if>
+            <if test="pojo.competentDepartment != null"> and `competent_department` = #{pojo.competentDepartment} </if>
+            <if test="pojo.level != null"> and `level` = #{pojo.level} </if>
+            <if test="pojo.fileId != null"> and `file_id` = #{pojo.fileId} </if>
+        </where>
+    </select>
 </mapper>
 

@@ -1,6 +1,7 @@
 package hxc.manage.service;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TechnologicalService {
 
@@ -11,5 +12,7 @@ public interface TechnologicalService {
     int insertList(List<hxc.manage.model.table.Technological> pojos);
 
     int update(hxc.manage.model.table.Technological pojo);
+
+    List<Map<String,Object>> getTechnologicals(Map param);
 
 }

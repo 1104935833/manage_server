@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.Lab;
 
 @Mapper
@@ -15,4 +17,6 @@ public interface LabMapper {
     int insertList(@Param("pojos") List<Lab> pojo);
 
     int update(@Param("pojo") Lab pojo);
+
+    List<Map<String,Object>> getLabs(@Param("pojo") Map param);
 }
