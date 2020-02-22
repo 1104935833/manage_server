@@ -13,5 +13,8 @@
             and title= #{title}
         </if>
     </select>
+    <select id="getUserRole" resultType="java.lang.String">
+        SELECT a.id FROM `role` a,user_role b where a.id = b.rid and isManager =1 and userid =#{user_id}
+    </select>
 
 </mapper>

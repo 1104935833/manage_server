@@ -159,6 +159,7 @@
     <update id="updateAuit">
         UPDATE audit
         <set>
+            <if test='pojo.isNull=="1"'> `auditor_research_id` = #{pojo.auditorResearchId},  `auditor_research_time` = #{pojo.auditorResearchTime},</if>
             <if test="pojo.auditorResearchId != null"> `auditor_research_id` = #{pojo.auditorResearchId}, </if>
             <if test="pojo.auditorResearchTime != null"> `auditor_research_time` = #{pojo.auditorResearchTime}, </if>
             <if test="pojo.auditStatus != null"> `audit_status` = #{pojo.auditStatus}, </if>

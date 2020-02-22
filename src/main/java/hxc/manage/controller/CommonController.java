@@ -7,6 +7,7 @@ import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.service.CommonService;
 import hxc.manage.service.FileService;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,14 @@ public class CommonController {
 
     @Autowired
     FileUpLoad fileUpLoad;
+
+    @GetMapping("/getUserRole")
+    public String getUserRole(HttpServletRequest request) {
+        User u = (User) request.getSession().getAttribute("userinfo");
+        String map = commonService.getUserRole(u.getUser_id());
+        return map;
+    }
+
 
     @GetMapping("/getOption")
     public Map<String,Object> option(@RequestParam("option") String option, @RequestParam("title") String title, @RequestParam("value") String value){

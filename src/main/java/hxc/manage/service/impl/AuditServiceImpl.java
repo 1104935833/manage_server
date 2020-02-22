@@ -94,6 +94,10 @@ public class AuditServiceImpl implements AuditService {
         }else if (type.equals("2")){
             conditions.put("auditorCourtId",u.getUser_id());
             conditions.put("auditorCourtTime",new Date().getTime());
+        }else{
+            conditions.put("isNull","1");
+            conditions.put("auditorResearchId",null);
+            conditions.put("auditorResearchTime",null);
         }
 
         int i = auditMapper.updateAuit(conditions);

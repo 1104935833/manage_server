@@ -13,4 +13,5 @@ public interface CommonMapper {
 
     List<Map<String, Object>> findOption(@Param("option") String option, @Param("title") String title,@Param("value") String value);
 
+    String getUserRole(@Param("user_id") String user_id);
 }

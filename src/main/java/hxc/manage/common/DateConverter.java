@@ -50,4 +50,14 @@ public class DateConverter implements Converter<String,Date> {
         dateToTimeMillis(d.toString());
         return d.getTime()+"";
     }
+
+
+    //yyyy-MM-dd转时间戳
+    public String date1ToTimeMillis(String s) throws ParseException {
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+        Date d = sdf1.parse(s);
+        return d.getTime()+"";
+    }
 }
+
+
