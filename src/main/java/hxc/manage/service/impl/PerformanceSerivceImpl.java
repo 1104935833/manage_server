@@ -37,7 +37,7 @@ public class PerformanceSerivceImpl implements PerformanceService {
                 l.put("file_id",null);
             }else{
                 File file = fileService.getFileById(String.valueOf(l.get("file_id")));
-                l.put("file_id",file.getFilePath()+file.getFileName());
+                l.put("file_id",file.getFileName());
             }
 
             switch (l.get("audit_status").toString()){

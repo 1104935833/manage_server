@@ -7,14 +7,12 @@ import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.service.CommonService;
 import hxc.manage.service.FileService;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -44,6 +42,14 @@ public class CommonController {
         return map;
     }
 
+    @GetMapping("/getFileNameById")
+    public Map<String,Object> getFileNameById(@RequestParam("id") String id){
+        File res = fileService.getFileById(id);
+        Map<String,Object> map = new HashMap<>();
+        map.put("file",res);
+        return map;
+
+    }
 
     @GetMapping("/getOption")
     public Map<String,Object> option(@RequestParam("option") String option, @RequestParam("title") String title, @RequestParam("value") String value){
