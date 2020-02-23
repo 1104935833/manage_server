@@ -1,4 +1,4 @@
-package hxc.manage.model;
+package hxc.manage.model.table;
 
 import lombok.Data;
 

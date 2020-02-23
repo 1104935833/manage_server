@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hxc.manage.mapper.PerformanceMapper">
+    <resultMap id="AllColumnMap" type="hxc.manage.model.Table">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="table_id" property="tableId"/>
+        <result column="table_name" property="tableName"/>
+        <result column="state" property="state"/>
+    </resultMap>
+    <select id="getPerformanceByUserId" resultType="java.util.Map">
+        SELECT
+            a.*,
+            b.audit_status,
+            c.id table_state,
+            c.table_name
+        FROM
+            ${map.tableName} as a
+            INNER JOIN audit b ON a.id = b.table_id
+            INNER JOIN table_state c ON b.proposer_type = c.id
+            <where>
+                b.proposer_id = #{map.userId}
+                <if test="map.name!=null and map.name!=''">
+                  and `name` = #{map.name}
+                </if>
+                <if test="map.keywords!=null and map.keywords!=''">
+                    and `name` = #{map.keywords}
+                </if>
+                <if test="map.table_name!=null and map.table_name!=''">
+                  and `table_name` = #{map.table_name}
+                </if>
+                <if test="map.starTime!=null and map.endTime!=null">
+                    and `create_time` between #{map.starTime} and #{map.endTime}
+                </if>
+                <if test="map.audit_status!=null and map.audit_status!=''">
+                    and `audit_status` = #{map.audit_status}
+                </if>
+            </where>
+
+    </select>
+    <select id="getTableByUserId" resultMap="AllColumnMap">
+        select * from `table` where user_id = #{id} limit #{start},#{size}
+    </select>
+</mapper>

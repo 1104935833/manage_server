@@ -54,54 +54,6 @@ public class BaseInfoController {
         }
     }
 
-    @PostMapping("/serchPerformance")
-    public Map<String,Object> serchPerformance(@RequestBody Map info, HttpServletRequest request,
-                                        @RequestParam(defaultValue = "1") Integer page,
-                                        @RequestParam(defaultValue = "10") Integer size){
-        DateConverter dateConverter = new DateConverter();
-        User u = (User) request.getSession().getAttribute("userinfo");
-        Map<String,Object> map = (Map<String, Object>) info.get("info");
-        int start = ((int) info.get("page") - 1) *(int) info.get("size");
-        String keywords = info.get("keywords")+"";
-        if(info.get("time")!=null && info.get("time")!=""){
-            List time = (List) info.get("time");
-            map.put("startTime", dateConverter.convert(time.get(0)+"").getTime());
-            map.put("endTime",dateConverter.convert(time.get(1)+"").getTime());
-        }
-
-        map.put("id",u.getId());
-        map.put("start",start);
-        map.put("keywords",keywords);
-        map.put("size",size);
-
-        List<Performance> performance=baseInfoService.getPerformanceByUserId(map);
-        int count = performance.size();
-        Map<String,Object> res= new HashMap<>();
-        res.put("count",count);
-        res.put("performance",performance);
-
-        return res;
-
-    }
-
-    @GetMapping("/getPerformanceByUserId")
-    public Map<String,Object> getPerformanceByUserId(HttpServletRequest request,
-                                              @RequestParam(defaultValue = "1") Integer page,
-                                              @RequestParam(defaultValue = "10") Integer size){
-        int start = (page - 1) * size;
-        User u = (User) request.getSession().getAttribute("userinfo");
-        Map<String,Object> map = new HashMap<>();
-        map.put("id",u.getId());
-        map.put("size",size);
-        map.put("start",start);
-        List<Performance> performance=baseInfoService.getPerformanceByUserId(map);
-        int count = performance.size();
-        Map<String,Object> res= new HashMap<>();
-        res.put("count",count);
-        res.put("performance",performance);
-
-        return res;
-    }
 
 
 

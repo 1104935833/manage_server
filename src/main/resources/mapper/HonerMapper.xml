@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="hxc.manage.mapper.HonerMapper">
     <!--auto generated Code-->
-    <resultMap id="AllColumnMap" type="hxc.manage.model.Honer">
+    <resultMap id="AllColumnMap" type="hxc.manage.model.table.Honer">
         <result column="id" property="id"/>
         <result column="personal_honor_type" property="personalHonorType"/>
         <result column="personal_honor_name" property="personalHonorName"/>

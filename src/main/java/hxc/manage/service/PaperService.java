@@ -15,5 +15,5 @@ public interface PaperService {
 
     int update(Paper pojo);
 
-    Paper getPaper(Map param);
+    Paper getPaper(Map<String,Object> param);
 }

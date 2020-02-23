@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,10 +33,11 @@ public class PaperController {
     AuditService auditService;
 
     @PostMapping("/insertPaper")
-    public RespBean insertPaper(HttpServletRequest request,Paper paper){
+    public RespBean insertPaper(HttpServletRequest request,Paper paper) throws ParseException {
         DateConverter dateConverter = new DateConverter();
         User u = (User) request.getSession().getAttribute("userinfo");
-        paper.setTime(dateConverter.dateToTimeMillis(paper.getTime()));
+        paper.setTime(dateConverter.date1ToTimeMillis(paper.getTime()));
+        paper.setCreateTime(String.valueOf(new Date().getTime()));
         paperService.insert(paper);
         tableService.table(request,u.getUser_id(),String.valueOf(paper.getId()),"tb_paper",7);
         return RespBean.ok("操作成功");

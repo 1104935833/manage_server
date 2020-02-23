@@ -1,6 +1,6 @@
 package hxc.manage.service;
 
-import hxc.manage.model.Honer;
+import hxc.manage.model.table.Honer;
 
 import java.util.List;
 import java.util.Map;

@@ -1,5 +1,5 @@
 url:
-  fileUrl: D:/file/
+  fileUrl: D:/file
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource

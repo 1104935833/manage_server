@@ -1,6 +1,6 @@
-package hxc.manage.controller;
+package hxc.manage.controller.Table;
 
-import hxc.manage.model.Honer;
+import hxc.manage.model.table.Honer;
 import hxc.manage.model.RespBean;
 import hxc.manage.service.HonerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

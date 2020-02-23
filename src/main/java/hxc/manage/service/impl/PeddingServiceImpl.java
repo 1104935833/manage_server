@@ -136,7 +136,7 @@ public class PeddingServiceImpl implements PeddingService {
         }else{//返回修改的
             String roleid = peddingMapper.findPeddingRole(userId);//当前用户给哪个权限的发送消息--教研室
             pedding.setRole(roleid);
-            pedding.setMain("有一条xxx的需要审核");
+            pedding.setMain("有一条申请需要审核");
             pedding.setName("审核");
             pedding.setState("0");
             res = peddingMapper.updatePedding(pedding);

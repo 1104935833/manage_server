@@ -4,7 +4,7 @@
     <!--auto generated Code-->
     <resultMap id="AllColumnMap" type="hxc.manage.model.table.Paper">
         <result column="id" property="id"/>
-        <result column="paper_title" property="paperTitle"/>
+        <result column="name" property="name"/>
         <result column="first_author" property="firstAuthor"/>
         <result column="correspondence_author" property="correspondenceAuthor"/>
         <result column="first_author_type" property="firstAuthorType"/>
@@ -14,12 +14,15 @@
         <result column="paper_volume" property="paperVolume"/>
         <result column="paper_page" property="paperPage"/>
         <result column="paper_grade" property="paperGrade"/>
+        <result column="create_time" property="createTime"/>
+        <result column="file_id" property="fileId"/>
+
     </resultMap>
 
     <!--auto generated Code-->
     <sql id="all_column">
         `id`,
-        `paper_title`,
+        `name`,
         `first_author`,
         `correspondence_author`,
         `first_author_type`,
@@ -28,14 +31,16 @@
         `paper_school`,
         `paper_volume`,
         `paper_page`,
-        `paper_grade`
+        `paper_grade`,
+        `create_time`,
+        `file_id`
     </sql>
 
     <!--auto generated Code-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
         INSERT INTO tb_paper (
             `id`,
-            `paper_title`,
+            `name`,
             `first_author`,
             `correspondence_author`,
             `first_author_type`,
@@ -44,10 +49,12 @@
             `paper_school`,
             `paper_volume`,
             `paper_page`,
-            `paper_grade`
+            `paper_grade`,
+            `create_time`,
+            `file_id`
         ) VALUES (
             #{pojo.id},
-            #{pojo.paperTitle},
+            #{pojo.name},
             #{pojo.firstAuthor},
             #{pojo.correspondenceAuthor},
             #{pojo.firstAuthorType},
@@ -56,7 +63,9 @@
             #{pojo.paperSchool},
             #{pojo.paperVolume},
             #{pojo.paperPage},
-            #{pojo.paperGrade}
+            #{pojo.paperGrade},
+            #{pojo.createTime},
+            #{pojo.fileId}
         )
     </insert>
 
@@ -65,7 +74,7 @@
         INSERT INTO tb_paper
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pojo.id!=null"> `id`,</if>
-            <if test="pojo.paperTitle!=null"> `paper_title`,</if>
+            <if test="pojo.name!=null"> `name`,</if>
             <if test="pojo.firstAuthor!=null"> `first_author`,</if>
             <if test="pojo.correspondenceAuthor!=null"> `correspondence_author`,</if>
             <if test="pojo.firstAuthorType!=null"> `first_author_type`,</if>
@@ -75,11 +84,13 @@
             <if test="pojo.paperVolume!=null"> `paper_volume`,</if>
             <if test="pojo.paperPage!=null"> `paper_page`,</if>
             <if test="pojo.paperGrade!=null"> `paper_grade`,</if>
+            <if test="pojo.createTime!=null"> `create_time`,</if>
+            <if test="pojo.fileId!=null"> `file_id`</if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pojo.id!=null">#{pojo.id},</if>
-            <if test="pojo.paperTitle!=null">#{pojo.paperTitle},</if>
+            <if test="pojo.name!=null">#{pojo.name},</if>
             <if test="pojo.firstAuthor!=null">#{pojo.firstAuthor},</if>
             <if test="pojo.correspondenceAuthor!=null">#{pojo.correspondenceAuthor},</if>
             <if test="pojo.firstAuthorType!=null">#{pojo.firstAuthorType},</if>
@@ -89,6 +100,8 @@
             <if test="pojo.paperVolume!=null">#{pojo.paperVolume},</if>
             <if test="pojo.paperPage!=null">#{pojo.paperPage},</if>
             <if test="pojo.paperGrade!=null">#{pojo.paperGrade},</if>
+            <if test="pojo.createTime!=null"> #{pojo.createTime},</if>
+            <if test="pojo.fileId!=null"> `file_id`</if>
         </trim>
     </insert>
 
@@ -100,7 +113,7 @@
         <foreach collection="pojos" item="pojo" index="index" separator=",">
             (
             #{pojo.id},
-            #{pojo.paperTitle},
+            #{pojo.name},
             #{pojo.firstAuthor},
             #{pojo.correspondenceAuthor},
             #{pojo.firstAuthorType},
@@ -109,7 +122,9 @@
             #{pojo.paperSchool},
             #{pojo.paperVolume},
             #{pojo.paperPage},
-            #{pojo.paperGrade}
+            #{pojo.paperGrade},
+            #{pojo.createTime},
+            #{pojo.fileId}
             )
         </foreach>
     </insert>
@@ -119,7 +134,7 @@
         UPDATE tb_paper
         <set>
             <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
-            <if test="pojo.paperTitle != null"> `paper_title` = #{pojo.paperTitle}, </if>
+            <if test="pojo.name != null"> `name` = #{pojo.name}, </if>
             <if test="pojo.firstAuthor != null"> `first_author` = #{pojo.firstAuthor}, </if>
             <if test="pojo.correspondenceAuthor != null"> `correspondence_author` = #{pojo.correspondenceAuthor}, </if>
             <if test="pojo.firstAuthorType != null"> `first_author_type` = #{pojo.firstAuthorType}, </if>
@@ -128,7 +143,9 @@
             <if test="pojo.paperSchool != null"> `paper_school` = #{pojo.paperSchool}, </if>
             <if test="pojo.paperVolume != null"> `paper_volume` = #{pojo.paperVolume}, </if>
             <if test="pojo.paperPage != null"> `paper_page` = #{pojo.paperPage}, </if>
-            <if test="pojo.paperGrade != null"> `paper_grade` = #{pojo.paperGrade} </if>
+            <if test="pojo.paperGrade != null"> `paper_grade` = #{pojo.paperGrade}, </if>
+            <if test="pojo.createTime!=null">`create_time` =  #{pojo.createTime}, </if>
+            <if test="pojo.fileId!=null"> `file_id`= #{pojo.fileId} </if>
         </set>
         WHERE id = #{pojo.id}
     </update>
@@ -137,7 +154,7 @@
         from tb_paper
         <where>
             <if test="pojo.id != null">and  `id` = #{pojo.id} </if>
-            <if test="pojo.paperTitle != null">and `paper_title` = #{pojo.paperTitle} </if>
+            <if test="pojo.name != null">and `name` = #{pojo.name} </if>
             <if test="pojo.firstAuthor != null">and `first_author` = #{pojo.firstAuthor} </if>
             <if test="pojo.correspondenceAuthor != null">and `correspondence_author` = #{pojo.correspondenceAuthor} </if>
             <if test="pojo.firstAuthorType != null">and `first_author_type` = #{pojo.firstAuthorType} </if>
@@ -147,6 +164,7 @@
             <if test="pojo.paperVolume != null">and `paper_volume` = #{pojo.paperVolume} </if>
             <if test="pojo.paperPage != null">and `paper_page` = #{pojo.paperPage} </if>
             <if test="pojo.paperGrade != null">and `paper_grade` = #{pojo.paperGrade </if>
+            <if test="pojo.createTime!=null">and `create_time` =  #{pojo.createTime}</if>
         </where>
     </select>
 </mapper>

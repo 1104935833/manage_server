@@ -127,9 +127,9 @@
     <select id="getAllAudit" resultType="java.util.Map">
 
         SELECT
-            `id`,
+            a.`id`,
             d.`name` proposer_name,
-            `proposer_type`,
+            e.table_name proposer_type,
             `proposer_time`,
             b.name `auditor_research_name`,
             `auditor_research_time`,
@@ -142,6 +142,7 @@
             LEFT JOIN ( SELECT NAME, user_id FROM user_details ) d ON d.user_id = a.proposer_id
             LEFT JOIN ( SELECT NAME, user_id FROM user_details ) b ON b.user_id = a.auditor_research_id
             LEFT JOIN ( SELECT NAME, user_id FROM user_details ) c ON c.user_id = a.auditor_court_id
+            left join table_state e on a.proposer_type = e.id
         <where>
             <if test="conditions.proposer_id != null and conditions.proposer_id != ''">
                 d.`NAME` like  "%"#{conditions.proposer_id}"%"

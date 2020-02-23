@@ -15,4 +15,6 @@ public interface FileService {
     int update(File pojo);
 
     void delFile(Integer fileId);
+
+    File getFileById(String id);
 }

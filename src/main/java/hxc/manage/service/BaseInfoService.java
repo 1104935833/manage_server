@@ -15,5 +15,5 @@ public interface BaseInfoService {
 
     List<Office> getOffices();
 
-    List<Performance> getPerformanceByUserId(Map<String, Object> map);
+
 }

@@ -15,7 +15,7 @@ public class Paper implements Serializable {
 
     private Integer id;
 
-    private String paperTitle;
+    private String name;
 
     private String firstAuthor;
 
@@ -34,5 +34,9 @@ public class Paper implements Serializable {
     private String paperPage;
 
     private Integer paperGrade;
+
+    private String createTime;
+
+    private Integer fileId;
 
 }

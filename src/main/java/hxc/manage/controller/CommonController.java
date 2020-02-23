@@ -59,9 +59,9 @@ public class CommonController {
     public RespBean file(MultipartFile file, HttpServletRequest request){
         try {
             String name = "u_" + System.currentTimeMillis() + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-            String path = "/upOradd/";
+            String path = "/upOradd";
             long fileSize = file.getSize(); //文件大小
-            String url = fileUrl + path + "/" + path;//文件路劲
+            String url = fileUrl + path + "/";//文件路劲
             String suffix = name.substring(name.lastIndexOf(".") + 1);//文件后缀
             fileUpLoad.imageService(file, name, path);
             //插入数据库

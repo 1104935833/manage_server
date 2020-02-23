@@ -19,4 +19,6 @@ public interface FileMapper {
     int update(@Param("pojo") File pojo);
 
     void delFile(Integer fileId);
+
+    File getFileById(String id);
 }

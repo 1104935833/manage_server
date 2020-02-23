@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 import hxc.manage.model.table.Paper;
+import org.springframework.stereotype.Component;
 
 @Mapper
+@Component
 public interface PaperMapper {
     int insert(@Param("pojo") Paper pojo);
 

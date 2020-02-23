@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 import java.util.Map;
 
-import hxc.manage.model.Honer;
+import hxc.manage.model.table.Honer;
 import org.springframework.stereotype.Component;
 
 @Mapper

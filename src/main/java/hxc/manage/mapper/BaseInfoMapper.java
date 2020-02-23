@@ -21,5 +21,5 @@ public interface BaseInfoMapper {
 
     List<Office> getOffices();
 
-    List<Performance> getPerformanceByUserId(@Param("map") Map<String, Object> map);
+
 }

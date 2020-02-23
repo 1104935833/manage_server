@@ -106,5 +106,8 @@
 
 
     </delete>
+    <select id="getFileById" resultMap="AllColumnMap">
+        select * from file where id = #{id}
+    </select>
 </mapper>
 

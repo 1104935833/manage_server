@@ -34,7 +34,7 @@ public interface PartMapper {
 
     List<Part> getPartMenuById(@Param("id") String id);
 
-    List<Map<String, Object>> getPartMenuSon(@Param("id") String id,@Param("tableName") String state);
+    List<Map<String, Object>> getPartMenuSon(@Param("id") String id,@Param("state") String state);
 
     List<Role> getAllRole();
 
