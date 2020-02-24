@@ -15,5 +15,5 @@ public interface HonerService {
 
    int update(Honer pojo);
 
-   List<Map<String, Object>> searchHoner(Map param);
+    Honer getHoner(Map param);
 }

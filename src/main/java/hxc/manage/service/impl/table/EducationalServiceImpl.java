@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.Educational;
 import hxc.manage.mapper.EducationalMapper;
 
@@ -28,5 +30,10 @@ public class EducationalServiceImpl implements EducationalService {
 
     public int update(Educational pojo){
         return educationalMapper.update(pojo);
+    }
+
+    @Override
+    public Educational getEducational(Map<String, Object> param) {
+        return educationalMapper.getEducational(param);
     }
 }

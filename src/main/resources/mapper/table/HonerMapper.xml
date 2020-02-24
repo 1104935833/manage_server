@@ -108,9 +108,8 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
-
-    <select id="searchAllHoner" resultType="java.util.Map">
-        select <include refid="all_column"/>
+    <select id="getHoner" resultMap="AllColumnMap">
+        select <include refid="all_column"/> from honer
         <where>
             <if test="pojo.id != null"> `id` = #{pojo.id}</if>
             <if test="pojo.personalHonorType != null">and `personal_honor_type` = #{pojo.personalHonorType} </if>

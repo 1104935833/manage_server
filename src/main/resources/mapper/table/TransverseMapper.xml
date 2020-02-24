@@ -140,5 +140,23 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <select id="getTransverse" resultMap="AllColumnMap">
+        select <include refid="all_column"/>
+        from tb_transverse
+        <where>
+            <if test="pojo.id != null"> `id` = #{pojo.id} </if>
+            <if test="pojo.name != null">and `name` = #{pojo.name} </if>
+            <if test="pojo.firstLevel != null">and `first_level` = #{pojo.firstLevel} </if>
+            <if test="pojo.researchCategory != null">and `research_category` = #{pojo.researchCategory} </if>
+            <if test="pojo.startTime != null">and `start_time` = #{pojo.startTime} </if>
+            <if test="pojo.clientName != null">and `client_name` = #{pojo.clientName} </if>
+            <if test="pojo.clientAddress != null">and `client_address` = #{pojo.clientAddress} </if>
+            <if test="pojo.contractNature != null">and `contract_nature` = #{pojo.contractNature} </if>
+            <if test="pojo.projectLeader != null">and `project_leader` = #{pojo.projectLeader} </if>
+            <if test="pojo.level != null">and `level` = #{pojo.level} </if>
+            <if test="pojo.fileId != null">and `file_id` = #{pojo.fileId} </if>
+            <if test="pojo.createTime != null">and `create_time` = #{pojo.createTime} </if>
+        </where>
+    </select>
 </mapper>
 

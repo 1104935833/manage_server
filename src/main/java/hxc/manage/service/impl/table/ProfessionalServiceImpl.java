@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.Professional;
 import hxc.manage.mapper.ProfessionalMapper;
 
@@ -28,5 +30,10 @@ public class ProfessionalServiceImpl implements ProfessionalService {
 
     public int update(Professional pojo){
         return professionalMapper.update(pojo);
+    }
+
+    @Override
+    public Professional getProfessional(Map<String, Object> param) {
+        return professionalMapper.getProfessional(param);
     }
 }

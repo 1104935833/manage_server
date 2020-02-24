@@ -25,7 +25,7 @@ public class Academic implements Serializable {
 
     private String competentDepartment;
 
-    private Integer level;
+    private String level;
 
     private Integer fileId;
 

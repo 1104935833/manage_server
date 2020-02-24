@@ -26,4 +26,6 @@ public interface AuditMapper {
     int updateAuit(@Param("pojo")Map<String, Object> conditions);
 
     Map<String, Object> getTableName(String tableId);
+
+    int getAllAuditCount(@Param("conditions") Map<String, Object> conditions);
 }

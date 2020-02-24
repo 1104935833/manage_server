@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.Portrait;
 import hxc.manage.mapper.PortraitMapper;
 
@@ -30,5 +32,10 @@ public class PortraitServiceImpl implements PortraitService {
 
     public int update(Portrait pojo){
         return portraitMapper.update(pojo);
+    }
+
+    @Override
+    public Portrait getPortrait(Map<String, Object> param) {
+        return portraitMapper.getPortrait(param);
     }
 }

@@ -3,6 +3,7 @@ package hxc.manage.service.table;
 import hxc.manage.model.table.Educational;
 
 import java.util.List;
+import java.util.Map;
 
 public interface EducationalService {
 
@@ -13,4 +14,6 @@ public interface EducationalService {
     int insertList(List<Educational> pojos);
 
     int update(Educational pojo);
+
+    Educational getEducational(Map<String,Object> param);
 }

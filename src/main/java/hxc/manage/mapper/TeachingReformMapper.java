@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.TeachingReform;
 
 @Mapper
@@ -15,4 +17,6 @@ public interface TeachingReformMapper {
     int insertList(@Param("pojos") List<TeachingReform> pojo);
 
     int update(@Param("pojo") TeachingReform pojo);
+
+    TeachingReform getTeachingReform(@Param("pojo") Map<String, Object> param);
 }

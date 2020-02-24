@@ -4,6 +4,8 @@ import hxc.manage.service.table.AchievementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.Achievement;
 import hxc.manage.mapper.AchievementMapper;
 
@@ -27,5 +29,10 @@ public class AchievementServiceImpl implements AchievementService {
 
     public int update(Achievement pojo){
         return achievementMapper.update(pojo);
+    }
+
+    @Override
+    public Achievement getAchievement(Map<String, Object> param) {
+        return achievementMapper.getAchievement(param);
     }
 }

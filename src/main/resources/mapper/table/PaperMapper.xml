@@ -153,7 +153,7 @@
         select <include refid="all_column"/>
         from tb_paper
         <where>
-            <if test="pojo.id != null">and  `id` = #{pojo.id} </if>
+            <if test="pojo.id != null">  `id` = #{pojo.id} </if>
             <if test="pojo.name != null">and `name` = #{pojo.name} </if>
             <if test="pojo.firstAuthor != null">and `first_author` = #{pojo.firstAuthor} </if>
             <if test="pojo.correspondenceAuthor != null">and `correspondence_author` = #{pojo.correspondenceAuthor} </if>

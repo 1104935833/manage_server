@@ -1,14 +1,21 @@
 package hxc.manage.controller.Table;
 
+import hxc.manage.common.DateConverter;
+import hxc.manage.model.User;
 import hxc.manage.model.table.Honer;
 import hxc.manage.model.RespBean;
+import hxc.manage.model.table.Honer;
+import hxc.manage.service.AuditService;
+import hxc.manage.service.PeddingService;
+import hxc.manage.service.TableService;
 import hxc.manage.service.table.HonerService;
+import hxc.manage.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,20 +26,49 @@ public class HonerController {
     @Autowired
     HonerService honerService;
 
+    @Autowired
+    TableService tableService;
+
+    @Autowired
+    PeddingService peddingService;
+
+    @Autowired
+    AuditService auditService;
+
     @PostMapping("/insertHoner")
-    public RespBean insertHoner(Honer honer) {
-        try{
-            honerService.insert(honer);
-            return RespBean.ok("提交成功");
-        }catch (Exception e){
-            e.printStackTrace();
-            return RespBean.error("提交失败");
-        }
+    public RespBean insertHoner(HttpServletRequest request, Honer honer) throws ParseException {
+        DateConverter dateConverter = new DateConverter();
+        User u = (User) request.getSession().getAttribute("userinfo");
+        honer.setPersonalGainTime(dateConverter.date1ToTimeMillis(honer.getPersonalGainTime()));
+        honer.setCreateTime(String.valueOf(new Date().getTime()));
+        honerService.insert(honer);
+        int state;
+        if (honer.getType()==1){
+            state = 22;
+        }else{ state=23; }
+        tableService.table(request,u.getUser_id(),String.valueOf(honer.getId()),"honer",state);
+        return RespBean.ok("操作成功");
     }
 
-    @GetMapping("/searchAllHoner")
-    public Map<String, Object> searchHoner(@RequestParam(required = false) Map param){
-        List<Map<String,Object>> res = honerService.searchHoner(param);
+    @PostMapping("/updataHoner")
+    public RespBean updataHoner(HttpServletRequest request, @RequestBody Map info) throws ParseException {
+        Map<String,Object> map = info;
+        DateConverter dateConverter = new DateConverter();
+        Honer honer = Util.mapToEntity((Map<String, Object>) map.get("honer"),Honer.class) ;
+        String tableId = String.valueOf(info.get("tableId"));
+        String id = String.valueOf(info.get("id"));
+        honer.setPersonalGainTime(dateConverter.date1ToTimeMillis(honer.getPersonalGainTime()));
+        honerService.update(honer);
+        peddingService.sendPedding(request,tableId,"1","0","4");
+        auditService.updateAuit(tableId,"0","0",id,request);
+        return RespBean.ok("操作成功");
+    }
+
+    @GetMapping("/getHoner")
+    public Map<String,Object> getHoner(@RequestParam(required = false) Map param){
+        DateConverter dateConverter = new DateConverter();
+        Honer res = honerService.getHoner(param);
+        res.setPersonalGainTime(dateConverter.stampToDate(res.getPersonalGainTime()));
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
         return map;

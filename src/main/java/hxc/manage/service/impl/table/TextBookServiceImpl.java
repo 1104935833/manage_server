@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.TextBook;
 import hxc.manage.mapper.TextBookMapper;
 
@@ -28,5 +30,10 @@ public class TextBookServiceImpl implements TextBookService {
 
     public int update(TextBook pojo){
         return textBookMapper.update(pojo);
+    }
+
+    @Override
+    public TextBook getTextBook(Map<String, Object> param) {
+        return textBookMapper.getTextBook(param);
     }
 }

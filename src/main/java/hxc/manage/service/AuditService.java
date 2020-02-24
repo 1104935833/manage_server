@@ -27,4 +27,5 @@ public interface AuditService {
 
     Map<String,Object> getTableName(String tableId);
 
+    int getAllAuditCount(Map<String, Object> conditions);
 }

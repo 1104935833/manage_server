@@ -148,5 +148,24 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <select id="getTextBook" resultMap="AllColumnMap">
+        select <include refid="all_column"/>
+        from jx_textbook_compilation
+        <where>
+            <if test="pojo.id != null"> `id` = #{pojo.id} </if>
+            <if test="pojo.name != null">and `name` = #{pojo.name} </if>
+            <if test="pojo.editorChief != null">and `editor_chief` = #{pojo.editorChief} </if>
+            <if test="pojo.ginsengName != null">and `ginseng_name` = #{pojo.ginsengName} </if>
+            <if test="pojo.courseStatus != null">and `course_status` = #{pojo.courseStatus} </if>
+            <if test="pojo.courseCondition != null">and `course_condition` = #{pojo.courseCondition} </if>
+            <if test="pojo.courseFeature != null">and `course_feature` = #{pojo.courseFeature} </if>
+            <if test="pojo.writePerson != null">and `write_person` = #{pojo.writePerson} </if>
+            <if test="pojo.writeFinishTime != null">and `write_finish_time` = #{pojo.writeFinishTime} </if>
+            <if test="pojo.declareTime != null">and `declare_time` = #{pojo.declareTime} </if>
+            <if test="pojo.grade != null">and `grade` = #{pojo.grade} </if>
+            <if test="pojo.fileId != null">and `file_id` = #{pojo.fileId} </if>
+            <if test="pojo.createTime != null">and `create_time` = #{pojo.createTime} </if>
+        </where>
+    </select>
 </mapper>
 

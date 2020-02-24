@@ -1,20 +1,75 @@
 package hxc.manage.controller.Table;
 
+import hxc.manage.common.DateConverter;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.model.table.Transverse;
+import hxc.manage.model.table.Transverse;
+import hxc.manage.service.AuditService;
+import hxc.manage.service.PeddingService;
 import hxc.manage.service.TableService;
+import hxc.manage.service.table.TransverseService;
+import hxc.manage.service.table.TransverseService;
+import hxc.manage.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class TransverseController {
 
 
+    @Autowired
+    TransverseService transverseService;
 
+    @Autowired
+    TableService tableService;
+
+    @Autowired
+    PeddingService peddingService;
+
+    @Autowired
+    AuditService auditService;
+
+    @PostMapping("/insertTransverse")
+    public RespBean insertTransverse(HttpServletRequest request, Transverse transverse) throws ParseException {
+        DateConverter dateConverter = new DateConverter();
+        User u = (User) request.getSession().getAttribute("userinfo");
+        transverse.setStartTime(dateConverter.date1ToTimeMillis(transverse.getStartTime()));
+        transverse.setCreateTime(String.valueOf(new Date().getTime()));
+        transverseService.insert(transverse);
+        tableService.table(request,u.getUser_id(),String.valueOf(transverse.getId()),"tb_transverse",11);
+        return RespBean.ok("操作成功");
+    }
+
+    @PostMapping("/updataTransverse")
+    public RespBean updataTransverse(HttpServletRequest request, @RequestBody Map info) throws ParseException {
+        Map<String,Object> map = info;
+        DateConverter dateConverter = new DateConverter();
+        Transverse transverse = Util.mapToEntity((Map<String, Object>) map.get("transverse"),Transverse.class) ;
+        String tableId = String.valueOf(info.get("tableId"));
+        String id = String.valueOf(info.get("id"));
+        transverse.setStartTime(dateConverter.date1ToTimeMillis(transverse.getStartTime()));
+        transverseService.update(transverse);
+        peddingService.sendPedding(request,tableId,"1","0","4");
+        auditService.updateAuit(tableId,"0","0",id,request);
+        return RespBean.ok("操作成功");
+    }
+
+    @GetMapping("/getTransverse")
+    public Map<String,Object> getTransverse(@RequestParam(required = false) Map param){
+        DateConverter dateConverter = new DateConverter();
+        Transverse res = transverseService.getTransverse(param);
+        res.setStartTime(dateConverter.stampToDate(res.getStartTime()));
+        Map<String,Object> map = new HashMap<>();
+        map.put("res",res);
+        return map;
+    }
 
 
 

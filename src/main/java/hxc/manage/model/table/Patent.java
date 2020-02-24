@@ -11,13 +11,13 @@ public class Patent implements Serializable {
 
     private String name;
 
-    private Integer patentCategory;
+    private String patentCategory;
 
     private String completer;
 
     private String patentNumber;
 
-    private String signOorder;
+    private String signOrder;
 
     private String unitName;
 
@@ -28,3 +28,4 @@ public class Patent implements Serializable {
     private String createTime;
 
 }
+

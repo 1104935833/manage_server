@@ -140,5 +140,23 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <select id="getCourse" resultMap="AllColumnMap">
+        select <include refid="all_column"/>
+        from jx_course_construction
+        <where>
+            <if test="pojo.id != null"> `id` = #{pojo.id} </if>
+            <if test="pojo.name != null">and `name` = #{pojo.name} </if>
+            <if test="pojo.professionalPlace != null">and `professional_place` = #{pojo.professionalPlace} </if>
+            <if test="pojo.courseLeader != null">and `course_leader` = #{pojo.courseLeader} </if>
+            <if test="pojo.teacherMain != null">and `teacher_main` = #{pojo.teacherMain} </if>
+            <if test="pojo.teacherProfessional != null">and `teacher_professional` = #{pojo.teacherProfessional} </if>
+            <if test="pojo.teacherCertificate != null">and `teacher_certificate` = #{pojo.teacherCertificate} </if>
+            <if test="pojo.declareTime != null">and `declare_time` = #{pojo.declareTime} </if>
+            <if test="pojo.courseCategory != null">and `course_category` = #{pojo.courseCategory} </if>
+            <if test="pojo.grade != null">and `grade` = #{pojo.grade} </if>
+            <if test="pojo.fileId != null">and `file_id` = #{pojo.fileId} </if>
+            <if test="pojo.createTime != null">and `create_time` = #{pojo.createTime} </if>
+        </where>
+    </select>
 </mapper>
 

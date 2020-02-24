@@ -148,5 +148,24 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <select id="getProductionUnion" resultMap="AllColumnMap">
+        select <include refid="all_column"/>
+        from jt_production_union
+        <where>
+            <if test="pojo.id != null"> `id` = #{pojo.id} </if>
+            <if test="pojo.name != null">and `name` = #{pojo.name} </if>
+            <if test="pojo.unionEffectTime != null">and `union_effect_time` = #{pojo.unionEffectTime} </if>
+            <if test="pojo.technologyField != null">and `technology_field` = #{pojo.technologyField} </if>
+            <if test="pojo.unionDirector != null">and `union_director` = #{pojo.unionDirector} </if>
+            <if test="pojo.unitPlace != null">and `unit_place` = #{pojo.unitPlace} </if>
+            <if test="pojo.phone != null">and `phone` = #{pojo.phone} </if>
+            <if test="pojo.standingBodyName != null">and `standing_body_name` = #{pojo.standingBodyName} </if>
+            <if test="pojo.standingBodyAddress != null">and `standing_body_address` = #{pojo.standingBodyAddress} </if>
+            <if test="pojo.approvalDepartment != null">and `approval_department` = #{pojo.approvalDepartment} </if>
+            <if test="pojo.approvalTime != null">and `approval_time` = #{pojo.approvalTime} </if>
+            <if test="pojo.fileId != null">and `file_id` = #{pojo.fileId} </if>
+            <if test="pojo.createTime != null">and `create_time` = #{pojo.createTime} </if>
+        </where>
+    </select>
 </mapper>
 

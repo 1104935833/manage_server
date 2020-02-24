@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.ProductionUnion;
 import hxc.manage.mapper.ProductionUnionMapper;
 
@@ -28,5 +30,10 @@ public class ProductionUnionServiceImpl implements ProductionUnionService {
 
     public int update(ProductionUnion pojo){
         return productionUnionMapper.update(pojo);
+    }
+
+    @Override
+    public ProductionUnion getProductionUnion(Map<String, Object> param) {
+        return productionUnionMapper.getProductionUnion(param);
     }
 }

@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.TextBook;
 
 @Mapper
@@ -15,4 +17,6 @@ public interface TextBookMapper {
     int insertList(@Param("pojos") List<TextBook> pojo);
 
     int update(@Param("pojo") TextBook pojo);
+
+    TextBook getTextBook(@Param("pojo") Map<String, Object> param);
 }

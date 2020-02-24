@@ -40,7 +40,7 @@ public class AuditController {
         List<Map<String, Object>> audits= auditService.getAllAudit(conditions);
         Map<String,Object> map = new HashMap<>();
         map.put("audits",audits);
-        map.put("count",audits.size());
+        map.put("count",auditService.getAllAuditCount(conditions));
         return map;
     }
 
@@ -49,9 +49,6 @@ public class AuditController {
     public Map<String,Object> getTableName(@RequestParam("tableId") String tableId){
         Map<String,Object> map = new HashMap<>();
         map.put("tableName",auditService.getTableName(tableId));
-
-
-
         return map;
     }
 

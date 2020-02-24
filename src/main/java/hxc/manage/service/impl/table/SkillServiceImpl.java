@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.Skill;
 import hxc.manage.mapper.SkillMapper;
 
@@ -28,5 +30,10 @@ public class SkillServiceImpl implements SkillService {
 
     public int update(Skill pojo){
         return skillMapper.update(pojo);
+    }
+
+    @Override
+    public Skill getSkill(Map<String, Object> param) {
+        return skillMapper.getSkill(param);
     }
 }

@@ -132,5 +132,22 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <select id="getAchievement" resultMap="AllColumnMap">
+        select <include refid="all_column"/>
+        from jx_achievement_prize
+        <where>
+            <if test="pojo.id != null"> `id` = #{pojo.id}</if>
+            <if test="pojo.name != null">and `name` = #{pojo.name}</if>
+            <if test="pojo.completePerson != null">and `complete_person` = #{pojo.completePerson}</if>
+            <if test="pojo.completeUnit != null">and `complete_unit` = #{pojo.completeUnit}</if>
+            <if test="pojo.sectionCategory != null">and `section_category` = #{pojo.sectionCategory}</if>
+            <if test="pojo.declareUnit != null">and `declare_unit` = #{pojo.declareUnit}</if>
+            <if test="pojo.code != null">and `code` = #{pojo.code}</if>
+            <if test="pojo.applyTime != null">and `apply_time` = #{pojo.applyTime}</if>
+            <if test="pojo.grade != null">and `grade` = #{pojo.grade}</if>
+            <if test="pojo.fileId != null">and `file_id` = #{pojo.fileId}</if>
+            <if test="pojo.createTime != null">and `create_time` = #{pojo.createTime} </if>
+        </where>
+    </select>
 </mapper>
 

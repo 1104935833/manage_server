@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.StudentResearch;
 import hxc.manage.mapper.StudentResearchMapper;
 
@@ -28,5 +30,10 @@ public class StudentResearchServiceImpl implements StudentResearchService {
 
     public int update(StudentResearch pojo){
         return studentResearchMapper.update(pojo);
+    }
+
+    @Override
+    public StudentResearch getStudentResearchService(Map<String, Object> param) {
+        return studentResearchMapper.getStudentResearchService(param);
     }
 }

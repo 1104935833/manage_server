@@ -164,5 +164,26 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <select id="getEducational" resultMap="AllColumnMap">
+        select <include refid="all_column"/>
+        from jx_educational_reform
+        <where>
+            <if test="pojo.id != null"> `id` = #{pojo.id} </if>
+            <if test="pojo.name != null">and `name` = #{pojo.name} </if>
+            <if test="pojo.projectLeader != null">and `project_leader` = #{pojo.projectLeader} </if>
+            <if test="pojo.unitPlace != null">and `unit_place` = #{pojo.unitPlace} </if>
+            <if test="pojo.professionalPlace != null">and `professional_place` = #{pojo.professionalPlace} </if>
+            <if test="pojo.courseName != null">and `course_name` = #{pojo.courseName} </if>
+            <if test="pojo.courseCategory != null">and `course_category` = #{pojo.courseCategory} </if>
+            <if test="pojo.subjectName != null">and `subject_name` = #{pojo.subjectName} </if>
+            <if test="pojo.subjectSource != null">and `subject_source` = #{pojo.subjectSource} </if>
+            <if test="pojo.declareTime != null">and `declare_time` = #{pojo.declareTime} </if>
+            <if test="pojo.projectCategory != null">and `project_category` = #{pojo.projectCategory} </if>
+            <if test="pojo.declareCategory != null">and `declare_category` = #{pojo.declareCategory} </if>
+            <if test="pojo.grade != null">and `grade` = #{pojo.grade} </if>
+            <if test="pojo.fileId != null">and `file_id` = #{pojo.fileId} </if>
+            <if test="pojo.createTime != null">and `create_time` = #{pojo.createTime} </if>
+        </where>
+    </select>
 </mapper>
 

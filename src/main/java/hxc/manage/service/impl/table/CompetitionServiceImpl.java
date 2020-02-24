@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.Competition;
 import hxc.manage.mapper.CompetitionMapper;
 
@@ -29,5 +31,10 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     public int update(Competition pojo){
         return competitionMapper.update(pojo);
+    }
+
+    @Override
+    public Competition getCompetition(Map<String, Object> param) {
+        return competitionMapper.getCompetition(param);
     }
 }

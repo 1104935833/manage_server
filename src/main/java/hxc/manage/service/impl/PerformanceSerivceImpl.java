@@ -48,7 +48,9 @@ public class PerformanceSerivceImpl implements PerformanceService {
                 case "4": l.put("audit_status","分院不通过");break;
             }
             l.put("create_time",dateConverter.stampToDate(l.get("create_time")+""));
-            l.put("time",dateConverter.stampToDate(l.get("time")+""));
+            if(l.containsKey("time")) {
+                l.put("time", dateConverter.stampToDate(l.get("time") + ""));
+            }
         }
 
         return m;

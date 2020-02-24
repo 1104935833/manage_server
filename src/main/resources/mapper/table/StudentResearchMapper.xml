@@ -108,5 +108,19 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <select id="getStudentResearchService" resultMap="AllColumnMap">
+        select <include refid="all_column"/>
+        from jx_student_research
+        <where>
+            <if test="pojo.id != null"> `id` = #{pojo.id} </if>
+            <if test="pojo.name != null">and `name` = #{pojo.name} </if>
+            <if test="pojo.projectLeader != null">and `project_leader` = #{pojo.projectLeader} </if>
+            <if test="pojo.tutor != null">and `tutor` = #{pojo.tutor} </if>
+            <if test="pojo.phone != null">and `phone` = #{pojo.phone} </if>
+            <if test="pojo.winningGrade != null">and `winning_grade` = #{pojo.winningGrade} </if>
+            <if test="pojo.fileId != null">and `file_id` = #{pojo.fileId} </if>
+            <if test="pojo.createTime != null">and `create_time` = #{pojo.createTime} </if>
+        </where>
+    </select>
 </mapper>
 

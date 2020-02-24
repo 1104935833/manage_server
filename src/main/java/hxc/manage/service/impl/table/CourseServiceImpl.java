@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.Course;
 import hxc.manage.mapper.CourseMapper;
 
@@ -28,5 +30,10 @@ public class CourseServiceImpl implements CourseService {
 
     public int update(Course pojo){
         return courseMapper.update(pojo);
+    }
+
+    @Override
+    public Course getCourse(Map<String, Object> param) {
+        return courseMapper.getCourse(param);
     }
 }

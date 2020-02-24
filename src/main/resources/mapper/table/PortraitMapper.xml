@@ -5,15 +5,15 @@
     <resultMap id="AllColumnMap" type="hxc.manage.model.table.Portrait">
         <result column="id" property="id"/>
         <result column="name" property="name"/>
-        <result column="project_source" property="projectSource"/>
-        <result column="level" property="level"/>
-        <result column="project_funding" property="projectFunding"/>
-        <result column="serial_number" property="serialNumber"/>
-        <result column="completer" property="completer"/>
-        <result column="sign_order" property="signOrder"/>
-        <result column="unit_name" property="unitName"/>
-        <result column="unit_address" property="unitAddress"/>
+        <result column="project_leader" property="projectLeader"/>
+        <result column="title" property="title"/>
+        <result column="department" property="department"/>
+        <result column="date" property="date"/>
+        <result column="phone" property="phone"/>
+        <result column="apply_rental" property="applyRental"/>
         <result column="file_id" property="fileId"/>
+        <result column="project_unit" property="projectUnit"/>
+        <result column="type" property="type"/>
         <result column="create_time" property="createTime"/>
     </resultMap>
 
@@ -21,15 +21,15 @@
     <sql id="all_column">
         `id`,
         `name`,
-        `project_source`,
-        `level`,
-        `project_funding`,
-        `serial_number`,
-        `completer`,
-        `sign_order`,
-        `unit_name`,
-        `unit_address`,
+        `project_leader`,
+        `title`,
+        `department`,
+        `date`,
+        `phone`,
+        `apply_rental`,
         `file_id`,
+        `project_unit`,
+        `type`,
         `create_time`
     </sql>
 
@@ -38,28 +38,28 @@
         INSERT INTO tb_portrait (
             `id`,
             `name`,
-            `project_source`,
-            `level`,
-            `project_funding`,
-            `serial_number`,
-            `completer`,
-            `sign_order`,
-            `unit_name`,
-            `unit_address`,
+            `project_leader`,
+            `title`,
+            `department`,
+            `date`,
+            `phone`,
+            `apply_rental`,
             `file_id`,
+            `project_unit`,
+            `type`,
             `create_time`
         ) VALUES (
             #{pojo.id},
             #{pojo.name},
-            #{pojo.projectSource},
-            #{pojo.level},
-            #{pojo.projectFunding},
-            #{pojo.serialNumber},
-            #{pojo.completer},
-            #{pojo.signOrder},
-            #{pojo.unitName},
-            #{pojo.unitAddress},
+            #{pojo.projectLeader},
+            #{pojo.title},
+            #{pojo.department},
+            #{pojo.date},
+            #{pojo.phone},
+            #{pojo.applyRental},
             #{pojo.fileId},
+            #{pojo.projectUnit},
+            #{pojo.type},
             #{pojo.createTime}
         )
     </insert>
@@ -70,30 +70,30 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pojo.id!=null"> `id`,</if>
             <if test="pojo.name!=null"> `name`,</if>
-            <if test="pojo.projectSource!=null"> `project_source`,</if>
-            <if test="pojo.level!=null"> `level`,</if>
-            <if test="pojo.projectFunding!=null"> `project_funding`,</if>
-            <if test="pojo.serialNumber!=null"> `serial_number`,</if>
-            <if test="pojo.completer!=null"> `completer`,</if>
-            <if test="pojo.signOrder!=null"> `sign_order`,</if>
-            <if test="pojo.unitName!=null"> `unit_name`,</if>
-            <if test="pojo.unitAddress!=null"> `unit_address`,</if>
+            <if test="pojo.projectLeader!=null"> `project_leader`,</if>
+            <if test="pojo.title!=null"> `title`,</if>
+            <if test="pojo.department!=null"> `department`,</if>
+            <if test="pojo.date!=null"> `date`,</if>
+            <if test="pojo.phone!=null"> `phone`,</if>
+            <if test="pojo.applyRental!=null"> `apply_rental`,</if>
             <if test="pojo.fileId!=null"> `file_id`,</if>
+            <if test="pojo.projectUnit!=null"> `project_unit`,</if>
+            <if test="pojo.type!=null"> `type`,</if>
             <if test="pojo.createTime!=null"> `create_time`,</if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pojo.id!=null">#{pojo.id},</if>
             <if test="pojo.name!=null">#{pojo.name},</if>
-            <if test="pojo.projectSource!=null">#{pojo.projectSource},</if>
-            <if test="pojo.level!=null">#{pojo.level},</if>
-            <if test="pojo.projectFunding!=null">#{pojo.projectFunding},</if>
-            <if test="pojo.serialNumber!=null">#{pojo.serialNumber},</if>
-            <if test="pojo.completer!=null">#{pojo.completer},</if>
-            <if test="pojo.signOrder!=null">#{pojo.signOrder},</if>
-            <if test="pojo.unitName!=null">#{pojo.unitName},</if>
-            <if test="pojo.unitAddress!=null">#{pojo.unitAddress},</if>
+            <if test="pojo.projectLeader!=null">#{pojo.projectLeader},</if>
+            <if test="pojo.title!=null">#{pojo.title},</if>
+            <if test="pojo.department!=null">#{pojo.department},</if>
+            <if test="pojo.date!=null">#{pojo.date},</if>
+            <if test="pojo.phone!=null">#{pojo.phone},</if>
+            <if test="pojo.applyRental!=null">#{pojo.applyRental},</if>
             <if test="pojo.fileId!=null">#{pojo.fileId},</if>
+            <if test="pojo.projectUnit!=null">#{pojo.projectUnit},</if>
+            <if test="pojo.type!=null">#{pojo.type},</if>
             <if test="pojo.createTime!=null">#{pojo.createTime},</if>
         </trim>
     </insert>
@@ -107,15 +107,15 @@
             (
             #{pojo.id},
             #{pojo.name},
-            #{pojo.projectSource},
-            #{pojo.level},
-            #{pojo.projectFunding},
-            #{pojo.serialNumber},
-            #{pojo.completer},
-            #{pojo.signOrder},
-            #{pojo.unitName},
-            #{pojo.unitAddress},
+            #{pojo.projectLeader},
+            #{pojo.title},
+            #{pojo.department},
+            #{pojo.date},
+            #{pojo.phone},
+            #{pojo.applyRental},
             #{pojo.fileId},
+            #{pojo.projectUnit},
+            #{pojo.type},
             #{pojo.createTime}
             )
         </foreach>
@@ -127,18 +127,36 @@
         <set>
             <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
             <if test="pojo.name != null"> `name` = #{pojo.name}, </if>
-            <if test="pojo.projectSource != null"> `project_source` = #{pojo.projectSource}, </if>
-            <if test="pojo.level != null"> `level` = #{pojo.level}, </if>
-            <if test="pojo.projectFunding != null"> `project_funding` = #{pojo.projectFunding}, </if>
-            <if test="pojo.serialNumber != null"> `serial_number` = #{pojo.serialNumber}, </if>
-            <if test="pojo.completer != null"> `completer` = #{pojo.completer}, </if>
-            <if test="pojo.signOrder != null"> `sign_order` = #{pojo.signOrder}, </if>
-            <if test="pojo.unitName != null"> `unit_name` = #{pojo.unitName}, </if>
-            <if test="pojo.unitAddress != null"> `unit_address` = #{pojo.unitAddress}, </if>
+            <if test="pojo.projectLeader != null"> `project_leader` = #{pojo.projectLeader}, </if>
+            <if test="pojo.title != null"> `title` = #{pojo.title}, </if>
+            <if test="pojo.department != null"> `department` = #{pojo.department}, </if>
+            <if test="pojo.date != null"> `date` = #{pojo.date}, </if>
+            <if test="pojo.phone != null"> `phone` = #{pojo.phone}, </if>
+            <if test="pojo.applyRental != null"> `apply_rental` = #{pojo.applyRental}, </if>
             <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
+            <if test="pojo.projectUnit != null"> `project_unit` = #{pojo.projectUnit}, </if>
+            <if test="pojo.type != null"> `type` = #{pojo.type}, </if>
             <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <select id="getPortrait" resultMap="AllColumnMap">
+        select <include refid="all_column"/>
+        from tb_portrait
+        <where>
+            <if test="pojo.id != null"> `id` = #{pojo.id} </if>
+            <if test="pojo.name != null">and `name` = #{pojo.name} </if>
+            <if test="pojo.projectSource != null">and `project_source` = #{pojo.projectSource} </if>
+            <if test="pojo.level != null">and `level` = #{pojo.level} </if>
+            <if test="pojo.projectFunding != null">and `project_funding` = #{pojo.projectFunding} </if>
+            <if test="pojo.serialNumber != null">and `serial_number` = #{pojo.serialNumber} </if>
+            <if test="pojo.completer != null">and `completer` = #{pojo.completer} </if>
+            <if test="pojo.signOrder != null">and `sign_order` = #{pojo.signOrder} </if>
+            <if test="pojo.unitName != null">and `unit_name` = #{pojo.unitName} </if>
+            <if test="pojo.unitAddress != null">and `unit_address` = #{pojo.unitAddress} </if>
+            <if test="pojo.fileId != null">and `file_id` = #{pojo.fileId} </if>
+            <if test="pojo.createTime != null">and `create_time` = #{pojo.createTime} </if>
+        </where>
+    </select>
 </mapper>
 

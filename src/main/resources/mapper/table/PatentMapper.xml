@@ -8,7 +8,7 @@
         <result column="patent_category" property="patentCategory"/>
         <result column="completer" property="completer"/>
         <result column="patent_number" property="patentNumber"/>
-        <result column="sign_oorder" property="signOorder"/>
+        <result column="sign_order" property="signOrder"/>
         <result column="unit_name" property="unitName"/>
         <result column="unit_address" property="unitAddress"/>
         <result column="file_id" property="fileId"/>
@@ -22,7 +22,7 @@
         `patent_category`,
         `completer`,
         `patent_number`,
-        `sign_oorder`,
+        `sign_order`,
         `unit_name`,
         `unit_address`,
         `file_id`,
@@ -37,7 +37,7 @@
             `patent_category`,
             `completer`,
             `patent_number`,
-            `sign_oorder`,
+            `sign_order`,
             `unit_name`,
             `unit_address`,
             `file_id`,
@@ -48,7 +48,7 @@
             #{pojo.patentCategory},
             #{pojo.completer},
             #{pojo.patentNumber},
-            #{pojo.signOorder},
+            #{pojo.signOrder},
             #{pojo.unitName},
             #{pojo.unitAddress},
             #{pojo.fileId},
@@ -65,7 +65,7 @@
             <if test="pojo.patentCategory!=null"> `patent_category`,</if>
             <if test="pojo.completer!=null"> `completer`,</if>
             <if test="pojo.patentNumber!=null"> `patent_number`,</if>
-            <if test="pojo.signOorder!=null"> `sign_oorder`,</if>
+            <if test="pojo.signOrder!=null"> `sign_order`,</if>
             <if test="pojo.unitName!=null"> `unit_name`,</if>
             <if test="pojo.unitAddress!=null"> `unit_address`,</if>
             <if test="pojo.fileId!=null"> `file_id`,</if>
@@ -78,7 +78,7 @@
             <if test="pojo.patentCategory!=null">#{pojo.patentCategory},</if>
             <if test="pojo.completer!=null">#{pojo.completer},</if>
             <if test="pojo.patentNumber!=null">#{pojo.patentNumber},</if>
-            <if test="pojo.signOorder!=null">#{pojo.signOorder},</if>
+            <if test="pojo.signOrder!=null">#{pojo.signOrder},</if>
             <if test="pojo.unitName!=null">#{pojo.unitName},</if>
             <if test="pojo.unitAddress!=null">#{pojo.unitAddress},</if>
             <if test="pojo.fileId!=null">#{pojo.fileId},</if>
@@ -98,7 +98,7 @@
             #{pojo.patentCategory},
             #{pojo.completer},
             #{pojo.patentNumber},
-            #{pojo.signOorder},
+            #{pojo.signOrder},
             #{pojo.unitName},
             #{pojo.unitAddress},
             #{pojo.fileId},
@@ -116,7 +116,7 @@
             <if test="pojo.patentCategory != null"> `patent_category` = #{pojo.patentCategory}, </if>
             <if test="pojo.completer != null"> `completer` = #{pojo.completer}, </if>
             <if test="pojo.patentNumber != null"> `patent_number` = #{pojo.patentNumber}, </if>
-            <if test="pojo.signOorder != null"> `sign_oorder` = #{pojo.signOorder}, </if>
+            <if test="pojo.signOrder != null"> `sign_order` = #{pojo.signOrder}, </if>
             <if test="pojo.unitName != null"> `unit_name` = #{pojo.unitName}, </if>
             <if test="pojo.unitAddress != null"> `unit_address` = #{pojo.unitAddress}, </if>
             <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
@@ -124,5 +124,21 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <select id="getPatent" resultMap="AllColumnMap">
+        select <include refid="all_column"/>
+        from tb_patent
+        <where>
+            <if test="pojo.id != null"> `id` = #{pojo.id} </if>
+            <if test="pojo.name != null">and `name` = #{pojo.name} </if>
+            <if test="pojo.patentCategory != null">and `patent_category` = #{pojo.patentCategory} </if>
+            <if test="pojo.completer != null">and `completer` = #{pojo.completer} </if>
+            <if test="pojo.patentNumber != null">and `patent_number` = #{pojo.patentNumber} </if>
+            <if test="pojo.signOrder != null">and `sign_order` = #{pojo.signOrder} </if>
+            <if test="pojo.unitName != null">and `unit_name` = #{pojo.unitName} </if>
+            <if test="pojo.unitAddress != null">and `unit_address` = #{pojo.unitAddress} </if>
+            <if test="pojo.fileId != null">and `file_id` = #{pojo.fileId} </if>
+            <if test="pojo.createTime != null">and `create_time` = #{pojo.createTime} </if>
+        </where>
+    </select>
 </mapper>
 

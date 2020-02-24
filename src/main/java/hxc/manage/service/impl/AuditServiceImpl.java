@@ -112,5 +112,10 @@ public class AuditServiceImpl implements AuditService {
         return auditMapper.getTableName(tableId);
     }
 
+    @Override
+    public int getAllAuditCount(Map<String, Object> conditions) {
+        return auditMapper.getAllAuditCount(conditions);
+    }
+
 
 }

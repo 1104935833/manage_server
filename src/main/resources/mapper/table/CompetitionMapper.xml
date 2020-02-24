@@ -156,5 +156,25 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <select id="getCompetition" resultMap="AllColumnMap">
+        select <include refid="all_column"/>
+        from jx_competition_direct
+        <where>
+            <if test="pojo.id != null"> `id` = #{pojo.id} </if>
+            <if test="pojo.name != null">and `name` = #{pojo.name} </if>
+            <if test="pojo.organizer != null">and `organizer` = #{pojo.organizer} </if>
+            <if test="pojo.participatingNumber != null">and `participating_number` = #{pojo.participatingNumber} </if>
+            <if test="pojo.competitionLeader != null">and `competition_leader` = #{pojo.competitionLeader} </if>
+            <if test="pojo.responsibleTeacher != null">and `responsible_teacher` = #{pojo.responsibleTeacher} </if>
+            <if test="pojo.phone != null">and `phone` = #{pojo.phone} </if>
+            <if test="pojo.address != null">and `address` = #{pojo.address} </if>
+            <if test="pojo.agencyAddress != null">and `agency_address` = #{pojo.agencyAddress} </if>
+            <if test="pojo.approvalDepartment != null">and `approval_department` = #{pojo.approvalDepartment} </if>
+            <if test="pojo.approvalTime != null">and `approval_time` = #{pojo.approvalTime} </if>
+            <if test="pojo.grade != null">and `grade` = #{pojo.grade} </if>
+            <if test="pojo.fileId != null">and `file_id` = #{pojo.fileId} </if>
+            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
+        </where>
+    </select>
 </mapper>
 

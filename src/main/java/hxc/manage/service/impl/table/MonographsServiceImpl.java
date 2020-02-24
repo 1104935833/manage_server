@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.Monographs;
 import hxc.manage.mapper.MonographsMapper;
 
@@ -28,5 +30,10 @@ public class MonographsServiceImpl implements MonographsService {
 
     public int update(Monographs pojo){
         return monographsMapper.update(pojo);
+    }
+
+    @Override
+    public Monographs getMonographs(Map<String, Object> param) {
+        return monographsMapper.getMonographs(param);
     }
 }

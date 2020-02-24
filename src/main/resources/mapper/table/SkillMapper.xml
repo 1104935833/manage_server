@@ -116,5 +116,20 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <select id="getSkill" resultMap="AllColumnMap">
+        select <include refid="all_column"/>
+        from jx_skill_competition
+        <where>
+            <if test="pojo.id != null"> `id` = #{pojo.id} </if>
+            <if test="pojo.unitPlace != null">and `unit_place` = #{pojo.unitPlace} </if>
+            <if test="pojo.professionalSubject != null">and `professional_subject` = #{pojo.professionalSubject} </if>
+            <if test="pojo.leader != null">and `leader` = #{pojo.leader} </if>
+            <if test="pojo.phone != null">and `phone` = #{pojo.phone} </if>
+            <if test="pojo.winningGrade != null">and `winning_grade` = #{pojo.winningGrade} </if>
+            <if test="pojo.prize != null">and `prize` = #{pojo.prize} </if>
+            <if test="pojo.fileId != null">and `file_id` = #{pojo.fileId} </if>
+            <if test="pojo.createTime != null">and `create_time` = #{pojo.createTime} </if>
+        </where>
+    </select>
 </mapper>
 

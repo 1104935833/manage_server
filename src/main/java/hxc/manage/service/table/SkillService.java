@@ -3,6 +3,7 @@ package hxc.manage.service.table;
 import hxc.manage.model.table.Skill;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SkillService {
 
@@ -13,4 +14,6 @@ public interface SkillService {
     int insertList(List<Skill> pojos);
 
     int update(Skill pojo);
+
+    Skill getSkill(Map<String,Object> param);
 }

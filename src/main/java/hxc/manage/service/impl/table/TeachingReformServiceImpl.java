@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.TeachingReform;
 import hxc.manage.mapper.TeachingReformMapper;
 
@@ -28,5 +30,10 @@ public class TeachingReformServiceImpl implements TeachingReformService {
 
     public int update(TeachingReform pojo){
         return teachingReformMapper.update(pojo);
+    }
+
+    @Override
+    public TeachingReform getTeachingReform(Map<String, Object> param) {
+        return teachingReformMapper.getTeachingReform(param);
     }
 }

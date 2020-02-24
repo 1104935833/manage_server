@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.Skill;
 
 @Mapper
@@ -15,4 +17,6 @@ public interface SkillMapper {
     int insertList(@Param("pojos") List<Skill> pojo);
 
     int update(@Param("pojo") Skill pojo);
+
+    Skill getSkill(@Param("pojo") Map<String, Object> param);
 }

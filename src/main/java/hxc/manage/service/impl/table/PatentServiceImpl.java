@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.Patent;
 import hxc.manage.mapper.PatentMapper;
 
@@ -28,5 +30,10 @@ public class PatentServiceImpl implements PatentService {
 
     public int update(Patent pojo){
         return patentMapper.update(pojo);
+    }
+
+    @Override
+    public Patent getPatent(Map<String, Object> param) {
+        return patentMapper.getPatent(param);
     }
 }

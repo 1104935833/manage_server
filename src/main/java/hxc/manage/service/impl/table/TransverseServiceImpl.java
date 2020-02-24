@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.Transverse;
 import hxc.manage.mapper.TransverseMapper;
 
@@ -28,5 +30,10 @@ public class TransverseServiceImpl implements TransverseService {
 
     public int update(Transverse pojo){
         return transverseMapper.update(pojo);
+    }
+
+    @Override
+    public Transverse getTransverse(Map<String, Object> param) {
+        return transverseMapper.getTransverse(param);
     }
 }

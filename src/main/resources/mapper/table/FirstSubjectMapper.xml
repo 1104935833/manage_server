@@ -156,5 +156,25 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <select id="getFirstSubject" resultMap="AllColumnMap">
+        select <include refid="all_column"/>
+        from jt_first_subject
+        <where>
+            <if test="pojo.id != null"> `id` = #{pojo.id} </if>
+            <if test="pojo.supportSchool != null">and `support_school` = #{pojo.supportSchool} </if>
+            <if test="pojo.name != null">and `name` = #{pojo.name} </if>
+            <if test="pojo.contact != null">and `contact` = #{pojo.contact} </if>
+            <if test="pojo.phone != null">and `phone` = #{pojo.phone} </if>
+            <if test="pojo.declareSubjectName != null">and `declare_subject_name` = #{pojo.declareSubjectName} </if>
+            <if test="pojo.subjectLeader != null">and `subject_leader` = #{pojo.subjectLeader} </if>
+            <if test="pojo.inceptName != null">and `incept_name` = #{pojo.inceptName} </if>
+            <if test="pojo.inceptTime != null">and `incept_time` = #{pojo.inceptTime} </if>
+            <if test="pojo.subjectThirdEvaluation != null">and `subject_third_evaluation` = #{pojo.subjectThirdEvaluation} </if>
+            <if test="pojo.approvalDepartment != null">and `approval_department` = #{pojo.approvalDepartment} </if>
+            <if test="pojo.approvalTime != null">and `approval_time` = #{pojo.approvalTime} </if>
+            <if test="pojo.fileId != null">and `file_id` = #{pojo.fileId} </if>
+            <if test="pojo.createTime != null">and `create_time` = #{pojo.createTime} </if>
+        </where>
+    </select>
 </mapper>
 

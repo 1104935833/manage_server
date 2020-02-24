@@ -13,7 +13,7 @@ public class Transverse implements Serializable {
 
     private String firstLevel;
 
-    private Integer researchCategory;
+    private String researchCategory;
 
     private String startTime;
 
@@ -21,11 +21,11 @@ public class Transverse implements Serializable {
 
     private String clientAddress;
 
-    private Integer contractNature;
+    private String contractNature;
 
     private String projectLeader;
 
-    private Integer level;
+    private String level;
 
     private Integer fileId;
 

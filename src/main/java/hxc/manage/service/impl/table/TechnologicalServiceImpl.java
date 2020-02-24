@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.Technological;
 import hxc.manage.mapper.TechnologicalMapper;
 
@@ -28,5 +30,11 @@ public class TechnologicalServiceImpl implements TechnologicalService {
 
     public int update(Technological pojo){
         return technologicalMapper.update(pojo);
+    }
+
+    @Override
+    public Technological getTechnological(Map<String, Object> param) {
+        return technologicalMapper.getTechnological(param);
+
     }
 }

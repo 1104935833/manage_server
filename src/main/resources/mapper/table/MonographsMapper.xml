@@ -132,5 +132,22 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <select id="getMonographs" resultMap="AllColumnMap">
+        select <include refid="all_column"/>
+        from tb_monographs
+        <where>
+            <if test="pojo.id != null"> `id` = #{pojo.id} </if>
+            <if test="pojo.name != null">and `name` = #{pojo.name} </if>
+            <if test="pojo.themeWord != null">and `theme_word` = #{pojo.themeWord} </if>
+            <if test="pojo.authorName != null">and `author_name` = #{pojo.authorName} </if>
+            <if test="pojo.finishTime != null">and `finish_time` = #{pojo.finishTime} </if>
+            <if test="pojo.subordinateSubject != null">and `subordinate_subject` = #{pojo.subordinateSubject} </if>
+            <if test="pojo.phone != null">and `phone` = #{pojo.phone} </if>
+            <if test="pojo.wordNumber != null">and `word_number` = #{pojo.wordNumber} </if>
+            <if test="pojo.publishedNumber != null">and `published_number` = #{pojo.publishedNumber} </if>
+            <if test="pojo.fileId != null">and `file_id` = #{pojo.fileId} </if>
+            <if test="pojo.createTime != null">and `create_time` = #{pojo.createTime} </if>
+        </where>
+    </select>
 </mapper>
 

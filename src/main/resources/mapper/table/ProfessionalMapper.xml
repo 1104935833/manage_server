@@ -108,5 +108,19 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <select id="getProfessional" resultMap="AllColumnMap">
+        select <include refid="all_column"/>
+        from jx_professional_building
+        <where>
+            <if test="pojo.id != null"> `id` = #{pojo.id} </if>
+            <if test="pojo.name != null">and `name` = #{pojo.name} </if>
+            <if test="pojo.departmentPlace != null">and `department_place` = #{pojo.departmentPlace} </if>
+            <if test="pojo.professionalLeader != null">and `professional_leader` = #{pojo.professionalLeader} </if>
+            <if test="pojo.phone != null">and `phone` = #{pojo.phone} </if>
+            <if test="pojo.grade != null">and `grade` = #{pojo.grade} </if>
+            <if test="pojo.fileId != null">and `file_id` = #{pojo.fileId} </if>
+            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
+        </where>
+    </select>
 </mapper>
 

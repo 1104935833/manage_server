@@ -84,5 +84,16 @@
         </set>
         WHERE id = #{pojo.id}
     </update>
+    <select id="getTeachingReform" resultMap="AllColumnMap">
+        select <include refid="all_column"/>
+        from jx_teaching_reform
+        <where>
+            <if test="pojo.id != null"> `id` = #{pojo.id} </if>
+            <if test="pojo.name != null">and `name` = #{pojo.name} </if>
+            <if test="pojo.grade != null">and `grade` = #{pojo.grade} </if>
+            <if test="pojo.fileId != null">and `file_id` = #{pojo.fileId} </if>
+            <if test="pojo.createTime != null">and `create_time` = #{pojo.createTime} </if>
+        </where>
+    </select>
 </mapper>
 

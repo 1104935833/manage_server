@@ -32,8 +32,10 @@ public class HonerServiceImpl implements HonerService {
         return honerMapper.update(pojo);
     }
 
-    public List<Map<String, Object>> searchHoner(Map param) {
-        return honerMapper.searchAllHoner(param);
+    @Override
+    public Honer getHoner(Map param) {
+        return honerMapper.getHoner(param);
     }
+
 
 }

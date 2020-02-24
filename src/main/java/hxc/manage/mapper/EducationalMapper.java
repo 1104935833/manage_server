@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
+
 import hxc.manage.model.table.Educational;
 
 @Mapper
@@ -15,4 +17,6 @@ public interface EducationalMapper {
     int insertList(@Param("pojos") List<Educational> pojo);
 
     int update(@Param("pojo") Educational pojo);
+
+    Educational getEducational(@Param("pojo") Map<String, Object> param);
 }
