@@ -2,7 +2,7 @@ package hxc.manage.controller.Table;
 
 import hxc.manage.model.table.Honer;
 import hxc.manage.model.RespBean;
-import hxc.manage.service.HonerService;
+import hxc.manage.service.table.HonerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

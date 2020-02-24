@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hxc.manage.mapper.SkillMapper">
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="hxc.manage.model.table.Skill">
+        <result column="id" property="id"/>
+        <result column="unit_place" property="unitPlace"/>
+        <result column="professional_subject" property="professionalSubject"/>
+        <result column="leader" property="leader"/>
+        <result column="phone" property="phone"/>
+        <result column="winning_grade" property="winningGrade"/>
+        <result column="prize" property="prize"/>
+        <result column="file_id" property="fileId"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`,
+        `unit_place`,
+        `professional_subject`,
+        `leader`,
+        `phone`,
+        `winning_grade`,
+        `prize`,
+        `file_id`,
+        `create_time`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO jx_skill_competition (
+            `id`,
+            `unit_place`,
+            `professional_subject`,
+            `leader`,
+            `phone`,
+            `winning_grade`,
+            `prize`,
+            `file_id`,
+            `create_time`
+        ) VALUES (
+            #{pojo.id},
+            #{pojo.unitPlace},
+            #{pojo.professionalSubject},
+            #{pojo.leader},
+            #{pojo.phone},
+            #{pojo.winningGrade},
+            #{pojo.prize},
+            #{pojo.fileId},
+            #{pojo.createTime}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO jx_skill_competition
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null"> `id`,</if>
+            <if test="pojo.unitPlace!=null"> `unit_place`,</if>
+            <if test="pojo.professionalSubject!=null"> `professional_subject`,</if>
+            <if test="pojo.leader!=null"> `leader`,</if>
+            <if test="pojo.phone!=null"> `phone`,</if>
+            <if test="pojo.winningGrade!=null"> `winning_grade`,</if>
+            <if test="pojo.prize!=null"> `prize`,</if>
+            <if test="pojo.fileId!=null"> `file_id`,</if>
+            <if test="pojo.createTime!=null"> `create_time`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null">#{pojo.id},</if>
+            <if test="pojo.unitPlace!=null">#{pojo.unitPlace},</if>
+            <if test="pojo.professionalSubject!=null">#{pojo.professionalSubject},</if>
+            <if test="pojo.leader!=null">#{pojo.leader},</if>
+            <if test="pojo.phone!=null">#{pojo.phone},</if>
+            <if test="pojo.winningGrade!=null">#{pojo.winningGrade},</if>
+            <if test="pojo.prize!=null">#{pojo.prize},</if>
+            <if test="pojo.fileId!=null">#{pojo.fileId},</if>
+            <if test="pojo.createTime!=null">#{pojo.createTime},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO jx_skill_competition (
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.unitPlace},
+            #{pojo.professionalSubject},
+            #{pojo.leader},
+            #{pojo.phone},
+            #{pojo.winningGrade},
+            #{pojo.prize},
+            #{pojo.fileId},
+            #{pojo.createTime}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE jx_skill_competition
+        <set>
+            <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
+            <if test="pojo.unitPlace != null"> `unit_place` = #{pojo.unitPlace}, </if>
+            <if test="pojo.professionalSubject != null"> `professional_subject` = #{pojo.professionalSubject}, </if>
+            <if test="pojo.leader != null"> `leader` = #{pojo.leader}, </if>
+            <if test="pojo.phone != null"> `phone` = #{pojo.phone}, </if>
+            <if test="pojo.winningGrade != null"> `winning_grade` = #{pojo.winningGrade}, </if>
+            <if test="pojo.prize != null"> `prize` = #{pojo.prize}, </if>
+            <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
+            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+</mapper>
+

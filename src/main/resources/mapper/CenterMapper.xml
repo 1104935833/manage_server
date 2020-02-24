@@ -27,6 +27,19 @@
             user_id = #{user_id}
         GROUP BY
             state
-    </select>
 
+
+    </select>
+    <select id="getPerforEcharts1" resultType="java.util.Map">
+        SELECT
+        	d.id name,
+	        count( 1 ) value
+        FROM
+            table_state d,
+            ( SELECT b.state, b.id FROM `table` a, table_state b WHERE a.state = b.id and user_id = #{id}) c
+        WHERE
+            c.state = d.id
+        GROUP BY
+            d.id
+    </select>
 </mapper>

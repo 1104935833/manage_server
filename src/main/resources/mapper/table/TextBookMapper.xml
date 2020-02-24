@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hxc.manage.mapper.TextBookMapper">
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="hxc.manage.model.table.TextBook">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="editor_chief" property="editorChief"/>
+        <result column="ginseng_name" property="ginsengName"/>
+        <result column="course_status" property="courseStatus"/>
+        <result column="course_condition" property="courseCondition"/>
+        <result column="course_feature" property="courseFeature"/>
+        <result column="write_person" property="writePerson"/>
+        <result column="write_finish_time" property="writeFinishTime"/>
+        <result column="declare_time" property="declareTime"/>
+        <result column="grade" property="grade"/>
+        <result column="file_id" property="fileId"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`,
+        `name`,
+        `editor_chief`,
+        `ginseng_name`,
+        `course_status`,
+        `course_condition`,
+        `course_feature`,
+        `write_person`,
+        `write_finish_time`,
+        `declare_time`,
+        `grade`,
+        `file_id`,
+        `create_time`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO jx_textbook_compilation (
+            `id`,
+            `name`,
+            `editor_chief`,
+            `ginseng_name`,
+            `course_status`,
+            `course_condition`,
+            `course_feature`,
+            `write_person`,
+            `write_finish_time`,
+            `declare_time`,
+            `grade`,
+            `file_id`,
+            `create_time`
+        ) VALUES (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.editorChief},
+            #{pojo.ginsengName},
+            #{pojo.courseStatus},
+            #{pojo.courseCondition},
+            #{pojo.courseFeature},
+            #{pojo.writePerson},
+            #{pojo.writeFinishTime},
+            #{pojo.declareTime},
+            #{pojo.grade},
+            #{pojo.fileId},
+            #{pojo.createTime}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO jx_textbook_compilation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null"> `id`,</if>
+            <if test="pojo.name!=null"> `name`,</if>
+            <if test="pojo.editorChief!=null"> `editor_chief`,</if>
+            <if test="pojo.ginsengName!=null"> `ginseng_name`,</if>
+            <if test="pojo.courseStatus!=null"> `course_status`,</if>
+            <if test="pojo.courseCondition!=null"> `course_condition`,</if>
+            <if test="pojo.courseFeature!=null"> `course_feature`,</if>
+            <if test="pojo.writePerson!=null"> `write_person`,</if>
+            <if test="pojo.writeFinishTime!=null"> `write_finish_time`,</if>
+            <if test="pojo.declareTime!=null"> `declare_time`,</if>
+            <if test="pojo.grade!=null"> `grade`,</if>
+            <if test="pojo.fileId!=null"> `file_id`,</if>
+            <if test="pojo.createTime!=null"> `create_time`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null">#{pojo.id},</if>
+            <if test="pojo.name!=null">#{pojo.name},</if>
+            <if test="pojo.editorChief!=null">#{pojo.editorChief},</if>
+            <if test="pojo.ginsengName!=null">#{pojo.ginsengName},</if>
+            <if test="pojo.courseStatus!=null">#{pojo.courseStatus},</if>
+            <if test="pojo.courseCondition!=null">#{pojo.courseCondition},</if>
+            <if test="pojo.courseFeature!=null">#{pojo.courseFeature},</if>
+            <if test="pojo.writePerson!=null">#{pojo.writePerson},</if>
+            <if test="pojo.writeFinishTime!=null">#{pojo.writeFinishTime},</if>
+            <if test="pojo.declareTime!=null">#{pojo.declareTime},</if>
+            <if test="pojo.grade!=null">#{pojo.grade},</if>
+            <if test="pojo.fileId!=null">#{pojo.fileId},</if>
+            <if test="pojo.createTime!=null">#{pojo.createTime},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO jx_textbook_compilation (
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.editorChief},
+            #{pojo.ginsengName},
+            #{pojo.courseStatus},
+            #{pojo.courseCondition},
+            #{pojo.courseFeature},
+            #{pojo.writePerson},
+            #{pojo.writeFinishTime},
+            #{pojo.declareTime},
+            #{pojo.grade},
+            #{pojo.fileId},
+            #{pojo.createTime}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE jx_textbook_compilation
+        <set>
+            <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
+            <if test="pojo.name != null"> `name` = #{pojo.name}, </if>
+            <if test="pojo.editorChief != null"> `editor_chief` = #{pojo.editorChief}, </if>
+            <if test="pojo.ginsengName != null"> `ginseng_name` = #{pojo.ginsengName}, </if>
+            <if test="pojo.courseStatus != null"> `course_status` = #{pojo.courseStatus}, </if>
+            <if test="pojo.courseCondition != null"> `course_condition` = #{pojo.courseCondition}, </if>
+            <if test="pojo.courseFeature != null"> `course_feature` = #{pojo.courseFeature}, </if>
+            <if test="pojo.writePerson != null"> `write_person` = #{pojo.writePerson}, </if>
+            <if test="pojo.writeFinishTime != null"> `write_finish_time` = #{pojo.writeFinishTime}, </if>
+            <if test="pojo.declareTime != null"> `declare_time` = #{pojo.declareTime}, </if>
+            <if test="pojo.grade != null"> `grade` = #{pojo.grade}, </if>
+            <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
+            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+</mapper>
+

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hxc.manage.mapper.CompetitionMapper">
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="hxc.manage.model.table.Competition">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="organizer" property="organizer"/>
+        <result column="participating_number" property="participatingNumber"/>
+        <result column="competition_leader" property="competitionLeader"/>
+        <result column="responsible_teacher" property="responsibleTeacher"/>
+        <result column="phone" property="phone"/>
+        <result column="address" property="address"/>
+        <result column="agency_address" property="agencyAddress"/>
+        <result column="approval_department" property="approvalDepartment"/>
+        <result column="approval_time" property="approvalTime"/>
+        <result column="grade" property="grade"/>
+        <result column="file_id" property="fileId"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`,
+        `name`,
+        `organizer`,
+        `participating_number`,
+        `competition_leader`,
+        `responsible_teacher`,
+        `phone`,
+        `address`,
+        `agency_address`,
+        `approval_department`,
+        `approval_time`,
+        `grade`,
+        `file_id`,
+        `create_time`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO jx_competition_direct (
+            `id`,
+            `name`,
+            `organizer`,
+            `participating_number`,
+            `competition_leader`,
+            `responsible_teacher`,
+            `phone`,
+            `address`,
+            `agency_address`,
+            `approval_department`,
+            `approval_time`,
+            `grade`,
+            `file_id`,
+            `create_time`
+        ) VALUES (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.organizer},
+            #{pojo.participatingNumber},
+            #{pojo.competitionLeader},
+            #{pojo.responsibleTeacher},
+            #{pojo.phone},
+            #{pojo.address},
+            #{pojo.agencyAddress},
+            #{pojo.approvalDepartment},
+            #{pojo.approvalTime},
+            #{pojo.grade},
+            #{pojo.fileId},
+            #{pojo.createTime}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO jx_competition_direct
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null"> `id`,</if>
+            <if test="pojo.name!=null"> `name`,</if>
+            <if test="pojo.organizer!=null"> `organizer`,</if>
+            <if test="pojo.participatingNumber!=null"> `participating_number`,</if>
+            <if test="pojo.competitionLeader!=null"> `competition_leader`,</if>
+            <if test="pojo.responsibleTeacher!=null"> `responsible_teacher`,</if>
+            <if test="pojo.phone!=null"> `phone`,</if>
+            <if test="pojo.address!=null"> `address`,</if>
+            <if test="pojo.agencyAddress!=null"> `agency_address`,</if>
+            <if test="pojo.approvalDepartment!=null"> `approval_department`,</if>
+            <if test="pojo.approvalTime!=null"> `approval_time`,</if>
+            <if test="pojo.grade!=null"> `grade`,</if>
+            <if test="pojo.fileId!=null"> `file_id`,</if>
+            <if test="pojo.createTime!=null"> `create_time`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null">#{pojo.id},</if>
+            <if test="pojo.name!=null">#{pojo.name},</if>
+            <if test="pojo.organizer!=null">#{pojo.organizer},</if>
+            <if test="pojo.participatingNumber!=null">#{pojo.participatingNumber},</if>
+            <if test="pojo.competitionLeader!=null">#{pojo.competitionLeader},</if>
+            <if test="pojo.responsibleTeacher!=null">#{pojo.responsibleTeacher},</if>
+            <if test="pojo.phone!=null">#{pojo.phone},</if>
+            <if test="pojo.address!=null">#{pojo.address},</if>
+            <if test="pojo.agencyAddress!=null">#{pojo.agencyAddress},</if>
+            <if test="pojo.approvalDepartment!=null">#{pojo.approvalDepartment},</if>
+            <if test="pojo.approvalTime!=null">#{pojo.approvalTime},</if>
+            <if test="pojo.grade!=null">#{pojo.grade},</if>
+            <if test="pojo.fileId!=null">#{pojo.fileId},</if>
+            <if test="pojo.createTime!=null">#{pojo.createTime},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO jx_competition_direct (
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.organizer},
+            #{pojo.participatingNumber},
+            #{pojo.competitionLeader},
+            #{pojo.responsibleTeacher},
+            #{pojo.phone},
+            #{pojo.address},
+            #{pojo.agencyAddress},
+            #{pojo.approvalDepartment},
+            #{pojo.approvalTime},
+            #{pojo.grade},
+            #{pojo.fileId},
+            #{pojo.createTime}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE jx_competition_direct
+        <set>
+            <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
+            <if test="pojo.name != null"> `name` = #{pojo.name}, </if>
+            <if test="pojo.organizer != null"> `organizer` = #{pojo.organizer}, </if>
+            <if test="pojo.participatingNumber != null"> `participating_number` = #{pojo.participatingNumber}, </if>
+            <if test="pojo.competitionLeader != null"> `competition_leader` = #{pojo.competitionLeader}, </if>
+            <if test="pojo.responsibleTeacher != null"> `responsible_teacher` = #{pojo.responsibleTeacher}, </if>
+            <if test="pojo.phone != null"> `phone` = #{pojo.phone}, </if>
+            <if test="pojo.address != null"> `address` = #{pojo.address}, </if>
+            <if test="pojo.agencyAddress != null"> `agency_address` = #{pojo.agencyAddress}, </if>
+            <if test="pojo.approvalDepartment != null"> `approval_department` = #{pojo.approvalDepartment}, </if>
+            <if test="pojo.approvalTime != null"> `approval_time` = #{pojo.approvalTime}, </if>
+            <if test="pojo.grade != null"> `grade` = #{pojo.grade}, </if>
+            <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
+            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+</mapper>
+

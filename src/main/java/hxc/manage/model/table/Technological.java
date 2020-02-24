@@ -9,7 +9,7 @@ public class Technological implements Serializable {
 
     private Integer id;
 
-    private String projectName;
+    private String name;
 
     private String declareUnit;
 
@@ -37,5 +37,5 @@ public class Technological implements Serializable {
 
     private Integer fileId;
 
-
+    private String createTime;
 }

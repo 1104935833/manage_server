@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hxc.manage.mapper.CourseMapper">
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="hxc.manage.model.table.Course">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="professional_place" property="professionalPlace"/>
+        <result column="course_leader" property="courseLeader"/>
+        <result column="teacher_main" property="teacherMain"/>
+        <result column="teacher_professional" property="teacherProfessional"/>
+        <result column="teacher_certificate" property="teacherCertificate"/>
+        <result column="declare_time" property="declareTime"/>
+        <result column="course_category" property="courseCategory"/>
+        <result column="grade" property="grade"/>
+        <result column="file_id" property="fileId"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`,
+        `name`,
+        `professional_place`,
+        `course_leader`,
+        `teacher_main`,
+        `teacher_professional`,
+        `teacher_certificate`,
+        `declare_time`,
+        `course_category`,
+        `grade`,
+        `file_id`,
+        `create_time`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO jx_course_construction (
+            `id`,
+            `name`,
+            `professional_place`,
+            `course_leader`,
+            `teacher_main`,
+            `teacher_professional`,
+            `teacher_certificate`,
+            `declare_time`,
+            `course_category`,
+            `grade`,
+            `file_id`,
+            `create_time`
+        ) VALUES (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.professionalPlace},
+            #{pojo.courseLeader},
+            #{pojo.teacherMain},
+            #{pojo.teacherProfessional},
+            #{pojo.teacherCertificate},
+            #{pojo.declareTime},
+            #{pojo.courseCategory},
+            #{pojo.grade},
+            #{pojo.fileId},
+            #{pojo.createTime}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO jx_course_construction
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null"> `id`,</if>
+            <if test="pojo.name!=null"> `name`,</if>
+            <if test="pojo.professionalPlace!=null"> `professional_place`,</if>
+            <if test="pojo.courseLeader!=null"> `course_leader`,</if>
+            <if test="pojo.teacherMain!=null"> `teacher_main`,</if>
+            <if test="pojo.teacherProfessional!=null"> `teacher_professional`,</if>
+            <if test="pojo.teacherCertificate!=null"> `teacher_certificate`,</if>
+            <if test="pojo.declareTime!=null"> `declare_time`,</if>
+            <if test="pojo.courseCategory!=null"> `course_category`,</if>
+            <if test="pojo.grade!=null"> `grade`,</if>
+            <if test="pojo.fileId!=null"> `file_id`,</if>
+            <if test="pojo.createTime!=null"> `create_time`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null">#{pojo.id},</if>
+            <if test="pojo.name!=null">#{pojo.name},</if>
+            <if test="pojo.professionalPlace!=null">#{pojo.professionalPlace},</if>
+            <if test="pojo.courseLeader!=null">#{pojo.courseLeader},</if>
+            <if test="pojo.teacherMain!=null">#{pojo.teacherMain},</if>
+            <if test="pojo.teacherProfessional!=null">#{pojo.teacherProfessional},</if>
+            <if test="pojo.teacherCertificate!=null">#{pojo.teacherCertificate},</if>
+            <if test="pojo.declareTime!=null">#{pojo.declareTime},</if>
+            <if test="pojo.courseCategory!=null">#{pojo.courseCategory},</if>
+            <if test="pojo.grade!=null">#{pojo.grade},</if>
+            <if test="pojo.fileId!=null">#{pojo.fileId},</if>
+            <if test="pojo.createTime!=null">#{pojo.createTime},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO jx_course_construction (
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.professionalPlace},
+            #{pojo.courseLeader},
+            #{pojo.teacherMain},
+            #{pojo.teacherProfessional},
+            #{pojo.teacherCertificate},
+            #{pojo.declareTime},
+            #{pojo.courseCategory},
+            #{pojo.grade},
+            #{pojo.fileId},
+            #{pojo.createTime}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE jx_course_construction
+        <set>
+            <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
+            <if test="pojo.name != null"> `name` = #{pojo.name}, </if>
+            <if test="pojo.professionalPlace != null"> `professional_place` = #{pojo.professionalPlace}, </if>
+            <if test="pojo.courseLeader != null"> `course_leader` = #{pojo.courseLeader}, </if>
+            <if test="pojo.teacherMain != null"> `teacher_main` = #{pojo.teacherMain}, </if>
+            <if test="pojo.teacherProfessional != null"> `teacher_professional` = #{pojo.teacherProfessional}, </if>
+            <if test="pojo.teacherCertificate != null"> `teacher_certificate` = #{pojo.teacherCertificate}, </if>
+            <if test="pojo.declareTime != null"> `declare_time` = #{pojo.declareTime}, </if>
+            <if test="pojo.courseCategory != null"> `course_category` = #{pojo.courseCategory}, </if>
+            <if test="pojo.grade != null"> `grade` = #{pojo.grade}, </if>
+            <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
+            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+</mapper>
+

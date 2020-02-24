@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hxc.manage.mapper.LabMapper">
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="hxc.manage.model.table.Lab">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="lab_approval_time" property="labApprovalTime"/>
+        <result column="support_subject" property="supportSubject"/>
+        <result column="declare_start_time" property="declareStartTime"/>
+        <result column="declare_end_time" property="declareEndTime"/>
+        <result column="total_person" property="totalPerson"/>
+        <result column="head" property="head"/>
+        <result column="lab_address" property="labAddress"/>
+        <result column="direction_one" property="directionOne"/>
+        <result column="direction_two" property="directionTwo"/>
+        <result column="direction_three" property="directionThree"/>
+        <result column="approval_department" property="approvalDepartment"/>
+        <result column="approval_time" property="approvalTime"/>
+        <result column="file_id" property="fileId"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`,
+        `name`,
+        `lab_approval_time`,
+        `support_subject`,
+        `declare_start_time`,
+        `declare_end_time`,
+        `total_person`,
+        `head`,
+        `lab_address`,
+        `direction_one`,
+        `direction_two`,
+        `direction_three`,
+        `approval_department`,
+        `approval_time`,
+        `file_id`,
+        `create_time`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO jt_lab (
+            `id`,
+            `name`,
+            `lab_approval_time`,
+            `support_subject`,
+            `declare_start_time`,
+            `declare_end_time`,
+            `total_person`,
+            `head`,
+            `lab_address`,
+            `direction_one`,
+            `direction_two`,
+            `direction_three`,
+            `approval_department`,
+            `approval_time`,
+            `file_id`,
+            `create_time`
+        ) VALUES (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.labApprovalTime},
+            #{pojo.supportSubject},
+            #{pojo.declareStartTime},
+            #{pojo.declareEndTime},
+            #{pojo.totalPerson},
+            #{pojo.head},
+            #{pojo.labAddress},
+            #{pojo.directionOne},
+            #{pojo.directionTwo},
+            #{pojo.directionThree},
+            #{pojo.approvalDepartment},
+            #{pojo.approvalTime},
+            #{pojo.fileId},
+            #{pojo.createTime}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO jt_lab
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null"> `id`,</if>
+            <if test="pojo.name!=null"> `name`,</if>
+            <if test="pojo.labApprovalTime!=null"> `lab_approval_time`,</if>
+            <if test="pojo.supportSubject!=null"> `support_subject`,</if>
+            <if test="pojo.declareStartTime!=null"> `declare_start_time`,</if>
+            <if test="pojo.declareEndTime!=null"> `declare_end_time`,</if>
+            <if test="pojo.totalPerson!=null"> `total_person`,</if>
+            <if test="pojo.head!=null"> `head`,</if>
+            <if test="pojo.labAddress!=null"> `lab_address`,</if>
+            <if test="pojo.directionOne!=null"> `direction_one`,</if>
+            <if test="pojo.directionTwo!=null"> `direction_two`,</if>
+            <if test="pojo.directionThree!=null"> `direction_three`,</if>
+            <if test="pojo.approvalDepartment!=null"> `approval_department`,</if>
+            <if test="pojo.approvalTime!=null"> `approval_time`,</if>
+            <if test="pojo.fileId!=null"> `file_id`,</if>
+            <if test="pojo.createTime!=null"> `create_time`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null">#{pojo.id},</if>
+            <if test="pojo.name!=null">#{pojo.name},</if>
+            <if test="pojo.labApprovalTime!=null">#{pojo.labApprovalTime},</if>
+            <if test="pojo.supportSubject!=null">#{pojo.supportSubject},</if>
+            <if test="pojo.declareStartTime!=null">#{pojo.declareStartTime},</if>
+            <if test="pojo.declareEndTime!=null">#{pojo.declareEndTime},</if>
+            <if test="pojo.totalPerson!=null">#{pojo.totalPerson},</if>
+            <if test="pojo.head!=null">#{pojo.head},</if>
+            <if test="pojo.labAddress!=null">#{pojo.labAddress},</if>
+            <if test="pojo.directionOne!=null">#{pojo.directionOne},</if>
+            <if test="pojo.directionTwo!=null">#{pojo.directionTwo},</if>
+            <if test="pojo.directionThree!=null">#{pojo.directionThree},</if>
+            <if test="pojo.approvalDepartment!=null">#{pojo.approvalDepartment},</if>
+            <if test="pojo.approvalTime!=null">#{pojo.approvalTime},</if>
+            <if test="pojo.fileId!=null">#{pojo.fileId},</if>
+            <if test="pojo.createTime!=null">#{pojo.createTime},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO jt_lab (
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.labApprovalTime},
+            #{pojo.supportSubject},
+            #{pojo.declareStartTime},
+            #{pojo.declareEndTime},
+            #{pojo.totalPerson},
+            #{pojo.head},
+            #{pojo.labAddress},
+            #{pojo.directionOne},
+            #{pojo.directionTwo},
+            #{pojo.directionThree},
+            #{pojo.approvalDepartment},
+            #{pojo.approvalTime},
+            #{pojo.fileId},
+            #{pojo.createTime}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE jt_lab
+        <set>
+            <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
+            <if test="pojo.name != null"> `name` = #{pojo.name}, </if>
+            <if test="pojo.labApprovalTime != null"> `lab_approval_time` = #{pojo.labApprovalTime}, </if>
+            <if test="pojo.supportSubject != null"> `support_subject` = #{pojo.supportSubject}, </if>
+            <if test="pojo.declareStartTime != null"> `declare_start_time` = #{pojo.declareStartTime}, </if>
+            <if test="pojo.declareEndTime != null"> `declare_end_time` = #{pojo.declareEndTime}, </if>
+            <if test="pojo.totalPerson != null"> `total_person` = #{pojo.totalPerson}, </if>
+            <if test="pojo.head != null"> `head` = #{pojo.head}, </if>
+            <if test="pojo.labAddress != null"> `lab_address` = #{pojo.labAddress}, </if>
+            <if test="pojo.directionOne != null"> `direction_one` = #{pojo.directionOne}, </if>
+            <if test="pojo.directionTwo != null"> `direction_two` = #{pojo.directionTwo}, </if>
+            <if test="pojo.directionThree != null"> `direction_three` = #{pojo.directionThree}, </if>
+            <if test="pojo.approvalDepartment != null"> `approval_department` = #{pojo.approvalDepartment}, </if>
+            <if test="pojo.approvalTime != null"> `approval_time` = #{pojo.approvalTime}, </if>
+            <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
+            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+</mapper>
+

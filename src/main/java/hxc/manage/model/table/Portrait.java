@@ -9,25 +9,27 @@ public class Portrait implements Serializable {
 
     private Integer id;
 
-    private String date;
+    private String name;
 
-    private String projectLeader;
+    private String projectSource;
 
-    private String phone;
+    private String level;
 
-    private String department;
+    private String projectFunding;
 
-    private String title;
+    private String serialNumber;
 
-    private Double applyMoney;
+    private Double completer;
 
-    private String projectName;
+    private String signOrder;
 
-    private String projectUnit;
+    private String unitName;
 
-    private String projectType;
+    private String unitAddress;
 
     private Integer fileId;
+
+    private String createTime;
 
 }
 

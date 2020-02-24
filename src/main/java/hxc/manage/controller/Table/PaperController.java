@@ -5,7 +5,7 @@ import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.model.table.Paper;
 import hxc.manage.service.AuditService;
-import hxc.manage.service.PaperService;
+import hxc.manage.service.table.PaperService;
 import hxc.manage.service.PeddingService;
 import hxc.manage.service.TableService;
 import hxc.manage.util.Util;

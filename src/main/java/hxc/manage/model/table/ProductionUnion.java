@@ -9,7 +9,7 @@ public class ProductionUnion implements Serializable {
 
     private Integer id;
 
-    private String unioName;
+    private String name;
 
     private String unionEffectTime;
 
@@ -30,4 +30,6 @@ public class ProductionUnion implements Serializable {
     private String approvalTime;
 
     private Integer fileId;
+
+    private String createTime;
 }

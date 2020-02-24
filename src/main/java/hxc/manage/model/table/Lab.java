@@ -9,7 +9,7 @@ public class Lab implements Serializable {
 
     private Integer id;
 
-    private String labName;
+    private String name;
 
     private String labApprovalTime;
 
@@ -37,6 +37,6 @@ public class Lab implements Serializable {
 
     private Integer fileId;
 
-
+    private String createTime;
 
 }

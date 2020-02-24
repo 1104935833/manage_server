@@ -9,7 +9,7 @@ public class Monographs implements Serializable {
 
     private Integer id;
 
-    private String monographsName;
+    private String name;
 
     private String themeWord;
 
@@ -26,5 +26,7 @@ public class Monographs implements Serializable {
     private Integer publishedNumber;
 
     private Integer fileId;
+
+    private String createTime;
 
 }

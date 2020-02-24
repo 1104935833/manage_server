@@ -68,7 +68,14 @@ public class SystemCenterController {
 
     }
 
+    //各业绩获得情况
+    @GetMapping("/PerforEchart1")
+    public List<Map<String, Object>> getPerforEcharts1(HttpServletRequest request){
+        User u = (User) request.getSession().getAttribute("userinfo");
+        List<Map<String, Object>> map = systemCenterService.getPerforEcharts1(u.getUser_id());
 
+        return map;
 
+    }
 
 }

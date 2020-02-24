@@ -11,7 +11,7 @@ public class FirstSubject implements Serializable {
 
     private String supportSchool;
 
-    private String subjectName;
+    private String name;
 
     private String contact;
 
@@ -33,5 +33,5 @@ public class FirstSubject implements Serializable {
 
     private Integer fileId;
 
-
+    private String createTime;
 }

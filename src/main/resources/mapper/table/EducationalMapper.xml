@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hxc.manage.mapper.EducationalMapper">
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="hxc.manage.model.table.Educational">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="project_leader" property="projectLeader"/>
+        <result column="unit_place" property="unitPlace"/>
+        <result column="professional_place" property="professionalPlace"/>
+        <result column="course_name" property="courseName"/>
+        <result column="course_category" property="courseCategory"/>
+        <result column="subject_name" property="subjectName"/>
+        <result column="subject_source" property="subjectSource"/>
+        <result column="declare_time" property="declareTime"/>
+        <result column="project_category" property="projectCategory"/>
+        <result column="declare_category" property="declareCategory"/>
+        <result column="grade" property="grade"/>
+        <result column="file_id" property="fileId"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`,
+        `name`,
+        `project_leader`,
+        `unit_place`,
+        `professional_place`,
+        `course_name`,
+        `course_category`,
+        `subject_name`,
+        `subject_source`,
+        `declare_time`,
+        `project_category`,
+        `declare_category`,
+        `grade`,
+        `file_id`,
+        `create_time`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO jx_educational_reform (
+            `id`,
+            `name`,
+            `project_leader`,
+            `unit_place`,
+            `professional_place`,
+            `course_name`,
+            `course_category`,
+            `subject_name`,
+            `subject_source`,
+            `declare_time`,
+            `project_category`,
+            `declare_category`,
+            `grade`,
+            `file_id`,
+            `create_time`
+        ) VALUES (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.projectLeader},
+            #{pojo.unitPlace},
+            #{pojo.professionalPlace},
+            #{pojo.courseName},
+            #{pojo.courseCategory},
+            #{pojo.subjectName},
+            #{pojo.subjectSource},
+            #{pojo.declareTime},
+            #{pojo.projectCategory},
+            #{pojo.declareCategory},
+            #{pojo.grade},
+            #{pojo.fileId},
+            #{pojo.createTime}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO jx_educational_reform
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null"> `id`,</if>
+            <if test="pojo.name!=null"> `name`,</if>
+            <if test="pojo.projectLeader!=null"> `project_leader`,</if>
+            <if test="pojo.unitPlace!=null"> `unit_place`,</if>
+            <if test="pojo.professionalPlace!=null"> `professional_place`,</if>
+            <if test="pojo.courseName!=null"> `course_name`,</if>
+            <if test="pojo.courseCategory!=null"> `course_category`,</if>
+            <if test="pojo.subjectName!=null"> `subject_name`,</if>
+            <if test="pojo.subjectSource!=null"> `subject_source`,</if>
+            <if test="pojo.declareTime!=null"> `declare_time`,</if>
+            <if test="pojo.projectCategory!=null"> `project_category`,</if>
+            <if test="pojo.declareCategory!=null"> `declare_category`,</if>
+            <if test="pojo.grade!=null"> `grade`,</if>
+            <if test="pojo.fileId!=null"> `file_id`,</if>
+            <if test="pojo.createTime!=null"> `create_time`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null">#{pojo.id},</if>
+            <if test="pojo.name!=null">#{pojo.name},</if>
+            <if test="pojo.projectLeader!=null">#{pojo.projectLeader},</if>
+            <if test="pojo.unitPlace!=null">#{pojo.unitPlace},</if>
+            <if test="pojo.professionalPlace!=null">#{pojo.professionalPlace},</if>
+            <if test="pojo.courseName!=null">#{pojo.courseName},</if>
+            <if test="pojo.courseCategory!=null">#{pojo.courseCategory},</if>
+            <if test="pojo.subjectName!=null">#{pojo.subjectName},</if>
+            <if test="pojo.subjectSource!=null">#{pojo.subjectSource},</if>
+            <if test="pojo.declareTime!=null">#{pojo.declareTime},</if>
+            <if test="pojo.projectCategory!=null">#{pojo.projectCategory},</if>
+            <if test="pojo.declareCategory!=null">#{pojo.declareCategory},</if>
+            <if test="pojo.grade!=null">#{pojo.grade},</if>
+            <if test="pojo.fileId!=null">#{pojo.fileId},</if>
+            <if test="pojo.createTime!=null">#{pojo.createTime},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO jx_educational_reform (
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.projectLeader},
+            #{pojo.unitPlace},
+            #{pojo.professionalPlace},
+            #{pojo.courseName},
+            #{pojo.courseCategory},
+            #{pojo.subjectName},
+            #{pojo.subjectSource},
+            #{pojo.declareTime},
+            #{pojo.projectCategory},
+            #{pojo.declareCategory},
+            #{pojo.grade},
+            #{pojo.fileId},
+            #{pojo.createTime}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE jx_educational_reform
+        <set>
+            <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
+            <if test="pojo.name != null"> `name` = #{pojo.name}, </if>
+            <if test="pojo.projectLeader != null"> `project_leader` = #{pojo.projectLeader}, </if>
+            <if test="pojo.unitPlace != null"> `unit_place` = #{pojo.unitPlace}, </if>
+            <if test="pojo.professionalPlace != null"> `professional_place` = #{pojo.professionalPlace}, </if>
+            <if test="pojo.courseName != null"> `course_name` = #{pojo.courseName}, </if>
+            <if test="pojo.courseCategory != null"> `course_category` = #{pojo.courseCategory}, </if>
+            <if test="pojo.subjectName != null"> `subject_name` = #{pojo.subjectName}, </if>
+            <if test="pojo.subjectSource != null"> `subject_source` = #{pojo.subjectSource}, </if>
+            <if test="pojo.declareTime != null"> `declare_time` = #{pojo.declareTime}, </if>
+            <if test="pojo.projectCategory != null"> `project_category` = #{pojo.projectCategory}, </if>
+            <if test="pojo.declareCategory != null"> `declare_category` = #{pojo.declareCategory}, </if>
+            <if test="pojo.grade != null"> `grade` = #{pojo.grade}, </if>
+            <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
+            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+</mapper>
+

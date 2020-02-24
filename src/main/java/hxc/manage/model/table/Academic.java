@@ -9,7 +9,7 @@ public class Academic implements Serializable {
 
     private Integer id;
 
-    private String teamName;
+    private String name;
 
     private String teamPersonnel;
 
@@ -29,6 +29,7 @@ public class Academic implements Serializable {
 
     private Integer fileId;
 
+    private String createTime;
 
 
 

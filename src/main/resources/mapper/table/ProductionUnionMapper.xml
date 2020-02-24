@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hxc.manage.mapper.ProductionUnionMapper">
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="hxc.manage.model.table.ProductionUnion">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="union_effect_time" property="unionEffectTime"/>
+        <result column="technology_field" property="technologyField"/>
+        <result column="union_director" property="unionDirector"/>
+        <result column="unit_place" property="unitPlace"/>
+        <result column="phone" property="phone"/>
+        <result column="standing_body_name" property="standingBodyName"/>
+        <result column="standing_body_address" property="standingBodyAddress"/>
+        <result column="approval_department" property="approvalDepartment"/>
+        <result column="approval_time" property="approvalTime"/>
+        <result column="file_id" property="fileId"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`,
+        `name`,
+        `union_effect_time`,
+        `technology_field`,
+        `union_director`,
+        `unit_place`,
+        `phone`,
+        `standing_body_name`,
+        `standing_body_address`,
+        `approval_department`,
+        `approval_time`,
+        `file_id`,
+        `create_time`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO jt_production_union (
+            `id`,
+            `name`,
+            `union_effect_time`,
+            `technology_field`,
+            `union_director`,
+            `unit_place`,
+            `phone`,
+            `standing_body_name`,
+            `standing_body_address`,
+            `approval_department`,
+            `approval_time`,
+            `file_id`,
+            `create_time`
+        ) VALUES (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.unionEffectTime},
+            #{pojo.technologyField},
+            #{pojo.unionDirector},
+            #{pojo.unitPlace},
+            #{pojo.phone},
+            #{pojo.standingBodyName},
+            #{pojo.standingBodyAddress},
+            #{pojo.approvalDepartment},
+            #{pojo.approvalTime},
+            #{pojo.fileId},
+            #{pojo.createTime}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO jt_production_union
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null"> `id`,</if>
+            <if test="pojo.name!=null"> `name`,</if>
+            <if test="pojo.unionEffectTime!=null"> `union_effect_time`,</if>
+            <if test="pojo.technologyField!=null"> `technology_field`,</if>
+            <if test="pojo.unionDirector!=null"> `union_director`,</if>
+            <if test="pojo.unitPlace!=null"> `unit_place`,</if>
+            <if test="pojo.phone!=null"> `phone`,</if>
+            <if test="pojo.standingBodyName!=null"> `standing_body_name`,</if>
+            <if test="pojo.standingBodyAddress!=null"> `standing_body_address`,</if>
+            <if test="pojo.approvalDepartment!=null"> `approval_department`,</if>
+            <if test="pojo.approvalTime!=null"> `approval_time`,</if>
+            <if test="pojo.fileId!=null"> `file_id`,</if>
+            <if test="pojo.createTime!=null"> `create_time`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null">#{pojo.id},</if>
+            <if test="pojo.name!=null">#{pojo.name},</if>
+            <if test="pojo.unionEffectTime!=null">#{pojo.unionEffectTime},</if>
+            <if test="pojo.technologyField!=null">#{pojo.technologyField},</if>
+            <if test="pojo.unionDirector!=null">#{pojo.unionDirector},</if>
+            <if test="pojo.unitPlace!=null">#{pojo.unitPlace},</if>
+            <if test="pojo.phone!=null">#{pojo.phone},</if>
+            <if test="pojo.standingBodyName!=null">#{pojo.standingBodyName},</if>
+            <if test="pojo.standingBodyAddress!=null">#{pojo.standingBodyAddress},</if>
+            <if test="pojo.approvalDepartment!=null">#{pojo.approvalDepartment},</if>
+            <if test="pojo.approvalTime!=null">#{pojo.approvalTime},</if>
+            <if test="pojo.fileId!=null">#{pojo.fileId},</if>
+            <if test="pojo.createTime!=null">#{pojo.createTime},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO jt_production_union (
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.unionEffectTime},
+            #{pojo.technologyField},
+            #{pojo.unionDirector},
+            #{pojo.unitPlace},
+            #{pojo.phone},
+            #{pojo.standingBodyName},
+            #{pojo.standingBodyAddress},
+            #{pojo.approvalDepartment},
+            #{pojo.approvalTime},
+            #{pojo.fileId},
+            #{pojo.createTime}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE jt_production_union
+        <set>
+            <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
+            <if test="pojo.name != null"> `name` = #{pojo.name}, </if>
+            <if test="pojo.unionEffectTime != null"> `union_effect_time` = #{pojo.unionEffectTime}, </if>
+            <if test="pojo.technologyField != null"> `technology_field` = #{pojo.technologyField}, </if>
+            <if test="pojo.unionDirector != null"> `union_director` = #{pojo.unionDirector}, </if>
+            <if test="pojo.unitPlace != null"> `unit_place` = #{pojo.unitPlace}, </if>
+            <if test="pojo.phone != null"> `phone` = #{pojo.phone}, </if>
+            <if test="pojo.standingBodyName != null"> `standing_body_name` = #{pojo.standingBodyName}, </if>
+            <if test="pojo.standingBodyAddress != null"> `standing_body_address` = #{pojo.standingBodyAddress}, </if>
+            <if test="pojo.approvalDepartment != null"> `approval_department` = #{pojo.approvalDepartment}, </if>
+            <if test="pojo.approvalTime != null"> `approval_time` = #{pojo.approvalTime}, </if>
+            <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
+            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+</mapper>
+

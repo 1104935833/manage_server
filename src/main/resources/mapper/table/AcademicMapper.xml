@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="hxc.manage.mapper.AcademicMapper">
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="hxc.manage.model.table.Academic">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="team_personnel" property="teamPersonnel"/>
+        <result column="direction" property="direction"/>
+        <result column="school_place" property="schoolPlace"/>
+        <result column="address" property="address"/>
+        <result column="head_phone" property="headPhone"/>
+        <result column="declare_time" property="declareTime"/>
+        <result column="competent_department" property="competentDepartment"/>
+        <result column="level" property="level"/>
+        <result column="file_id" property="fileId"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`,
+        `name`,
+        `team_personnel`,
+        `direction`,
+        `school_place`,
+        `address`,
+        `head_phone`,
+        `declare_time`,
+        `competent_department`,
+        `level`,
+        `file_id`,
+        `create_time`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO jt_academic_innovation (
+            `id`,
+            `name`,
+            `team_personnel`,
+            `direction`,
+            `school_place`,
+            `address`,
+            `head_phone`,
+            `declare_time`,
+            `competent_department`,
+            `level`,
+            `file_id`,
+            `create_time`
+        ) VALUES (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.teamPersonnel},
+            #{pojo.direction},
+            #{pojo.schoolPlace},
+            #{pojo.address},
+            #{pojo.headPhone},
+            #{pojo.declareTime},
+            #{pojo.competentDepartment},
+            #{pojo.level},
+            #{pojo.fileId},
+            #{pojo.createTime}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO jt_academic_innovation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null"> `id`,</if>
+            <if test="pojo.name!=null"> `name`,</if>
+            <if test="pojo.teamPersonnel!=null"> `team_personnel`,</if>
+            <if test="pojo.direction!=null"> `direction`,</if>
+            <if test="pojo.schoolPlace!=null"> `school_place`,</if>
+            <if test="pojo.address!=null"> `address`,</if>
+            <if test="pojo.headPhone!=null"> `head_phone`,</if>
+            <if test="pojo.declareTime!=null"> `declare_time`,</if>
+            <if test="pojo.competentDepartment!=null"> `competent_department`,</if>
+            <if test="pojo.level!=null"> `level`,</if>
+            <if test="pojo.fileId!=null"> `file_id`,</if>
+            <if test="pojo.createTime!=null"> `create_time`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null">#{pojo.id},</if>
+            <if test="pojo.name!=null">#{pojo.name},</if>
+            <if test="pojo.teamPersonnel!=null">#{pojo.teamPersonnel},</if>
+            <if test="pojo.direction!=null">#{pojo.direction},</if>
+            <if test="pojo.schoolPlace!=null">#{pojo.schoolPlace},</if>
+            <if test="pojo.address!=null">#{pojo.address},</if>
+            <if test="pojo.headPhone!=null">#{pojo.headPhone},</if>
+            <if test="pojo.declareTime!=null">#{pojo.declareTime},</if>
+            <if test="pojo.competentDepartment!=null">#{pojo.competentDepartment},</if>
+            <if test="pojo.level!=null">#{pojo.level},</if>
+            <if test="pojo.fileId!=null">#{pojo.fileId},</if>
+            <if test="pojo.createTime!=null">#{pojo.createTime},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO jt_academic_innovation (
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.name},
+            #{pojo.teamPersonnel},
+            #{pojo.direction},
+            #{pojo.schoolPlace},
+            #{pojo.address},
+            #{pojo.headPhone},
+            #{pojo.declareTime},
+            #{pojo.competentDepartment},
+            #{pojo.level},
+            #{pojo.fileId},
+            #{pojo.createTime}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE jt_academic_innovation
+        <set>
+            <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
+            <if test="pojo.name != null"> `name` = #{pojo.name}, </if>
+            <if test="pojo.teamPersonnel != null"> `team_personnel` = #{pojo.teamPersonnel}, </if>
+            <if test="pojo.direction != null"> `direction` = #{pojo.direction}, </if>
+            <if test="pojo.schoolPlace != null"> `school_place` = #{pojo.schoolPlace}, </if>
+            <if test="pojo.address != null"> `address` = #{pojo.address}, </if>
+            <if test="pojo.headPhone != null"> `head_phone` = #{pojo.headPhone}, </if>
+            <if test="pojo.declareTime != null"> `declare_time` = #{pojo.declareTime}, </if>
+            <if test="pojo.competentDepartment != null"> `competent_department` = #{pojo.competentDepartment}, </if>
+            <if test="pojo.level != null"> `level` = #{pojo.level}, </if>
+            <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
+            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+</mapper>
+

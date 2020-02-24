@@ -9,7 +9,7 @@ public class Transverse implements Serializable {
 
     private Integer id;
 
-    private String projectName;
+    private String name;
 
     private String firstLevel;
 
@@ -28,4 +28,6 @@ public class Transverse implements Serializable {
     private Integer level;
 
     private Integer fileId;
+
+    private String createTime;
 }
