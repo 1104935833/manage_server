@@ -39,8 +39,10 @@ public class PortraitController {
     public RespBean insertPortrait(HttpServletRequest request, Portrait portrait) throws ParseException {
         User u = (User) request.getSession().getAttribute("userinfo");
         portrait.setCreateTime(String.valueOf(new Date().getTime()));
+        int id = tableService.table(request,u.getUser_id(),"tb_portrait",10);
+        portrait.setTableId(id);
         portraitService.insert(portrait);
-        tableService.table(request,u.getUser_id(),String.valueOf(portrait.getId()),"tb_portrait",10);
+
         return RespBean.ok("操作成功");
     }
 

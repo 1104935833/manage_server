@@ -38,8 +38,10 @@ public class PaperController {
         User u = (User) request.getSession().getAttribute("userinfo");
         paper.setTime(dateConverter.date1ToTimeMillis(paper.getTime()));
         paper.setCreateTime(String.valueOf(new Date().getTime()));
+        int id = tableService.table(request,u.getUser_id(),"tb_paper",7);
+        paper.setTableId(id);
         paperService.insert(paper);
-        tableService.table(request,u.getUser_id(),String.valueOf(paper.getId()),"tb_paper",7);
+
         return RespBean.ok("操作成功");
     }
 

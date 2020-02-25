@@ -1,5 +1,6 @@
 package hxc.manage.service.impl.table;
 
+import hxc.manage.mapper.CommonMapper;
 import hxc.manage.service.table.HonerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

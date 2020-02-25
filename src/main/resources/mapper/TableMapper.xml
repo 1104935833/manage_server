@@ -24,12 +24,10 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
         INSERT INTO `table` (
             `user_id`,
-            `table_id`,
             `table_name`,
             `state`
         ) VALUES (
             #{pojo.userId},
-            #{pojo.tableId},
             #{pojo.tableName},
             #{pojo.state}
         )

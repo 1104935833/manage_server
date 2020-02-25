@@ -11,10 +11,7 @@ import hxc.manage.service.TableService;
 import hxc.manage.service.table.ProfessionalService;
 import hxc.manage.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
@@ -22,6 +19,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+@RestController
 public class ProfessionalController {
 
     @Autowired
@@ -40,8 +38,10 @@ public class ProfessionalController {
     public RespBean insertProfessional(HttpServletRequest request, Professional professional) throws ParseException {
         User u = (User) request.getSession().getAttribute("userinfo");
         professional.setCreateTime(String.valueOf(new Date().getTime()));
+        int id = tableService.table(request,u.getUser_id(),"jx_professional_building",32);
+        professional.setTableId(id);
         professionalService.insert(professional);
-        tableService.table(request,u.getUser_id(),String.valueOf(professional.getId()),"jx_professional_building",32);
+
         return RespBean.ok("操作成功");
     }
 

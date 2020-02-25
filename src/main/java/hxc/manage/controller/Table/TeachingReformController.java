@@ -36,8 +36,10 @@ public class TeachingReformController {
     public RespBean insertTeachingReform(HttpServletRequest request, TeachingReform teachingReform) throws ParseException {
         User u = (User) request.getSession().getAttribute("userinfo");
         teachingReform.setCreateTime(String.valueOf(new Date().getTime()));
+        int id = tableService.table(request,u.getUser_id(),"jx_teaching_reform",29);
+        teachingReform.setTableId(id);
         teachingReformService.insert(teachingReform);
-        tableService.table(request,u.getUser_id(),String.valueOf(teachingReform.getId()),"jx_teaching_reform",29);
+
         return RespBean.ok("操作成功");
     }
 

@@ -16,6 +16,8 @@
         <result column="grade" property="grade"/>
         <result column="file_id" property="fileId"/>
         <result column="create_time" property="createTime"/>
+        <result column="table_id" property="tableId"/>
+
     </resultMap>
 
     <!--auto generated Code-->
@@ -32,7 +34,8 @@
         `declare_time`,
         `grade`,
         `file_id`,
-        `create_time`
+        `create_time`,
+        `table_id`
     </sql>
 
     <!--auto generated Code-->
@@ -50,7 +53,8 @@
             `declare_time`,
             `grade`,
             `file_id`,
-            `create_time`
+            `create_time`,
+            `table_id`
         ) VALUES (
             #{pojo.id},
             #{pojo.name},
@@ -64,7 +68,8 @@
             #{pojo.declareTime},
             #{pojo.grade},
             #{pojo.fileId},
-            #{pojo.createTime}
+            #{pojo.createTime},
+            #{pojo.tableId}
         )
     </insert>
 
@@ -85,6 +90,8 @@
             <if test="pojo.grade!=null"> `grade`,</if>
             <if test="pojo.fileId!=null"> `file_id`,</if>
             <if test="pojo.createTime!=null"> `create_time`,</if>
+            <if test="pojo.tableId!=null"> `table_id`,</if>
+
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -101,6 +108,8 @@
             <if test="pojo.grade!=null">#{pojo.grade},</if>
             <if test="pojo.fileId!=null">#{pojo.fileId},</if>
             <if test="pojo.createTime!=null">#{pojo.createTime},</if>
+            <if test="pojo.tableId!=null"> #{pojo.tableId},</if>
+
         </trim>
     </insert>
 
@@ -123,7 +132,8 @@
             #{pojo.declareTime},
             #{pojo.grade},
             #{pojo.fileId},
-            #{pojo.createTime}
+            #{pojo.createTime},
+            #{pojo.tableId}
             )
         </foreach>
     </insert>
@@ -145,6 +155,8 @@
             <if test="pojo.grade != null"> `grade` = #{pojo.grade}, </if>
             <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
             <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
+            <if test="pojo.tableId != null"> `table_id` = #{pojo.tableId} </if>
+
         </set>
         WHERE id = #{pojo.id}
     </update>
@@ -165,6 +177,8 @@
             <if test="pojo.grade != null">and `grade` = #{pojo.grade} </if>
             <if test="pojo.fileId != null">and `file_id` = #{pojo.fileId} </if>
             <if test="pojo.createTime != null">and `create_time` = #{pojo.createTime} </if>
+            <if test="pojo.tableId != null">and `table_id` = #{pojo.tableId} </if>
+
         </where>
     </select>
 </mapper>

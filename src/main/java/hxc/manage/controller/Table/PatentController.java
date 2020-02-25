@@ -37,8 +37,10 @@ public class PatentController {
     public RespBean insertPatent(HttpServletRequest request, Patent patent) throws ParseException {
         User u = (User) request.getSession().getAttribute("userinfo");
         patent.setCreateTime(String.valueOf(new Date().getTime()));
+        int id = tableService.table(request,u.getUser_id(),"tb_patent",9);
+        patent.setTableId(id);
         patentService.insert(patent);
-        tableService.table(request,u.getUser_id(),String.valueOf(patent.getId()),"tb_patent",9);
+
         return RespBean.ok("操作成功");
     }
 

@@ -9,7 +9,7 @@ public class Honer {
 
     private  Integer personalHonorType;
 
-    private  Integer personalHonorName;
+    private  String name;
 
     private  String personalGainTime;
 
@@ -22,5 +22,5 @@ public class Honer {
     private  Integer type;
 
     private  String createTime;
-
+    private Integer tableId;
 }

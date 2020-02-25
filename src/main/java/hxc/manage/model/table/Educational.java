@@ -25,14 +25,14 @@ public class Educational {
 
     private String declareTime;
 
-    private Integer projectCategory;
+    private String projectCategory;
 
-    private Integer declareCategory;
+    private String declareCategory;
 
-    private Integer grade;
+    private String grade;
 
     private Integer fileId;
 
     private String createTime;
-
+    private Integer tableId;
 }

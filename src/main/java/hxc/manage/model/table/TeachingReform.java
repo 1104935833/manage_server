@@ -14,5 +14,5 @@ public class TeachingReform {
    private Integer fileId;
 
    private String createTime;
-
+   private Integer tableId;
 }

@@ -39,8 +39,9 @@ public class AchievementController {
         User u = (User) request.getSession().getAttribute("userinfo");
         achievement.setApplyTime(dateConverter.date1ToTimeMillis(achievement.getApplyTime()));
         achievement.setCreateTime(String.valueOf(new Date().getTime()));
+        int id = tableService.table(request,u.getUser_id(),"jx_achievement_prize",28);
+        achievement.setTableId(id);
         achievementService.insert(achievement);
-        tableService.table(request,u.getUser_id(),String.valueOf(achievement.getId()),"jx_achievement_prize",28);
         return RespBean.ok("操作成功");
     }
 

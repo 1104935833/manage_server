@@ -40,8 +40,10 @@ public class FirstSubjectController {
         firstSubject.setApprovalTime(dateConverter.date1ToTimeMillis(firstSubject.getApprovalTime()));
         firstSubject.setInceptTime(dateConverter.date1ToTimeMillis(firstSubject.getInceptTime()));
         firstSubject.setCreateTime(String.valueOf(new Date().getTime()));
+        int id = tableService.table(request,u.getUser_id(),"jt_first_subject",17);
+        firstSubject.setTableId(id);
         firstSubjectService.insert(firstSubject);
-        tableService.table(request,u.getUser_id(),String.valueOf(firstSubject.getId()),"jt_first_subject",17);
+
         return RespBean.ok("操作成功");
     }
 

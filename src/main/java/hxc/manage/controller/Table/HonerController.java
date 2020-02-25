@@ -6,6 +6,7 @@ import hxc.manage.model.table.Honer;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.table.Honer;
 import hxc.manage.service.AuditService;
+import hxc.manage.service.CommonService;
 import hxc.manage.service.PeddingService;
 import hxc.manage.service.TableService;
 import hxc.manage.service.table.HonerService;
@@ -33,6 +34,9 @@ public class HonerController {
     PeddingService peddingService;
 
     @Autowired
+    CommonService commonService;
+
+    @Autowired
     AuditService auditService;
 
     @PostMapping("/insertHoner")
@@ -41,12 +45,14 @@ public class HonerController {
         User u = (User) request.getSession().getAttribute("userinfo");
         honer.setPersonalGainTime(dateConverter.date1ToTimeMillis(honer.getPersonalGainTime()));
         honer.setCreateTime(String.valueOf(new Date().getTime()));
-        honerService.insert(honer);
         int state;
         if (honer.getType()==1){
             state = 22;
         }else{ state=23; }
-        tableService.table(request,u.getUser_id(),String.valueOf(honer.getId()),"honer",state);
+        int id = tableService.table(request,u.getUser_id(),"honor",state);
+        honer.setTableId(id);
+        honerService.insert(honer);
+
         return RespBean.ok("操作成功");
     }
 
@@ -68,6 +74,11 @@ public class HonerController {
     public Map<String,Object> getHoner(@RequestParam(required = false) Map param){
         DateConverter dateConverter = new DateConverter();
         Honer res = honerService.getHoner(param);
+        List<Map<String,Object>> list = commonService.findOption("honor","", String.valueOf(res.getPersonalHonorType()));
+        for (Map<String,Object> map: list) {
+            res.setName(String.valueOf(map.get("label")));
+        }
+
         res.setPersonalGainTime(dateConverter.stampToDate(res.getPersonalGainTime()));
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);

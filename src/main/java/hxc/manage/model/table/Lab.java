@@ -38,5 +38,5 @@ public class Lab implements Serializable {
     private Integer fileId;
 
     private String createTime;
-
+    private Integer tableId;
 }

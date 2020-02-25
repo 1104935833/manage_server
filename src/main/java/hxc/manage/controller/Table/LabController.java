@@ -45,8 +45,10 @@ public class LabController {
         lab.setDeclareEndTime(dateConverter.date1ToTimeMillis(lab.getDeclareEndTime()));
         lab.setDeclareStartTime(dateConverter.date1ToTimeMillis(lab.getDeclareStartTime()));
         lab.setCreateTime(String.valueOf(new Date().getTime()));
+        int id = tableService.table(request,u.getUser_id(),"jt_lab",18);
+        lab.setTableId(id);
         labService.insert(lab);
-        tableService.table(request,u.getUser_id(),String.valueOf(lab.getId()),"jt_lab",18);
+
         return RespBean.ok("操作成功");
     }
 

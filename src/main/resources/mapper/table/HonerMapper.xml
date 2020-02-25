@@ -5,120 +5,138 @@
     <resultMap id="AllColumnMap" type="hxc.manage.model.table.Honer">
         <result column="id" property="id"/>
         <result column="personal_honor_type" property="personalHonorType"/>
-        <result column="personal_honor_name" property="personalHonorName"/>
+        <result column="name" property="name"/>
         <result column="personal_gain_time" property="personalGainTime"/>
         <result column="file_id" property="fileId"/>
         <result column="organization_name" property="organizationName"/>
         <result column="organization_member" property="organizationMember"/>
         <result column="type" property="type"/>
+        <result column="create_time" property="createTime"/>
+        <result column="table_id" property="tableId"/>
     </resultMap>
 
     <!--auto generated Code-->
     <sql id="all_column">
         `id`,
         `personal_honor_type`,
-        `personal_honor_name`,
+        `name`,
         `personal_gain_time`,
         `file_id`,
         `organization_name`,
         `organization_member`,
-        `type`
+        `type`,
+        `create_time`,
+        `table_id`
     </sql>
 
     <!--auto generated Code-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
-        INSERT INTO honer (
+        INSERT INTO honor (
             `id`,
             `personal_honor_type`,
-            `personal_honor_name`,
+            `name`,
             `personal_gain_time`,
             `file_id`,
             `organization_name`,
             `organization_member`,
-            `type`
+            `type`,
+            `create_time`,
+            `table_id`
         ) VALUES (
             #{pojo.id},
             #{pojo.personalHonorType},
-            #{pojo.personalHonorName},
+            #{pojo.name},
             #{pojo.personalGainTime},
             #{pojo.fileId},
             #{pojo.organizationName},
             #{pojo.organizationMember},
-            #{pojo.type}
+            #{pojo.type},
+            #{pojo.createTime},
+            #{pojo.tableId}
         )
     </insert>
 
     <!--auto generated Code-->
     <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
-        INSERT INTO honer
+        INSERT INTO honor
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pojo.id!=null"> `id`,</if>
             <if test="pojo.personalHonorType!=null"> `personal_honor_type`,</if>
-            <if test="pojo.personalHonorName!=null"> `personal_honor_name`,</if>
+            <if test="pojo.name!=null"> `name`,</if>
             <if test="pojo.personalGainTime!=null"> `personal_gain_time`,</if>
             <if test="pojo.fileId!=null"> `file_id`,</if>
             <if test="pojo.organizationName!=null"> `organization_name`,</if>
             <if test="pojo.organizationMember!=null"> `organization_member`,</if>
             <if test="pojo.type!=null"> `type`,</if>
+            <if test="pojo.createTime!=null"> `create_time`,</if>
+            <if test="pojo.tableId!=null"> `table_id`,</if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="pojo.id!=null">#{pojo.id},</if>
             <if test="pojo.personalHonorType!=null">#{pojo.personalHonorType},</if>
-            <if test="pojo.personalHonorName!=null">#{pojo.personalHonorName},</if>
+            <if test="pojo.name!=null">#{pojo.name},</if>
             <if test="pojo.personalGainTime!=null">#{pojo.personalGainTime},</if>
             <if test="pojo.fileId!=null">#{pojo.fileId},</if>
             <if test="pojo.organizationName!=null">#{pojo.organizationName},</if>
             <if test="pojo.organizationMember!=null">#{pojo.organizationMember},</if>
             <if test="pojo.type!=null">#{pojo.type},</if>
+            <if test="pojo.createTime!=null">#{pojo.createTime},</if>
+            <if test="pojo.tableId!=null"> #{pojo.tableId},</if>
         </trim>
     </insert>
 
     <!--auto generated Code-->
     <insert id="insertList">
-        INSERT INTO honer (
+        INSERT INTO honor (
         <include refid="all_column"/>
         )VALUES
         <foreach collection="pojos" item="pojo" index="index" separator=",">
             (
             #{pojo.id},
             #{pojo.personalHonorType},
-            #{pojo.personalHonorName},
+            #{pojo.name},
             #{pojo.personalGainTime},
             #{pojo.fileId},
             #{pojo.organizationName},
             #{pojo.organizationMember},
-            #{pojo.type}
+            #{pojo.type},
+            #{pojo.createTime},
+            #{pojo.tableId}
             )
         </foreach>
     </insert>
 
     <!--auto generated Code-->
     <update id="update">
-        UPDATE honer
+        UPDATE honor
         <set>
             <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
             <if test="pojo.personalHonorType != null"> `personal_honor_type` = #{pojo.personalHonorType}, </if>
-            <if test="pojo.personalHonorName != null"> `personal_honor_name` = #{pojo.personalHonorName}, </if>
+            <if test="pojo.name != null"> `name` = #{pojo.name}, </if>
             <if test="pojo.personalGainTime != null"> `personal_gain_time` = #{pojo.personalGainTime}, </if>
             <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
             <if test="pojo.organizationName != null"> `organization_name` = #{pojo.organizationName}, </if>
             <if test="pojo.organizationMember != null"> `organization_member` = #{pojo.organizationMember}, </if>
             <if test="pojo.type != null"> `type` = #{pojo.type} </if>
+            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
+            <if test="pojo.tableId != null"> `table_id` = #{pojo.tableId} </if>
         </set>
         WHERE id = #{pojo.id}
     </update>
     <select id="getHoner" resultMap="AllColumnMap">
-        select <include refid="all_column"/> from honer
+        select <include refid="all_column"/> from honor
         <where>
             <if test="pojo.id != null"> `id` = #{pojo.id}</if>
             <if test="pojo.personalHonorType != null">and `personal_honor_type` = #{pojo.personalHonorType} </if>
-            <if test="pojo.personalHonorName != null">and `personal_honor_name` = #{pojo.personalHonorName} </if>
+            <if test="pojo.name != null">and `name` = #{pojo.name} </if>
             <if test="pojo.personalGainTime != null">and `personal_gain_time` = #{pojo.personalGainTime} </if>
             <if test="pojo.fileId != null">and `file_id` = #{pojo.fileId} </if>
             <if test="pojo.organizationName != null">and `organization_name` = #{pojo.organizationName} </if>
             <if test="pojo.organizationMember != null">and `organization_member` = #{pojo.organizationMember} </if>
             <if test="pojo.type != null">and `type` = #{pojo.type} </if>
+            <if test="pojo.createTime != null">and `create_time` = #{pojo.createTime} </if>
+            <if test="pojo.tableId != null">and `table_id` = #{pojo.tableId} </if>
         </where>
     </select>
 </mapper>

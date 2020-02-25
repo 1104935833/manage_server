@@ -16,8 +16,8 @@
             c.table_name
         FROM
             ${map.tableName} as a
-            inner join `table` d on d.table_id = a.id
-            INNER JOIN audit b ON d.id = b.table_id
+            inner join `table` d on a.table_id = d.id
+            INNER JOIN audit b ON a.table_id = b.table_id
             INNER JOIN table_state c ON b.proposer_type = c.id
             <where>
                 b.proposer_id = #{map.userId}

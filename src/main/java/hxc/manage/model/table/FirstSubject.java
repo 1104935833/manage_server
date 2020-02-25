@@ -34,4 +34,5 @@ public class FirstSubject implements Serializable {
     private Integer fileId;
 
     private String createTime;
+    private Integer tableId;
 }

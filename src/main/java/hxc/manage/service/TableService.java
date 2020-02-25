@@ -9,6 +9,6 @@ public interface TableService {
 
     int insert(Table pojo);
 
-    void table(HttpServletRequest request, String user_id, String tableId, String tableName, int state);
+    int table(HttpServletRequest request, String user_id, String tableName, int state);
 
 }

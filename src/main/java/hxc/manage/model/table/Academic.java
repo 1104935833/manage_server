@@ -31,6 +31,7 @@ public class Academic implements Serializable {
 
     private String createTime;
 
+    private Integer tableId;
 
 
 }

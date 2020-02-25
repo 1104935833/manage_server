@@ -39,8 +39,10 @@ public class EducationalController {
         User u = (User) request.getSession().getAttribute("userinfo");
         educational.setDeclareTime(dateConverter.date1ToTimeMillis(educational.getDeclareTime()));
         educational.setCreateTime(String.valueOf(new Date().getTime()));
+        int id = tableService.table(request,u.getUser_id(),"jx_educational_reform",27);
+        educational.setTableId(id);
         educationalService.insert(educational);
-        tableService.table(request,u.getUser_id(),String.valueOf(educational.getId()),"jx_educational_reform",27);
+
         return RespBean.ok("操作成功");
     }
 

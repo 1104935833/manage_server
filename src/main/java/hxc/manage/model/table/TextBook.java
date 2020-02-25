@@ -30,5 +30,6 @@ public class TextBook {
     private Integer fileId;
 
     private String createTime;
+    private Integer tableId;
 
 }

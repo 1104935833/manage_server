@@ -21,5 +21,5 @@ public class Professional {
 
     private String createTime;
 
-
+    private Integer tableId;
 }

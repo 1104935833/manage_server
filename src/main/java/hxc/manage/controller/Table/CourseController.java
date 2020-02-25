@@ -40,8 +40,9 @@ public class CourseController {
         User u = (User) request.getSession().getAttribute("userinfo");
         course.setDeclareTime(dateConverter.date1ToTimeMillis(course.getDeclareTime()));
         course.setCreateTime(String.valueOf(new Date().getTime()));
+        int id = tableService.table(request,u.getUser_id(),"jx_course_construction",30);
+        course.setTableId(id);
         courseService.insert(course);
-        tableService.table(request,u.getUser_id(),String.valueOf(course.getId()),"jx_course_construction",30);
         return RespBean.ok("操作成功");
     }
 

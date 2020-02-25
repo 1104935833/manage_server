@@ -38,4 +38,5 @@ public class Technological implements Serializable {
     private Integer fileId;
 
     private String createTime;
+    private Integer tableId;
 }

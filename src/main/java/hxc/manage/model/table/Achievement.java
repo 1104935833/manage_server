@@ -21,10 +21,10 @@ public class Achievement {
 
     private String applyTime;
 
-    private Integer grade;
+    private String grade;
 
     private Integer fileId;
 
     private String createTime;
-
+    private Integer tableId;
 }

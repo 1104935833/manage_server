@@ -32,16 +32,18 @@ public class StudentResearchController {
     @Autowired
     AuditService auditService;
 
-    @PostMapping("/insertStudentResearchService")
+    @PostMapping("/insertStudentResearch")
     public RespBean insertStudentResearchService(HttpServletRequest request, StudentResearch studentResearch) throws ParseException {
         User u = (User) request.getSession().getAttribute("userinfo");
         studentResearch.setCreateTime(String.valueOf(new Date().getTime()));
+        int id = tableService.table(request,u.getUser_id(),"jx_student_research",24);
+        studentResearch.setTableId(id);
         studentResearchService.insert(studentResearch);
-        tableService.table(request,u.getUser_id(),String.valueOf(studentResearch.getId()),"jx_student_research",24);
+
         return RespBean.ok("操作成功");
     }
 
-    @PostMapping("/updataStudentResearchService")
+    @PostMapping("/updataStudentResearch")
     public RespBean updataStudentResearchService(HttpServletRequest request, @RequestBody Map info) throws ParseException {
         Map<String,Object> map = info;
         StudentResearch studentResearch = Util.mapToEntity((Map<String, Object>) map.get("studentResearch"),StudentResearch.class) ;
@@ -53,7 +55,7 @@ public class StudentResearchController {
         return RespBean.ok("操作成功");
     }
 
-    @GetMapping("/getStudentResearchService")
+    @GetMapping("/getStudentResearch")
     public Map<String,Object> getStudentResearchService(@RequestParam(required = false) Map param){
         StudentResearch res = studentResearchService.getStudentResearchService(param);
         Map<String,Object> map = new HashMap<>();

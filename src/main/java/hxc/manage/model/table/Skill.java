@@ -7,7 +7,7 @@ public class Skill {
 
     private Integer id;
 
-    private String unitPlace;
+    private String name;
 
     private String professionalSubject;
 
@@ -23,4 +23,5 @@ public class Skill {
 
     private String createTime;
 
+    private Integer tableId;
 }

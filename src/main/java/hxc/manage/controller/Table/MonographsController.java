@@ -43,8 +43,11 @@ public class MonographsController {
         User u = (User) request.getSession().getAttribute("userinfo");
         monographs.setFinishTime(dateConverter.date1ToTimeMillis(monographs.getFinishTime()));
         monographs.setCreateTime(String.valueOf(new Date().getTime()));
+        int id = tableService.table(request,u.getUser_id(),"tb_Monographs",8);
+        monographs.setTableId(id);
         monographsService.insert(monographs);
-        tableService.table(request,u.getUser_id(),String.valueOf(monographs.getId()),"tb_Monographs",8);
+
+
         return RespBean.ok("操作成功");
     }
 

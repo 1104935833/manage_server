@@ -42,8 +42,9 @@ public class TransverseController {
         User u = (User) request.getSession().getAttribute("userinfo");
         transverse.setStartTime(dateConverter.date1ToTimeMillis(transverse.getStartTime()));
         transverse.setCreateTime(String.valueOf(new Date().getTime()));
+        int id = tableService.table(request,u.getUser_id(),"tb_transverse",11);
+        transverse.setTableId(id);
         transverseService.insert(transverse);
-        tableService.table(request,u.getUser_id(),String.valueOf(transverse.getId()),"tb_transverse",11);
         return RespBean.ok("操作成功");
     }
 

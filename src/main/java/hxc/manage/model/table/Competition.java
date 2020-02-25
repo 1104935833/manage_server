@@ -28,10 +28,10 @@ public class Competition {
 
     private String approvalTime;
 
-    private Integer grade;
+    private String grade;
 
     private Integer fileId;
 
     private String createTime;
-    
+    private Integer tableId;
 }

@@ -38,5 +38,5 @@ public class Paper implements Serializable {
     private String createTime;
 
     private Integer fileId;
-
+    private Integer tableId;
 }

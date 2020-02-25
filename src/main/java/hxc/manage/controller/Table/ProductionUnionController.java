@@ -42,8 +42,10 @@ public class ProductionUnionController {
         productionUnion.setUnionEffectTime(dateConverter.date1ToTimeMillis(productionUnion.getUnionEffectTime()));
         productionUnion.setApprovalTime(dateConverter.date1ToTimeMillis(productionUnion.getApprovalTime()));
         productionUnion.setCreateTime(String.valueOf(new Date().getTime()));
+        int id = tableService.table(request,u.getUser_id(),"jt_production_union",20);
+        productionUnion.setTableId(id);
         productionUnionService.insert(productionUnion);
-        tableService.table(request,u.getUser_id(),String.valueOf(productionUnion.getId()),"jt_production_union",20);
+
         return RespBean.ok("操作成功");
     }
 

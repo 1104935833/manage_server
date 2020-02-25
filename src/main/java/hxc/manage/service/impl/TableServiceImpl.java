@@ -42,10 +42,9 @@ public class TableServiceImpl implements TableService {
      * @param request
      * @return
      */
-    public void table(HttpServletRequest request,String user_id,String tableId, String tableName,int state){
+    public int table(HttpServletRequest request,String user_id, String tableName,int state){
         Table tab = new Table();
         tab.setUserId(Integer.valueOf(user_id));
-        tab.setTableId(tableId);//需要更改为各表id
         tab.setTableName(tableName);
         tab.setState(state);//类型暂定
         insert(tab);//table插入
@@ -57,6 +56,7 @@ public class TableServiceImpl implements TableService {
         audit.setTableId(tab.getId());
         audit.setAuditStatus(0);
         auditService.insert(audit);//audit插入
+        return tab.getId();
     }
 
 }

@@ -36,8 +36,10 @@ public class SkillController {
     public RespBean insertSkill(HttpServletRequest request, Skill skill) throws ParseException {
         User u = (User) request.getSession().getAttribute("userinfo");
         skill.setCreateTime(String.valueOf(new Date().getTime()));
+        int id = tableService.table(request,u.getUser_id(),"jx_skill_competition",25);
+        skill.setTableId(id);
         skillService.insert(skill);
-        tableService.table(request,u.getUser_id(),String.valueOf(skill.getId()),"jx_skill_competition",25);
+
         return RespBean.ok("操作成功");
     }
 

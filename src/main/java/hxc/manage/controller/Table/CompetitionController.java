@@ -42,8 +42,10 @@ public class CompetitionController {
         User u = (User) request.getSession().getAttribute("userinfo");
         competition.setApprovalTime(dateConverter.date1ToTimeMillis(competition.getApprovalTime()));
         competition.setCreateTime(String.valueOf(new Date().getTime()));
+
+        int id = tableService.table(request,u.getUser_id(),"jx_competition_direct",26);
+        competition.setTableId(id);
         competitionService.insert(competition);
-        tableService.table(request,u.getUser_id(),String.valueOf(competition.getId()),"jx_competition_direct",26);
         return RespBean.ok("操作成功");
     }
 

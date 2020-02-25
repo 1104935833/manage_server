@@ -30,7 +30,7 @@ public class Portrait implements Serializable {
     private Integer type;
 
     private String createTime;
-
+    private Integer tableId;
 }
 
 

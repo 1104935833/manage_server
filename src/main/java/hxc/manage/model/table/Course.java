@@ -28,5 +28,5 @@ public class Course {
     private Integer fileId;
 
     private String createTime;
-
+    private Integer tableId;
 }

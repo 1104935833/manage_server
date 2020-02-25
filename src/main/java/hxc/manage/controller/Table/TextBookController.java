@@ -43,8 +43,10 @@ public class TextBookController {
         textBook.setDeclareTime(dateConverter.date1ToTimeMillis(textBook.getDeclareTime()));
 
         textBook.setCreateTime(String.valueOf(new Date().getTime()));
+        int id = tableService.table(request,u.getUser_id(),"jx_textbook_compilation",31);
+        textBook.setTableId(id);
         textBookService.insert(textBook);
-        tableService.table(request,u.getUser_id(),String.valueOf(textBook.getId()),"jx_textbook_compilation",31);
+
         return RespBean.ok("操作成功");
     }
 

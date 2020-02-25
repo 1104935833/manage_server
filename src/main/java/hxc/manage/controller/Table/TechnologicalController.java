@@ -44,8 +44,9 @@ public class TechnologicalController {
         technological.setDeclareTime(dateConverter.date1ToTimeMillis(technological.getDeclareTime()));
         technological.setApprovalTime(dateConverter.date1ToTimeMillis(technological.getApprovalTime()));
         technological.setCreateTime(String.valueOf(new Date().getTime()));
+        int id = tableService.table(request,u.getUser_id(),"jt_technological_innovation",19);
+        technological.setTableId(id);
         technologicalService.insert(technological);
-        tableService.table(request,u.getUser_id(),String.valueOf(technological.getId()),"jt_technological_innovation",19);
         return RespBean.ok("操作成功");
     }
 

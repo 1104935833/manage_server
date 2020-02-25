@@ -21,5 +21,5 @@ public interface HonerMapper {
     int update(@Param("pojo") Honer pojo);
 
 
-    Honer getHoner(@Param("pojp") Map param);
+    Honer getHoner(@Param("pojo") Map param);
 }
