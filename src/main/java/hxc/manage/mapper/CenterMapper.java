@@ -19,4 +19,6 @@ public interface CenterMapper {
     List<Map<String, Object>> getPerforEcharts(@Param("user_id") String user_id, @Param("year") int year);
 
     List<Map<String, Object>> getPerforEcharts1(@Param("id") String id );
+
+    List<Map<String, Object>> getPerformance(@Param("id") String id,@Param("state1") String state1,@Param("state2") String state2 );
 }

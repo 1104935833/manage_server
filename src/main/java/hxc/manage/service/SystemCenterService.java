@@ -14,5 +14,9 @@ public interface SystemCenterService {
 
     List<Map<String, Object>> getPerforEcharts(String user_id, int year);
 
-    List<Map<String, Object>> getPerforEcharts1(@Param("id") String id );
+    List<Map<String, Object>> getPerforEcharts1(String id );
+
+    List<Map<String, Object>> getPerformance(String id,String state1,String state2);
+
+    Map<String, Object> getCountAudit(String user_id);
 }

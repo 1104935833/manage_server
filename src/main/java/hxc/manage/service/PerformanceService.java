@@ -10,4 +10,6 @@ public interface PerformanceService {
 
     List<Map<String,Object>> getPerformanceByUserId(Map<String, Object> map);
 
+    List<Map<String,Object>> getperType();
+
 }

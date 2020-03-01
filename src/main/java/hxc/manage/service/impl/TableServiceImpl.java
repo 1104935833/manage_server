@@ -46,12 +46,12 @@ public class TableServiceImpl implements TableService {
         Table tab = new Table();
         tab.setUserId(Integer.valueOf(user_id));
         tab.setTableName(tableName);
-        tab.setState(state);//类型暂定
+        tab.setState(state);
         insert(tab);//table插入
-        peddingService.sendPedding(request,tab.getId().toString(),"1","","1");//pedding插入    type:暂定为1
+        peddingService.sendPedding(request,tab.getId().toString(),"1","","1");//pedding插入
         Audit audit = new Audit();
         audit.setProposerId(Integer.valueOf(user_id));
-        audit.setProposerType(state);//类型暂定
+        audit.setProposerType(state);
         audit.setProposerTime(new Date().getTime()+"");
         audit.setTableId(tab.getId());
         audit.setAuditStatus(0);

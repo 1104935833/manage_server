@@ -42,4 +42,8 @@
         GROUP BY
             d.id
     </select>
+    <select id="getPerformance" resultType="java.util.Map">
+        	SELECT a.table_name, a.id FROM `table` a, table_state b WHERE a.state = b.id and user_id = #{id} and b.id in(
+						select a.id from table_state a,table_state b where a.state= b.id and b.id in( #{state1},#{state2}))
+    </select>
 </mapper>

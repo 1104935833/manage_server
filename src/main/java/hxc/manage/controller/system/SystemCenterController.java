@@ -61,9 +61,6 @@ public class SystemCenterController {
     public List<Map<String, Object>> getPerforEcharts(HttpServletRequest request,@RequestParam(defaultValue = "3") int year){
         User u = (User) request.getSession().getAttribute("userinfo");
         List<Map<String, Object>> map = systemCenterService.getPerforEcharts(u.getUser_id(),year);
-
-
-
         return map;
 
     }
@@ -73,9 +70,34 @@ public class SystemCenterController {
     public List<Map<String, Object>> getPerforEcharts1(HttpServletRequest request){
         User u = (User) request.getSession().getAttribute("userinfo");
         List<Map<String, Object>> map = systemCenterService.getPerforEcharts1(u.getUser_id());
-
         return map;
 
     }
+
+    //3大类业绩获得情况
+    @GetMapping("/getPerformance")
+    public Map<String, Object> getPerformance(HttpServletRequest request){
+        User u = (User) request.getSession().getAttribute("userinfo");
+        List<Map<String, Object>> map1 = systemCenterService.getPerformance(u.getUser_id(),"3","4");
+        List<Map<String, Object>> map2 = systemCenterService.getPerformance(u.getUser_id(),"5","6");
+        List<Map<String, Object>> map3 = systemCenterService.getPerformance(u.getUser_id(),"1","2");
+        Map<String,Object> res= new HashMap<>();
+        res.put("tableData1",map1);
+        res.put("tableData2",map2);
+        res.put("tableData3",map3);
+        return res;
+
+    }
+
+
+    //获取审核各类型个数
+    @GetMapping("/getCountAudit")
+    public Map<String,Object> getCountAudit(HttpServletRequest request){
+        User u = (User) request.getSession().getAttribute("userinfo");
+        Map<String, Object> res = systemCenterService.getCountAudit(u.getUser_id());
+
+        return res;
+    }
+
 
 }

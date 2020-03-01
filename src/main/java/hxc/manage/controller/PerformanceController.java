@@ -64,6 +64,12 @@ public class PerformanceController {
 
         return res;
     }
+    @GetMapping("/getperType")
+    public List<Map<String,Object>> getperType(){
+        return performanceService.getperType();
+
+
+    }
 
 
 }

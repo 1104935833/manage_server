@@ -1,7 +1,9 @@
 package hxc.manage.service.impl;
 
+import hxc.manage.common.DateConverter;
 import hxc.manage.common.EmailAndMessage;
 import hxc.manage.mapper.CenterMapper;
+import hxc.manage.mapper.PerformanceMapper;
 import hxc.manage.model.UserDetail;
 import hxc.manage.service.SystemCenterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class SystemCenterServiceImpl implements SystemCenterService {
 
     @Autowired
     CenterMapper centerMapper;
+
+    @Autowired
+    PerformanceMapper performanceMapper;
 
     @Override
     public void getYzm(String phone) {
@@ -72,6 +77,36 @@ public class SystemCenterServiceImpl implements SystemCenterService {
 
         }
         return list;
+    }
+
+    @Override
+    public List<Map<String, Object>> getPerformance(String id, String state1, String state2) {
+        DateConverter dateConverter = new DateConverter();
+        List<Map<String, Object>> map = centerMapper.getPerformance(id,state1,state2);
+        Map<String,Object> con = new HashMap<>();
+        List<Map<String,Object>> per = new ArrayList<>();
+        for (Map<String,Object> m : map){
+            con.put("tableName",m.get("table_name"));
+            con.put("userId",id);
+            con.put("tableId",m.get("id"));
+            Map<String,Object> p =performanceMapper.getPerformanceByUserId1(con);
+
+            if(p!=null){
+                p.put("create_time",dateConverter.stampToDate(String.valueOf(p.get("create_time"))));
+                String name = String.valueOf(p.get("name"));
+                if (name.length()>5) name = name.substring(0,5)+"......";
+                p.put("name",name);
+                per.add(p);
+            }
+
+        }
+        return per;
+    }
+
+    @Override
+    public Map<String, Object> getCountAudit(String user_id) {
+        return performanceMapper.getCountAudit(user_id);
+
     }
 
 

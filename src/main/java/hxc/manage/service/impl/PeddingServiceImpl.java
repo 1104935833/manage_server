@@ -9,6 +9,7 @@ import hxc.manage.service.PeddingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
@@ -25,6 +26,7 @@ public class PeddingServiceImpl implements PeddingService {
 
     @Autowired
     EmailAndMessage emailAndMessage;
+
 
 //    public List<SysRole> findSysRole(){
 //
@@ -69,7 +71,7 @@ public class PeddingServiceImpl implements PeddingService {
         Pedding pedding = new Pedding();
         if (state.equals("1")) {
             pedding.setType(type);//个人or集体;1,2
-            pedding.setMain("有一条xxx的需要审核");
+            pedding.setMain("有一条申请需要审核");
             pedding.setName("审核");
             pedding.setState("0");
             pedding.setTableId(tableId);
@@ -146,13 +148,13 @@ public class PeddingServiceImpl implements PeddingService {
     }
 
     void sendMailAndPhone(String role){
-//        Map<String,Object> map = sysRoleMapper.fingPhoneAndEmail(role);
-//        emailAndMessage.send(map.get("phone").toString(),"1");
-//        try {
-//            emailAndMessage.sendMail(map.get("email").toString());
-//        } catch (MessagingException e) {
-//            e.printStackTrace();
-//        }
+        Map<String,Object> map = peddingMapper.fingPhoneAndEmail(role);
+        emailAndMessage.send(map.get("phone").toString(),"1");
+        try {
+            emailAndMessage.sendMail(map.get("email").toString());
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 
 

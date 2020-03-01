@@ -55,4 +55,9 @@ public class PerformanceSerivceImpl implements PerformanceService {
 
         return m;
     }
+
+    @Override
+    public List<Map<String,Object>> getperType() {
+        return performanceMapper.getperType();
+    }
 }
