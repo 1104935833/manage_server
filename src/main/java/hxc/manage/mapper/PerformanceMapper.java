@@ -19,6 +19,7 @@ public interface PerformanceMapper {
 
     Map<String, Object> getCountAudit(String user_id);
 
-    List<Map<String,Object>> getperType();
+    List<Map<String,Object>> getperType(@Param("state") String state,@Param("id") String id,@Param("group") String group);
 
+    List<Map<String, Object>> searchPerNameNotNull(@Param("map") Map<String, Object> map);
 }

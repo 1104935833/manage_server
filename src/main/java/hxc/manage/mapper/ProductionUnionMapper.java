@@ -19,4 +19,6 @@ public interface ProductionUnionMapper {
     int update(@Param("pojo") ProductionUnion pojo);
 
     ProductionUnion getProductionUnion(@Param("pojo") Map<String, Object> param);
+
+    List<Map<String, Object>> getList(@Param("map") Map<String, Object> map);
 }

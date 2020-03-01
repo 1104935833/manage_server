@@ -19,4 +19,6 @@ public interface LabMapper {
     int update(@Param("pojo") Lab pojo);
 
     Lab getLab(@Param("pojo") Map<String, Object> param);
+
+    List<Map<String, Object>> getList(@Param("map") Map<String, Object> map);
 }

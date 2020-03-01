@@ -19,4 +19,6 @@ public interface TextBookMapper {
     int update(@Param("pojo") TextBook pojo);
 
     TextBook getTextBook(@Param("pojo") Map<String, Object> param);
+
+    List<Map<String, Object>> getList(@Param("map") Map<String, Object> map);
 }

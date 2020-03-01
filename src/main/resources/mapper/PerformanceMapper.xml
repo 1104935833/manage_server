@@ -20,15 +20,17 @@
             INNER JOIN audit b ON a.table_id = b.table_id
             INNER JOIN table_state c ON b.proposer_type = c.id
             <where>
-                b.proposer_id = #{map.userId}
+                <if test="map.userId!=null and map.userId!=''">
+                    and b.proposer_id = #{map.userId}
+                </if>
                 <if test="map.name!=null and map.name!=''">
-                  and `name` = #{map.name}
+                  and a.`name` like "%"#{map.name}"%"
                 </if>
                 <if test="map.tableId!=null and map.tableId!=''">
                     and d.`id` = #{map.tableId}
                 </if>
                 <if test="map.keywords!=null and map.keywords!=''">
-                    and `name` = #{map.keywords}
+                    and a.`name` like "%"#{map.keywords}"%"
                 </if>
                 <if test="map.table_name!=null and map.table_name!=''">
                   and `table_name` = #{map.table_name}
@@ -40,7 +42,7 @@
                     and `audit_status` = #{map.audit_status}
                 </if>
             </where>
-
+        limit #{map.start},#{map.size}
     </select>
     <select id="getTableByUserId" resultMap="AllColumnMap">
         select * from `table` where user_id = #{id} limit #{start},#{size}
@@ -57,15 +59,17 @@
         INNER JOIN audit b ON a.table_id = b.table_id
         INNER JOIN table_state c ON b.proposer_type = c.id
         <where>
-            b.proposer_id = #{map.userId}
+            <if test="map.userId!=null and map.userId!=''">
+                and b.proposer_id = #{map.userId}
+            </if>
             <if test="map.name!=null and map.name!=''">
-                and `name` = #{map.name}
+                and a.`name` like "%"#{map.name}"%"
             </if>
             <if test="map.tableId!=null and map.tableId!=''">
                 and d.`id` = #{map.tableId}
             </if>
             <if test="map.keywords!=null and map.keywords!=''">
-                and `name` = #{map.keywords}
+                and a.`name` like "%"#{map.keywords}"%"
             </if>
             <if test="map.table_name!=null and map.table_name!=''">
                 and `table_name` = #{map.table_name}
@@ -88,6 +92,37 @@
     </select>
     <select id="getperType" resultType="java.util.Map">
         select * from table_state
+        <where>
+            <if test="state!='' and state!=null ">
+                and state = #{state}
+            </if>
+            <if test="id!='' and id!=null ">
+                and id = #{id}
+            </if>
+            <if test="group=='group'">
+                and state in (2,4,6) or id in (2,4,6)
+            </if>
+            <if test="group=='self'">
+                and state in (1,3,5) or id in (1,3,5)
+            </if>
+        </where>
+    </select>
+    <select id="searchPerNameNotNull" resultType="java.util.Map">
+        SELECT
+            a.*
+        FROM
+            ( SELECT id FROM `table` WHERE user_id IN ( SELECT user_id FROM user_details WHERE `name` LIKE "%"#{map.username}"%" ) AND state = #{map.option} ) b
+            INNER JOIN ( SELECT * FROM ${map.tableName} ) a ON a.table_id = b.id
+            <where>
+                <if test="map.name!=null and map.name!=''">
+                    and a.NAME LIKE "%"#{map.name}"%"
+                </if>
+                <if test="map.starTime!=null and map.endTime!=null">
+                    and `create_time` between #{map.starTime} and #{map.endTime}
+                </if>
+            </where>
+            order by create_time
+            limit #{map.start},#{map.size}
     </select>
 
 </mapper>

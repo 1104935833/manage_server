@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import hxc.manage.common.UserUtils;
 import hxc.manage.model.RespBean;
 import hxc.manage.service.impl.UserServiceImpl;
+import hxc.manage.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.*;
@@ -36,6 +37,9 @@ import java.io.PrintWriter;
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    RedisUtil redisUtil;
 
     @Autowired
     UserServiceImpl userServiceImpl;
@@ -110,6 +114,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                         HttpServletResponse resp,
                                                         Authentication auth) throws IOException {
                         req.getSession().setAttribute("userinfo",UserUtils.getCurrentUser());//登陆成功存入session
+                        redisUtil.del("menu","menuAlll","part");
                         resp.setContentType("application/json;charset=utf-8");
                         RespBean respBean = RespBean.ok("登录成功!", UserUtils.getCurrentUser());
                         ObjectMapper om = new ObjectMapper();

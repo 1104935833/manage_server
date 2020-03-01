@@ -19,4 +19,5 @@ public interface PatentMapper {
     int update(@Param("pojo") Patent pojo);
 
     Patent getPatent(@Param("pojo") Map<String, Object> param);
+    List<Map<String, Object>> getList(@Param("map") Map<String, Object> map);
 }

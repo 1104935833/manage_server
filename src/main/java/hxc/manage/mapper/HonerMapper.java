@@ -20,6 +20,7 @@ public interface HonerMapper {
 
     int update(@Param("pojo") Honer pojo);
 
-
     Honer getHoner(@Param("pojo") Map param);
+
+    List<Map<String, Object>> getList(@Param("map") Map<String, Object> map);
 }

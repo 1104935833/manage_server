@@ -19,4 +19,6 @@ public interface TransverseMapper {
     int update(@Param("pojo") Transverse pojo);
 
     Transverse getTransverse(@Param("pojo") Map<String, Object> param);
+
+    List<Map<String, Object>> getList(@Param("map") Map<String, Object> map);
 }

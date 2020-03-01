@@ -19,4 +19,6 @@ public interface TeachingReformMapper {
     int update(@Param("pojo") TeachingReform pojo);
 
     TeachingReform getTeachingReform(@Param("pojo") Map<String, Object> param);
+
+    List<Map<String, Object>> getList(@Param("map") Map<String, Object> map);
 }

@@ -19,4 +19,6 @@ public interface SkillMapper {
     int update(@Param("pojo") Skill pojo);
 
     Skill getSkill(@Param("pojo") Map<String, Object> param);
+
+    List<Map<String, Object>> getList(@Param("map") Map<String, Object> map);
 }

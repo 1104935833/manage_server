@@ -19,4 +19,6 @@ public interface CourseMapper {
     int update(@Param("pojo") Course pojo);
 
     Course getCourse(@Param("pojo") Map<String, Object> param);
+
+    List<Map<String, Object>> getList(@Param("map") Map<String, Object> map);
 }

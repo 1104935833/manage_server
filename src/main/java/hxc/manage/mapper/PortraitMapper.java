@@ -19,4 +19,6 @@ public interface PortraitMapper {
     int update(@Param("pojo") Portrait pojo);
 
     Portrait getPortrait(@Param("pojo") Map<String, Object> param);
+
+    List<Map<String, Object>> getList(@Param("map") Map<String, Object> map);
 }

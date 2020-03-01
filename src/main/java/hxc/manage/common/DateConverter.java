@@ -58,6 +58,18 @@ public class DateConverter implements Converter<String,Date> {
         Date d = sdf1.parse(s);
         return d.getTime()+"";
     }
+    //判断是不是日期
+    public boolean isDate(String date){
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            sdf1.parse(date);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+
+
+    }
 }
 
 

@@ -19,4 +19,6 @@ public interface EducationalMapper {
     int update(@Param("pojo") Educational pojo);
 
     Educational getEducational(@Param("pojo") Map<String, Object> param);
+
+    List<Map<String, Object>> getList(@Param("map") Map<String, Object> map);
 }

@@ -19,4 +19,6 @@ public interface StudentResearchMapper {
     int update(@Param("pojo") StudentResearch pojo);
 
     StudentResearch getStudentResearchService(@Param("pojo") Map<String, Object> param);
+
+    List<Map<String, Object>> getList(@Param("map") Map<String, Object> map);
 }

@@ -10,7 +10,6 @@ import hxc.manage.model.table.Paper;
 import org.springframework.stereotype.Component;
 
 @Mapper
-@Component
 public interface PaperMapper {
     int insert(@Param("pojo") Paper pojo);
 
@@ -21,4 +20,7 @@ public interface PaperMapper {
     int update(@Param("pojo") Paper pojo);
 
     Paper getPaper(@Param("pojo") Map param);
+
+    List<Map<String, Object>> getList(@Param("map") Map<String, Object> map);
+
 }

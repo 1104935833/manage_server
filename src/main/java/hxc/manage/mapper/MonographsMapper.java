@@ -19,4 +19,6 @@ public interface MonographsMapper {
     int update(@Param("pojo") Monographs pojo);
 
     Monographs getMonographs(@Param("pojo") Map<String, Object> param);
+
+    List<Map<String, Object>> getList(@Param("map") Map<String, Object> map);
 }

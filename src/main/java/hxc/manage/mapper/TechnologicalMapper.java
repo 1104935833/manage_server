@@ -19,4 +19,6 @@ public interface TechnologicalMapper {
     int update(@Param("pojo") Technological pojo);
 
     Technological getTechnological(@Param("pojo") Map<String, Object> param);
+
+    List<Map<String, Object>> getList(@Param("map") Map<String, Object> map);
 }

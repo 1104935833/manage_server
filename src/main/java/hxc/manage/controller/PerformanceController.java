@@ -1,5 +1,6 @@
 package hxc.manage.controller;
 
+import com.alibaba.druid.util.StringUtils;
 import hxc.manage.common.DateConverter;
 import hxc.manage.model.Performance;
 import hxc.manage.model.User;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,11 +66,53 @@ public class PerformanceController {
 
         return res;
     }
+
     @GetMapping("/getperType")
-    public List<Map<String,Object>> getperType(){
-        return performanceService.getperType();
+    public List<Map<String,Object>> getperType(@RequestParam("state") String state){
+        return performanceService.getperType(state);
+    }
+
+    @GetMapping("/getperTypeGroup")
+    public List<Map<String,Object>> getperTypeGroup(){
+        return performanceService.getperTypeGroup();
+    }
+
+    @GetMapping("/getperTypeSelf")
+    public List<Map<String,Object>> getperTypeSelf(){
+        return performanceService.getperTypeSelf();
+    }
 
 
+
+
+    @PostMapping("/searchPer")
+    public Map<String,Object> searchPer(@RequestBody Map form) throws ParseException {
+        DateConverter dateConverter = new DateConverter();
+        Map<String,Object> map = (Map<String, Object>) form.get("resform");
+        int page = Integer.valueOf(map.get("page")+"");
+        int size = Integer.valueOf(map.get("size")+"");
+        int start = (page - 1) * size;
+        map.put("size",size);
+        map.put("start",start);
+        if (!StringUtils.equals(map.get("time")+"","")) {
+            String[] time = String.valueOf(map.get("time")).split(",");
+            map.put("starTime", dateConverter.date1ToTimeMillis(time[0].replaceAll("\\[", "")));
+            map.put("endTime", dateConverter.date1ToTimeMillis(time[1].replaceAll("\\]", "")));
+        }
+        List<Map<String,Object>> m;
+        if (map.get("keyword")==null){//keyword为空
+            if(!map.get("username").equals("")){//名称不为空  table表
+                 m = performanceService.searchPerNameNotNull(map);
+            }else{//sql判断类型类型不为空 table_state表
+                m = performanceService.searchPerOther(map);
+            }
+        }else{//keywords不为空去所有表格找 table_state表
+            m = performanceService.searchPerOther(map);
+        }
+        Map<String,Object> res = new HashMap<>();
+        res.put("res",m);
+        res.put("count",m.size());
+        return res;
     }
 
 

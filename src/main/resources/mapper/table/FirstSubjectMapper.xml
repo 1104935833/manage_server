@@ -185,5 +185,34 @@
             <if test="pojo.tableId != null">and `table_id` = #{pojo.tableId} </if>
         </where>
     </select>
+    <select id="getList" resultType="java.util.Map">
+        SELECT
+        a.*,
+        b.audit_status,
+        c.id table_state,
+        c.table_name
+        FROM
+        jt_first_subject as a
+        inner join `table` d on a.table_id = d.id
+        INNER JOIN audit b ON a.table_id = b.table_id
+        INNER JOIN table_state c ON b.proposer_type = c.id
+        <where>
+            <if test="map.name!='' and map.name!=null">
+                and a.name like "%"#{map.name}"%"
+            </if>
+            <if test="map.starTime!=null and map.endTime!=null">
+                and `create_time` between #{map.starTime} and #{map.endTime}
+            </if>
+            <if test="map.data1!='' and map.data1!=null">
+                and support_school = #{map.data1}
+            </if>
+            <if test="map.data2!='' and map.data2!=null">
+                and declare_subject_name = #{map.data2}
+            </if>
+            <if test="map.data3!='' and map.data3!=null">
+                and subject_leader = #{map.data3}
+            </if>
+        </where>
+    </select>
 </mapper>
 
