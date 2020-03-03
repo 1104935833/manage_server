@@ -89,11 +89,6 @@ public class PerformanceController {
     public Map<String,Object> searchPer(@RequestBody Map form) throws ParseException {
         DateConverter dateConverter = new DateConverter();
         Map<String,Object> map = (Map<String, Object>) form.get("resform");
-        int page = Integer.valueOf(map.get("page")+"");
-        int size = Integer.valueOf(map.get("size")+"");
-        int start = (page - 1) * size;
-        map.put("size",size);
-        map.put("start",start);
         if (!StringUtils.equals(map.get("time")+"","")) {
             String[] time = String.valueOf(map.get("time")).split(",");
             map.put("starTime", dateConverter.date1ToTimeMillis(time[0].replaceAll("\\[", "")));

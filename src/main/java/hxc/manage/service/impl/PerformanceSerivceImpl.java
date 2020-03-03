@@ -109,7 +109,7 @@ public class PerformanceSerivceImpl implements PerformanceService {
     @Override
     public List<Map<String, Object>> searchPerNameNotNull(Map<String, Object> map) {
         List<Map<String,Object>> m= new ArrayList<>();
-        List<Map<String,Object>>  tables = performanceMapper.getperType("",map.get("option")+"","");
+        List<Map<String,Object>>  tables = performanceMapper.getperType("",map.get("option")+"",String.valueOf(map.get("group")));
 
         for (Map<String,Object> table:tables) {
             map.put("tableName",table.get("name"));
@@ -134,26 +134,30 @@ public class PerformanceSerivceImpl implements PerformanceService {
             if(map.get("keyword")==null && !map.get("option").equals("")) {
 
                 if (Integer.valueOf(map.get("option") + "") < 7 ) {
-                    tables = performanceMapper.getperType(map.get("option") + "", "","");
+                    tables = performanceMapper.getperType(map.get("option") + "", "",String.valueOf(map.get("group")));
                 } else {
-                    tables = performanceMapper.getperType("", map.get("option") + "","");
+                    tables = performanceMapper.getperType("", map.get("option") + "",String.valueOf(map.get("group")));
                 }
                 con.putAll(map);
                 if (StringUtils.equals(map.get("data1") + "", "") && StringUtils.equals(map.get("data2") + "", "")
                         && StringUtils.equals(map.get("data3") + "", "") && StringUtils.equals(map.get("data4") + "", "") || Integer.valueOf(map.get("option") + "") < 7) {
                     for (Map<String, Object> table : tables) {
+                        if (table.get("name")!=null && !table.get("name").equals("")) {
                         con.put("tableName", table.get("name"));
                         con.put("name", map.get("name"));
                         con.put("create_time", map.get("time"));
 
                         m.addAll(performanceMapper.getPerformanceByUserId(con));
+                        }else{
+                            continue;
+                        }
                     }
                 } else {
                     m = other(map);
                 }
             }else{
                 con.putAll(map);
-                tables = performanceMapper.getperType( "", "","");
+                tables = performanceMapper.getperType( "", "",String.valueOf(map.get("group")));
                 for (Map<String, Object> table : tables) {
                     if (table.get("name")!=null && !table.get("name").equals("")) {
                         con.put("tableName", table.get("name"));
