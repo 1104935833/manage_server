@@ -9,10 +9,13 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -28,8 +31,6 @@ public class EmailAndMessage {
 
     @Autowired
     RedisUtil redisUtil;
-
-
 
     @Value("${mail.user}")
     private String user;
@@ -80,10 +81,11 @@ public class EmailAndMessage {
 //        Map<String,Object> re = new HashMap<>();
         client.getParams().setContentCharset("GBK");
         method.setRequestHeader("ContentType","application/x-www-form-urlencoded;charset=GBK");
-        int mobile_code = (int)((Math.random()*9+1)*100000);
 
+        int mobile_code = (int)((Math.random()*9+1)*100000);
         if (type.equals("2")) {
             content= "您的验证码是：" + mobile_code + "。请不要把验证码泄露给其他人。";
+            redisUtil.set("yzm",mobile_code,300);
         }else
             content = "您有一个"+"新的"+"申请需要审批，请登录网站进行操作。";
 
@@ -93,19 +95,23 @@ public class EmailAndMessage {
                 new NameValuePair("password", "3908acb8e6c476589a5337583b8b488d"),  //查看密码请登录用户中心->验证码短信->产品总览->APIKEY
                 //new NameValuePair("password", util.StringUtil.MD5Encode("密码")),
                 new NameValuePair("mobile", phone),
-                new NameValuePair("tableId", content),
+                new NameValuePair("content", content),
         };
         method.setRequestBody(data);
 
         try {
             client.executeMethod(method);
-            redisUtil.set("yzm",mobile_code,300);
+
             String submitResult = method.getResponseBodyAsString();
             Document document = DocumentHelper.parseText(submitResult);
             Element root = document.getRootElement();
             String code = root.elementText("code");
             String msg = root.elementText("msg");
             String smsid = root.elementText("smsid");
+
+            System.out.println(code);
+            System.out.println(msg);
+            System.out.println(smsid);
         } catch (Exception e) {
             e.printStackTrace();
 
