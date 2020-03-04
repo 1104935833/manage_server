@@ -13,7 +13,7 @@ public interface PerformanceMapper {
     List<Map<String,Object>> getPerformanceByUserId(@Param("map") Map<String,Object> map);
 
 
-    List<Table> getTableByUserId(@Param("id")String id, @Param("start") Integer start,@Param("size") Integer size);
+    List<Table> getTableByUserId(@Param("id")String id);
 
     Map<String,Object> getPerformanceByUserId1(@Param("map") Map<String,Object> map);
 

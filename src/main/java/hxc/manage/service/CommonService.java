@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface CommonService {
 
-    List<Map<String, Object>> findOption(String option, String title, String value);
+    List<Map<String, Object>> findOption(String option, String title, String value, String id);
 
     String getUserRole(String user_id);
 }

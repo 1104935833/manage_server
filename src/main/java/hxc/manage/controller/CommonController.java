@@ -53,7 +53,7 @@ public class CommonController {
 
     @GetMapping("/getOption")
     public Map<String,Object> option(@RequestParam("option") String option, @RequestParam("title") String title, @RequestParam("value") String value){
-        List<Map<String,Object>> res = commonService.findOption(option,title,value);
+        List<Map<String,Object>> res = commonService.findOption(option,title,value,"");
         Map<String,Object> map = new HashMap<>();
         map.put("options",res);
         return map;

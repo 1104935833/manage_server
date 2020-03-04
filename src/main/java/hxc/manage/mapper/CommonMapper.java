@@ -11,7 +11,7 @@ import java.util.Map;
 @Component
 public interface CommonMapper {
 
-    List<Map<String, Object>> findOption(@Param("option") String option, @Param("title") String title,@Param("value") String value);
+    List<Map<String, Object>> findOption(@Param("option") String option, @Param("title") String title, @Param("value") String value,@Param("id") String id);
 
     String getUserRole(@Param("user_id") String user_id);
 }

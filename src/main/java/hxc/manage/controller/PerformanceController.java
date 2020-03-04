@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 public class PerformanceController {
@@ -104,9 +105,10 @@ public class PerformanceController {
         }else{//keywords不为空去所有表格找 table_state表
             m = performanceService.searchPerOther(map);
         }
+        List<Map<String,Object>> listWithoutDuplicates = m.stream().distinct().collect(Collectors.toList());
         Map<String,Object> res = new HashMap<>();
-        res.put("res",m);
-        res.put("count",m.size());
+        res.put("res",listWithoutDuplicates);
+        res.put("count",listWithoutDuplicates.size());
         return res;
     }
 

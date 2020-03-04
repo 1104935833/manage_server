@@ -71,11 +71,12 @@ public class PerformanceSerivceImpl implements PerformanceService {
     public List<Map<String,Object>> getPerformanceByUserId(Map<String, Object> map) {
         DateConverter dateConverter = new DateConverter();
         List<Map<String,Object>> m = new ArrayList<>();
-        List<Table> tables = performanceMapper.getTableByUserId(String.valueOf(map.get("id")),Integer.valueOf(map.get("start")+""),Integer.valueOf(map.get("size")+""));
+        List<Table> tables = performanceMapper.getTableByUserId(String.valueOf(map.get("id")));
         for (Table table:tables){
             map.put("tableName",table.getTableName());
             map.put("userId",table.getUserId());
-             m= performanceMapper.getPerformanceByUserId(map);
+            map.put("tableId",table.getId());
+            m.addAll(performanceMapper.getPerformanceByUserId(map));
         }
         for (Map<String,Object> l: m) {
             if(!l.containsKey("file_id")){
@@ -162,6 +163,14 @@ public class PerformanceSerivceImpl implements PerformanceService {
                     if (table.get("name")!=null && !table.get("name").equals("")) {
                         con.put("tableName", table.get("name"));
                         con.put("keywords", map.get("keyword"));
+                        if (map.get("group")!=null && map.get("group").equals("group") && table.get("name").equals("honor")){
+                            con.put("type","g");
+
+                        }else if(map.get("group")!=null && map.get("group").equals("self") && table.get("name").equals("honor")){
+                            con.put("type","s");
+                        }else{
+                            con.remove("type");
+                        }
                         m.addAll(performanceMapper.getPerformanceByUserId(con));
                     }else{
                         continue;

@@ -74,7 +74,7 @@ public class HonerController {
     public Map<String,Object> getHoner(@RequestParam(required = false) Map param){
         DateConverter dateConverter = new DateConverter();
         Honer res = honerService.getHoner(param);
-        List<Map<String,Object>> list = commonService.findOption("honor","", String.valueOf(res.getPersonalHonorType()));
+        List<Map<String,Object>> list = commonService.findOption("honor","","", res.getName());
         for (Map<String,Object> map: list) {
             res.setName(String.valueOf(map.get("label")));
         }

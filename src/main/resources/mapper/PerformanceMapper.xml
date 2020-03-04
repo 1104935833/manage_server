@@ -11,6 +11,9 @@
     <select id="getPerformanceByUserId" resultType="java.util.Map">
         SELECT
             a.*,
+        <if test="map.tableName=='honor'">
+            list.label,
+        </if>
             b.audit_status,
             c.id table_state,
             c.table_name
@@ -19,12 +22,22 @@
             inner join `table` d on a.table_id = d.id
             INNER JOIN audit b ON a.table_id = b.table_id
             INNER JOIN table_state c ON b.proposer_type = c.id
+        <if test="map.tableName=='honor'">
+            inner join
+            list on a.name = list.id
+        </if>
             <where>
+                <if test="map.type eq 's'.toString()">
+                    and a.type = 1
+                </if>
+                <if test="map.type eq 'g'.toString()">
+                    and a.type = 2
+                </if>
                 <if test="map.userId!=null and map.userId!=''">
                     and b.proposer_id = #{map.userId}
                 </if>
                 <if test="map.name!=null and map.name!=''">
-                  and a.`name` like "%"#{map.name}"%"
+                    and a.`name` like "%"#{map.name}"%"
                 </if>
                 <if test="map.tableId!=null and map.tableId!=''">
                     and d.`id` = #{map.tableId}
@@ -33,7 +46,7 @@
                     and a.`name` like "%"#{map.keywords}"%"
                 </if>
                 <if test="map.table_name!=null and map.table_name!=''">
-                  and `table_name` = #{map.table_name}
+                    and `table_name` = #{map.table_name}
                 </if>
                 <if test="map.starTime!=null and map.endTime!=null">
                     and `create_time` between #{map.starTime} and #{map.endTime}
@@ -42,17 +55,16 @@
                     and `audit_status` = #{map.audit_status}
                 </if>
             </where>
-            <if test="map.start!=null and map.start !=''">
-                limit #{map.start},#{map.size}
-            </if>
-
     </select>
     <select id="getTableByUserId" resultMap="AllColumnMap">
-        select * from `table` where user_id = #{id} limit #{start},#{size}
+        select * from `table` where user_id = #{id}
     </select>
     <select id="getPerformanceByUserId1" resultType="java.util.Map">
         SELECT
         a.*,
+        <if test="map.tableName=='honor'">
+            list.label,
+        </if>
         b.audit_status,
         c.id table_state,
         c.table_name
@@ -61,6 +73,10 @@
         inner join `table` d on a.table_id = d.id
         INNER JOIN audit b ON a.table_id = b.table_id
         INNER JOIN table_state c ON b.proposer_type = c.id
+        <if test="map.tableName=='honor'">
+            inner join
+            list on a.name = list.id
+        </if>
         <where>
             <if test="map.userId!=null and map.userId!=''">
                 and b.proposer_id = #{map.userId}

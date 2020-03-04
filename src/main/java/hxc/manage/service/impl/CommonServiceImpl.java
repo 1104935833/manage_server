@@ -15,8 +15,8 @@ public class CommonServiceImpl implements CommonService {
     CommonMapper commonMapper;
 
     @Override
-    public List<Map<String, Object>> findOption(String option, String title, String value) {
-        return commonMapper.findOption(option,title,value);
+    public List<Map<String, Object>> findOption(String option, String title, String value, String id) {
+        return commonMapper.findOption(option,title,value,id);
     }
 
     @Override
