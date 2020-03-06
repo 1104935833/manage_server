@@ -55,7 +55,7 @@ public class AcademicController {
         String id = String.valueOf(info.get("id"));
         academic.setDeclareTime(dateConverter.date1ToTimeMillis(academic.getDeclareTime()));
         academicService.update(academic);
-        peddingService.sendPedding(request,tableId,"1","0","4");
+        peddingService.sendPedding(request,academic.getTableId()+"","1","0","4");
         auditService.updateAuit(tableId,"0","0",id,request);
         return RespBean.ok("操作成功");
     }

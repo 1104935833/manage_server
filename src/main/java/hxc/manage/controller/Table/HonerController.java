@@ -65,7 +65,7 @@ public class HonerController {
         String id = String.valueOf(info.get("id"));
         honer.setPersonalGainTime(dateConverter.date1ToTimeMillis(honer.getPersonalGainTime()));
         honerService.update(honer);
-        peddingService.sendPedding(request,tableId,"1","0","4");
+        peddingService.sendPedding(request,honer.getTableId()+"","1","0","4");
         auditService.updateAuit(tableId,"0","0",id,request);
         return RespBean.ok("操作成功");
     }

@@ -55,7 +55,7 @@ public class EducationalController {
         String id = String.valueOf(info.get("id"));
         educational.setDeclareTime(dateConverter.date1ToTimeMillis(educational.getDeclareTime()));
         educationalService.update(educational);
-        peddingService.sendPedding(request,tableId,"1","0","4");
+        peddingService.sendPedding(request,educational.getTableId()+"","1","0","4");
         auditService.updateAuit(tableId,"0","0",id,request);
         return RespBean.ok("操作成功");
     }

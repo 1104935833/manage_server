@@ -76,7 +76,7 @@ public class AuditController {
             }
         }
         i=auditService.updateAuit(tableId,type,status,id,request);
-        i+=peddingService.sendPedding(request,tableId,"",agree,state);
+        i+=peddingService.sendPedding(request,tableId,type,agree,state);
         if(i>1)
             return RespBean.ok("操作成功");
         else

@@ -105,9 +105,9 @@
         SELECT
         *
         FROM
-            ( SELECT count( 1 ) count1 FROM audit WHERE audit_status = 0 AND proposer_id = 14 ) a,
-            ( SELECT count( 1 ) count2 FROM audit WHERE audit_status = 1 AND proposer_id = 14 ) b,
-            ( SELECT count( 1 ) count3 FROM audit WHERE audit_status = 3 AND proposer_id = 14 ) c
+            ( SELECT count( 1 ) count1 FROM audit WHERE audit_status in (0,1) AND proposer_id = #{user_id} ) a,
+            ( SELECT count( 1 ) count2 FROM audit WHERE audit_status in (2,4) AND proposer_id = #{user_id} ) b,
+            ( SELECT count( 1 ) count3 FROM audit WHERE audit_status = 3 AND proposer_id = #{user_id} ) c
     </select>
     <select id="getperType" resultType="java.util.Map">
         select * from table_state

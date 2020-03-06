@@ -54,7 +54,7 @@ public class PaperController {
         String id = String.valueOf(info.get("id"));
         paper.setTime(dateConverter.date1ToTimeMillis(paper.getTime()));
         paperService.update(paper);
-        peddingService.sendPedding(request,tableId,"1","0","4");
+        peddingService.sendPedding(request,paper.getTableId()+"","1","0","4");
         auditService.updateAuit(tableId,"0","0",id,request);
         return RespBean.ok("操作成功");
     }

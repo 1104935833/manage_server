@@ -113,7 +113,7 @@
             <if test="pojo.phone != null"> `phone` = #{pojo.phone}, </if>
             <if test="pojo.winningGrade != null"> `winning_grade` = #{pojo.winningGrade}, </if>
             <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
-            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
+            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime}, </if>
             <if test="pojo.tableId != null"> `table_id` = #{pojo.tableId} </if>
 
         </set>

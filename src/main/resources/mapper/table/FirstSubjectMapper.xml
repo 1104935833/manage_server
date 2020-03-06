@@ -159,7 +159,7 @@
             <if test="pojo.approvalDepartment != null"> `approval_department` = #{pojo.approvalDepartment}, </if>
             <if test="pojo.approvalTime != null"> `approval_time` = #{pojo.approvalTime}, </if>
             <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
-            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
+            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime}, </if>
             <if test="pojo.tableId != null"> `table_id` = #{pojo.tableId} </if>
         </set>
         WHERE id = #{pojo.id}

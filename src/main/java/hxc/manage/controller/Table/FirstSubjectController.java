@@ -57,7 +57,7 @@ public class FirstSubjectController {
         firstSubject.setApprovalTime(dateConverter.date1ToTimeMillis(firstSubject.getApprovalTime()));
         firstSubject.setInceptTime(dateConverter.date1ToTimeMillis(firstSubject.getInceptTime()));
         firstSubjectService.update(firstSubject);
-        peddingService.sendPedding(request,tableId,"1","0","4");
+        peddingService.sendPedding(request,firstSubject.getTableId()+"","1","0","4");
         auditService.updateAuit(tableId,"0","0",id,request);
         return RespBean.ok("操作成功");
     }

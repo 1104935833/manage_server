@@ -58,7 +58,7 @@ public class CompetitionController {
         String id = String.valueOf(info.get("id"));
         competition.setApprovalTime(dateConverter.date1ToTimeMillis(competition.getApprovalTime()));
         competitionService.update(competition);
-        peddingService.sendPedding(request,tableId,"1","0","4");
+        peddingService.sendPedding(request,competition.getTableId()+"","1","0","4");
         auditService.updateAuit(tableId,"0","0",id,request);
         return RespBean.ok("操作成功");
     }

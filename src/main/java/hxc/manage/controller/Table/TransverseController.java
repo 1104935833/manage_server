@@ -57,7 +57,7 @@ public class TransverseController {
         String id = String.valueOf(info.get("id"));
         transverse.setStartTime(dateConverter.date1ToTimeMillis(transverse.getStartTime()));
         transverseService.update(transverse);
-        peddingService.sendPedding(request,tableId,"1","0","4");
+        peddingService.sendPedding(request,transverse.getTableId()+"","1","0","4");
         auditService.updateAuit(tableId,"0","0",id,request);
         return RespBean.ok("操作成功");
     }

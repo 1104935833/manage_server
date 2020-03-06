@@ -64,7 +64,7 @@ public class LabController {
         lab.setDeclareEndTime(dateConverter.date1ToTimeMillis(lab.getDeclareEndTime()));
         lab.setDeclareStartTime(dateConverter.date1ToTimeMillis(lab.getDeclareStartTime()));
         labService.update(lab);
-        peddingService.sendPedding(request,tableId,"1","0","4");
+        peddingService.sendPedding(request,lab.getTableId()+"","1","0","4");
         auditService.updateAuit(tableId,"0","0",id,request);
         return RespBean.ok("操作成功");
     }

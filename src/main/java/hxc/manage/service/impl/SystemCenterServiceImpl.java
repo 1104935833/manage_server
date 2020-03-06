@@ -89,6 +89,7 @@ public class SystemCenterServiceImpl implements SystemCenterService {
             con.put("tableName",m.get("table_name"));
             con.put("userId",id);
             con.put("tableId",m.get("id"));
+            con.put("audit_status","3");
             Map<String,Object> p =performanceMapper.getPerformanceByUserId1(con);
 
             if(p!=null){

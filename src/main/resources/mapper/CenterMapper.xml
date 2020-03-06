@@ -36,9 +36,12 @@
 	        count( 1 ) value
         FROM
             table_state d,
-            ( SELECT b.state, b.id FROM `table` a, table_state b WHERE a.state = b.id and user_id = #{id}) c
+            ( SELECT b.state, b.id,a.id tableid FROM `table` a, table_state b WHERE a.state = b.id and user_id = #{id}) c,
+			audit a
         WHERE
             c.state = d.id
+            and a.table_id = c.tableid
+			and a.audit_status = 3
         GROUP BY
             d.id
     </select>

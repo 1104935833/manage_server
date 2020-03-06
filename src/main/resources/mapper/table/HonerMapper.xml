@@ -111,15 +111,14 @@
     <update id="update">
         UPDATE honor
         <set>
-            <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
             <if test="pojo.personalHonorType != null"> `personal_honor_type` = #{pojo.personalHonorType}, </if>
-            <if test="pojo.name != null"> `name` = #{pojo.name}, </if>
+            <if test="pojo.name != null"> `name` =(select id from list where label =#{pojo.name} ) , </if>
             <if test="pojo.personalGainTime != null"> `personal_gain_time` = #{pojo.personalGainTime}, </if>
             <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
             <if test="pojo.organizationName != null"> `organization_name` = #{pojo.organizationName}, </if>
             <if test="pojo.organizationMember != null"> `organization_member` = #{pojo.organizationMember}, </if>
-            <if test="pojo.type != null"> `type` = #{pojo.type} </if>
-            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
+            <if test="pojo.type != null"> `type` = #{pojo.type}, </if>
+            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime}, </if>
             <if test="pojo.tableId != null"> `table_id` = #{pojo.tableId} </if>
         </set>
         WHERE id = #{pojo.id}

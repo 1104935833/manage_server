@@ -129,7 +129,7 @@
             <if test="pojo.unitName != null"> `unit_name` = #{pojo.unitName}, </if>
             <if test="pojo.unitAddress != null"> `unit_address` = #{pojo.unitAddress}, </if>
             <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
-            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
+            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime}, </if>
             <if test="pojo.tableId != null"> `table_id` = #{pojo.tableId} </if>
 
         </set>

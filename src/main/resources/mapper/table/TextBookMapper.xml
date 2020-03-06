@@ -154,7 +154,7 @@
             <if test="pojo.declareTime != null"> `declare_time` = #{pojo.declareTime}, </if>
             <if test="pojo.grade != null"> `grade` = #{pojo.grade}, </if>
             <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
-            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
+            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime},</if>
             <if test="pojo.tableId != null"> `table_id` = #{pojo.tableId} </if>
 
         </set>

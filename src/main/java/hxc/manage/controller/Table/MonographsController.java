@@ -60,7 +60,7 @@ public class MonographsController {
         String id = String.valueOf(info.get("id"));
         monographs.setFinishTime(dateConverter.date1ToTimeMillis(monographs.getFinishTime()));
         monographsService.update(monographs);
-        peddingService.sendPedding(request,tableId,"1","0","4");
+        peddingService.sendPedding(request,monographs.getTableId()+"","1","0","4");
         auditService.updateAuit(tableId,"0","0",id,request);
         return RespBean.ok("操作成功");
     }

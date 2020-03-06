@@ -143,7 +143,7 @@
             <if test="pojo.competentDepartment != null"> `competent_department` = #{pojo.competentDepartment}, </if>
             <if test="pojo.level != null"> `level` = #{pojo.level}, </if>
             <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
-            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
+            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime}, </if>
             <if test="pojo.tableId != null"> `table_id` = #{pojo.tableId} </if>
         </set>
         WHERE id = #{pojo.id}

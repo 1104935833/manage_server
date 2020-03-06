@@ -36,8 +36,8 @@
     </select>
 
     <select id="findPeddingRole" resultType="java.lang.String">
-        select roleid from `user` a,tree_people b,tree_role c where a.tree=b.tree_code and
-        c.treeid=b.id and a.id=#{userId}
+
+        select distinct MIN(rid) from user_role where userid = #{userId};
     </select>
     <select id="fingPhoneAndEmail" resultType="java.util.Map">
 

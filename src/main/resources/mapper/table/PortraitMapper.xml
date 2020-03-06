@@ -146,7 +146,7 @@
             <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
             <if test="pojo.projectUnit != null"> `project_unit` = #{pojo.projectUnit}, </if>
             <if test="pojo.type != null"> `type` = #{pojo.type}, </if>
-            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime} </if>
+            <if test="pojo.createTime != null"> `create_time` = #{pojo.createTime}, </if>
             <if test="pojo.tableId != null"> `table_id` = #{pojo.tableId} </if>
 
         </set>

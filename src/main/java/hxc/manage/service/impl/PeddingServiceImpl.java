@@ -133,7 +133,7 @@ public class PeddingServiceImpl implements PeddingService {
             }else{//分院同意
                 pedding.setState("3");
                 res = peddingMapper.updatePedding(pedding);
-                sendMailAndPhone(pedding.getRole());
+//                sendMailAndPhone(pedding.getRole());
             }
         }else{//返回修改的
             String roleid = peddingMapper.findPeddingRole(userId);//当前用户给哪个权限的发送消息--教研室

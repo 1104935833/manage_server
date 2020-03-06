@@ -59,7 +59,7 @@ public class ProductionUnionController {
         productionUnion.setUnionEffectTime(dateConverter.date1ToTimeMillis(productionUnion.getUnionEffectTime()));
         productionUnion.setApprovalTime(dateConverter.date1ToTimeMillis(productionUnion.getApprovalTime()));
         productionUnionService.update(productionUnion);
-        peddingService.sendPedding(request,tableId,"1","0","4");
+        peddingService.sendPedding(request,productionUnion.getTableId()+"","1","0","4");
         auditService.updateAuit(tableId,"0","0",id,request);
         return RespBean.ok("操作成功");
     }

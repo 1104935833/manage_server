@@ -60,7 +60,7 @@ public class TextBookController {
         textBook.setWriteFinishTime(dateConverter.date1ToTimeMillis(textBook.getWriteFinishTime()));
         textBook.setDeclareTime(dateConverter.date1ToTimeMillis(textBook.getDeclareTime()));
         textBookService.update(textBook);
-        peddingService.sendPedding(request,tableId,"1","0","4");
+        peddingService.sendPedding(request,textBook.getTableId()+"","1","0","4");
         auditService.updateAuit(tableId,"0","0",id,request);
         return RespBean.ok("操作成功");
     }
