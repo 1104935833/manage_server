@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hxc.manage.mapper.GradeMapper">
+
+
+    <sql id="list">
+        select a.id,a.grade,b.table_name from grade a,table_state b WHERE a.table_id = b.id and a.id>6
+    </sql>
+
+    <sql id="query">
+        SELECT
+            b.*,a.grade,c.table_name,d.`name`
+        FROM
+            grade a,
+            audit b,
+            table_state c,
+            `user_details` d
+        WHERE
+            a.table_id = c.id
+            and d.user_id = b.proposer_id
+            and b.audit_status = 3
+            AND c.id = b.proposer_type
+            AND b.proposer_id in
+    </sql>
+
+    <sql id="count">
+        SELECT
+            count(1)
+        FROM
+            grade a,
+            audit b,
+            table_state c,
+            `user_details` d
+        WHERE
+            a.table_id = c.id
+            and d.user_id = b.proposer_id
+            and b.audit_status = 3
+            AND c.id = b.proposer_type
+            AND b.proposer_id in
+    </sql>
+
+    <update id="editGrade">
+        update grade set grade = #{grade} where id = #{id}
+    </update>
+
+    <select id="getGradeList" resultType="java.util.Map">
+        <include refid="list"></include> limit #{start},#{size}
+    </select>
+    <select id="getGradeListSize" resultType="java.util.Map">
+        <include refid="list"></include>
+    </select>
+    <select id="getGradeListByTeacher" resultType="java.util.Map">
+        <include refid="query"/> (
+        SELECT
+            user_id
+        FROM `user_details` a
+        <if test="name!=null and name!=''">
+            where `name` = #{name}
+        </if>
+        )
+        limit #{start},#{size}
+    </select>
+    <select id="getGradeListByOffice" resultType="java.util.Map">
+        <include refid="query"/>
+         (
+        SELECT
+            id
+        FROM `user` a
+        where a.tree = #{office}
+        )
+        limit #{start},#{size}
+    </select>
+    <select id="getGradeListByTeacherAndOffice" resultType="java.util.Map">
+        <include refid="query"/>
+             ( SELECT a.id FROM `user` a, user_details b
+            <where>
+                b.user_id = a.id
+                <if test="name!=null and name!=''">
+                    and b.`name` = #{name}
+                </if>
+                <if test="office!=null and office!=''">
+                    AND a.tree = #{office}
+                </if>
+                )
+            </where>
+        limit #{start},#{size}
+    </select>
+
+
+
+
+
+
+
+    <select id="getGradeListByTeacherCount" resultType="java.lang.Integer">
+        <include refid="count"/> (
+        SELECT
+        user_id
+        FROM `user_details` a
+        <if test="name!=null and name!=''">
+            where `name` = #{name}
+        </if>
+        );
+    </select>
+    <select id="getGradeListByOfficeCount" resultType="java.lang.Integer">
+        <include refid="count"/>
+        (
+        SELECT
+        id
+        FROM `user` a
+        where a.tree = #{office}
+        );
+    </select>
+    <select id="getGradeListByTeacherAndOfficeCount" resultType="java.lang.Integer">
+        <include refid="count"/>
+        ( SELECT a.id FROM `user` a, user_details b
+        <where>
+            b.user_id = a.id
+            <if test="name!=null and name!=''">
+                and b.`name` = #{name}
+            </if>
+            <if test="office!=null and office!=''">
+                AND a.tree = #{office}
+            </if>
+            );
+        </where>
+    </select>
+
+</mapper>

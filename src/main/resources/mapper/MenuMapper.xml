@@ -41,7 +41,7 @@
         update menu set enabled=#{enable} where id = #{id}
     </update>
     <update id="upMenu">
-        update menu set name = #{menu.name},component=#{menu.component},path=#{menu.path},url=#{menu.url},enabled=#{menu.enabled},parentId=#{menu.parentId} where id = #{menu.id}
+        update menu set name = #{menu.name},component=#{menu.component},path=#{menu.path},url=#{menu.url},enabled=#{menu.enabled},parentId=#{menu.parentId},iconCls=#{menu.iconCls} where id = #{menu.id}
     </update>
 
     <select id="getAllMenu" resultMap="BaseResultMap">
