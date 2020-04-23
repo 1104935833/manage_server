@@ -16,7 +16,7 @@ import java.io.*;
 public class FileUpLoad {
 
     //从yml获取路径
-    @Value("${url.fileUrl}")
+    @Value("${url.fileUrlForMac}")
     private String path;
 
 
