@@ -28,14 +28,12 @@ public class GradeController {
         int start = (page - 1) * size;
         Map<String,Object> gradeList;
         if (!StringUtils.equals("",office)){
-
             gradeList= gradeService.getGradeListByOffice(start,size,office);
         }else if(!StringUtils.equals("",name)){
             gradeList = gradeService.getGradeListByTeacher(start,size,name);
         }else{
             gradeList = gradeService.getGradeListByTeacherAndOffice(start,size,name,office);
         }
-
         return RespBean.ok("",gradeList);
     }
 

@@ -18,4 +18,6 @@ public interface RoleMapper {
     int addNewRole(@Param("role") String role, @Param("roleZh") String roleZh);
 
     int deleteRoleById(Long rid);
+
+    int getUserRole(String userId);
 }

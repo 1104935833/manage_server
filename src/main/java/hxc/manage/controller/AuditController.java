@@ -1,6 +1,7 @@
 package hxc.manage.controller;
 
 
+import hxc.manage.mapper.RoleMapper;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.Role;
 import hxc.manage.model.User;
@@ -22,6 +23,9 @@ public class AuditController {
 
     @Autowired
     PeddingService peddingService;
+
+    @Autowired
+    RoleMapper roleMapper;
 
     @Autowired
     AuditService auditService;
@@ -57,6 +61,7 @@ public class AuditController {
 
     @GetMapping("/check")
     public RespBean check(@RequestParam("tableId") String tableId,
+                          @RequestParam("userId") String userId,
                           @RequestParam("status") String status,//1通过2未通过
                           @RequestParam("id") String id,//audit表id
                           @RequestParam("agree") String agree,//0 -- 不同意 1 -- 同意
@@ -65,22 +70,29 @@ public class AuditController {
         String type="1";//1教研室2分院
         String state="1";//  state 到哪个阶段了2教研室3分院4返回修改在发起
         User u= (User) request.getSession().getAttribute("userinfo");
-        for (Role r :u.getRoles()){
-            if (r.getNameZh().equals("分院管理员")){
-                type="2";
-                state="3";
-                break;
-            }else{
-                type="1";
-                state="2";
+        Long role =  u.getRoles().get(0).getId();
+        int roles = roleMapper.getUserRole(userId);
+        if((role!=roles && !state.equals("2")) && role!=6){
+            return RespBean.error("您没有审核此记录的权限");
+        }else{
+            for (Role r :u.getRoles()){
+                if (r.getNameZh().equals("分院管理员")){
+                    type="2";
+                    state="3";
+                    break;
+                }else{
+                    type="1";
+                    state="2";
+                }
             }
+            i=auditService.updateAuit(tableId,type,status,id,request);
+            i+=peddingService.sendPedding(request,tableId,type,agree,state);
+            if(i>1)
+                return RespBean.ok("操作成功");
+            else
+                return RespBean.error("操作失败");
         }
-        i=auditService.updateAuit(tableId,type,status,id,request);
-        i+=peddingService.sendPedding(request,tableId,type,agree,state);
-        if(i>1)
-            return RespBean.ok("操作成功");
-        else
-            return RespBean.error("操作失败");
+
     }
 
 

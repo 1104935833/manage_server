@@ -6,10 +6,15 @@
     <select id="roles" resultType="hxc.manage.model.Role">
         SELECT * FROM role where id!=6;
     </select>
+    <select id="getUserRole" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select distinct rid from user_role where userid = #{userId}
+    </select>
     <insert id="addNewRole">
         INSERT INTO role set name=#{role},nameZh=#{roleZh}
     </insert>
     <delete id="deleteRoleById" parameterType="Long">
         DELETE FROM role WHERE id=#{rid}
     </delete>
+
+
 </mapper>
