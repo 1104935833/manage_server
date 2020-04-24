@@ -212,6 +212,7 @@ public class PoiUtils {
 //                    userDetail.setOffice_id(d.getTime()+"");
 //                    break;
                                 }
+                                userDetail.setOffice_id("1");
                             }
                             break;
                         }

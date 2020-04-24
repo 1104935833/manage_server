@@ -24,4 +24,6 @@ public class Honer {
     private  String createTime;
 
     private Integer tableId;
+
+    private Integer honeNameId;
 }

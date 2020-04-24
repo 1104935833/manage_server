@@ -1,6 +1,6 @@
 url:
   fileUrl: D:/file
-  fileUrlForMac: /usr/local/file
+  fileUrlForMac: /Users/bondgg/Public/file/
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource

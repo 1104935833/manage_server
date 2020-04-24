@@ -134,7 +134,8 @@
         a.email,
         a.phone,
         b.enabled enable,
-        b.tree
+        b.tree,
+        a.user_id
         from user_details a,user b,tree_people c,office d  where a.office_id = d. id and a.user_id=b.id and b.tree = c. tree_code
 
         <if test="rank==3">

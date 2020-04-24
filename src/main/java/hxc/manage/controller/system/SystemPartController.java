@@ -74,7 +74,7 @@ public class SystemPartController {
     //删除角色
     @GetMapping("/delPart")
     public RespBean delPart(@RequestParam("id") String id,
-                            @RequestParam("tableName") Integer state){
+                            @RequestParam("state") Integer state){
         try {
             partService.delPart(id,state);
             return RespBean.ok("操作成功！");

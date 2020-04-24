@@ -76,6 +76,7 @@ public class HonerController {
         Honer res = honerService.getHoner(param);
         List<Map<String,Object>> list = commonService.findOption("honor","","", res.getName());
         for (Map<String,Object> map: list) {
+            res.setHoneNameId(Integer.valueOf(res.getName()));
             res.setName(String.valueOf(map.get("label")));
         }
 

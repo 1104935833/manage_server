@@ -73,7 +73,6 @@
             WHERE
             a.user_id = b.id
             AND b.enabled = 1
-
         </if>
     </select>
     <select id="getTrandferManagUser" resultType="java.util.Map">

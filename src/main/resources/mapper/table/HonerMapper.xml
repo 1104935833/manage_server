@@ -112,7 +112,7 @@
         UPDATE honor
         <set>
             <if test="pojo.personalHonorType != null"> `personal_honor_type` = #{pojo.personalHonorType}, </if>
-            <if test="pojo.name != null"> `name` =(select id from list where label =#{pojo.name} ) , </if>
+            <if test="pojo.name != null"> `name` =#{pojo.honeNameId} , </if>
             <if test="pojo.personalGainTime != null"> `personal_gain_time` = #{pojo.personalGainTime}, </if>
             <if test="pojo.fileId != null"> `file_id` = #{pojo.fileId}, </if>
             <if test="pojo.organizationName != null"> `organization_name` = #{pojo.organizationName}, </if>

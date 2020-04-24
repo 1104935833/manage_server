@@ -88,7 +88,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
             u.setPassword(newPwd);
             userMapper.addUser(u);
 //            u.setUser_id(u.getId()+"");
-            u.setWorkID(String.format("%08d", workId + 1));
+            workId+=1;
+            u.setWorkID(String.format("%08d", workId));
         }
         return userMapper.addEmps(emps);
 

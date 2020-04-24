@@ -35,7 +35,7 @@ public class SystemUserController {
     }
 
     //    获取用户管理左侧树节点
-    @GetMapping(value = "/treepeople")
+    @GetMapping("/treepeople")
     public List<Map<String, Object>> getAllTreePeople(@RequestParam("name") String name) {
         List<Map<String, Object>> list;
         int tmp = name.indexOf("教研室");
