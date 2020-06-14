@@ -1,6 +1,7 @@
 package hxc.manage.controller.Table;
 
 import hxc.manage.common.DateConverter;
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.model.table.Paper;
@@ -21,6 +22,9 @@ import java.util.Map;
 public class PaperController {
 
     @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
     PaperService paperService;
 
     @Autowired
@@ -35,7 +39,8 @@ public class PaperController {
     @PostMapping("/insertPaper")
     public RespBean insertPaper(HttpServletRequest request,Paper paper) throws ParseException {
         DateConverter dateConverter = new DateConverter();
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         paper.setTime(dateConverter.date1ToTimeMillis(paper.getTime()));
         paper.setCreateTime(String.valueOf(new Date().getTime()));
         int id = tableService.table(request,u.getUser_id(),"tb_paper",7);

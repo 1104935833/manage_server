@@ -1,6 +1,7 @@
 package hxc.manage.controller.Table;
 
 import hxc.manage.common.DateConverter;
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.model.table.Technological;
@@ -24,6 +25,8 @@ import java.util.Map;
 @RestController
 public class TechnologicalController {
 
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
 
     @Autowired
     TechnologicalService technologicalService;
@@ -40,7 +43,8 @@ public class TechnologicalController {
     @PostMapping("/insertTechnological")
     public RespBean insertTechnological(HttpServletRequest request, Technological technological) throws ParseException {
         DateConverter dateConverter = new DateConverter();
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         technological.setDeclareTime(dateConverter.date1ToTimeMillis(technological.getDeclareTime()));
         technological.setApprovalTime(dateConverter.date1ToTimeMillis(technological.getApprovalTime()));
         technological.setCreateTime(String.valueOf(new Date().getTime()));

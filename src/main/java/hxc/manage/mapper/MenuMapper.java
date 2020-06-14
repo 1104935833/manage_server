@@ -1,6 +1,7 @@
 package hxc.manage.mapper;
 
 import hxc.manage.model.Menu;
+import hxc.manage.model.MenuVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,7 @@ import java.util.Map;
 public interface MenuMapper {
     List<Menu> getAllMenu();
 
-    List<Menu> getMenusByUserId(Long hrId);
+    List<MenuVo> getMenusByUserId(Long hrId);
 
     List<Menu> menuTree();
 

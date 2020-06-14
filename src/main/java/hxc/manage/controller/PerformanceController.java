@@ -2,7 +2,9 @@ package hxc.manage.controller;
 
 import com.alibaba.druid.util.StringUtils;
 import hxc.manage.common.DateConverter;
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.Performance;
+import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.service.PerformanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +21,16 @@ import java.util.stream.Collectors;
 public class PerformanceController {
 
     @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
     PerformanceService performanceService;
 
     @PostMapping("/serchPerformance")
     public Map<String,Object> serchPerformance(@RequestBody Map info, HttpServletRequest request){
         DateConverter dateConverter = new DateConverter();
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         Map<String,Object> map = (Map<String, Object>) info.get("info");
         int start = ((int) info.get("page") - 1) *(int) info.get("size");
         String keywords = info.get("keywords")+"";
@@ -54,7 +60,8 @@ public class PerformanceController {
                                                      @RequestParam(defaultValue = "1") Integer page,
                                                      @RequestParam(defaultValue = "10") Integer size){
         int start = (page - 1) * size;
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         Map<String,Object> map = new HashMap<>();
         map.put("id",u.getId());
         map.put("size",size);
@@ -69,8 +76,9 @@ public class PerformanceController {
     }
 
     @GetMapping("/getperType")
-    public List<Map<String,Object>> getperType(@RequestParam("state") String state){
-        return performanceService.getperType(state);
+    public RespBean getperType(@RequestParam("state") String state){
+        List list = performanceService.getperType(state);
+        return RespBean.ok("success",list);
     }
 
     @GetMapping("/getperTypeGroup")
@@ -87,7 +95,7 @@ public class PerformanceController {
 
 
     @PostMapping("/searchPer")
-    public Map<String,Object> searchPer(@RequestBody Map form) throws ParseException {
+    public RespBean searchPer(@RequestBody Map form) throws ParseException {
         DateConverter dateConverter = new DateConverter();
         Map<String,Object> map = (Map<String, Object>) form.get("resform");
         if (!StringUtils.equals(map.get("time")+"","")) {
@@ -109,7 +117,7 @@ public class PerformanceController {
         Map<String,Object> res = new HashMap<>();
         res.put("res",listWithoutDuplicates);
         res.put("count",listWithoutDuplicates.size());
-        return res;
+        return RespBean.ok("success",res);
     }
 
 

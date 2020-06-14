@@ -1,5 +1,6 @@
 package hxc.manage.controller.Table;
 
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.model.table.Skill;
@@ -21,6 +22,9 @@ import java.util.Map;
 public class SkillController {
 
     @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
     SkillService skillService;
 
     @Autowired
@@ -34,7 +38,8 @@ public class SkillController {
 
     @PostMapping("/insertSkill")
     public RespBean insertSkill(HttpServletRequest request, Skill skill) throws ParseException {
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         skill.setCreateTime(String.valueOf(new Date().getTime()));
         int id = tableService.table(request,u.getUser_id(),"jx_skill_competition",25);
         skill.setTableId(id);

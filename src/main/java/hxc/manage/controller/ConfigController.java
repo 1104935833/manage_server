@@ -2,6 +2,7 @@ package hxc.manage.controller;
 
 import com.wf.captcha.ArithmeticCaptcha;
 import hxc.manage.model.Menu;
+import hxc.manage.model.RespBean;
 import hxc.manage.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +28,8 @@ public class ConfigController {
     MenuService menuService;
 
     @GetMapping(value = "/sysmenu")
-    public List<Menu> sysMenu() {
-        return menuService.getMenusByUserId();
+    public RespBean sysMenu() {
+        return RespBean.ok("success",menuService.getMenusByUserId());
     }
 
 //    @RequestMapping("/hr")
@@ -38,7 +39,7 @@ public class ConfigController {
 
     //登录时的验证码
     @GetMapping(value = "/code")
-    public Map<String,Object> getCode(){
+    public RespBean getCode(){
         // 算术类型 https://gitee.com/whvse/EasyCaptcha
         ArithmeticCaptcha captcha = new ArithmeticCaptcha(111, 36);
         // 几位数运算，默认是两位
@@ -50,6 +51,6 @@ public class ConfigController {
             put("img", captcha.toBase64());
             put("res",result);
         }};
-        return imgResult;
+        return RespBean.ok("success",imgResult);
     }
 }

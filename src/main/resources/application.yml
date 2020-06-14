@@ -37,3 +37,6 @@ mybatis:
 mail:
   user: 1104935833@qq.com
   password: gyflrrsfvpylgggd
+
+jwtTokenSecret: Sayo
+tokenExpiredMs: 604800000

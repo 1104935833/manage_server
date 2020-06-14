@@ -1,6 +1,7 @@
 package hxc.manage.controller.Table;
 
 import hxc.manage.common.DateConverter;
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.model.table.Portrait;
@@ -24,6 +25,9 @@ import java.util.Map;
 public class PortraitController {
 
     @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
     PortraitService portraitService;
 
     @Autowired
@@ -37,7 +41,8 @@ public class PortraitController {
 
     @PostMapping("/insertPortrait")
     public RespBean insertPortrait(HttpServletRequest request, Portrait portrait) throws ParseException {
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         portrait.setCreateTime(String.valueOf(new Date().getTime()));
         int id = tableService.table(request,u.getUser_id(),"tb_portrait",10);
         portrait.setTableId(id);

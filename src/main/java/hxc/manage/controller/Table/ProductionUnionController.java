@@ -1,6 +1,7 @@
 package hxc.manage.controller.Table;
 
 import hxc.manage.common.DateConverter;
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.model.table.ProductionUnion;
@@ -24,6 +25,9 @@ import java.util.Map;
 public class ProductionUnionController {
 
     @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
     ProductionUnionService productionUnionService;
 
     @Autowired
@@ -38,7 +42,8 @@ public class ProductionUnionController {
     @PostMapping("/insertProductionUnion")
     public RespBean insertProductionUnion(HttpServletRequest request, ProductionUnion productionUnion) throws ParseException {
         DateConverter dateConverter = new DateConverter();
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         productionUnion.setUnionEffectTime(dateConverter.date1ToTimeMillis(productionUnion.getUnionEffectTime()));
         productionUnion.setApprovalTime(dateConverter.date1ToTimeMillis(productionUnion.getApprovalTime()));
         productionUnion.setCreateTime(String.valueOf(new Date().getTime()));

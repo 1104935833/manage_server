@@ -1,6 +1,7 @@
 package hxc.manage.controller.Table;
 
 import hxc.manage.common.DateConverter;
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.model.table.Course;
@@ -21,6 +22,8 @@ import java.util.Map;
 @RestController
 public class CourseController {
 
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
 
     @Autowired
     CourseService courseService;
@@ -37,7 +40,8 @@ public class CourseController {
     @PostMapping("/insertCourse")
     public RespBean insertCourse(HttpServletRequest request, Course course) throws ParseException {
         DateConverter dateConverter = new DateConverter();
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         course.setDeclareTime(dateConverter.date1ToTimeMillis(course.getDeclareTime()));
         course.setCreateTime(String.valueOf(new Date().getTime()));
         int id = tableService.table(request,u.getUser_id(),"jx_course_construction",30);

@@ -1,6 +1,7 @@
 package hxc.manage.controller;
 
 import hxc.manage.common.DateConverter;
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.Performance;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
@@ -19,19 +20,23 @@ import java.util.Map;
 public class BaseInfoController {
 
     @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
     BaseInfoService baseInfoService;
 
     @Autowired
     UserServiceImpl userServiceImpl;
 
     @GetMapping("/userInfo")
-    public Map<String,Object> userInfo(HttpServletRequest request){
-        User u = (User) request.getSession().getAttribute("userinfo");
+    public RespBean userInfo(HttpServletRequest request){
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         UserDetail details=baseInfoService.userInfo(u.getId());
         Map<String,Object> map = new HashMap<>();
         map.put("details",details);
         map.put("office",baseInfoService.getOffices());
-        return map;
+        return RespBean.ok("success",map);
 
     }
 
@@ -40,7 +45,8 @@ public class BaseInfoController {
         try {
             User  user = new User();
             Map<String, String> map = (Map<String, String>) info.get("info");
-            User u = (User) request.getSession().getAttribute("userinfo");
+            String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
             map.put("id", u.getId() + "");
             int i = baseInfoService.changeInfo(map);
             if(i>0){

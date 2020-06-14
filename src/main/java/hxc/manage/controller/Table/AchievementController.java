@@ -1,6 +1,7 @@
 package hxc.manage.controller.Table;
 
 import hxc.manage.common.DateConverter;
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.model.table.Achievement;
@@ -31,15 +32,19 @@ public class AchievementController {
     PeddingService peddingService;
 
     @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
     AuditService auditService;
 
     @PostMapping("/insertAchievement")
     public RespBean insertAchievement(HttpServletRequest request, Achievement achievement) throws ParseException {
         DateConverter dateConverter = new DateConverter();
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u = jwtTokenProvider.getUserFromToken(token);
         achievement.setApplyTime(dateConverter.date1ToTimeMillis(achievement.getApplyTime()));
         achievement.setCreateTime(String.valueOf(new Date().getTime()));
-        int id = tableService.table(request,u.getUser_id(),"jx_achievement_prize",28);
+        int id = tableService.table(request, u.getUser_id(), "jx_achievement_prize", 28);
         achievement.setTableId(id);
         achievementService.insert(achievement);
         return RespBean.ok("操作成功");
@@ -47,25 +52,25 @@ public class AchievementController {
 
     @PostMapping("/updataAchievement")
     public RespBean updataAchievement(HttpServletRequest request, @RequestBody Map info) throws ParseException {
-        Map<String,Object> map = info;
+        Map<String, Object> map = info;
         DateConverter dateConverter = new DateConverter();
-        Achievement achievement = Util.mapToEntity((Map<String, Object>) map.get("achievement"),Achievement.class) ;
+        Achievement achievement = Util.mapToEntity((Map<String, Object>) map.get("achievement"), Achievement.class);
         String tableId = String.valueOf(info.get("tableId"));
         String id = String.valueOf(info.get("id"));
         achievement.setApplyTime(dateConverter.date1ToTimeMillis(achievement.getApplyTime()));
         achievementService.update(achievement);
-        peddingService.sendPedding(request,achievement.getTableId()+"","1","0","4");
-        auditService.updateAuit(tableId,"0","0",id,request);
+        peddingService.sendPedding(request, achievement.getTableId() + "", "1", "0", "4");
+        auditService.updateAuit(tableId, "0", "0", id, request);
         return RespBean.ok("操作成功");
     }
 
     @GetMapping("/getAchievement")
-    public Map<String,Object> getAchievement(@RequestParam(required = false) Map param){
+    public Map<String, Object> getAchievement(@RequestParam(required = false) Map param) {
         DateConverter dateConverter = new DateConverter();
         Achievement res = achievementService.getAchievement(param);
         res.setApplyTime(dateConverter.stampToDate(res.getApplyTime()));
-        Map<String,Object> map = new HashMap<>();
-        map.put("res",res);
+        Map<String, Object> map = new HashMap<>();
+        map.put("res", res);
         return map;
     }
 }

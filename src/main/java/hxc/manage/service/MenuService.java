@@ -1,6 +1,7 @@
 package hxc.manage.service;
 
 import hxc.manage.model.Menu;
+import hxc.manage.model.MenuVo;
 
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.Map;
  * @date 2019/12/27 14:27
  */
 public interface MenuService {
-    List<Menu> getMenusByUserId();
+    List<MenuVo> getMenusByUserId();
 
     List<Menu> getAllMenu();
 

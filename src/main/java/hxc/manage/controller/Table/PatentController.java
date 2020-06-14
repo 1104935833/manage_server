@@ -1,5 +1,6 @@
 package hxc.manage.controller.Table;
 
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.model.table.Patent;
@@ -20,6 +21,8 @@ import java.util.Map;
 @RestController
 public class PatentController {
 
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
 
     @Autowired
     PatentService patentService;
@@ -35,7 +38,8 @@ public class PatentController {
 
     @PostMapping("/insertPatent")
     public RespBean insertPatent(HttpServletRequest request, Patent patent) throws ParseException {
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         patent.setCreateTime(String.valueOf(new Date().getTime()));
         int id = tableService.table(request,u.getUser_id(),"tb_patent",9);
         patent.setTableId(id);

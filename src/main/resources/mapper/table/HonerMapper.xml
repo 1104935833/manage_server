@@ -45,7 +45,7 @@
         ) VALUES (
             #{pojo.id},
             #{pojo.personalHonorType},
-            #{pojo.name},
+            #{pojo.honeNameId},
             #{pojo.personalGainTime},
             #{pojo.fileId},
             #{pojo.organizationName},

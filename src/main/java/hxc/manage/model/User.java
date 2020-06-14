@@ -18,6 +18,7 @@ import java.util.List;
 public class User extends UserDetail implements UserDetails  {
     private Long id;
     private boolean enabled;
+
     private String username;
     private String password;
     private List<Role> roles;

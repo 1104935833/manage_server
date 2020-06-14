@@ -1,6 +1,7 @@
 package hxc.manage.controller.Table;
 
 import hxc.manage.common.DateConverter;
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.model.table.Transverse;
@@ -23,6 +24,8 @@ import java.util.Map;
 @RestController
 public class TransverseController {
 
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
 
     @Autowired
     TransverseService transverseService;
@@ -39,7 +42,8 @@ public class TransverseController {
     @PostMapping("/insertTransverse")
     public RespBean insertTransverse(HttpServletRequest request, Transverse transverse) throws ParseException {
         DateConverter dateConverter = new DateConverter();
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         transverse.setStartTime(dateConverter.date1ToTimeMillis(transverse.getStartTime()));
         transverse.setCreateTime(String.valueOf(new Date().getTime()));
         int id = tableService.table(request,u.getUser_id(),"tb_transverse",11);

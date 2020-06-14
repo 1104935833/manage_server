@@ -35,9 +35,9 @@ public class SystemPartController {
     }
 
     @GetMapping("/getTrandferUser")
-    public Map<String, List> getTrandferUser(@RequestParam("rid") String rid,@RequestParam("type") String type){
+    public RespBean getTrandferUser(@RequestParam("rid") String rid,@RequestParam("type") String type){
         Map<String,List> map = partService.getTrandferUser(rid,type);
-        return map;
+        return RespBean.ok("success",map);
     }
 
     //    分配用户
@@ -86,22 +86,19 @@ public class SystemPartController {
 
     //获取角色对应的菜单和目录
     @GetMapping("/getPartMenuById")
-    public Map<String ,Object> getPartMenuById(@RequestParam("id") String id) {
-        Map<String,Object> l= partService.getPartMenuById(id);
-
-
-
-        return l;
+    public RespBean getPartMenuById(@RequestParam("id") String id) {
+        Map<String,Object> map= partService.getPartMenuById(id);
+        return RespBean.ok("success",map);
     }
 
 
     //获取所有权限列表
     @GetMapping("/getAllRole")
-    public Map<String ,Object> getAllRole(){
+    public RespBean getAllRole(){
         List<Role> role = partService.getAllRole();
         Map<String, Object> map= new HashMap<>();
         map.put("role",role);
-        return map;
+        return RespBean.ok("success",map);
     }
 
 

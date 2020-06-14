@@ -1,6 +1,7 @@
 package hxc.manage.controller.Table;
 
 import hxc.manage.common.DateConverter;
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.model.table.TextBook;
@@ -24,6 +25,9 @@ import java.util.Map;
 public class TextBookController {
 
     @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
     TextBookService textBookService;
 
     @Autowired
@@ -38,7 +42,8 @@ public class TextBookController {
     @PostMapping("/insertTextBook")
     public RespBean insertTextBook(HttpServletRequest request, TextBook textBook) throws ParseException {
         DateConverter dateConverter = new DateConverter();
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         textBook.setWriteFinishTime(dateConverter.date1ToTimeMillis(textBook.getWriteFinishTime()));
         textBook.setDeclareTime(dateConverter.date1ToTimeMillis(textBook.getDeclareTime()));
 

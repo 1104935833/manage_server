@@ -3,22 +3,24 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="hxc.manage.mapper.UserMapper">
-    <resultMap id="BaseResultMap" type="hxc.manage.model.User">
+<!--    <resultMap id="BaseResultMap" type="hxc.manage.model.User">-->
+<!--        <id column="id" property="id"/>-->
+<!--        <result column="enabled" property="enabled"/>-->
+<!--        <result column="password" property="password"/>-->
+<!--    </resultMap>-->
+    <resultMap id="lazyLoadRoles" type="hxc.manage.model.User">
         <id column="id" property="id"/>
-        <result column="enabled" property="enabled"/>
-        <result column="password" property="password"/>
-    </resultMap>
-    <resultMap id="lazyLoadRoles" type="hxc.manage.model.User" extends="BaseResultMap">
+<!--        <result column="enabled" property="enabled"/>-->
         <collection property="roles" ofType="hxc.manage.model.Role" select="hxc.manage.mapper.UserMapper.getRolesByUserId"
                     column="id"></collection>
     </resultMap>
-    <resultMap id="eagerLoadRoles" type="hxc.manage.model.User" extends="BaseResultMap">
-        <collection property="roles" ofType="hxc.manage.model.Role">
-            <id property="id" column="rid"/>
-            <result property="name" column="rname"/>
-            <result property="nameZh" column="rnameZh"/>
-        </collection>
-    </resultMap>
+<!--    <resultMap id="eagerLoadRoles" type="hxc.manage.model.User" extends="BaseResultMap">-->
+<!--        <collection property="roles" ofType="hxc.manage.model.Role">-->
+<!--            <id property="id" column="rid"/>-->
+<!--            <result property="name" column="rname"/>-->
+<!--            <result property="nameZh" column="rnameZh"/>-->
+<!--        </collection>-->
+<!--    </resultMap>-->
     <select id="loadUserByUsername" resultMap="lazyLoadRoles">
         SELECT
             a.*,b.*,c.name department

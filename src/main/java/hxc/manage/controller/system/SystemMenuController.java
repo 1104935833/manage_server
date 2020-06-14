@@ -64,8 +64,8 @@ public class SystemMenuController {
     }
     //    获取所有目录
     @GetMapping("/getAllParent")
-    public List<Map<String, Object>> getAllParent(){
-        return  menuService.getAllParent();
+    public RespBean getAllParent(){
+        return RespBean.ok("success",menuService.getAllParent());
 
     }
     //删除菜单
@@ -101,11 +101,12 @@ public class SystemMenuController {
 
     //    菜单管理获取全部菜单
     @GetMapping("/getAllMenus")
-    public Map<String,Object>  getAllMenu(){
+    public RespBean getAllMenu(){
 
         Map<String,Object> list=menuService.getAllMenus();
 
-        return list;
+        return RespBean.ok("success",list);
+
 
     }
 

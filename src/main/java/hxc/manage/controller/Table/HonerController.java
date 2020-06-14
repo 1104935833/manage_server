@@ -1,6 +1,7 @@
 package hxc.manage.controller.Table;
 
 import hxc.manage.common.DateConverter;
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.User;
 import hxc.manage.model.table.Honer;
 import hxc.manage.model.RespBean;
@@ -25,6 +26,9 @@ import java.util.Map;
 public class HonerController {
 
     @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
     HonerService honerService;
 
     @Autowired
@@ -42,7 +46,8 @@ public class HonerController {
     @PostMapping("/insertHoner")
     public RespBean insertHoner(HttpServletRequest request, Honer honer) throws ParseException {
         DateConverter dateConverter = new DateConverter();
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         honer.setPersonalGainTime(dateConverter.date1ToTimeMillis(honer.getPersonalGainTime()));
         honer.setCreateTime(String.valueOf(new Date().getTime()));
         int state;
@@ -71,7 +76,7 @@ public class HonerController {
     }
 
     @GetMapping("/getHoner")
-    public Map<String,Object> getHoner(@RequestParam(required = false) Map param){
+    public RespBean getHoner(@RequestParam(required = false) Map param){
         DateConverter dateConverter = new DateConverter();
         Honer res = honerService.getHoner(param);
         List<Map<String,Object>> list = commonService.findOption("honor","","", res.getName());
@@ -83,7 +88,7 @@ public class HonerController {
         res.setPersonalGainTime(dateConverter.stampToDate(res.getPersonalGainTime()));
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
-        return map;
+        return RespBean.ok("success",map);
     }
 
 }

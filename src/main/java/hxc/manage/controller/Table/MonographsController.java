@@ -1,6 +1,7 @@
 package hxc.manage.controller.Table;
 
 import hxc.manage.common.DateConverter;
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.model.table.Monographs;
@@ -24,6 +25,8 @@ import java.util.Map;
 @RestController
 public class MonographsController {
 
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
 
     @Autowired
     MonographsService monographsService;
@@ -40,7 +43,8 @@ public class MonographsController {
     @PostMapping("/insertMonographs")
     public RespBean insertMonographs(HttpServletRequest request, Monographs monographs) throws ParseException {
         DateConverter dateConverter = new DateConverter();
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         monographs.setFinishTime(dateConverter.date1ToTimeMillis(monographs.getFinishTime()));
         monographs.setCreateTime(String.valueOf(new Date().getTime()));
         int id = tableService.table(request,u.getUser_id(),"tb_Monographs",8);

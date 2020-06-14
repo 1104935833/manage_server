@@ -31,7 +31,7 @@ public class AuditController {
     AuditService auditService;
     //全部的审核列表
     @GetMapping("/getAllAudit")
-    public Map<String, Object> getAllAudit(@RequestParam("proposer_id") String proposer_id,
+    public RespBean getAllAudit(@RequestParam("proposer_id") String proposer_id,
                                            @RequestParam("audit_status") String audit_status,
                                            @RequestParam(defaultValue = "1") Integer page,
                                            @RequestParam(defaultValue = "10") Integer size){
@@ -45,15 +45,15 @@ public class AuditController {
         Map<String,Object> map = new HashMap<>();
         map.put("audits",audits);
         map.put("count",auditService.getAllAuditCount(conditions));
-        return map;
+        return RespBean.ok("success",map);
     }
 
 
     @GetMapping("/getTableName")
-    public Map<String,Object> getTableName(@RequestParam("tableId") String tableId){
+    public RespBean getTableName(@RequestParam("tableId") String tableId){
         Map<String,Object> map = new HashMap<>();
         map.put("tableName",auditService.getTableName(tableId));
-        return map;
+        return RespBean.ok("success",map);
     }
 
 

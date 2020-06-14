@@ -1,6 +1,7 @@
 package hxc.manage.controller.Table;
 
 import hxc.manage.common.DateConverter;
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.model.table.Professional;
@@ -23,6 +24,9 @@ import java.util.Map;
 public class ProfessionalController {
 
     @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
     ProfessionalService professionalService;
 
     @Autowired
@@ -36,7 +40,8 @@ public class ProfessionalController {
 
     @PostMapping("/insertProfessional")
     public RespBean insertProfessional(HttpServletRequest request, Professional professional) throws ParseException {
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         professional.setCreateTime(String.valueOf(new Date().getTime()));
         int id = tableService.table(request,u.getUser_id(),"jx_professional_building",32);
         professional.setTableId(id);

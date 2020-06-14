@@ -6,9 +6,9 @@ package hxc.manage.model;
  * @date 2019/12/27 14:26
  */
 public class RespBean {
-    private Integer status;
+    private Integer code;
     private String msg;
-    private Object obj;
+    private Object data;
 
     private RespBean() {
     }
@@ -33,19 +33,19 @@ public class RespBean {
         return new RespBean(500, msg, null);
     }
 
-    private RespBean(Integer status, String msg, Object obj) {
-        this.status = status;
+    private RespBean(Integer code, String msg, Object data) {
+        this.code = code;
         this.msg = msg;
-        this.obj = obj;
+        this.data = data;
     }
 
-    public Integer getStatus() {
+    public Integer getCode() {
 
-        return status;
+        return code;
     }
 
-    public RespBean setStatus(Integer status) {
-        this.status = status;
+    public RespBean setCode(Integer code) {
+        this.code = code;
         return this;
     }
 
@@ -58,12 +58,12 @@ public class RespBean {
         return this;
     }
 
-    public Object getObj() {
-        return obj;
+    public Object getData() {
+        return data;
     }
 
-    public RespBean setObj(Object obj) {
-        this.obj = obj;
+    public RespBean setData(Object data) {
+        this.data = data;
         return this;
     }
 }

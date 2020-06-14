@@ -1,5 +1,6 @@
 package hxc.manage.controller.Table;
 
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.model.table.TeachingReform;
@@ -21,6 +22,9 @@ import java.util.Map;
 public class TeachingReformController {
 
     @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
     TeachingReformService teachingReformService;
 
     @Autowired
@@ -34,7 +38,8 @@ public class TeachingReformController {
 
     @PostMapping("/insertTeachingReform")
     public RespBean insertTeachingReform(HttpServletRequest request, TeachingReform teachingReform) throws ParseException {
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         teachingReform.setCreateTime(String.valueOf(new Date().getTime()));
         int id = tableService.table(request,u.getUser_id(),"jx_teaching_reform",29);
         teachingReform.setTableId(id);

@@ -1,6 +1,7 @@
 package hxc.manage.controller.Table;
 
 import hxc.manage.common.DateConverter;
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.model.table.Competition;
@@ -23,6 +24,8 @@ import java.util.Map;
 @RestController
 public class CompetitionController {
 
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
 
     @Autowired
     CompetitionService competitionService;
@@ -39,7 +42,8 @@ public class CompetitionController {
     @PostMapping("/insertCompetition")
     public RespBean insertCompetition(HttpServletRequest request, Competition competition) throws ParseException {
         DateConverter dateConverter = new DateConverter();
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         competition.setApprovalTime(dateConverter.date1ToTimeMillis(competition.getApprovalTime()));
         competition.setCreateTime(String.valueOf(new Date().getTime()));
 

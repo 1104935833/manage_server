@@ -1,6 +1,7 @@
 package hxc.manage.controller.Table;
 
 import hxc.manage.common.DateConverter;
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.model.table.FirstSubject;
@@ -22,6 +23,9 @@ import java.util.Map;
 public class FirstSubjectController {
 
     @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
     FirstSubjectService firstSubjectService;
 
     @Autowired
@@ -36,7 +40,8 @@ public class FirstSubjectController {
     @PostMapping("/insertFirstSubject")
     public RespBean insertFirstSubject(HttpServletRequest request, FirstSubject firstSubject) throws ParseException {
         DateConverter dateConverter = new DateConverter();
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         firstSubject.setApprovalTime(dateConverter.date1ToTimeMillis(firstSubject.getApprovalTime()));
         firstSubject.setInceptTime(dateConverter.date1ToTimeMillis(firstSubject.getInceptTime()));
         firstSubject.setCreateTime(String.valueOf(new Date().getTime()));

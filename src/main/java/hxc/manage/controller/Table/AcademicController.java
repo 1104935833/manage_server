@@ -1,6 +1,7 @@
 package hxc.manage.controller.Table;
 
 import hxc.manage.common.DateConverter;
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.model.table.Academic;
@@ -31,12 +32,16 @@ public class AcademicController {
     PeddingService peddingService;
 
     @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
     AuditService auditService;
 
     @PostMapping("/insertAcademic")
     public RespBean insertAcademic(HttpServletRequest request, Academic academic) throws ParseException {
         DateConverter dateConverter = new DateConverter();
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         academic.setCreateTime(String.valueOf(new Date().getTime()));
         academic.setDeclareTime(dateConverter.date1ToTimeMillis(academic.getDeclareTime()));
         int id = tableService.table(request,u.getUser_id(),"jt_academic_innovation",21);

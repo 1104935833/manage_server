@@ -1,6 +1,7 @@
 package hxc.manage.controller.Table;
 
 import hxc.manage.common.DateConverter;
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.model.table.Lab;
@@ -25,6 +26,9 @@ import java.util.Map;
 public class LabController {
 
     @Autowired
+    JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
     LabService labService;
 
     @Autowired
@@ -39,7 +43,8 @@ public class LabController {
     @PostMapping("/insertLab")
     public RespBean insertLab(HttpServletRequest request, Lab lab) throws ParseException {
         DateConverter dateConverter = new DateConverter();
-        User u = (User) request.getSession().getAttribute("userinfo");
+        String token = request.getHeader("Authorization");
+        User u =jwtTokenProvider.getUserFromToken(token);
         lab.setApprovalTime(dateConverter.date1ToTimeMillis(lab.getApprovalTime()));
         lab.setLabApprovalTime(dateConverter.date1ToTimeMillis(lab.getLabApprovalTime()));
         lab.setDeclareEndTime(dateConverter.date1ToTimeMillis(lab.getDeclareEndTime()));
