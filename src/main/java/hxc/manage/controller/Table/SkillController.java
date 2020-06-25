@@ -37,7 +37,7 @@ public class SkillController {
     AuditService auditService;
 
     @PostMapping("/insertSkill")
-    public RespBean insertSkill(HttpServletRequest request, Skill skill) throws ParseException {
+    public RespBean insertSkill(HttpServletRequest request,@RequestBody Skill skill) throws ParseException {
         String token = request.getHeader("Authorization");
         User u =jwtTokenProvider.getUserFromToken(token);
         skill.setCreateTime(String.valueOf(new Date().getTime()));
@@ -61,11 +61,11 @@ public class SkillController {
     }
 
     @GetMapping("/getSkill")
-    public Map<String,Object> getSkill(@RequestParam(required = false) Map param){
+    public RespBean getSkill(@RequestParam(required = false) Map param){
         Skill res = skillService.getSkill(param);
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
-        return map;
+        return RespBean.ok("操作成功",map);
     }
 
 }

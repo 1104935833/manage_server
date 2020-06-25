@@ -12,8 +12,8 @@
         where user_id = #{map.id}
     </update>
     <select id="userInfo" resultType="hxc.manage.model.UserDetail">
-        select a.id,a.workID,a.`name`,a.phone,a.email,a.note,a.user_id,a.gender,a.office_id
-        from user_details a
+         select a.id,a.workID,a.`name`,a.phone,a.email,a.note,a.user_id,a.gender,a.office_id,c.name department
+        from user_details a left join user b on a.user_id = b.id LEFT JOIN tree_people c on b.tree = c.tree_code
         where user_id = #{id}
     </select>
     <select id="getOffices" resultType="hxc.manage.model.Office">

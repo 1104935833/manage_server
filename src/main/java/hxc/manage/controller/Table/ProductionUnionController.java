@@ -40,7 +40,7 @@ public class ProductionUnionController {
     AuditService auditService;
 
     @PostMapping("/insertProductionUnion")
-    public RespBean insertProductionUnion(HttpServletRequest request, ProductionUnion productionUnion) throws ParseException {
+    public RespBean insertProductionUnion(HttpServletRequest request,@RequestBody ProductionUnion productionUnion) throws ParseException {
         DateConverter dateConverter = new DateConverter();
         String token = request.getHeader("Authorization");
         User u =jwtTokenProvider.getUserFromToken(token);
@@ -70,7 +70,7 @@ public class ProductionUnionController {
     }
 
     @GetMapping("/getProductionUnion")
-    public Map<String,Object> getProductionUnion(@RequestParam(required = false) Map param){
+    public RespBean getProductionUnion(@RequestParam(required = false) Map param){
         DateConverter dateConverter = new DateConverter();
         ProductionUnion res = productionUnionService.getProductionUnion(param);
         res.setUnionEffectTime(dateConverter.stampToDate(res.getUnionEffectTime()));
@@ -78,7 +78,7 @@ public class ProductionUnionController {
 
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
-        return map;
+        return RespBean.ok("操作成功",map);
     }
 
 

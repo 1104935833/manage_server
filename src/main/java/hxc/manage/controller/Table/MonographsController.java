@@ -41,7 +41,7 @@ public class MonographsController {
     AuditService auditService;
 
     @PostMapping("/insertMonographs")
-    public RespBean insertMonographs(HttpServletRequest request, Monographs monographs) throws ParseException {
+    public RespBean insertMonographs(HttpServletRequest request, @RequestBody Monographs monographs) throws ParseException {
         DateConverter dateConverter = new DateConverter();
         String token = request.getHeader("Authorization");
         User u =jwtTokenProvider.getUserFromToken(token);
@@ -70,13 +70,13 @@ public class MonographsController {
     }
 
     @GetMapping("/getMonographs")
-    public Map<String,Object> getMonographs(@RequestParam(required = false) Map param){
+    public RespBean getMonographs(@RequestParam(required = false) Map param){
         DateConverter dateConverter = new DateConverter();
         Monographs res = monographsService.getMonographs(param);
         res.setFinishTime(dateConverter.stampToDate(res.getFinishTime()));
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
-        return map;
+        return RespBean.ok("操作成功",map);
     }
 
 

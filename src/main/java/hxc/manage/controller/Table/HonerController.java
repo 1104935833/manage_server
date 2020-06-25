@@ -44,7 +44,7 @@ public class HonerController {
     AuditService auditService;
 
     @PostMapping("/insertHoner")
-    public RespBean insertHoner(HttpServletRequest request, Honer honer) throws ParseException {
+    public RespBean insertHoner(HttpServletRequest request,@RequestBody Honer honer) throws ParseException {
         DateConverter dateConverter = new DateConverter();
         String token = request.getHeader("Authorization");
         User u =jwtTokenProvider.getUserFromToken(token);

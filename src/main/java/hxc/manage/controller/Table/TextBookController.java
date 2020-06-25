@@ -40,7 +40,7 @@ public class TextBookController {
     AuditService auditService;
 
     @PostMapping("/insertTextBook")
-    public RespBean insertTextBook(HttpServletRequest request, TextBook textBook) throws ParseException {
+    public RespBean insertTextBook(HttpServletRequest request,@RequestBody TextBook textBook) throws ParseException {
         DateConverter dateConverter = new DateConverter();
         String token = request.getHeader("Authorization");
         User u =jwtTokenProvider.getUserFromToken(token);
@@ -71,14 +71,14 @@ public class TextBookController {
     }
 
     @GetMapping("/getTextBook")
-    public Map<String,Object> getTextBook(@RequestParam(required = false) Map param){
+    public RespBean getTextBook(@RequestParam(required = false) Map param){
         DateConverter dateConverter = new DateConverter();
         TextBook res = textBookService.getTextBook(param);
         res.setWriteFinishTime(dateConverter.stampToDate(res.getWriteFinishTime()));
         res.setDeclareTime(dateConverter.stampToDate(res.getDeclareTime()));
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
-        return map;
+        return RespBean.ok("操作成功",map);
     }
 
 }

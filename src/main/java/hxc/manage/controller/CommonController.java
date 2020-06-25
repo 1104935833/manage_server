@@ -57,8 +57,8 @@ public class CommonController {
     }
 
     @GetMapping("/getOption")
-    public RespBean option(@RequestParam("option") String option, @RequestParam("title") String title, @RequestParam("value") String value) {
-        List<Map<String, Object>> res = commonService.findOption(option, title, value, "");
+    public RespBean option(@RequestParam("option") String option, @RequestParam("title") String title, @RequestParam("value") String value,@RequestParam(name = "id",defaultValue = "",required = false) String id) {
+        List<Map<String, Object>> res = commonService.findOption(option, title, value, id);
         Map<String, Object> map = new HashMap<>();
         map.put("options", res);
         return RespBean.ok("success", map);

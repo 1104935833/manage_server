@@ -39,7 +39,7 @@ public class ProfessionalController {
     AuditService auditService;
 
     @PostMapping("/insertProfessional")
-    public RespBean insertProfessional(HttpServletRequest request, Professional professional) throws ParseException {
+    public RespBean insertProfessional(HttpServletRequest request,@RequestBody Professional professional) throws ParseException {
         String token = request.getHeader("Authorization");
         User u =jwtTokenProvider.getUserFromToken(token);
         professional.setCreateTime(String.valueOf(new Date().getTime()));
@@ -63,11 +63,11 @@ public class ProfessionalController {
     }
 
     @GetMapping("/getProfessional")
-    public Map<String,Object> getProfessional(@RequestParam(required = false) Map param){
+    public RespBean getProfessional(@RequestParam(required = false) Map param){
         Professional res = professionalService.getProfessional(param);
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
-        return map;
+        return RespBean.ok("操作成功",map);
     }
 
 

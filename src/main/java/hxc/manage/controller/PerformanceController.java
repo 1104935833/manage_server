@@ -56,7 +56,7 @@ public class PerformanceController {
     }
 
     @GetMapping("/getPerformanceByUserId")
-    public Map<String,Object> getPerformanceByUserId(HttpServletRequest request,
+    public RespBean getPerformanceByUserId(HttpServletRequest request,
                                                      @RequestParam(defaultValue = "1") Integer page,
                                                      @RequestParam(defaultValue = "10") Integer size){
         int start = (page - 1) * size;
@@ -72,7 +72,7 @@ public class PerformanceController {
         res.put("count",count);
         res.put("performance",performance);
 
-        return res;
+        return RespBean.ok("success",res);
     }
 
     @GetMapping("/getperType")

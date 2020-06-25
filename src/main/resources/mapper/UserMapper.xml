@@ -60,15 +60,14 @@
         <if test="tree!='' and tree!=null">
             tree=#{tree}
         </if>
-        <if test="enable!='' and enable!=null">
+        <if test="enable!=null">
             ,enabled=#{enable}
         </if>
         <if test="password!='' and password!=null and password!='null'">
             ,password=#{password}
         </if>
-        where id =
-        (select user_id from
-        (select user_id from `user_details` a,user b where a.user_id = b.id and a.id=#{id}) t1 )
+        where id = #{user_id}
+
     </update>
 
     <!--分院、教研室-->
@@ -88,7 +87,7 @@
 
     <update id="editUserDetails">
       update user_details set name=#{name},gender=#{gender},
-      email=#{email},phone=#{phone},office_id = #{office_id} where id = #{id}
+      email=#{email},phone=#{phone},office_id = #{office_id} where id = #{user_id}
     </update>
     <delete id="delByUserId">
         delete from `user` WHERE id IN

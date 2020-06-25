@@ -41,7 +41,7 @@ public class TechnologicalController {
     AuditService auditService;
 
     @PostMapping("/insertTechnological")
-    public RespBean insertTechnological(HttpServletRequest request, Technological technological) throws ParseException {
+    public RespBean insertTechnological(HttpServletRequest request,@RequestBody Technological technological) throws ParseException {
         DateConverter dateConverter = new DateConverter();
         String token = request.getHeader("Authorization");
         User u =jwtTokenProvider.getUserFromToken(token);
@@ -70,14 +70,14 @@ public class TechnologicalController {
     }
 
     @GetMapping("/getTechnological")
-    public Map<String,Object> getTechnological(@RequestParam(required = false) Map param){
+    public RespBean getTechnological(@RequestParam(required = false) Map param){
         DateConverter dateConverter = new DateConverter();
         Technological res = technologicalService.getTechnological(param);
         res.setDeclareTime(dateConverter.stampToDate(res.getDeclareTime()));
         res.setApprovalTime(dateConverter.stampToDate(res.getApprovalTime()));
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
-        return map;
+        return RespBean.ok("操作成功",map);
     }
 
 

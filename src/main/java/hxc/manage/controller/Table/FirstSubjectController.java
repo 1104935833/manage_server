@@ -38,7 +38,7 @@ public class FirstSubjectController {
     AuditService auditService;
 
     @PostMapping("/insertFirstSubject")
-    public RespBean insertFirstSubject(HttpServletRequest request, FirstSubject firstSubject) throws ParseException {
+    public RespBean insertFirstSubject(HttpServletRequest request,@RequestBody FirstSubject firstSubject) throws ParseException {
         DateConverter dateConverter = new DateConverter();
         String token = request.getHeader("Authorization");
         User u =jwtTokenProvider.getUserFromToken(token);
@@ -68,14 +68,14 @@ public class FirstSubjectController {
     }
 
     @GetMapping("/getFirstSubject")
-    public Map<String,Object> getFirstSubject(@RequestParam(required = false) Map param){
+    public RespBean getFirstSubject(@RequestParam(required = false) Map param){
         DateConverter dateConverter = new DateConverter();
         FirstSubject res = firstSubjectService.getFirstSubject(param);
         res.setApprovalTime(dateConverter.stampToDate(res.getApprovalTime()));
         res.setInceptTime(dateConverter.stampToDate(res.getInceptTime()));
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
-        return map;
+        return RespBean.ok("操作成功",map);
     }
 
 

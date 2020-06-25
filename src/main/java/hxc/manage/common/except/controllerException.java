@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * 全局异常
  */
 
-@ControllerAdvice
+//@ControllerAdvice
 public class controllerException {
 
     @ResponseBody

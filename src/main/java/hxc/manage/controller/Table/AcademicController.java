@@ -38,7 +38,7 @@ public class AcademicController {
     AuditService auditService;
 
     @PostMapping("/insertAcademic")
-    public RespBean insertAcademic(HttpServletRequest request, Academic academic) throws ParseException {
+    public RespBean insertAcademic(HttpServletRequest request,@RequestBody Academic academic) throws ParseException {
         DateConverter dateConverter = new DateConverter();
         String token = request.getHeader("Authorization");
         User u =jwtTokenProvider.getUserFromToken(token);
@@ -66,13 +66,13 @@ public class AcademicController {
     }
 
     @GetMapping("/getAcademic")
-    public Map<String,Object> getAcademic(@RequestParam(required = false) Map param){
+    public RespBean getAcademic(@RequestParam(required = false) Map param){
         DateConverter dateConverter = new DateConverter();
         Academic res = academicService.getAcademic(param);
         res.setDeclareTime(dateConverter.stampToDate(res.getDeclareTime()));
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
-        return map;
+        return RespBean.ok("操作成功",map);
     }
 
 }

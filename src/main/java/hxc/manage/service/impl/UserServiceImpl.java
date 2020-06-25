@@ -97,6 +97,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public void editUser(UserDetail userDetail) {
+        int id = userMapper.getUserId(userDetail.getId());
         userMapper.editUser(userDetail);
         userMapper.editUserDetails(userDetail);
     }

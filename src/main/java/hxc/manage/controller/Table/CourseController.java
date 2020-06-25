@@ -38,7 +38,7 @@ public class CourseController {
     AuditService auditService;
 
     @PostMapping("/insertCourse")
-    public RespBean insertCourse(HttpServletRequest request, Course course) throws ParseException {
+    public RespBean insertCourse(HttpServletRequest request,@RequestBody Course course) throws ParseException {
         DateConverter dateConverter = new DateConverter();
         String token = request.getHeader("Authorization");
         User u =jwtTokenProvider.getUserFromToken(token);
@@ -65,13 +65,14 @@ public class CourseController {
     }
 
     @GetMapping("/getCourse")
-    public Map<String,Object> getCourse(@RequestParam(required = false) Map param){
+    public RespBean getCourse(@RequestParam(required = false) Map param){
         DateConverter dateConverter = new DateConverter();
         Course res = courseService.getCourse(param);
         res.setDeclareTime(dateConverter.stampToDate(res.getDeclareTime()));
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
-        return map;
+        return RespBean.ok("操作成功",map);
+
     }
 
 

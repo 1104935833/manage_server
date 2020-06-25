@@ -38,7 +38,7 @@ public class AchievementController {
     AuditService auditService;
 
     @PostMapping("/insertAchievement")
-    public RespBean insertAchievement(HttpServletRequest request, Achievement achievement) throws ParseException {
+    public RespBean insertAchievement(HttpServletRequest request,@RequestBody Achievement achievement) throws ParseException {
         DateConverter dateConverter = new DateConverter();
         String token = request.getHeader("Authorization");
         User u = jwtTokenProvider.getUserFromToken(token);
@@ -65,12 +65,13 @@ public class AchievementController {
     }
 
     @GetMapping("/getAchievement")
-    public Map<String, Object> getAchievement(@RequestParam(required = false) Map param) {
+    public RespBean getAchievement(@RequestParam(required = false) Map param) {
         DateConverter dateConverter = new DateConverter();
         Achievement res = achievementService.getAchievement(param);
         res.setApplyTime(dateConverter.stampToDate(res.getApplyTime()));
         Map<String, Object> map = new HashMap<>();
         map.put("res", res);
-        return map;
+        return RespBean.ok("操作成功",map);
+
     }
 }

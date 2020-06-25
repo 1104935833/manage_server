@@ -70,4 +70,5 @@ public interface UserMapper {
 
     List<Office> getAllOffice();
 
+    int getUserId(Long id);
 }

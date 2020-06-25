@@ -40,7 +40,7 @@ public class TransverseController {
     AuditService auditService;
 
     @PostMapping("/insertTransverse")
-    public RespBean insertTransverse(HttpServletRequest request, Transverse transverse) throws ParseException {
+    public RespBean insertTransverse(HttpServletRequest request,@RequestBody Transverse transverse) throws ParseException {
         DateConverter dateConverter = new DateConverter();
         String token = request.getHeader("Authorization");
         User u =jwtTokenProvider.getUserFromToken(token);
@@ -67,13 +67,13 @@ public class TransverseController {
     }
 
     @GetMapping("/getTransverse")
-    public Map<String,Object> getTransverse(@RequestParam(required = false) Map param){
+    public RespBean getTransverse(@RequestParam(required = false) Map param){
         DateConverter dateConverter = new DateConverter();
         Transverse res = transverseService.getTransverse(param);
         res.setStartTime(dateConverter.stampToDate(res.getStartTime()));
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
-        return map;
+        return RespBean.ok("操作成功",map);
     }
 
 

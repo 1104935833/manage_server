@@ -37,7 +37,7 @@ public class TeachingReformController {
     AuditService auditService;
 
     @PostMapping("/insertTeachingReform")
-    public RespBean insertTeachingReform(HttpServletRequest request, TeachingReform teachingReform) throws ParseException {
+    public RespBean insertTeachingReform(HttpServletRequest request,@RequestBody TeachingReform teachingReform) throws ParseException {
         String token = request.getHeader("Authorization");
         User u =jwtTokenProvider.getUserFromToken(token);
         teachingReform.setCreateTime(String.valueOf(new Date().getTime()));
@@ -61,11 +61,11 @@ public class TeachingReformController {
     }
 
     @GetMapping("/getTeachingReform")
-    public Map<String,Object> getTeachingReform(@RequestParam(required = false) Map param){
+    public RespBean getTeachingReform(@RequestParam(required = false) Map param){
         TeachingReform res = teachingReformService.getTeachingReform(param);
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
-        return map;
+        return RespBean.ok("操作成功",map);
     }
 
 

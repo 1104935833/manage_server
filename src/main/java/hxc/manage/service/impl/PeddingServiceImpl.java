@@ -1,6 +1,7 @@
 package hxc.manage.service.impl;
 
 import hxc.manage.common.EmailAndMessage;
+import hxc.manage.common.JwtTokenProvider;
 import hxc.manage.mapper.PeddingMapper;
 import hxc.manage.model.Pedding;
 import hxc.manage.model.Role;
@@ -26,6 +27,9 @@ public class PeddingServiceImpl implements PeddingService {
 
     @Autowired
     EmailAndMessage emailAndMessage;
+
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
 
 
 //    public List<SysRole> findSysRole(){
@@ -65,7 +69,8 @@ public class PeddingServiceImpl implements PeddingService {
                                            String agree,//0 -- 不同意 1 -- 同意
                                            String state) {//  tableName 到哪个阶段了1首次发起2教研室3分院4返回修改在发起
         int res;
-        User user = (User) req.getSession().getAttribute("userinfo");
+        String token = req.getHeader("Authorization");
+        User user =jwtTokenProvider.getUserFromToken(token);
         String userId =user.getId()+"";
         //第一次直接插入记录就好
         Pedding pedding = new Pedding();

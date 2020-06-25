@@ -41,7 +41,7 @@ public class LabController {
     AuditService auditService;
 
     @PostMapping("/insertLab")
-    public RespBean insertLab(HttpServletRequest request, Lab lab) throws ParseException {
+    public RespBean insertLab(HttpServletRequest request,@RequestBody Lab lab) throws ParseException {
         DateConverter dateConverter = new DateConverter();
         String token = request.getHeader("Authorization");
         User u =jwtTokenProvider.getUserFromToken(token);
@@ -75,7 +75,7 @@ public class LabController {
     }
 
     @GetMapping("/getLab")
-    public Map<String,Object> getLab(@RequestParam(required = false) Map param){
+    public RespBean getLab(@RequestParam(required = false) Map param){
         DateConverter dateConverter = new DateConverter();
         Lab res = labService.getLab(param);
         res.setApprovalTime(dateConverter.stampToDate(res.getApprovalTime()));
@@ -84,7 +84,7 @@ public class LabController {
         res.setDeclareStartTime(dateConverter.stampToDate(res.getDeclareStartTime()));
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
-        return map;
+        return RespBean.ok("操作成功",map);
     }
 
 }

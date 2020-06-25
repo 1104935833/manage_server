@@ -37,7 +37,8 @@ public class PaperController {
     AuditService auditService;
 
     @PostMapping("/insertPaper")
-    public RespBean insertPaper(HttpServletRequest request,Paper paper) throws ParseException {
+
+    public RespBean insertPaper(HttpServletRequest request,@RequestBody Paper paper) throws ParseException {
         DateConverter dateConverter = new DateConverter();
         String token = request.getHeader("Authorization");
         User u =jwtTokenProvider.getUserFromToken(token);
@@ -65,13 +66,13 @@ public class PaperController {
     }
 
     @GetMapping("/getPaper")
-    public Map<String,Object> getPaper(@RequestParam(required = false) Map param){
+    public RespBean getPaper(@RequestParam(required = false) Map param){
         DateConverter dateConverter = new DateConverter();
         Paper res = paperService.getPaper(param);
         res.setTime(dateConverter.stampToDate(res.getTime()));
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
-        return map;
+        return RespBean.ok("操作成功",map);
     }
 
 

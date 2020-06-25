@@ -40,7 +40,7 @@ public class PortraitController {
     AuditService auditService;
 
     @PostMapping("/insertPortrait")
-    public RespBean insertPortrait(HttpServletRequest request, Portrait portrait) throws ParseException {
+    public RespBean insertPortrait(HttpServletRequest request,@RequestBody Portrait portrait) throws ParseException {
         String token = request.getHeader("Authorization");
         User u =jwtTokenProvider.getUserFromToken(token);
         portrait.setCreateTime(String.valueOf(new Date().getTime()));
@@ -64,11 +64,11 @@ public class PortraitController {
     }
 
     @GetMapping("/getPortrait")
-    public Map<String,Object> getPortrait(@RequestParam(required = false) Map param){
+    public RespBean getPortrait(@RequestParam(required = false) Map param){
         Portrait res = portraitService.getPortrait(param);
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
-        return map;
+        return RespBean.ok("操作成功",map);
     }
 
 

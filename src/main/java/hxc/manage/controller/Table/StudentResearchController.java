@@ -37,7 +37,7 @@ public class StudentResearchController {
     AuditService auditService;
 
     @PostMapping("/insertStudentResearch")
-    public RespBean insertStudentResearchService(HttpServletRequest request, StudentResearch studentResearch) throws ParseException {
+    public RespBean insertStudentResearchService(HttpServletRequest request,@RequestBody StudentResearch studentResearch) throws ParseException {
         String token = request.getHeader("Authorization");
         User u =jwtTokenProvider.getUserFromToken(token);
         studentResearch.setCreateTime(String.valueOf(new Date().getTime()));
@@ -61,10 +61,10 @@ public class StudentResearchController {
     }
 
     @GetMapping("/getStudentResearch")
-    public Map<String,Object> getStudentResearchService(@RequestParam(required = false) Map param){
+    public RespBean getStudentResearchService(@RequestParam(required = false) Map param){
         StudentResearch res = studentResearchService.getStudentResearchService(param);
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
-        return map;
+        return RespBean.ok("操作成功",map);
     }
 }

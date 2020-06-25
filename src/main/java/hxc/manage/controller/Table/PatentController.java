@@ -37,7 +37,7 @@ public class PatentController {
     AuditService auditService;
 
     @PostMapping("/insertPatent")
-    public RespBean insertPatent(HttpServletRequest request, Patent patent) throws ParseException {
+    public RespBean insertPatent(HttpServletRequest request,@RequestBody Patent patent) throws ParseException {
         String token = request.getHeader("Authorization");
         User u =jwtTokenProvider.getUserFromToken(token);
         patent.setCreateTime(String.valueOf(new Date().getTime()));
@@ -61,11 +61,11 @@ public class PatentController {
     }
 
     @GetMapping("/getPatent")
-    public Map<String,Object> getPatent(@RequestParam(required = false) Map param){
+    public RespBean getPatent(@RequestParam(required = false) Map param){
         Patent res = patentService.getPatent(param);
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
-        return map;
+        return RespBean.ok("操作成功",map);
     }
 
 

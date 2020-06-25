@@ -3,6 +3,8 @@ package hxc.manage.controller.system;
 import hxc.manage.model.RespBean;
 import hxc.manage.model.Role;
 import hxc.manage.service.PartService;
+import net.sf.json.JSON;
+import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,12 +44,13 @@ public class SystemPartController {
 
     //    分配用户
     @PostMapping("/editPartUser")
-    public RespBean editPartUser(@RequestParam(value = "parts",required=false) List parts,
+    public RespBean editPartUser(@RequestParam(value = "parts",required=false) String partjson,
                                  @RequestParam(value = "partId",required=false) Integer partId,
                                  @RequestParam(value = "type",required=false) String type,
                                  @RequestParam(value = "length",required=false) Integer length
                                  ){
         try {
+            List parts = JSONArray.fromObject(partjson);
             partService.editPartUser(parts,partId,type,length);
             return RespBean.ok("修改成功！");
         }catch (Exception e){

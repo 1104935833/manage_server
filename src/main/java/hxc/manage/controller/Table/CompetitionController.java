@@ -40,7 +40,7 @@ public class CompetitionController {
     AuditService auditService;
 
     @PostMapping("/insertCompetition")
-    public RespBean insertCompetition(HttpServletRequest request, Competition competition) throws ParseException {
+    public RespBean insertCompetition(HttpServletRequest request,@RequestBody Competition competition) throws ParseException {
         DateConverter dateConverter = new DateConverter();
         String token = request.getHeader("Authorization");
         User u =jwtTokenProvider.getUserFromToken(token);
@@ -68,13 +68,14 @@ public class CompetitionController {
     }
 
     @GetMapping("/getCompetition")
-    public Map<String,Object> getCompetition(@RequestParam(required = false) Map param){
+    public RespBean getCompetition(@RequestParam(required = false) Map param){
         DateConverter dateConverter = new DateConverter();
         Competition res = competitionService.getCompetition(param);
         res.setApprovalTime(dateConverter.stampToDate(res.getApprovalTime()));
         Map<String,Object> map = new HashMap<>();
         map.put("res",res);
-        return map;
+        return RespBean.ok("操作成功",map);
+
     }
 
 

@@ -99,7 +99,7 @@ public class SystemUserController {
 
 
     @PostMapping("/edituser")
-    public RespBean edituser(UserDetail userDetail, BindingResult bindingResult) {
+    public RespBean edituser(@RequestBody UserDetail userDetail, BindingResult bindingResult) {
         try {
             userService.editUser(userDetail);
             return RespBean.ok("添加成功！");
