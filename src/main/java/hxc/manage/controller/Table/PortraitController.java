@@ -53,13 +53,15 @@ public class PortraitController {
 
     @PostMapping("/updataPortrait")
     public RespBean updataPortrait(HttpServletRequest request, @RequestBody Map info) throws ParseException {
+        String token = request.getHeader("Authorization");
+        User user = jwtTokenProvider.getUserFromToken(token);
         Map<String,Object> map = info;
         Portrait portrait = Util.mapToEntity((Map<String, Object>) map.get("portrait"),Portrait.class) ;
         String tableId = String.valueOf(info.get("tableId"));
         String id = String.valueOf(info.get("id"));
         portraitService.update(portrait);
         peddingService.sendPedding(request,portrait.getTitle()+"","1","0","4");
-        auditService.updateAuit(tableId,"0","0",id,request);
+        auditService.updateAuit(tableId,"0","0",id,user);
         return RespBean.ok("操作成功");
     }
 

@@ -54,6 +54,8 @@ public class TransverseController {
 
     @PostMapping("/updataTransverse")
     public RespBean updataTransverse(HttpServletRequest request, @RequestBody Map info) throws ParseException {
+        String token = request.getHeader("Authorization");
+        User user = jwtTokenProvider.getUserFromToken(token);
         Map<String,Object> map = info;
         DateConverter dateConverter = new DateConverter();
         Transverse transverse = Util.mapToEntity((Map<String, Object>) map.get("transverse"),Transverse.class) ;
@@ -62,7 +64,7 @@ public class TransverseController {
         transverse.setStartTime(dateConverter.date1ToTimeMillis(transverse.getStartTime()));
         transverseService.update(transverse);
         peddingService.sendPedding(request,transverse.getTableId()+"","1","0","4");
-        auditService.updateAuit(tableId,"0","0",id,request);
+        auditService.updateAuit(tableId,"0","0",id,user);
         return RespBean.ok("操作成功");
     }
 

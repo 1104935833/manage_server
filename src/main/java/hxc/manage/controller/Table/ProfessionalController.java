@@ -52,13 +52,15 @@ public class ProfessionalController {
 
     @PostMapping("/updataProfessional")
     public RespBean updataProfessional(HttpServletRequest request, @RequestBody Map info) throws ParseException {
+        String token = request.getHeader("Authorization");
+        User user = jwtTokenProvider.getUserFromToken(token);
         Map<String,Object> map = info;
         Professional professional = Util.mapToEntity((Map<String, Object>) map.get("professional"),Professional.class) ;
         String tableId = String.valueOf(info.get("tableId"));
         String id = String.valueOf(info.get("id"));
         professionalService.update(professional);
         peddingService.sendPedding(request,professional.getTableId()+"","1","0","4");
-        auditService.updateAuit(tableId,"0","0",id,request);
+        auditService.updateAuit(tableId,"0","0",id,user);
         return RespBean.ok("操作成功");
     }
 

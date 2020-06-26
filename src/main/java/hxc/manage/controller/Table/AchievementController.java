@@ -52,6 +52,8 @@ public class AchievementController {
 
     @PostMapping("/updataAchievement")
     public RespBean updataAchievement(HttpServletRequest request, @RequestBody Map info) throws ParseException {
+        String token = request.getHeader("Authorization");
+        User user = jwtTokenProvider.getUserFromToken(token);
         Map<String, Object> map = info;
         DateConverter dateConverter = new DateConverter();
         Achievement achievement = Util.mapToEntity((Map<String, Object>) map.get("achievement"), Achievement.class);
@@ -60,17 +62,17 @@ public class AchievementController {
         achievement.setApplyTime(dateConverter.date1ToTimeMillis(achievement.getApplyTime()));
         achievementService.update(achievement);
         peddingService.sendPedding(request, achievement.getTableId() + "", "1", "0", "4");
-        auditService.updateAuit(tableId, "0", "0", id, request);
+        auditService.updateAuit(tableId, "0", "0", id, user);
         return RespBean.ok("操作成功");
     }
 
     @GetMapping("/getAchievement")
     public RespBean getAchievement(@RequestParam(required = false) Map param) {
         DateConverter dateConverter = new DateConverter();
-        Achievement res = achievementService.getAchievement(param);
-        res.setApplyTime(dateConverter.stampToDate(res.getApplyTime()));
+        Achievement achievement = achievementService.getAchievement(param);
+        achievement.setApplyTime(dateConverter.stampToDate(achievement.getApplyTime()));
         Map<String, Object> map = new HashMap<>();
-        map.put("res", res);
+        map.put("res", achievement);
         return RespBean.ok("操作成功",map);
 
     }

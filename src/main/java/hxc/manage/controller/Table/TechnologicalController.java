@@ -56,6 +56,8 @@ public class TechnologicalController {
 
     @PostMapping("/updataTechnological")
     public RespBean updataTechnological(HttpServletRequest request, @RequestBody Map info) throws ParseException {
+        String token = request.getHeader("Authorization");
+        User user = jwtTokenProvider.getUserFromToken(token);
         Map<String,Object> map = info;
         DateConverter dateConverter = new DateConverter();
         Technological technological = Util.mapToEntity((Map<String, Object>) map.get("technological"),Technological.class) ;
@@ -65,7 +67,7 @@ public class TechnologicalController {
         technological.setApprovalTime(dateConverter.date1ToTimeMillis(technological.getApprovalTime()));
         technologicalService.update(technological);
         peddingService.sendPedding(request,technological.getTableId()+"","1","0","4");
-        auditService.updateAuit(tableId,"0","0",id,request);
+        auditService.updateAuit(tableId,"0","0",id,user);
         return RespBean.ok("操作成功");
     }
 

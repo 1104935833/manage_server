@@ -52,6 +52,8 @@ public class CourseController {
 
     @PostMapping("/updataCourse")
     public RespBean updataCourse(HttpServletRequest request, @RequestBody Map info) throws ParseException {
+        String token = request.getHeader("Authorization");
+        User user = jwtTokenProvider.getUserFromToken(token);
         Map<String,Object> map = info;
         DateConverter dateConverter = new DateConverter();
         Course course = Util.mapToEntity((Map<String, Object>) map.get("course"),Course.class) ;
@@ -60,7 +62,7 @@ public class CourseController {
         course.setDeclareTime(dateConverter.date1ToTimeMillis(course.getDeclareTime()));
         courseService.update(course);
         peddingService.sendPedding(request,course.getTableId()+"","1","0","4");
-        auditService.updateAuit(tableId,"0","0",id,request);
+        auditService.updateAuit(tableId,"0","0",id,user);
         return RespBean.ok("操作成功");
     }
 

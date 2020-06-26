@@ -1,7 +1,7 @@
 package hxc.manage.service;
 
 import hxc.manage.model.Audit;
-import hxc.manage.model.RespBean;
+import hxc.manage.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -23,9 +23,11 @@ public interface AuditService {
                         String type,//1教研室2分院
                         String status,//1通过2未通过
                         String id,
-                        HttpServletRequest request);
+                        User user);
 
     Map<String,Object> getTableName(String tableId);
 
     int getAllAuditCount(Map<String, Object> conditions);
+
+    Integer isCheck(Integer userId, Integer tableId, Integer status);
 }

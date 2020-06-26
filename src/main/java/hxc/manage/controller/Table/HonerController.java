@@ -63,6 +63,8 @@ public class HonerController {
 
     @PostMapping("/updataHoner")
     public RespBean updataHoner(HttpServletRequest request, @RequestBody Map info) throws ParseException {
+        String token = request.getHeader("Authorization");
+        User user = jwtTokenProvider.getUserFromToken(token);
         Map<String,Object> map = info;
         DateConverter dateConverter = new DateConverter();
         Honer honer = Util.mapToEntity((Map<String, Object>) map.get("honer"),Honer.class) ;
@@ -71,7 +73,7 @@ public class HonerController {
         honer.setPersonalGainTime(dateConverter.date1ToTimeMillis(honer.getPersonalGainTime()));
         honerService.update(honer);
         peddingService.sendPedding(request,honer.getTableId()+"","1","0","4");
-        auditService.updateAuit(tableId,"0","0",id,request);
+        auditService.updateAuit(tableId,"0","0",id,user);
         return RespBean.ok("操作成功");
     }
 

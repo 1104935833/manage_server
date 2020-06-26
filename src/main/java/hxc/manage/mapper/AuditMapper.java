@@ -28,4 +28,6 @@ public interface AuditMapper {
     Map<String, Object> getTableName(String tableId);
 
     int getAllAuditCount(@Param("conditions") Map<String, Object> conditions);
+
+    Integer isCheck(@Param("userId") Integer userId, @Param("tableId") Integer tableId, @Param("status") Integer status);
 }

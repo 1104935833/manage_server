@@ -53,6 +53,8 @@ public class PaperController {
 
     @PostMapping("/updataPaper")
     public RespBean updataPaper(HttpServletRequest request, @RequestBody Map info) throws ParseException {
+        String token = request.getHeader("Authorization");
+        User user = jwtTokenProvider.getUserFromToken(token);
         Map<String,Object> map = info;
         DateConverter dateConverter = new DateConverter();
         Paper paper = Util.mapToEntity((Map<String, Object>) map.get("paper"),Paper.class) ;
@@ -61,7 +63,7 @@ public class PaperController {
         paper.setTime(dateConverter.date1ToTimeMillis(paper.getTime()));
         paperService.update(paper);
         peddingService.sendPedding(request,paper.getTableId()+"","1","0","4");
-        auditService.updateAuit(tableId,"0","0",id,request);
+        auditService.updateAuit(tableId,"0","0",id,user);
         return RespBean.ok("操作成功");
     }
 

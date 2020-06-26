@@ -53,6 +53,8 @@ public class EducationalController {
 
     @PostMapping("/updataEducational")
     public RespBean updataEducational(HttpServletRequest request, @RequestBody Map info) throws ParseException {
+        String token = request.getHeader("Authorization");
+        User user = jwtTokenProvider.getUserFromToken(token);
         Map<String,Object> map = info;
         DateConverter dateConverter = new DateConverter();
         Educational educational = Util.mapToEntity((Map<String, Object>) map.get("educational"),Educational.class) ;
@@ -61,7 +63,7 @@ public class EducationalController {
         educational.setDeclareTime(dateConverter.date1ToTimeMillis(educational.getDeclareTime()));
         educationalService.update(educational);
         peddingService.sendPedding(request,educational.getTableId()+"","1","0","4");
-        auditService.updateAuit(tableId,"0","0",id,request);
+        auditService.updateAuit(tableId,"0","0",id,user);
         return RespBean.ok("操作成功");
     }
 

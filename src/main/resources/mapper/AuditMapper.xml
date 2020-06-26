@@ -174,6 +174,30 @@
             </if>
         </where>
     </select>
+    <select id="isCheck" resultType="java.lang.Integer">
+        select count(1) from
+        <if test="status == '0'.toString()">
+            user_role a
+            WHERE
+            a.isManager = 1
+            AND a.userid = #{userId}
+            AND a.rid = (
+            SELECT DISTINCT
+            c.rid
+            FROM
+            audit a,
+            `table` b,
+            user_role c
+            WHERE
+            a.table_id = b.id
+            AND b.user_id = c.userid
+            AND a.table_id = #{tableId}
+            )
+        </if>
+        <if test="status == 3">
+             audit where proposer_id = #{userId} and table_id = #{tableId}
+        </if>
+    </select>
 
     <update id="updateAuit">
         UPDATE audit

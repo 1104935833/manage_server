@@ -1,13 +1,11 @@
 package hxc.manage.service.impl;
 
 import hxc.manage.common.DateConverter;
-import hxc.manage.model.RespBean;
 import hxc.manage.model.User;
 import hxc.manage.service.AuditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +13,6 @@ import java.util.Map;
 
 import hxc.manage.model.Audit;
 import hxc.manage.mapper.AuditMapper;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -70,8 +67,8 @@ public class AuditServiceImpl implements AuditService {
                             String type,//1教研室2分院
                             String status,//1通过2未通过
                             String id,//表id
-                            HttpServletRequest request){
-        User u = (User) request.getSession().getAttribute("userinfo");
+                            User user){
+//        User u = (User) request.getSession().getAttribute("userinfo");
         Map<String,Object> conditions = new HashMap<>();
         conditions.put("tableId",tableId);
         conditions.put("id",id);
@@ -89,10 +86,10 @@ public class AuditServiceImpl implements AuditService {
         }
         conditions.put("auditStatus",status);
         if (type.equals("1")){
-            conditions.put("auditorResearchId",u.getUser_id());
+            conditions.put("auditorResearchId",user.getUser_id());
             conditions.put("auditorResearchTime",new Date().getTime());
         }else if (type.equals("2")){
-            conditions.put("auditorCourtId",u.getUser_id());
+            conditions.put("auditorCourtId",user.getUser_id());
             conditions.put("auditorCourtTime",new Date().getTime());
         }else{
             conditions.put("isNull","1");
@@ -115,6 +112,11 @@ public class AuditServiceImpl implements AuditService {
     @Override
     public int getAllAuditCount(Map<String, Object> conditions) {
         return auditMapper.getAllAuditCount(conditions);
+    }
+
+    @Override
+    public Integer isCheck(Integer userId, Integer tableId, Integer status) {
+        return auditMapper.isCheck(userId,tableId,status);
     }
 
 

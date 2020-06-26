@@ -59,6 +59,8 @@ public class LabController {
 
     @PostMapping("/updataLab")
     public RespBean updataLab(HttpServletRequest request, @RequestBody Map info) throws ParseException {
+        String token = request.getHeader("Authorization");
+        User user = jwtTokenProvider.getUserFromToken(token);
         Map<String,Object> map = info;
         DateConverter dateConverter = new DateConverter();
         Lab lab = Util.mapToEntity((Map<String, Object>) map.get("lab"),Lab.class) ;
@@ -70,7 +72,7 @@ public class LabController {
         lab.setDeclareStartTime(dateConverter.date1ToTimeMillis(lab.getDeclareStartTime()));
         labService.update(lab);
         peddingService.sendPedding(request,lab.getTableId()+"","1","0","4");
-        auditService.updateAuit(tableId,"0","0",id,request);
+        auditService.updateAuit(tableId,"0","0",id,user);
         return RespBean.ok("操作成功");
     }
 

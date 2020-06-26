@@ -50,13 +50,15 @@ public class TeachingReformController {
 
     @PostMapping("/updataTeachingReform")
     public RespBean updataTeachingReform(HttpServletRequest request, @RequestBody Map info) throws ParseException {
+        String token = request.getHeader("Authorization");
+        User user = jwtTokenProvider.getUserFromToken(token);
         Map<String,Object> map = info;
         TeachingReform teachingReform = Util.mapToEntity((Map<String, Object>) map.get("teachingReform"),TeachingReform.class) ;
         String tableId = String.valueOf(info.get("tableId"));
         String id = String.valueOf(info.get("id"));
         teachingReformService.update(teachingReform);
         peddingService.sendPedding(request,teachingReform.getTableId()+"","1","0","4");
-        auditService.updateAuit(tableId,"0","0",id,request);
+        auditService.updateAuit(tableId,"0","0",id,user);
         return RespBean.ok("操作成功");
     }
 

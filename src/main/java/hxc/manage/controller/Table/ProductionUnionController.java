@@ -56,6 +56,8 @@ public class ProductionUnionController {
 
     @PostMapping("/updataProductionUnion")
     public RespBean updataProductionUnion(HttpServletRequest request, @RequestBody Map info) throws ParseException {
+        String token = request.getHeader("Authorization");
+        User user = jwtTokenProvider.getUserFromToken(token);
         Map<String,Object> map = info;
         DateConverter dateConverter = new DateConverter();
         ProductionUnion productionUnion = Util.mapToEntity((Map<String, Object>) map.get("productionUnion"),ProductionUnion.class) ;
@@ -65,7 +67,7 @@ public class ProductionUnionController {
         productionUnion.setApprovalTime(dateConverter.date1ToTimeMillis(productionUnion.getApprovalTime()));
         productionUnionService.update(productionUnion);
         peddingService.sendPedding(request,productionUnion.getTableId()+"","1","0","4");
-        auditService.updateAuit(tableId,"0","0",id,request);
+        auditService.updateAuit(tableId,"0","0",id,user);
         return RespBean.ok("操作成功");
     }
 

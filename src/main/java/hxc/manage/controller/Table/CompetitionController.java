@@ -55,6 +55,8 @@ public class CompetitionController {
 
     @PostMapping("/updataCompetition")
     public RespBean updataCompetition(HttpServletRequest request, @RequestBody Map info) throws ParseException {
+        String token = request.getHeader("Authorization");
+        User user = jwtTokenProvider.getUserFromToken(token);
         Map<String,Object> map = info;
         DateConverter dateConverter = new DateConverter();
         Competition competition = Util.mapToEntity((Map<String, Object>) map.get("competition"),Competition.class) ;
@@ -63,7 +65,7 @@ public class CompetitionController {
         competition.setApprovalTime(dateConverter.date1ToTimeMillis(competition.getApprovalTime()));
         competitionService.update(competition);
         peddingService.sendPedding(request,competition.getTableId()+"","1","0","4");
-        auditService.updateAuit(tableId,"0","0",id,request);
+        auditService.updateAuit(tableId,"0","0",id,user);
         return RespBean.ok("操作成功");
     }
 

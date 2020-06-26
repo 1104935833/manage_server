@@ -134,7 +134,7 @@ public class PeddingServiceImpl implements PeddingService {
             if (agree.equals("0")){//分院不同意
                 pedding.setState("4");
                 res = peddingMapper.updatePedding(pedding);
-                sendMailAndPhone(pedding.getRole());
+//                sendMailAndPhone(pedding.getRole());
             }else{//分院同意
                 pedding.setState("3");
                 res = peddingMapper.updatePedding(pedding);

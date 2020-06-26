@@ -57,6 +57,8 @@ public class TextBookController {
 
     @PostMapping("/updataTextBook")
     public RespBean updataTextBook(HttpServletRequest request, @RequestBody Map info) throws ParseException {
+        String token = request.getHeader("Authorization");
+        User user = jwtTokenProvider.getUserFromToken(token);
         Map<String,Object> map = info;
         DateConverter dateConverter = new DateConverter();
         TextBook textBook = Util.mapToEntity((Map<String, Object>) map.get("textBook"),TextBook.class) ;
@@ -66,7 +68,7 @@ public class TextBookController {
         textBook.setDeclareTime(dateConverter.date1ToTimeMillis(textBook.getDeclareTime()));
         textBookService.update(textBook);
         peddingService.sendPedding(request,textBook.getTableId()+"","1","0","4");
-        auditService.updateAuit(tableId,"0","0",id,request);
+        auditService.updateAuit(tableId,"0","0",id,user);
         return RespBean.ok("操作成功");
     }
 
