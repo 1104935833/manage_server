@@ -1,9 +1,7 @@
 package hxc.manage.common;
 
 
-import com.sun.jdi.LongValue;
 import hxc.manage.model.User;
-import hxc.manage.model.UserDetail;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
