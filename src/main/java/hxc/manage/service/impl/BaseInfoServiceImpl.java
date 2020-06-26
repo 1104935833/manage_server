@@ -9,6 +9,7 @@ import hxc.manage.model.UserDetail;
 import hxc.manage.service.BaseInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ public class BaseInfoServiceImpl implements BaseInfoService {
     BaseInfoMapper baseInfoMapper;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int changeInfo(Map<String, String> map) {
         int i =baseInfoMapper.changeInfo(map);
         return i;

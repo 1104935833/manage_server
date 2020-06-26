@@ -9,6 +9,7 @@ import hxc.manage.model.User;
 import hxc.manage.service.PeddingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -100,6 +101,7 @@ public class PeddingServiceImpl implements PeddingService {
      * @param userId
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     public Integer send(Pedding pedding,String userId,String agree,String state) {
 
         /**
@@ -152,6 +154,7 @@ public class PeddingServiceImpl implements PeddingService {
         return res;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     void sendMailAndPhone(String role){
         Map<String,Object> map = peddingMapper.fingPhoneAndEmail(role);
         emailAndMessage.send(map.get("phone").toString(),"1");

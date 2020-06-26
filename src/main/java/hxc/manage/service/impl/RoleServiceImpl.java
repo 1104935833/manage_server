@@ -24,6 +24,7 @@ public class RoleServiceImpl implements RoleService {
         return roleMapper.roles();
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int addNewRole(String role, String roleZh) {
         if (!role.startsWith("ROLE_")) {
             role = "ROLE_" + role;
@@ -31,6 +32,7 @@ public class RoleServiceImpl implements RoleService {
         return roleMapper.addNewRole(role, roleZh);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int deleteRoleById(Long rid) {
         return roleMapper.deleteRoleById(rid);
     }

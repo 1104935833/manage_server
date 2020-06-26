@@ -8,6 +8,7 @@ import java.util.Map;
 
 import hxc.manage.model.table.Academic;
 import hxc.manage.mapper.AcademicMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AcademicServiceImpl implements AcademicService {
@@ -15,18 +16,22 @@ public class AcademicServiceImpl implements AcademicService {
     @Autowired
     private AcademicMapper academicMapper;
 
+    @Transactional(rollbackFor = Exception.class)
     public int insert(Academic pojo){
         return academicMapper.insert(pojo);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int insertSelective(Academic pojo){
         return academicMapper.insertSelective(pojo);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int insertList(List<Academic> pojos){
         return academicMapper.insertList(pojos);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int update(Academic pojo){
         return academicMapper.update(pojo);
     }

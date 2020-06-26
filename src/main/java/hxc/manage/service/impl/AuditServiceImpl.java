@@ -13,6 +13,7 @@ import java.util.Map;
 
 import hxc.manage.model.Audit;
 import hxc.manage.mapper.AuditMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,21 +24,25 @@ public class AuditServiceImpl implements AuditService {
     private AuditMapper auditMapper;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int insert(Audit pojo){
         return auditMapper.insert(pojo);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int insertSelective(Audit pojo){
         return auditMapper.insertSelective(pojo);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int insertList(List<Audit> pojos){
         return auditMapper.insertList(pojos);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int update(Audit pojo){
         return auditMapper.update(pojo);
     }
@@ -63,6 +68,7 @@ public class AuditServiceImpl implements AuditService {
 
 
     //审核
+    @Transactional(rollbackFor = Exception.class)
     public int updateAuit(String tableId,
                             String type,//1教研室2分院
                             String status,//1通过2未通过

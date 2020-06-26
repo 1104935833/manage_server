@@ -9,6 +9,7 @@ import java.util.Map;
 
 import hxc.manage.model.table.Paper;
 import hxc.manage.mapper.PaperMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PaperServiceImpl implements PaperService {
@@ -16,18 +17,22 @@ public class PaperServiceImpl implements PaperService {
     @Autowired
     private PaperMapper paperMapper;
 
+    @Transactional(rollbackFor = Exception.class)
     public int insert(Paper pojo){
         return paperMapper.insert(pojo);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int insertSelective(Paper pojo){
         return paperMapper.insertSelective(pojo);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int insertList(List<Paper> pojos){
         return paperMapper.insertList(pojos);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int update(Paper pojo){
         return paperMapper.update(pojo);
     }

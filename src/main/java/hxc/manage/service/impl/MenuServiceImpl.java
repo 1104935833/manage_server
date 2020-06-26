@@ -120,11 +120,13 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void addMenu(Menu menu) {
         menuMapper.addMenu(menu);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void upMenu(Map<String, Object> menu) {
         menuMapper.upMenu(menu);
     }

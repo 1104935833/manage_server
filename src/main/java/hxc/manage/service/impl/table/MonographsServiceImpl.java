@@ -9,6 +9,7 @@ import java.util.Map;
 
 import hxc.manage.model.table.Monographs;
 import hxc.manage.mapper.MonographsMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MonographsServiceImpl implements MonographsService {
@@ -16,18 +17,22 @@ public class MonographsServiceImpl implements MonographsService {
     @Autowired
     private MonographsMapper monographsMapper;
 
+    @Transactional(rollbackFor = Exception.class)
     public int insert(Monographs pojo){
         return monographsMapper.insert(pojo);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int insertSelective(Monographs pojo){
         return monographsMapper.insertSelective(pojo);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int insertList(List<Monographs> pojos){
         return monographsMapper.insertList(pojos);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int update(Monographs pojo){
         return monographsMapper.update(pojo);
     }

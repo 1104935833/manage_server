@@ -10,6 +10,7 @@ import java.util.Map;
 
 import hxc.manage.model.table.Competition;
 import hxc.manage.mapper.CompetitionMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CompetitionServiceImpl implements CompetitionService {
@@ -17,18 +18,22 @@ public class CompetitionServiceImpl implements CompetitionService {
     @Autowired
     private CompetitionMapper competitionMapper;
 
+    @Transactional(rollbackFor = Exception.class)
     public int insert(Competition pojo){
         return competitionMapper.insert(pojo);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int insertSelective(Competition pojo){
         return competitionMapper.insertSelective(pojo);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int insertList(List<Competition> pojos){
         return competitionMapper.insertList(pojos);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int update(Competition pojo){
         return competitionMapper.update(pojo);
     }

@@ -51,10 +51,7 @@ public class SystemCenterController {
 
     @GetMapping("/getYzm")
     public RespBean getYzm(@RequestParam("phone") String phone){
-
         systemCenterService.getYzm(phone);
-
-
         return RespBean.ok("已发送");
 
     }

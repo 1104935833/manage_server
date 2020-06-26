@@ -32,6 +32,7 @@ public class PartServiceImpl implements PartService {
     RedisUtil redisUtil;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void addPart(String name, String nameZh) {
         partMapper.addPart(name,nameZh);
     }
@@ -67,6 +68,7 @@ public class PartServiceImpl implements PartService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void editPartUser(List parts, Integer partId, String type, Integer length) {
         partMapper.delPartUserById(partId,type);
         if (length > 0){
@@ -77,6 +79,7 @@ public class PartServiceImpl implements PartService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void editPart(Map map) {
         Map form = (Map) map.get("form");
         partMapper.updateRoleById(form);
@@ -92,6 +95,7 @@ public class PartServiceImpl implements PartService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void delPart(String id,Integer state) {
         Map<String,Object> map = new HashMap<>();
         map.put("id",id);

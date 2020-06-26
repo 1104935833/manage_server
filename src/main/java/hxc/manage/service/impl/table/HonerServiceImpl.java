@@ -10,6 +10,7 @@ import java.util.Map;
 
 import hxc.manage.model.table.Honer;
 import hxc.manage.mapper.HonerMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class HonerServiceImpl implements HonerService {
@@ -17,18 +18,22 @@ public class HonerServiceImpl implements HonerService {
     @Autowired
     private HonerMapper honerMapper;
 
+    @Transactional(rollbackFor = Exception.class)
     public int insert(Honer pojo){
         return honerMapper.insert(pojo);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int insertSelective(Honer pojo){
         return honerMapper.insertSelective(pojo);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int insertList(List<Honer> pojos){
         return honerMapper.insertList(pojos);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int update(Honer pojo){
         return honerMapper.update(pojo);
     }

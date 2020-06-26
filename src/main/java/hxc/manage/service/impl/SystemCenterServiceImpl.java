@@ -9,6 +9,7 @@ import hxc.manage.service.SystemCenterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,8 +34,8 @@ public class SystemCenterServiceImpl implements SystemCenterService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void editPwd(String yzm, String newPwd, Long id) {
-
         BCryptPasswordEncoder bcryptPasswordEncoder = new BCryptPasswordEncoder();
         newPwd = bcryptPasswordEncoder.encode(newPwd);
         centerMapper.editPwd(yzm,newPwd,id);

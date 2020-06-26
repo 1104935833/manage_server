@@ -9,6 +9,7 @@ import java.util.Map;
 
 import hxc.manage.model.table.Course;
 import hxc.manage.mapper.CourseMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -16,18 +17,22 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseMapper courseMapper;
 
+    @Transactional(rollbackFor = Exception.class)
     public int insert(Course pojo){
         return courseMapper.insert(pojo);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int insertSelective(Course pojo){
         return courseMapper.insertSelective(pojo);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int insertList(List<Course> pojos){
         return courseMapper.insertList(pojos);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int update(Course pojo){
         return courseMapper.update(pojo);
     }

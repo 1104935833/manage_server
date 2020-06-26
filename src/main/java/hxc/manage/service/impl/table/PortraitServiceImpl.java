@@ -11,6 +11,7 @@ import java.util.Map;
 
 import hxc.manage.model.table.Portrait;
 import hxc.manage.mapper.PortraitMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PortraitServiceImpl implements PortraitService {
@@ -18,18 +19,22 @@ public class PortraitServiceImpl implements PortraitService {
     @Autowired
     private PortraitMapper portraitMapper;
 
+    @Transactional(rollbackFor = Exception.class)
     public int insert(Portrait pojo){
         return portraitMapper.insert(pojo);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int insertSelective(Portrait pojo){
         return portraitMapper.insertSelective(pojo);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int insertList(List<Portrait> pojos){
         return portraitMapper.insertList(pojos);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int update(Portrait pojo){
         return portraitMapper.update(pojo);
     }

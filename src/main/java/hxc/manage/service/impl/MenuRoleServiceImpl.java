@@ -14,9 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class MenuRoleServiceImpl implements MenuRoleService {
+
     @Autowired
     MenuRoleMapper menuRoleMapper;
 
+    @Transactional(rollbackFor = Exception.class)
     public int updateMenuRole(Long rid, Long[] mids) {
         menuRoleMapper.deleteMenuByRid(rid);
         if (mids.length == 0) {

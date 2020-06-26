@@ -9,6 +9,7 @@ import java.util.Map;
 
 import hxc.manage.model.table.Professional;
 import hxc.manage.mapper.ProfessionalMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProfessionalServiceImpl implements ProfessionalService {
@@ -16,18 +17,22 @@ public class ProfessionalServiceImpl implements ProfessionalService {
     @Autowired
     private ProfessionalMapper professionalMapper;
 
+    @Transactional(rollbackFor = Exception.class)
     public int insert(Professional pojo){
         return professionalMapper.insert(pojo);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int insertSelective(Professional pojo){
         return professionalMapper.insertSelective(pojo);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int insertList(List<Professional> pojos){
         return professionalMapper.insertList(pojos);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public int update(Professional pojo){
         return professionalMapper.update(pojo);
     }

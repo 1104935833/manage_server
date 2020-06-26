@@ -16,6 +16,7 @@ import java.util.Map;
 
 import hxc.manage.model.Table;
 import hxc.manage.mapper.TableMapper;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
@@ -30,6 +31,7 @@ public class TableServiceImpl implements TableService {
     @Autowired
     AuditService auditService;
 
+    @Transactional(rollbackFor = Exception.class)
     public int insert(Table pojo){
         return tableMapper.insert(pojo);
     }
@@ -42,6 +44,7 @@ public class TableServiceImpl implements TableService {
      * @param request
      * @return
      */
+    @Transactional(rollbackFor = Exception.class)
     public int table(HttpServletRequest request,String user_id, String tableName,int state){
         Table tab = new Table();
         tab.setUserId(Integer.valueOf(user_id));

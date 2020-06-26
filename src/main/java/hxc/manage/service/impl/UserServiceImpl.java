@@ -38,6 +38,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         return user;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public boolean delByUserId(String ids) {
         String[] split = ids.split(",");
         userMapper.delDetailByUserId(split);
@@ -80,6 +81,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int addUser(List<UserDetail> emps) {
         Integer workId = userMapper.getLastUserWorkId();
         for (UserDetail u : emps) {
@@ -96,8 +98,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void editUser(UserDetail userDetail) {
-        int id = userMapper.getUserId(userDetail.getId());
+//        int id = userMapper.getUserId(userDetail.getId());
         userMapper.editUser(userDetail);
         userMapper.editUserDetails(userDetail);
     }

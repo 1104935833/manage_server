@@ -4,6 +4,7 @@ import hxc.manage.mapper.GradeMapper;
 import hxc.manage.service.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +26,7 @@ public class GradeServiceImpl implements GradeService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int editGrade(int id, int grade) {
         int res = gradeMapper.editGrade(id,grade);
         return res;
