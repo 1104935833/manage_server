@@ -6,9 +6,27 @@
 
 
     <update id="changeInfo">
-        update user_details set name = #{map.name},phone = #{map.phone},email = #{map.email},gender = #{map.gender},
-        office_id = #{map.office_id},note=#{map.note}
-
+        update user_details
+         <set>
+             <if test="map.name!= '' and map.name!=null">
+                 name = #{map.name},
+             </if>
+             <if test="map.phone!= '' and map.phone!=null">
+                 phone = #{map.phone},
+             </if>
+             <if test="map.email!= '' and map.email!=null">
+                 email = #{map.email},
+             </if>
+             <if test="map.gender!= '' and map.gender!=null">
+                 gender = #{map.gender},
+             </if>
+             <if test="map.office_id!= '' and map.office_id!=null">
+                 office_id = #{map.office_id},
+             </if>
+             <if test="map.note!= '' and map.note!=null">
+                 note=#{map.note},
+             </if>
+         </set>
         where user_id = #{map.id}
     </update>
     <select id="userInfo" resultType="hxc.manage.model.UserDetail">

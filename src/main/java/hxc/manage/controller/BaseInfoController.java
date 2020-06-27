@@ -10,6 +10,7 @@ import hxc.manage.service.BaseInfoService;
 import hxc.manage.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
@@ -29,39 +30,36 @@ public class BaseInfoController {
     UserServiceImpl userServiceImpl;
 
     @GetMapping("/userInfo")
-    public RespBean userInfo(HttpServletRequest request){
+    public RespBean userInfo(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
-        User u =jwtTokenProvider.getUserFromToken(token);
-        UserDetail details=baseInfoService.userInfo(u.getId());
-        Map<String,Object> map = new HashMap<>();
-        map.put("details",details);
-        map.put("office",baseInfoService.getOffices());
-        return RespBean.ok("success",map);
+        User u = jwtTokenProvider.getUserFromToken(token);
+        UserDetail details = baseInfoService.userInfo(u.getId());
+        Map<String, Object> map = new HashMap<>();
+        map.put("details", details);
+        map.put("office", baseInfoService.getOffices());
+        return RespBean.ok("success", map);
 
     }
 
     @PostMapping("/changeInfo")
-    public RespBean changeInfo(@RequestBody Map info, HttpServletRequest request){
+    public RespBean changeInfo(@RequestBody Map info, HttpServletRequest request) {
         try {
-            User  user = new User();
+            User user = new User();
             Map<String, String> map = (Map<String, String>) info.get("info");
             String token = request.getHeader("Authorization");
-        User u =jwtTokenProvider.getUserFromToken(token);
+            User u = jwtTokenProvider.getUserFromToken(token);
             map.put("id", u.getId() + "");
             int i = baseInfoService.changeInfo(map);
-            if(i>0){
-                user= (User) userServiceImpl.loadUserByUsername(u.getWorkID());
+            if (i > 0) {
+                user = (User) userServiceImpl.loadUserByUsername(u.getWorkID());
             }
 
-            return RespBean.ok("修改成功",user);
-        }catch (Exception e){
+            return RespBean.ok("修改成功", user);
+        } catch (Exception e) {
             e.printStackTrace();
             return RespBean.error("修改失败");
         }
     }
-
-
-
 
 
 }
